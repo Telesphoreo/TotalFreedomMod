@@ -7,8 +7,9 @@ import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import org.bukkit.entity.Player;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
+
+import static me.libraryaddict.disguise.DisallowedDisguises.disabled;
 
 public class LibsDisguisesBridge extends FreedomService
 {
@@ -100,7 +101,7 @@ public class LibsDisguisesBridge extends FreedomService
         }
     }
 
-    public void setDisguisesEnabled(boolean state)
+    public void setDisguisesEnabled()
     {
         final LibsDisguises libsDisguises = getLibsDisguisesPlugin();
 
@@ -109,14 +110,21 @@ public class LibsDisguisesBridge extends FreedomService
             return;
         }
 
-        if (state)
+        DisguiseAPI.enableDisguises();
+        DisallowedDisguises.disabled = false;
+    }
+
+    public void setDisguisesDisabled()
+    {
+        final LibsDisguises libsDisguises = getLibsDisguisesPlugin();
+
+        if (libsDisguises == null)
         {
-            DisguiseAPI.enableDisguises();
+            return;
         }
-        else
-        {
-            DisguiseAPI.disableDisguises();
-        }
+
+        DisguiseAPI.disableDisguises();
+        DisallowedDisguises.disabled = true;
     }
 
     public boolean isDisguisesEnabled()
