@@ -1,6 +1,7 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import me.totalfreedom.totalfreedommod.rank.Rank;
+import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -10,14 +11,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.apache.commons.lang3.EnumUtils;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Spawn an entity.", usage = "/<command> <entitytype> [amount]", aliases="spawnentity")
+@CommandParameters(description = "Spawn an entity.", usage = "/<command> <entitytype> [amount]", aliases = "spawnentity")
 public class Command_spawnmob extends FreedomCommand
 {
 
