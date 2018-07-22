@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>2018.1.2</version>
+    <version>2018.2.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -122,14 +122,14 @@
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
-            <version>9d85a78</version>
+            <version>c213295f95</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>master</version>
+            <version>2e79570525</version>
             <scope>provided</scope>
         </dependency>
 
@@ -150,8 +150,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>3.6.0_354</version>
-            <scope>provided</scope>
+            <version>3.7.1_385</version>
         </dependency>
 
         <dependency>
