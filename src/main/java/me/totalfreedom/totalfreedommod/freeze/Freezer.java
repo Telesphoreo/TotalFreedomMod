@@ -65,7 +65,7 @@ public class Freezer extends FreedomService
 
         FUtil.setFlying(player, true);
 
-        Location loc = fd.getLocation();
+        Location loc = player.getLocation();
         if (loc == null)
         {
             loc = event.getFrom();

@@ -22,7 +22,6 @@ public class Command_spectate extends FreedomCommand
         }
 
         Player player = getPlayer(args[0]);
-
         if (player == null)
         {
             msg(PLAYER_NOT_FOUND);

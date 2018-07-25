@@ -24,7 +24,7 @@ public class Module_permbans extends HTTPDModule
         if (!isAuthorized(remoteAddress))
         {
             return new NanoHTTPD.Response(NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT,
-                    "You may not view the permban list, Your IP, " + remoteAddress + ", is not registered to an admin on the server.");
+                    "You may not view the permban list. Your IP, " + remoteAddress + ", is not registered to an admin on the server.");
         }
         if (permbanFile.exists())
         {

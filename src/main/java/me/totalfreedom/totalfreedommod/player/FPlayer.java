@@ -353,6 +353,7 @@ public class FPlayer
         this.inAdminchat = inAdminchat;
     }
 
+
     public boolean inAdminChat()
     {
         return this.inAdminchat;

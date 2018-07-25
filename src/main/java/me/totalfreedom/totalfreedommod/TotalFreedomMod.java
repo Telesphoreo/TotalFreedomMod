@@ -200,8 +200,8 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         ak = services.registerService(AutoKick.class);
         ae = services.registerService(AutoEject.class);
         mo = services.registerService(Monitors.class);
-
-
+        
+        
         mv = services.registerService(MovementValidator.class);
         ew = services.registerService(EntityWiper.class);
         fd = services.registerService(FrontDoor.class);
@@ -225,9 +225,10 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         btb = bridges.registerService(BukkitTelnetBridge.class);
         cpb = bridges.registerService(CoreProtectBridge.class);
         esb = bridges.registerService(EssentialsBridge.class);
-        ldb = bridges.registerService(LibsDisguisesBridge.class);
-        web = bridges.registerService(WorldEditBridge.class);
-        wgb = bridges.registerService(WorldGuardBridge.class);
+        // Disabled so I can at least load TFM as these plugins aren't updated
+        //ldb = bridges.registerService(LibsDisguisesBridge.class);
+        //web = bridges.registerService(WorldEditBridge.class);
+        //wgb = bridges.registerService(WorldGuardBridge.class);
         amp = bridges.registerService(AMP.class);
         bridges.start();
 
@@ -317,7 +318,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
             }
             catch (Exception ex)
             {
-                FLog.severe("Could not load Git properties! Did you compile with NetBeans/Maven?");
+                FLog.severe("Could not load Git properties! Is there a valid .git directory?");
                 FLog.severe(ex);
             }
         }
