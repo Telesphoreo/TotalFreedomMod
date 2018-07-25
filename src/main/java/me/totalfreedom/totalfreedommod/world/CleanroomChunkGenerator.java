@@ -73,6 +73,8 @@ public class CleanroomChunkGenerator extends ChunkGenerator
                             log.warning("[CleanroomGenerator] Data values are no longer supported in 1.13. Defaulting to the base material for " + materialTokens[0]);
                         }
 
+                        log.warning(materialTokens[0]);
+
                         Material mat = Material.matchMaterial(materialTokens[0]);
                         if (mat == null) {
                             log.warning("[CleanroomGenerator] Invalid Block ID '" + materialTokens[0] + "'. Defaulting to stone. (Integer IDs were removed in 1.13)");

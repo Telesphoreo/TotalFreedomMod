@@ -24,10 +24,12 @@ import me.totalfreedom.totalfreedommod.rollback.RollbackManager;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.util.MethodTimer;
+import me.totalfreedom.totalfreedommod.world.CleanroomChunkGenerator;
 import me.totalfreedom.totalfreedommod.world.WorldManager;
 import net.pravian.aero.component.service.ServiceManager;
 import net.pravian.aero.plugin.AeroPlugin;
 import org.bukkit.Bukkit;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.mcstats.Metrics;
@@ -174,7 +176,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         nu = services.registerService(AntiNuke.class);
         as = services.registerService(AntiSpam.class);
         mbl = services.registerService(MasterBuilderList.class);
-        mbwr = services.registerService(MasterBuilderWorldRestrictions.class);
+        //mbwr = services.registerService(MasterBuilderWorldRestrictions.class);
 
         pl = services.registerService(PlayerList.class);
         an = services.registerService(Announcer.class);
@@ -338,6 +340,12 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
             }
         }
         return null;
+    }
+
+    @Override
+    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id)
+    {
+        return new CleanroomChunkGenerator(id);
     }
 
 }
