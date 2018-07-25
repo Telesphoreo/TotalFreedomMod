@@ -5,13 +5,13 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>5.2</version>
+    <version>2018.2.1</version>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <tfm.build.version>${project.version}</tfm.build.version>
-        <tfm.build.codename>God</tfm.build.codename>
+        <tfm.build.codename>Hero</tfm.build.codename>
         <tfm.build.number>${maven.buildnumber}</tfm.build.number>
         <tfm.build.date>${maven.build.timestamp}</tfm.build.date>
         <tfm.build.author>${buildAuthor}</tfm.build.author>
@@ -120,16 +120,16 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.TFPatches</groupId>
+            <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
-            <version>c213295f95</version>
+            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.TFPatches.TF-WorldEdit</groupId>
+            <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>2e79570525</version>
+            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
