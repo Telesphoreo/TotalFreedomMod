@@ -205,7 +205,7 @@
                             <target>
                                 <propertyfile file="src/main/resources/build.properties"
                                               comment="Build information. Edit this to your liking.">
-                                    <entry key="buildAuthor" default="unknown"/>
+                                    <entry key="buildAuthor" default="unknown \u00A76for \u00A79Spigot 1.13"/>
                                     <entry key="buildNumber" default="0"/>
                                     <entry key="buildCodeName" default="${tfm.build.codename}"/>
                                     <entry key="buildVersion" default="${project.version}"/>
