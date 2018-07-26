@@ -37,56 +37,60 @@ public class CleanroomChunkGenerator extends ChunkGenerator
 
     public CleanroomChunkGenerator()
     {
-        this("64,stone");
+        this("16,stone,32,dirt,1,grass_block");
     }
 
-    public CleanroomChunkGenerator(String id) {
-        if (id != null) {
-            try {
+    public CleanroomChunkGenerator(String id)
+    {
+        if (id != null)
+        {
+            try
+            {
                 int y = 0;
 
                 materials = new Material[128]; // Default to 128, will be resized later if required
+                materials[y++] = Material.BEDROCK;
 
-                if ((id.length() > 0) && (id.charAt(0) == '.')) {
-                    // Is the first character a '.'? If so, skip bedrock generation.
-                    id = id.substring(1); // Skip bedrock then and remove the .
-                } else {
-                    // Guess not, bedrock at layer0 it is then.
-                    materials[y++] = Material.BEDROCK;
-                }
-
-                if (id.length() > 0) {
+                if (id.length() > 0)
+                {
                     String tokens[] = id.split("[,]");
 
-                    if ((tokens.length % 2) != 0) throw new Exception();
+                    if ((tokens.length % 2) != 0)
+                    {
+                        throw new Exception();
+                    }
 
-                    for (int i = 0; i < tokens.length; i += 2) {
+                    for (int i = 0; i < tokens.length; i += 2)
+                    {
                         int height = Integer.parseInt(tokens[i]);
-                        if (height <= 0) {
+                        if (height <= 0)
+                        {
                             log.warning("[CleanroomGenerator] Invalid height '" + tokens[i] + "'. Using 64 instead.");
                             height = 64;
                         }
 
                         String materialTokens[] = tokens[i + 1].split("[:]", 2);
 
-                        if (materialTokens.length == 2) {
+                        if (materialTokens.length == 2)
+                        {
                             log.warning("[CleanroomGenerator] Data values are no longer supported in 1.13. Defaulting to the base material for " + materialTokens[0]);
                         }
 
-                        log.warning(materialTokens[0]);
-
-                        Material mat = Material.matchMaterial(materialTokens[0]);
-                        if (mat == null) {
+                        Material mat = Material.matchMaterial(materialTokens[0].toUpperCase());
+                        if (mat == null)
+                        {
                             log.warning("[CleanroomGenerator] Invalid Block ID '" + materialTokens[0] + "'. Defaulting to stone. (Integer IDs were removed in 1.13)");
                             mat = Material.STONE;
                         }
 
-                        if (!mat.isBlock()) {
+                        if (!mat.isBlock())
+                        {
                             log.warning("[CleanroomGenerator] Error, '" + materialTokens[0] + "' is not a block. Defaulting to stone.");
                             mat = Material.STONE;
                         }
 
-                        if (y + height > materials.length) {
+                        if (y + height > materials.length)
+                        {
                             Material[] newMaterials = new Material[Math.max(y + height, materials.length * 2)];
 
                             arraycopy(materials, 0, newMaterials, 0, y);
@@ -99,12 +103,15 @@ public class CleanroomChunkGenerator extends ChunkGenerator
                 }
 
                 // Trim to size
-                if (materials.length > y) {
+                if (materials.length > y)
+                {
                     Material[] newMaterials = new Material[y];
                     arraycopy(materials, 0, newMaterials, 0, y);
                     materials = newMaterials;
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 log.severe("[CleanroomGenerator] Error parsing CleanroomGenerator ID '" + id + "'. using defaults '64,1': " + e.toString());
                 e.printStackTrace();
 
@@ -112,7 +119,9 @@ public class CleanroomChunkGenerator extends ChunkGenerator
                 materials[0] = Material.BEDROCK;
                 Arrays.fill(materials, 1, 65, Material.STONE);
             }
-        } else {
+        }
+        else
+        {
             materials = new Material[65];
             materials[0] = Material.BEDROCK;
             Arrays.fill(materials, 1, 65, Material.STONE);
@@ -120,9 +129,11 @@ public class CleanroomChunkGenerator extends ChunkGenerator
     }
 
     @Override
-    public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome) {
+    public ChunkData generateChunkData(World world, Random random, int x, int z, BiomeGrid biome)
+    {
         int maxHeight = world.getMaxHeight();
-        if (materials.length > maxHeight) {
+        if (materials.length > maxHeight)
+        {
             log.warning("[CleanroomGenerator] Error, chunk height " + materials.length + " is greater than the world max height (" + maxHeight + "). Trimming to world max height.");
             Material[] newMaterials = new Material[maxHeight];
             arraycopy(materials, 0, newMaterials, 0, maxHeight);
@@ -131,8 +142,15 @@ public class CleanroomChunkGenerator extends ChunkGenerator
 
         ChunkData result = createChunkData(world);
 
-        for (int i = 0; i < materials.length; i++) {
-            result.setRegion(0, i, 0, 15, i, 15, materials[i]);
+        for (int y = 0; y < materials.length; y++)
+        {
+            for (int X = 0; X < 16; X++)
+            {
+                for (int Z = 0; Z < 16; Z++)
+                {
+                    result.setBlock(X, y, Z, materials[y]);
+                }
+            }
         }
 
         return result;

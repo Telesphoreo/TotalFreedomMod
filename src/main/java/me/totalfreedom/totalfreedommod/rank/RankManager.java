@@ -209,8 +209,7 @@ public class RankManager extends FreedomService
                     loginMsg = ChatUtils.colorize(admin.getLoginMessage());
                 }
             }
-
-            FUtil.bcastMsg(loginMsg.replace("%name%", player.getName()));
+            FUtil.bcastMsg(ChatColor.AQUA + (loginMsg.contains("%name%") ? "" : player.getName() + " is ") + FUtil.colorize(loginMsg).replace("%name%", player.getName()));
             plugin.pl.getPlayer(player).setTag(display.getColoredTag());
 
             if (isAdmin)

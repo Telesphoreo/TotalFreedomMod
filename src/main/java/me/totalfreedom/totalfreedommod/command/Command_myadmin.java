@@ -1,6 +1,5 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import java.util.Arrays;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -11,6 +10,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.Arrays;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
 @CommandParameters(description = "Manage my admin entry", usage = "/<command> [-o <admin>] <clearips | clearip <ip> | setlogin <message> | clearlogin | settag <tag> | cleartag | setacformat <format> | clearacformat> | oldtags | logstick>")
@@ -142,15 +143,10 @@ public class Command_myadmin extends FreedomCommand
                 }
 
                 String msg = StringUtils.join(args, " ", 1, args.length);
-                if (!msg.contains("%name%"))
-                {
-                    msg("You login message must contain your name. To add it, specify %name% where you want it.", ChatColor.RED);
-                    return true;
-                }
                 FUtil.adminAction(sender.getName(), "Setting personal login message" + (init == null ? "" : " for " + targetPlayer.getName()), false);
                 target.setLoginMessage(msg);
                 msg((init == null ? "Your" : targetPlayer.getName() + "'s") + " login message is now: ");
-                msg("> " + FUtil.colorize(msg).replace("%name%", targetPlayer.getName()));
+                msg("> " + ChatColor.AQUA + (msg.contains("%name%") ? "" : target.getName() + " is ") + FUtil.colorize(msg).replace("%name%", targetPlayer.getName()));
                 plugin.al.save();
                 plugin.al.updateTables();
                 return true;
