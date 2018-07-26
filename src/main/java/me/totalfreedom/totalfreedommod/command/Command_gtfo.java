@@ -57,7 +57,7 @@ public class Command_gtfo extends FreedomCommand
             // Deop
             player.setOp(false);
 
-            // Gamemode suvival
+            // Gamemode survival
             player.setGameMode(GameMode.SURVIVAL);
 
             // Clear inventory
@@ -96,7 +96,7 @@ public class Command_gtfo extends FreedomCommand
             }
         }
 
-        //checks if there is CoreProtect loaded and installed, if not it skips the rollback and uses CoreProtect directly
+        // Checks if CoreProtect is loaded and installed, and skips the rollback and uses CoreProtect directly
         if (!cancelRollback)
         {
             if (!plugin.cpb.isEnabled())
