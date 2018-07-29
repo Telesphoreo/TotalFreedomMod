@@ -123,9 +123,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.TFPatches.TF-WorldEdit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>2e79570525</version>
+            <groupId>com.github.Telesphoreo</groupId>
+            <artifactId>TF-WorldEdit</artifactId>
+            <version>6.1.9-TF</version>
             <scope>provided</scope>
         </dependency>
 
