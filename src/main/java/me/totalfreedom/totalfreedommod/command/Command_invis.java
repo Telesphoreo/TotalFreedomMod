@@ -12,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-@CommandParameters(description = "Shows (optionally clears) indivisible players", usage = "/<command> (clear)")
+@CommandParameters(description = "Shows (optionally clears) invisible players", usage = "/<command> (clear)")
 public class Command_invis extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -63,7 +62,6 @@ public class Command_invis extends FreedomCommand
         {
             msg("Invisible players (" + players.size() + "): " + StringUtils.join(players, ", "));
         }
-
         return true;
     }
 }
