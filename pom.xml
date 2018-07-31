@@ -60,14 +60,24 @@
         </repository>
 
         <repository>
+            <id>elmakers-repo</id>
+            <url>http://maven.elmakers.com/repository/</url>
+        </repository>
+
+        <repository>
+            <id>sk89q-snapshots</id>
+            <url>http://maven.sk89q.com/artifactory/repo</url>
+        </repository>
+
+        <repository>
             <id>jcenter</id>
             <name>jcenter-bintray</name>
             <url>http://jcenter.bintray.com</url>
         </repository>
 
         <repository>
-            <id>playpro</id>
-            <url>https://maven.playpro.com/</url>
+            <id>robomwm</id>
+            <url>https://dl.bintray.com/robomwm/maven</url>
         </repository>
 
         <repository>
@@ -116,16 +126,16 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.TFPatches</groupId>
+            <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
-            <version>c213295f95</version>
+            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-WorldEdit</artifactId>
-            <version>6.1.9-TF</version>
+            <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>master-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -133,6 +143,13 @@
             <groupId>net.ess3</groupId>
             <artifactId>Essentials</artifactId>
             <version>2.13.1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>1.13-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -145,8 +162,8 @@
 
         <dependency>
             <groupId>net.coreprotect</groupId>
-            <artifactId>coreprotect</artifactId>
-            <version>2.15.0</version>
+            <artifactId>CoreProtect</artifactId>
+            <version>2.14.2</version>
             <scope>provided</scope>
         </dependency>
 
