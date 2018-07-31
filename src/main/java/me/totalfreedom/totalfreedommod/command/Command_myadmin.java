@@ -1,5 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.Arrays;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -10,10 +11,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
-
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
-@CommandParameters(description = "Manage my admin entry", usage = "/<command> [-o <admin>] <clearips | clearip <ip> | setlogin <message> | clearlogin | settag <tag> | cleartag | setacformat <format> | clearacformat> | oldtags | logstick>")
+@CommandParameters(description = "Manage my admin entry", usage = "/<command> [-o <admin>] <clearips | clearip <ip> | setlogin <message> | clearlogin | setacformat <format> | clearacformat> | oldtags | logstick>")
 public class Command_myadmin extends FreedomCommand
 {
 
@@ -162,21 +161,13 @@ public class Command_myadmin extends FreedomCommand
 
             case "settag":
             {
-                FUtil.adminAction(sender.getName(), "Setting personal default tag" + (init == null ? "" : " for " + targetPlayer.getName()), false);
-                String tag = StringUtils.join(args, " ", 1, args.length);
-                target.setTag(tag);
-                msg((init == null ? "Your" : targetPlayer.getName() + "'s") + " default tag is now: " + FUtil.colorize(target.getTag()));
-                plugin.al.save();
-                plugin.al.updateTables();
+                msg("Please use /tag set to set your tag.", ChatColor.RED);
                 return true;
             }
 
             case "cleartag":
             {
-                FUtil.adminAction(sender.getName(), "Clearing personal default tag" + (init == null ? "" : " for " + targetPlayer.getName()), false);
-                target.setTag(null);
-                plugin.al.save();
-                plugin.al.updateTables();
+                msg("Please use /tag off to remove your tag.", ChatColor.RED);
                 return true;
             }
             case "setacformat":

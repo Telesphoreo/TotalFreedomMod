@@ -1,6 +1,8 @@
 package me.totalfreedom.totalfreedommod.playerverification;
 
 import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
 import net.pravian.aero.base.ConfigLoadable;
@@ -9,9 +11,6 @@ import net.pravian.aero.base.Validatable;
 import org.apache.commons.lang3.Validate;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
-
-import java.util.Collections;
-import java.util.List;
 
 public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
 {
@@ -28,10 +27,7 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
     private String forumUsername = null;
     @Getter
     @Setter
-    private Boolean discordEnabled = false;
-    @Getter
-    @Setter
-    private Boolean forumEnabled = false;
+    private Boolean enabled = false;
     @Getter
     @Setter
     private String tag = null;
@@ -53,9 +49,7 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
         ips.clear();
         ips.addAll(cs.getStringList("ips"));
         discordId = cs.getString("discordId", null);
-        forumUsername = cs.getString("forumUsername", null);
-        discordEnabled = cs.getBoolean("discordEnabled", false);
-        forumEnabled = cs.getBoolean("forumEnabled", false);
+        enabled = cs.getBoolean("enabled", false);
         tag = cs.getString("tag", null);
     }
 
@@ -65,9 +59,7 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
         Validate.isTrue(isValid(), "Could not save player verification entry: " + name + ". Entry not valid!");
         cs.set("name", name);
         cs.set("discordId", discordId);
-        cs.set("forumUsername", forumUsername);
-        cs.set("discordEnabled", discordEnabled);
-        cs.set("forumEnabled", forumEnabled);
+        cs.set("enabled", enabled);
         cs.set("tag", tag);
         cs.set("ips", Lists.newArrayList(ips));
     }

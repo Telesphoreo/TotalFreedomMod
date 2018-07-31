@@ -1,12 +1,12 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
-import me.totalfreedom.totalfreedommod.admin.Admin;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.ChatColor;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Unlink your Discord account to your Minecraft account", usage = "/<command>")
@@ -43,7 +43,7 @@ public class Command_unlinkdiscord extends FreedomCommand
                 return true;
             }
             data.setDiscordId(null);
-            data.setDiscordEnabled(false);
+            data.setEnabled(false);
             msg("Your Minecraft account has been successfully unlinked from the Discord account.", ChatColor.GREEN);
             return true;
         }

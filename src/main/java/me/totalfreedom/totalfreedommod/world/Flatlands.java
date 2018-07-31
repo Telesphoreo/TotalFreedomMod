@@ -3,7 +3,6 @@ package me.totalfreedom.totalfreedommod.world;
 import java.io.File;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.util.FLog;
-import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -48,9 +47,9 @@ public class Flatlands extends CustomWorld
 
         final Block welcomeSignBlock = world.getBlockAt(0, 50, 0);
         welcomeSignBlock.setType(Material.SIGN);
-        org.bukkit.block.Sign welcomeSign = (org.bukkit.block.Sign) welcomeSignBlock.getState();
+        org.bukkit.block.Sign welcomeSign = (org.bukkit.block.Sign)welcomeSignBlock.getState();
 
-        org.bukkit.material.Sign signData = (org.bukkit.material.Sign) welcomeSign.getData();
+        org.bukkit.material.Sign signData = (org.bukkit.material.Sign)welcomeSign.getData();
         signData.setFacingDirection(BlockFace.NORTH);
 
         welcomeSign.setLine(0, ChatColor.GREEN + "Flatlands");
@@ -63,7 +62,6 @@ public class Flatlands extends CustomWorld
 
         return world;
     }
-
 
 
     public void wipeFlatlandsIfFlagged()

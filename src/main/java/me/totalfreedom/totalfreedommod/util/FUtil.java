@@ -26,7 +26,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
@@ -163,12 +162,12 @@ public class FUtil
     {
         Pattern timePattern = Pattern.compile(
                 "(?:([0-9]+)\\s*y[a-z]*[,\\s]*)?"
-                + "(?:([0-9]+)\\s*mo[a-z]*[,\\s]*)?"
-                + "(?:([0-9]+)\\s*w[a-z]*[,\\s]*)?"
-                + "(?:([0-9]+)\\s*d[a-z]*[,\\s]*)?"
-                + "(?:([0-9]+)\\s*h[a-z]*[,\\s]*)?"
-                + "(?:([0-9]+)\\s*m[a-z]*[,\\s]*)?"
-                + "(?:([0-9]+)\\s*(?:s[a-z]*)?)?", Pattern.CASE_INSENSITIVE);
+                        + "(?:([0-9]+)\\s*mo[a-z]*[,\\s]*)?"
+                        + "(?:([0-9]+)\\s*w[a-z]*[,\\s]*)?"
+                        + "(?:([0-9]+)\\s*d[a-z]*[,\\s]*)?"
+                        + "(?:([0-9]+)\\s*h[a-z]*[,\\s]*)?"
+                        + "(?:([0-9]+)\\s*m[a-z]*[,\\s]*)?"
+                        + "(?:([0-9]+)\\s*(?:s[a-z]*)?)?", Pattern.CASE_INSENSITIVE);
         Matcher m = timePattern.matcher(time);
         int years = 0;
         int months = 0;
@@ -356,13 +355,14 @@ public class FUtil
             {
                 Field field = checkClass.getDeclaredField(name);
                 field.setAccessible(true);
-                return (T) field.get(from);
+                return (T)field.get(from);
 
             }
             catch (NoSuchFieldException | IllegalAccessException ex)
             {
             }
-        } while (checkClass.getSuperclass() != Object.class
+        }
+        while (checkClass.getSuperclass() != Object.class
                 && ((checkClass = checkClass.getSuperclass()) != null));
 
         return null;
@@ -426,7 +426,7 @@ public class FUtil
     public static int random(int min, int max)
     {
         int range = max - min + 1;
-        int value = (int) (Math.random() * range) + min;
+        int value = (int)(Math.random() * range) + min;
         return value;
     }
 }
