@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.Set;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
+import me.totalfreedom.totalfreedommod.util.DepreciationAggregator;
 import me.totalfreedom.totalfreedommod.util.MaterialGroup;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -66,7 +67,7 @@ public class Trailer extends FreedomService
         }
 
         fromBlock.setType(MaterialGroup.WOOL_COLORS.get(random.nextInt(MaterialGroup.WOOL_COLORS.size())));
-        BlockData data = fromBlock.getBlockData();
+        byte data = DepreciationAggregator.getData_Block(fromBlock);
         Material material = Material.getMaterial(String.valueOf(fromBlock.getType()));
         for (int x = -1; x <= 1; x++)
         {
@@ -76,7 +77,7 @@ public class Trailer extends FreedomService
                 trail_pos = new Location(event.getPlayer().getWorld(), fromBlock.getX() + x, fromBlock.getY(), fromBlock.getZ() + z);
                 if (trailPlayers.contains(event.getPlayer().getName()) && plugin.cpb.isEnabled())
                 {
-                    //plugin.cpb.getCoreProtectAPI().logPlacement(event.getPlayer().getName(), trail_pos, material, data);
+                    plugin.cpb.getCoreProtectAPI().logPlacement(event.getPlayer().getName(), trail_pos, material, data);
                 }
             }
         }
