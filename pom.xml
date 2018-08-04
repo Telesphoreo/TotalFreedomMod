@@ -133,9 +133,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>master-SNAPSHOT</version>
+            <groupId>com.github.Telesphoreo</groupId>
+            <artifactId>TF-WorldEdit</artifactId>
+            <version>7.0.0-TF-SNAPSHOT-R0.1</version>
             <scope>provided</scope>
         </dependency>
 
