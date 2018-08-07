@@ -121,7 +121,7 @@ public class LibsDisguisesBridge extends FreedomService
 
     public boolean isDisguisesEnabled()
     {
-        return !DisallowedDisguises.disabled;
+        return !TF_DisguiseAPI.disabled;
     }
 
     public boolean isEnabled()

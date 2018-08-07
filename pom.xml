@@ -38,9 +38,9 @@
     </organization>
 
     <scm>
-        <connection>scm:git:git@github.com:TFPatches/TotalFreedomMod.git</connection>
-        <developerConnection>scm:git:git@github.com:TFPatches/TotalFreedomMod.git</developerConnection>
-        <url>git@github.com:TFPatches/TotalFreedomMod.git</url>
+        <connection>scm:git:git@github.com:Telesphoreo/TotalFreedomMod.git</connection>
+        <developerConnection>scm:git:git@github.com:Telesphoreo/TotalFreedomMod.git</developerConnection>
+        <url>git@github.com:Telesphoreo/TotalFreedomMod.git</url>
     </scm>
 
     <repositories>
@@ -128,14 +128,14 @@
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
-            <version>master-SNAPSHOT</version>
+            <version>075d9d1c97</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-WorldEdit</artifactId>
-            <version>7.0.0-TF-SNAPSHOT-R0.1</version>
+            <version>3a86ed37f5</version>
             <scope>provided</scope>
         </dependency>
 

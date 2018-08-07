@@ -1,6 +1,7 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import me.totalfreedom.libsdisguise.DisallowedDisguises;
+import me.totalfreedom.libsdisguise.TF_DisguiseAPI;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.bukkit.command.Command;
@@ -21,7 +22,7 @@ public class Command_undisguiseall extends FreedomCommand
             return true;
         }
 
-        if (DisallowedDisguises.disabled)
+        if (TF_DisguiseAPI.disabled)
         {
             msg("Disguises are not enabled.");
             return true;
