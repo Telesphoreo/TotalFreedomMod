@@ -12,10 +12,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <tfm.build.version>${project.version}</tfm.build.version>
         <tfm.build.codename>Hero</tfm.build.codename>
-        <tfm.build.number>${maven.buildnumber}</tfm.build.number>
-        <tfm.build.date>${maven.build.timestamp}</tfm.build.date>
-        <tfm.build.author>${buildAuthor}</tfm.build.author>
-        <tfm.build.head>${git.commit.id.abbrev}</tfm.build.head>
         <jar.finalName>${project.name}</jar.finalName>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>MM/dd/yyyy HH:mm</maven.build.timestamp.format>
@@ -168,6 +164,14 @@
         </dependency>
 
         <dependency>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.0.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/WorldEdit.jar</systemPath>
+        </dependency>
+
+        <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-legacy</artifactId>
             <version>6.2</version>
@@ -252,7 +256,7 @@
                             <target>
                                 <propertyfile file="${project.basedir}/src/main/resources/build.properties"
                                               comment="Build information. Edit this to your liking.">
-                                    <entry key="buildAuthor" default="unknown \u00A76for \u00A79Spigot 1.13"/>
+                                    <entry key="buildAuthor" default="unknown"/>
                                     <entry key="buildNumber" default="0"/>
                                     <entry key="buildCodeName" default="${tfm.build.codename}"/>
                                     <entry key="buildVersion" default="${project.version}"/>

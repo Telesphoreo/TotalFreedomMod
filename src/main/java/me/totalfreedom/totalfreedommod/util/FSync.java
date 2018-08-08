@@ -8,7 +8,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class FSync
 {
-
     public static void playerMsg(final Player player, final String message)
     {
         final TotalFreedomMod plugin = TotalFreedomMod.plugin();

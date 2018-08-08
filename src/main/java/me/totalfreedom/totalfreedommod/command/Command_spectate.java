@@ -11,17 +11,16 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Quickly spectate someone.", usage = "/<command> <playername>", aliases = "spec")
 public class Command_spectate extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-
         if (args.length == 0)
         {
             return false;
         }
 
         Player player = getPlayer(args[0]);
+
         if (player == null)
         {
             msg(PLAYER_NOT_FOUND);
@@ -40,6 +39,8 @@ public class Command_spectate extends FreedomCommand
         }
 
         playerSender.setSpectatorTarget(player);
+
+        msg("You are not spectating " + player + ". Press LSHIFT to eject.");
 
         return true;
     }

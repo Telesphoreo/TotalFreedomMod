@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Op everyone on the server, optionally change everyone's gamemode at the same time.", usage = "/<command> [-c | -s | -a]")
 public class Command_opall extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -19,6 +18,7 @@ public class Command_opall extends FreedomCommand
 
         boolean doSetGamemode = false;
         GameMode targetGamemode = GameMode.CREATIVE;
+
         if (args.length != 0)
         {
             if (args[0].equals("-c"))

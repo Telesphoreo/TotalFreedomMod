@@ -57,7 +57,6 @@ public class UUIDFetcher
 
     private class FetchedUuid
     {
-
         private String id;
 
         public String getID()

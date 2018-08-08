@@ -10,17 +10,16 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Make other people your bitch.", usage = "/<command> <playername>")
 public class Command_ride extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-
         if (args.length < 1)
         {
             return false;
         }
 
         final Player player = getPlayer(args[0]);
+
         if (player == null)
         {
             msg(PLAYER_NOT_FOUND);

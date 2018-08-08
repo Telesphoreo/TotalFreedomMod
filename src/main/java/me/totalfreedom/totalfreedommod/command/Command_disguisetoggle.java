@@ -1,6 +1,5 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import me.totalfreedom.libsdisguise.DisallowedDisguises;
 import me.totalfreedom.libsdisguise.TF_DisguiseAPI;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
