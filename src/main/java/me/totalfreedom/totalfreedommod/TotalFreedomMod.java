@@ -308,8 +308,8 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
                 codename = props.getProperty("buildCodeName", "unknown");
                 version = props.getProperty("buildVersion", pluginVersion);
                 number = props.getProperty("buildNumber", "1");
-                // Need to do this or it will display ${git.commit.id.abbrev}
                 date = props.getProperty("buildDate", "unknown");
+                // Need to do this or it will display ${git.commit.id.abbrev}
                 head = props.getProperty("buildHead", "unknown").replace("${git.commit.id.abbrev}", "unknown");
             }
             catch (Exception ex)
