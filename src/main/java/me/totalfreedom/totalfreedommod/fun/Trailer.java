@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Set;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
-import me.totalfreedom.totalfreedommod.util.DepreciationAggregator;
 import me.totalfreedom.totalfreedommod.util.MaterialGroup;
 import org.bukkit.Location;
 import org.bukkit.Material;

@@ -1,6 +1,7 @@
 package me.totalfreedom.totalfreedommod;
 
 import java.io.File;
+import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.component.PluginComponent;

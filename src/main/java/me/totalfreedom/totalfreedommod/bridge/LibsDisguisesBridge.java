@@ -2,7 +2,6 @@ package me.totalfreedom.totalfreedommod.bridge;
 
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.LibsDisguises;
-import me.totalfreedom.libsdisguise.DisallowedDisguises;
 import me.totalfreedom.libsdisguise.TF_DisguiseAPI;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
