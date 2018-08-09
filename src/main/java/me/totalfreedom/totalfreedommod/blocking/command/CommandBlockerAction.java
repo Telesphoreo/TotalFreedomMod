@@ -2,13 +2,12 @@ package me.totalfreedom.totalfreedommod.blocking.command;
 
 public enum CommandBlockerAction
 {
-
     BLOCK("b"),
     BLOCK_AND_EJECT("a"),
     BLOCK_UNKNOWN("u");
     private final String token;
 
-    private CommandBlockerAction(String token)
+    CommandBlockerAction(String token)
     {
         this.token = token;
     }

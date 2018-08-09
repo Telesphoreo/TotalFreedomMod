@@ -1,14 +1,13 @@
 package me.totalfreedom.totalfreedommod.caging;
 
+import java.util.ArrayList;
+import java.util.List;
 import lombok.Getter;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CageData
 {

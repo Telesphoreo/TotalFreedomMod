@@ -1,5 +1,6 @@
 package me.totalfreedom.totalfreedommod.blocking.command;
 
+import java.util.Objects;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.rank.Rank;
@@ -8,7 +9,6 @@ import org.bukkit.entity.Player;
 
 public enum CommandBlockerRank
 {
-
     ANYONE("a"),
     OP("o"),
     SUPER("s"),
@@ -40,7 +40,7 @@ public enum CommandBlockerRank
             return TELNET;
         }
 
-        Admin admin = TotalFreedomMod.plugin().al.getAdmin(sender);
+        Admin admin = Objects.requireNonNull(TotalFreedomMod.plugin()).al.getAdmin(sender);
         if (admin != null)
         {
             if (admin.getRank() == Rank.SENIOR_ADMIN)

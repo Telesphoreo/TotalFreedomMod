@@ -1,5 +1,6 @@
 package me.totalfreedom.totalfreedommod;
 
+import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import me.totalfreedom.totalfreedommod.command.Command_vanish;
@@ -17,8 +18,6 @@ import org.bukkit.event.player.AsyncPlayerPreLoginEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.regex.Pattern;
 
 public class LoginProcess extends FreedomService
 {

@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>2018.2.2</version>
+    <version>2018.2.3 Beta (MC 1.13)</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -58,11 +58,6 @@
         <repository>
             <id>elmakers-repo</id>
             <url>http://maven.elmakers.com/repository/</url>
-        </repository>
-
-        <repository>
-            <id>sk89q-snapshots</id>
-            <url>http://maven.sk89q.com/artifactory/repo</url>
         </repository>
 
         <repository>
@@ -264,6 +259,7 @@
                                     <entry key="buildCodeName" value="${tfm.build.codename}"/>
                                     <entry key="buildVersion" value="${project.version}"/>
                                     <entry key="buildDate" value="${timestamp}"/>
+                                    <!--suppress UnresolvedMavenProperty -->
                                     <entry key="buildHead" value="${git.commit.id.abbrev}"/>
                                 </propertyfile>
                             </target>

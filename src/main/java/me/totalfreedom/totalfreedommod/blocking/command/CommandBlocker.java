@@ -22,7 +22,6 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 public class CommandBlocker extends FreedomService
 {
-
     private final Pattern flagPattern = Pattern.compile("(:([0-9]){5,})");
     //
     private final Map<String, CommandBlockerEntry> entryList = Maps.newHashMap();
@@ -73,7 +72,7 @@ public class CommandBlocker extends FreedomService
             String commandName = parts[2].toLowerCase().substring(1);
             final String message = (parts.length > 3 ? parts[3] : null);
 
-            if (rank == null || action == null || commandName == null || commandName.isEmpty())
+            if (rank == null || action == null || commandName.isEmpty())
             {
                 FLog.warning("Invalid command blocker entry: " + rawEntry);
                 continue;
