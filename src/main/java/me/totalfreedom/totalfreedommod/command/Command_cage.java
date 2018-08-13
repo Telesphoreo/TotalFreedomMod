@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Place a cage around someone.", usage = "/<command> <purge | off | <partialname> [skull | block] [blockname | playername]")
 public class Command_cage extends FreedomCommand
 {
-
     public boolean run(final CommandSender sender, final Player playerSender, final Command cmd, final String commandLabel, final String[] args, final boolean senderIsConsole)
     {
         if (args.length == 0)
@@ -43,7 +42,7 @@ public class Command_cage extends FreedomCommand
         Player player = getPlayer(args[0]);
         if (player == null)
         {
-            sender.sendMessage(FreedomCommand.PLAYER_NOT_FOUND);
+            msg(FreedomCommand.PLAYER_NOT_FOUND);
             return true;
         }
         final FPlayer fPlayer = plugin.pl.getPlayer(player);

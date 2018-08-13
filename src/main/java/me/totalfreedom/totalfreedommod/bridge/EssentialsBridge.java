@@ -1,6 +1,7 @@
 package me.totalfreedom.totalfreedommod.bridge;
 
 import com.earth2me.essentials.Essentials;
+import com.earth2me.essentials.OfflinePlayer;
 import com.earth2me.essentials.User;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
@@ -89,6 +90,54 @@ public class EssentialsBridge extends FreedomService
             {
                 user.setNickname(nickname);
                 user.setDisplayNick();
+            }
+        }
+        catch (Exception ex)
+        {
+            FLog.severe(ex);
+        }
+    }
+
+    public void setEssentialsJailed(String player, boolean caged)
+    {
+        try
+        {
+            User user = getEssentialsUser(player);
+            if (user != null)
+            {
+                user.setJailed(caged);
+            }
+        }
+        catch (Exception ex)
+        {
+            FLog.severe(ex);
+        }
+    }
+
+    public void setEssentialsMuted(String player, boolean muted)
+    {
+        try
+        {
+            User user = getEssentialsUser(player);
+            if (user != null)
+            {
+                user.setMuted(muted);
+            }
+        }
+        catch (Exception ex)
+        {
+            FLog.severe(ex);
+        }
+    }
+
+    public void setEssentialsOfflineMuted(String player, boolean muted)
+    {
+        try
+        {
+            User user = getEssentialsPlugin().getOfflineUser(player);
+            if (user != null)
+            {
+                user.setMuted(muted);
             }
         }
         catch (Exception ex)

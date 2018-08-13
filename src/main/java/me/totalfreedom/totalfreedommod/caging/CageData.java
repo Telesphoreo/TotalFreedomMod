@@ -2,7 +2,10 @@ package me.totalfreedom.totalfreedommod.caging;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import lombok.Getter;
+import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -11,7 +14,6 @@ import org.bukkit.block.Skull;
 
 public class CageData
 {
-
     private final FPlayer fPlayer;
     //
     private final List<BlockData> cageHistory = new ArrayList<>();
@@ -41,10 +43,10 @@ public class CageData
         else
         {
             this.caged = false;
+            Objects.requireNonNull(TotalFreedomMod.plugin()).esb.setEssentialsJailed(fPlayer.getName(), caged);
             regenerateHistory();
             clearHistory();
         }
-
     }
 
     public void cage(Location location, Material outer, Material inner)
@@ -55,6 +57,7 @@ public class CageData
         }
 
         this.caged = true;
+        Objects.requireNonNull(TotalFreedomMod.plugin()).esb.setEssentialsJailed(fPlayer.getName(), caged);
         this.location = location;
         this.outerMaterial = outer;
         this.innerMaterial = inner;
@@ -72,6 +75,7 @@ public class CageData
         }
 
         this.caged = true;
+        Objects.requireNonNull(TotalFreedomMod.plugin()).esb.setEssentialsJailed(fPlayer.getName(), caged);
         this.location = location;
         this.outerMaterial = outer;
         this.innerMaterial = inner;
@@ -83,7 +87,6 @@ public class CageData
 
     public void regenerate()
     {
-
         if (!caged
                 || location == null
                 || outerMaterial == null
@@ -239,7 +242,6 @@ public class CageData
 
     private static class BlockData
     {
-
         public Material material;
         public Location location;
 

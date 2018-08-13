@@ -320,6 +320,7 @@ public class FPlayer
     {
         FUtil.cancel(unmuteTask);
         plugin.mu.MUTED_PLAYERS.remove(getPlayer().getName());
+        plugin.esb.setEssentialsMuted(getPlayer().getName(), false);
         unmuteTask = null;
 
         if (!muted)
@@ -333,6 +334,7 @@ public class FPlayer
         }
 
         plugin.mu.MUTED_PLAYERS.add(getPlayer().getName());
+        plugin.esb.setEssentialsMuted(getPlayer().getName(), true);
 
         unmuteTask = new BukkitRunnable()
         {
@@ -343,11 +345,13 @@ public class FPlayer
                 {
                     FUtil.adminAction("TotalFreedom", "Unmuting " + getPlayer().getName(), false);
                     setMuted(false);
+                    plugin.esb.setEssentialsMuted(getPlayer().getName(), false);
                 }
                 else
                 {
                     FUtil.adminAction("TotalFreedom", "Unmuting " + getName(), false);
                     plugin.mu.MUTED_PLAYERS.remove(getName());
+                    plugin.esb.setEssentialsOfflineMuted(getPlayer().getName(), false);
                 }
             }
         }.runTaskLater(plugin, AUTO_PURGE_TICKS);
@@ -382,7 +386,6 @@ public class FPlayer
     {
         return freezeData;
     }
-
 
     public boolean inAdminChat()
     {

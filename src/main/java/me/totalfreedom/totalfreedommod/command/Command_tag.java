@@ -46,7 +46,6 @@ public class Command_tag extends FreedomCommand
 
         if (args.length == 1)
         {
-
             if ("list".equalsIgnoreCase(args[0]))
             {
                 msg("Tags for all online players:");
@@ -62,6 +61,7 @@ public class Command_tag extends FreedomCommand
 
                 return true;
             }
+
             else if ("clearall".equalsIgnoreCase(args[0]))
             {
                 if (!plugin.al.isAdmin(sender))
@@ -102,7 +102,6 @@ public class Command_tag extends FreedomCommand
                     }
                     msg("Your tag has been removed." + (save ? " (Saved)" : ""));
                 }
-
                 return true;
             }
             else
@@ -129,6 +128,7 @@ public class Command_tag extends FreedomCommand
                 }
 
                 plugin.pl.getPlayer(player).setTag(null);
+
                 if (save)
                 {
                     save(player, null);
@@ -177,7 +177,6 @@ public class Command_tag extends FreedomCommand
                     save(playerSender, outputTag);
                 }
                 msg("Tag set to '" + outputTag + ChatColor.GRAY + "'." + (save ? " (Saved)" : ""));
-
                 return true;
             }
             else
@@ -200,6 +199,7 @@ public class Command_tag extends FreedomCommand
             plugin.al.save();
             plugin.al.updateTables();
         }
+
         else if (plugin.mbl.isMasterBuilder(player))
         {
             MasterBuilder masterBuilder = plugin.mbl.getMasterBuilder(player);
@@ -207,6 +207,7 @@ public class Command_tag extends FreedomCommand
             plugin.mbl.save();
             plugin.mbl.updateTables();
         }
+
         else if (plugin.pv.getVerificationPlayer(player).getEnabled())
         {
             VPlayer vPlayer = plugin.pv.getVerificationPlayer(player);

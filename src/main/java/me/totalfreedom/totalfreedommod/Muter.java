@@ -20,8 +20,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class Muter extends FreedomService
 {
 
-    public static final List<String> MUTE_COMMANDS = Arrays.asList(StringUtils.split("say,me,msg,tell,reply,mail", ","));
-    public final List<String> MUTED_PLAYERS = new ArrayList();
+    private static final List<String> MUTE_COMMANDS = Arrays.asList(StringUtils.split("say,me,msg,tell,reply,mail", ","));
+    public final ArrayList MUTED_PLAYERS = new ArrayList();
 
     public Muter(TotalFreedomMod plugin)
     {
@@ -47,6 +47,7 @@ public class Muter extends FreedomService
 
         if (!fPlayer.isMuted())
         {
+            plugin.esb.setEssentialsMuted(fPlayer.getName(), false);
             return;
         }
 
@@ -54,6 +55,7 @@ public class Muter extends FreedomService
         {
             fPlayer.setMuted(false);
             MUTED_PLAYERS.remove(player.getName());
+            plugin.esb.setEssentialsMuted(fPlayer.getName(), false);
             return;
         }
 
@@ -64,7 +66,6 @@ public class Muter extends FreedomService
     @EventHandler(priority = EventPriority.LOW)
     public void onPlayerCommandPreprocess(PlayerCommandPreprocessEvent event)
     {
-
         Player player = event.getPlayer();
         FPlayer fPlayer = plugin.pl.getPlayer(event.getPlayer());
 
@@ -78,6 +79,7 @@ public class Muter extends FreedomService
         if (plugin.al.isAdmin(player))
         {
             fPlayer.setMuted(false);
+            plugin.esb.setEssentialsMuted(fPlayer.getName(), false);
             return;
         }
 
