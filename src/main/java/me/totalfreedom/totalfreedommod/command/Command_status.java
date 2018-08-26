@@ -2,6 +2,7 @@ package me.totalfreedom.totalfreedommod.command;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.bukkit.ChatColor;
 import org.bukkit.World;

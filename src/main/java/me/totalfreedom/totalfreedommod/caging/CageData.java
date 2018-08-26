@@ -43,7 +43,6 @@ public class CageData
         else
         {
             this.caged = false;
-            Objects.requireNonNull(TotalFreedomMod.plugin()).esb.setEssentialsJailed(fPlayer.getName(), caged);
             regenerateHistory();
             clearHistory();
         }
@@ -57,7 +56,6 @@ public class CageData
         }
 
         this.caged = true;
-        Objects.requireNonNull(TotalFreedomMod.plugin()).esb.setEssentialsJailed(fPlayer.getName(), caged);
         this.location = location;
         this.outerMaterial = outer;
         this.innerMaterial = inner;
@@ -75,7 +73,6 @@ public class CageData
         }
 
         this.caged = true;
-        Objects.requireNonNull(TotalFreedomMod.plugin()).esb.setEssentialsJailed(fPlayer.getName(), caged);
         this.location = location;
         this.outerMaterial = outer;
         this.innerMaterial = inner;

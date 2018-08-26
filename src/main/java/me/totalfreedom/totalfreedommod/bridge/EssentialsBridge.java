@@ -98,54 +98,6 @@ public class EssentialsBridge extends FreedomService
         }
     }
 
-    public void setEssentialsJailed(String player, boolean caged)
-    {
-        try
-        {
-            User user = getEssentialsUser(player);
-            if (user != null)
-            {
-                user.setJailed(caged);
-            }
-        }
-        catch (Exception ex)
-        {
-            FLog.severe(ex);
-        }
-    }
-
-    public void setEssentialsMuted(String player, boolean muted)
-    {
-        try
-        {
-            User user = getEssentialsUser(player);
-            if (user != null)
-            {
-                user.setMuted(muted);
-            }
-        }
-        catch (Exception ex)
-        {
-            FLog.severe(ex);
-        }
-    }
-
-    public void setEssentialsOfflineMuted(String player, boolean muted)
-    {
-        try
-        {
-            User user = getEssentialsPlugin().getOfflineUser(player);
-            if (user != null)
-            {
-                user.setMuted(muted);
-            }
-        }
-        catch (Exception ex)
-        {
-            FLog.severe(ex);
-        }
-    }
-
     public String getNickname(String username)
     {
         try

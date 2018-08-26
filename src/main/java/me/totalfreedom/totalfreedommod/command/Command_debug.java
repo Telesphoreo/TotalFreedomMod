@@ -1,6 +1,7 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.lang.reflect.Field;
+
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;

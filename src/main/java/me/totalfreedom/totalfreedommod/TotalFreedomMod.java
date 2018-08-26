@@ -3,6 +3,8 @@ package me.totalfreedom.totalfreedommod;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
+import java.util.concurrent.Callable;
+
 import me.totalfreedom.totalfreedommod.admin.AdminList;
 import me.totalfreedom.totalfreedommod.amp.AMP;
 import me.totalfreedom.totalfreedommod.banning.BanManager;
@@ -53,6 +55,7 @@ import org.bstats.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.SpigotConfig;
 
@@ -335,6 +338,11 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
             }
         }
         return null;
+    }
+
+    public String getPluginName()
+    {
+        return plugin.getName();
     }
 
     @Override
