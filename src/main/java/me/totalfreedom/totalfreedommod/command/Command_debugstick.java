@@ -16,11 +16,10 @@ import org.bukkit.inventory.meta.ItemMeta;
 @CommandParameters(description = "Get a stick of happiness.", usage = "/<command>")
 public class Command_debugstick extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        ItemStack itemStack = new ItemStack(Material.DEBUG_STICK);
+        /*ItemStack itemStack = new ItemStack(Material.DEBUG_STICK);
         ItemMeta itemMeta = itemStack.getItemMeta();
         itemMeta.setDisplayName(ChatColor.GOLD.toString() + ChatColor.BOLD.toString() + "Stick of Happiness");
         List<String> lore = Arrays.asList(
@@ -30,7 +29,8 @@ public class Command_debugstick extends FreedomCommand
                 ChatColor.DARK_PURPLE + "Isn't technology amazing?");
         itemMeta.setLore(lore);
         itemStack.setItemMeta(itemMeta);
-        playerSender.getInventory().addItem(itemStack);
+        playerSender.getInventory().addItem(itemStack);*/
+        msg("Command temporarily disabled");
         return true;
     }
 }

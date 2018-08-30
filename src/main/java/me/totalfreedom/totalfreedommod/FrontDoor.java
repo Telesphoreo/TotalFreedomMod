@@ -542,7 +542,7 @@ public class FrontDoor extends FreedomService
                         FUtil.adminAction("FrontDoor", "Caging " + player.getName() + " in PURE_DARTH", true);
 
                         Location targetPos = player.getLocation().clone().add(0, 1, 0);
-                        playerdata.getCageData().cage(targetPos, Material.PLAYER_HEAD, Material.AIR, "Prozza");
+                        playerdata.getCageData().cage(targetPos, Material.SKULL, Material.AIR, "Prozza");
                         break;
                     }
 

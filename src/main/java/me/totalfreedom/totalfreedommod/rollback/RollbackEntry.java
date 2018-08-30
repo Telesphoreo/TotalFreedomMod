@@ -9,14 +9,13 @@ import org.bukkit.block.data.BlockData;
 
 public class RollbackEntry
 {
-
     // Use of primitives to decrease overhead
     public final String author;
     public final String worldName;
     public final int x;
     public final short y;
     public final int z;
-    public final BlockData data;
+    public final byte data;
     public final Material blockMaterial;
     private final boolean isBreak;
 
@@ -33,13 +32,13 @@ public class RollbackEntry
         if (entryType == EntryType.BLOCK_BREAK)
         {
             this.blockMaterial = block.getType();
-            this.data = block.getBlockData();
+            this.data = block.getData();
             this.isBreak = true;
         }
         else
         {
             this.blockMaterial = block.getType();
-            this.data = block.getBlockData();
+            this.data = block.getData();
             this.isBreak = false;
         }
     }
@@ -73,7 +72,7 @@ public class RollbackEntry
         if (isBreak)
         {
             block.setType(getMaterial());
-            block.setBlockData(data);
+            block.setData(data);
         }
         else
         {
@@ -92,7 +91,7 @@ public class RollbackEntry
         else
         {
             block.setType(getMaterial());
-            block.setBlockData(data);
+            block.setData(data);
         }
     }
 }

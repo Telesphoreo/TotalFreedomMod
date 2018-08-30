@@ -61,14 +61,14 @@ public class Command_cage extends FreedomCommand
                 }
                 case "skull":
                 {
-                    outerMaterial = Material.PLAYER_HEAD;
+                    outerMaterial = Material.SKULL;
                     if (args.length >= 3)
                     {
                         skullName = args[2];
                     }
                     else
                     {
-                        outerMaterial = Material.SKELETON_SKULL;
+                        outerMaterial = Material.SKULL;
                     }
                     break;
                 }
@@ -95,7 +95,7 @@ public class Command_cage extends FreedomCommand
             fPlayer.getCageData().cage(location, outerMaterial, innerMaterial);
         }
         player.setGameMode(GameMode.SURVIVAL);
-        if (outerMaterial == Material.PLAYER_HEAD)
+        if (outerMaterial == Material.SKULL)
         {
             FUtil.adminAction(sender.getName(), "Caging " + player.getName() + " in " + skullName, true);
         }
