@@ -6,9 +6,25 @@ import org.bukkit.Material;
 
 public class MaterialGroup
 {
-    public static final List<Material> WOOL_COLORS = Arrays.asList(
-            Material.WOOL);
+    /*public static final List<Material> WOOL_COLORS = Arrays.asList(
+            Material.WHITE_WOOL,
+            Material.RED_WOOL,
+            Material.ORANGE_WOOL,
+            Material.YELLOW_WOOL,
+            Material.GREEN_WOOL,
+            Material.LIME_WOOL,
+            Material.LIGHT_BLUE_WOOL,
+            Material.CYAN_WOOL,
+            Material.BLUE_WOOL,
+            Material.PURPLE_WOOL,
+            Material.MAGENTA_WOOL,
+            Material.PINK_WOOL,
+            Material.BROWN_WOOL,
+            Material.GRAY_WOOL,
+            Material.LIGHT_GRAY_WOOL,
+            Material.BLACK_WOOL);*/
     public static final List<Material> SHULKER_BOX_COLORS = Arrays.asList(
+            //Material.SHULKER_BOX,
             Material.WHITE_SHULKER_BOX,
             Material.RED_SHULKER_BOX,
             Material.ORANGE_SHULKER_BOX,
