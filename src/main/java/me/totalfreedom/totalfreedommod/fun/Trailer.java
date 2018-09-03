@@ -66,7 +66,7 @@ public class Trailer extends FreedomService
         }
 
         fromBlock.setType(MaterialGroup.WOOL_COLORS.get(random.nextInt(MaterialGroup.WOOL_COLORS.size())));
-        byte data = fromBlock.getData();
+        BlockData data = fromBlock.getBlockData();
         Material material = Material.getMaterial(String.valueOf(fromBlock.getType()));
         for (int x = -1; x <= 1; x++)
         {

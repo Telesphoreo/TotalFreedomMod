@@ -58,7 +58,7 @@ public class Command_vanish extends FreedomCommand
             FLog.info(playerSender.getName() + " is no longer vanished.");
             for (Player player : server.getOnlinePlayers())
             {
-                player.showPlayer(playerSender);
+                player.showPlayer(plugin, playerSender);
             }
             plugin.esb.setVanished(playerSender.getName(), false);
             playerSender.removePotionEffect(PotionEffectType.INVISIBILITY);
@@ -77,7 +77,7 @@ public class Command_vanish extends FreedomCommand
             {
                 if (!plugin.al.isAdmin(player))
                 {
-                    player.hidePlayer(playerSender);
+                    player.hidePlayer(plugin, playerSender);
                 }
             }
             plugin.esb.setVanished(playerSender.getName(), true);

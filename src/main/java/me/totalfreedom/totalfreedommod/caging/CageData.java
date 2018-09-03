@@ -184,7 +184,7 @@ public class CageData
 
                     final Block block = center.getRelative(xOffset, yOffset, zOffset);
 
-                    if (material != Material.SKULL)
+                    if (material != Material.PLAYER_HEAD)
                     {
                         // Glowstone light
                         if (material != Material.GLASS && xOffset == 0 && yOffset == 2 && zOffset == 0)
@@ -203,7 +203,7 @@ public class CageData
                             continue;
                         }
 
-                        block.setType(Material.SKULL);
+                        block.setType(Material.PLAYER_HEAD);
                         if (input != null)
                         {
                             Skull skull = (Skull)block.getState();

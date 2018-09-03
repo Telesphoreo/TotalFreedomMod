@@ -192,7 +192,7 @@ public class LoginProcess extends FreedomService
         {
             if (!plugin.al.isAdmin(player))
             {
-                player.hidePlayer(p);
+                player.hidePlayer(plugin, p);
             }
         }
 

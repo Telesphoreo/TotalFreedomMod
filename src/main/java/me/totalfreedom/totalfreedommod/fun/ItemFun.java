@@ -56,7 +56,7 @@ public class ItemFun extends FreedomService
 
         switch (event.getMaterial())
         {
-            case COOKED_FISH:
+            case TROPICAL_FISH:
             {
                 final int RADIUS_HIT = 5;
                 final int STRENGTH = 4;
@@ -208,7 +208,7 @@ public class ItemFun extends FreedomService
                 break;
             }
 
-            case SULPHUR:
+            case GUNPOWDER:
             {
                 if (!fPlayer.isMP44Armed())
                 {
