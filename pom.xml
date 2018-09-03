@@ -103,20 +103,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit</artifactId>
-            <version>1.13.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot</artifactId>
-            <version>1.13.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
             <groupId>com.github.TotalFreedom</groupId>
             <artifactId>BukkitTelnet</artifactId>
             <version>4.5-pre1</version>
@@ -133,9 +119,10 @@
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-WorldEdit</artifactId>
-            <version>9852279fc3</version>
+            <version>3a86ed37f5</version>
             <scope>provided</scope>
         </dependency>
+
 
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
@@ -143,6 +130,15 @@
             <version>7.0.0-SNAPSHOT</version>
             <scope>system</scope>
             <systemPath>${project.basedir}/lib/WorldEdit.jar</systemPath>
+        </dependency>
+
+        <!-- Temporarily using this as Maven does not want to give 1.13.1 !-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.13.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/spigot-1.13.1.jar</systemPath>
         </dependency>
 
         <dependency>

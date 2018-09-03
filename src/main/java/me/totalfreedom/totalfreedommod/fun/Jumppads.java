@@ -16,7 +16,8 @@ import org.bukkit.util.Vector;
 public class Jumppads extends FreedomService
 {
 
-    private static final double DAMPING_COEFFICIENT = 0.8;
+    public static final Material BLOCK_ID = Material.WOOL;
+    public static final double DAMPING_COEFFICIENT = 0.8;
     //
     private final Map<Player, Boolean> pushMap = Maps.newHashMap();
     //
@@ -63,7 +64,7 @@ public class Jumppads extends FreedomService
             {
                 canPush = true;
             }
-            if (block.getRelative(0, -1, 0).getType() == Material.WOOL)
+            if (block.getRelative(0, -1, 0).getType() == BLOCK_ID)
             {
                 if (canPush)
                 {
@@ -79,29 +80,29 @@ public class Jumppads extends FreedomService
         }
         else
         {
-            if (block.getRelative(0, -1, 0).getType() == Material.WOOL)
+            if (block.getRelative(0, -1, 0).getType() == BLOCK_ID)
             {
                 velocity.add(new Vector(0.0, strength, 0.0));
             }
 
             if (mode == JumpPadMode.NORMAL_AND_SIDEWAYS)
             {
-                if (block.getRelative(1, 0, 0).getType() == Material.WOOL)
+                if (block.getRelative(1, 0, 0).getType() == BLOCK_ID)
                 {
                     velocity.add(new Vector(-DAMPING_COEFFICIENT * strength, 0.0, 0.0));
                 }
 
-                if (block.getRelative(-1, 0, 0).getType() == Material.WOOL)
+                if (block.getRelative(-1, 0, 0).getType() == BLOCK_ID)
                 {
                     velocity.add(new Vector(DAMPING_COEFFICIENT * strength, 0.0, 0.0));
                 }
 
-                if (block.getRelative(0, 0, 1).getType() == Material.WOOL)
+                if (block.getRelative(0, 0, 1).getType() == BLOCK_ID)
                 {
                     velocity.add(new Vector(0.0, 0.0, -DAMPING_COEFFICIENT * strength));
                 }
 
-                if (block.getRelative(0, 0, -1).getType() == Material.WOOL)
+                if (block.getRelative(0, 0, -1).getType() == BLOCK_ID)
                 {
                     velocity.add(new Vector(0.0, 0.0, DAMPING_COEFFICIENT * strength));
                 }
@@ -115,13 +116,13 @@ public class Jumppads extends FreedomService
         }
     }
 
-    public enum JumpPadMode
+    public static enum JumpPadMode
     {
 
         OFF(false), NORMAL(true), NORMAL_AND_SIDEWAYS(true), MADGEEK(true);
         private final boolean on;
 
-        JumpPadMode(boolean on)
+        private JumpPadMode(boolean on)
         {
             this.on = on;
         }
