@@ -322,7 +322,6 @@ public class AdminList extends FreedomService
             {
                 ipTable.put(ip, admin);
             }
-
         }
 
         plugin.wm.adminworld.wipeAccessCache();

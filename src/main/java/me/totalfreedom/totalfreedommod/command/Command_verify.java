@@ -28,7 +28,6 @@ public class Command_verify extends FreedomCommand
             return true;
         }
 
-
         if (args.length == 1 && plugin.al.isAdmin(playerSender))
         {
             final Player player = getPlayer(args[0]);
@@ -121,6 +120,7 @@ public class Command_verify extends FreedomCommand
 
                     admin.setName(playerSender.getName());
                     admin.addIp(Ips.getIp(playerSender));
+                    plugin.wvb.updatePermissions(playerSender);
 
                     if (!plugin.mbl.isMasterBuilder(playerSender))
                     {
