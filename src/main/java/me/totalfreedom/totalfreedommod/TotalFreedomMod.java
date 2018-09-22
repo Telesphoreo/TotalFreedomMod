@@ -341,11 +341,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         return null;
     }
 
-    public String getPluginName()
-    {
-        return plugin.getName();
-    }
-
     @Override
     public ChunkGenerator getDefaultWorldGenerator(String worldName, String id)
     {
