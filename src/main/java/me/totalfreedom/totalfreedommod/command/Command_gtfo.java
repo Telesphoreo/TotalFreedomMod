@@ -21,7 +21,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Bans a player", usage = "/<command> <username> [reason] [-rb]", aliases = "ban")
 public class Command_gtfo extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
