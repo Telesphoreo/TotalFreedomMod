@@ -2,10 +2,7 @@ package me.totalfreedom.totalfreedommod.caging;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
 import lombok.Getter;
-import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import org.bukkit.Location;
 import org.bukkit.Material;

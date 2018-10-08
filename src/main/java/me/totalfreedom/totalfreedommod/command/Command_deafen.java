@@ -1,7 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.util.Random;
-
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.bukkit.Location;
 import org.bukkit.Sound;

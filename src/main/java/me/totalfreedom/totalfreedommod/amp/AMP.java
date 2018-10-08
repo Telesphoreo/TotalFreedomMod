@@ -23,16 +23,8 @@ public class AMP extends FreedomService
             return;
         }
         ampManager = new AMPManager(plugin, plugin.config.getString(ConfigEntry.AMP_URL), plugin.config.getString(ConfigEntry.AMP_USERNAME), plugin.config.getString(ConfigEntry.AMP_PASSWORD));
-        LoginCallback callback = new LoginCallback()
-        {
-            @Override
-            public void loginDone(boolean success)
-            {
-                enabled = success;
-            }
-        };
+        LoginCallback callback = success -> enabled = success;
         ampManager.connectAsync(callback);
-
     }
 
     public void restartServer()
@@ -43,6 +35,5 @@ public class AMP extends FreedomService
     @Override
     protected void onStop()
     {
-
     }
 }
