@@ -2,7 +2,6 @@ package me.totalfreedom.totalfreedommod.command;
 
 import java.util.Iterator;
 import java.util.Map;
-
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.apache.commons.lang3.StringUtils;

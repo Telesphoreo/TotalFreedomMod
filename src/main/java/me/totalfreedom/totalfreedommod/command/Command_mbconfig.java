@@ -1,7 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.util.Date;
-
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;

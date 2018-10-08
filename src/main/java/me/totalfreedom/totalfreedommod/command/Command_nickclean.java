@@ -2,7 +2,6 @@ package me.totalfreedom.totalfreedommod.command;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;

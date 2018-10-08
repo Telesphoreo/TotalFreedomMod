@@ -2,7 +2,6 @@ package me.totalfreedom.totalfreedommod.command;
 
 import java.util.List;
 import java.util.Set;
-
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.apache.commons.lang3.EnumUtils;
 import org.apache.commons.lang3.StringUtils;

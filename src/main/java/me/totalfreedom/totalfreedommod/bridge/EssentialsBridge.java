@@ -1,7 +1,6 @@
 package me.totalfreedom.totalfreedommod.bridge;
 
 import com.earth2me.essentials.Essentials;
-import com.earth2me.essentials.OfflinePlayer;
 import com.earth2me.essentials.User;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;

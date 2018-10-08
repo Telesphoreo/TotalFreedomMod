@@ -125,5 +125,4 @@ public class BlockBlocker extends FreedomService
             }
         }
     }
-
 }

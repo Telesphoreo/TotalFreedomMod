@@ -93,7 +93,7 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
                 .append("- Old Tags: ").append(oldTags).append("\n")
                 .append("- Log Stick: ").append(logStick);
 
-        return output.toString();
+        return output.toString().replace("null", "not set");
     }
 
     public void loadFrom(Player player)
