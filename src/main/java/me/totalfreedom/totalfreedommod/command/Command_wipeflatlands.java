@@ -28,7 +28,7 @@ public class Command_wipeflatlands extends FreedomCommand
 
         if (plugin.wgb.isEnabled())
         {
-            plugin.wgb.wipeRegions(plugin.wm.flatlands.getWorld());
+            //plugin.wgb.wipeRegions(plugin.wm.flatlands.getWorld());
         }
 
         for (Player player : server.getOnlinePlayers())

@@ -103,10 +103,11 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-WorldEdit</artifactId>
-            <version>38ff62899c</version>
-            <scope>provided</scope>
+            <groupId>com.sk89q.worldedit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>7.0.0-SNAPSHOT</version>
+            <systemPath>${project.basedir}/lib/WorldEdit.jar</systemPath>
+            <scope>system</scope>
         </dependency>
 
         <dependency>
@@ -120,13 +121,6 @@
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>Wave</artifactId>
             <version>1.3.0</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>craftbukkit</artifactId>
-            <version>1.13.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -147,7 +141,7 @@
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-legacy</artifactId>
-            <version>6.2</version>
+            <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

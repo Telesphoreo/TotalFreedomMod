@@ -1,6 +1,5 @@
 package me.totalfreedom.totalfreedommod.bridge;
 
-import com.sk89q.worldguard.bukkit.RegionContainer;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.sk89q.worldguard.protection.managers.RegionManager;
 import com.sk89q.worldguard.protection.regions.ProtectedRegion;
@@ -13,7 +12,6 @@ import org.bukkit.plugin.Plugin;
 
 public class WorldGuardBridge extends FreedomService
 {
-
     private WorldGuardPlugin worldGuardPlugin;
 
     public WorldGuardBridge(TotalFreedomMod plugin)
@@ -50,22 +48,6 @@ public class WorldGuardBridge extends FreedomService
         }
 
         return worldGuardPlugin;
-    }
-
-    public Boolean wipeRegions(World world)
-    {
-        RegionContainer container = getWorldGuardPlugin().getRegionContainer();
-        RegionManager rm = container.get(world);
-        if (rm != null)
-        {
-            Map<String, ProtectedRegion> regions = rm.getRegions();
-            for (ProtectedRegion region : regions.values())
-            {
-                rm.removeRegion(region.getId());
-            }
-            return true;
-        }
-        return false;
     }
 
     public boolean isEnabled()
