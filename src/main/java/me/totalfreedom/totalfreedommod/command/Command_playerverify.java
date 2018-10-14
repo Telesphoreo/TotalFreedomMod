@@ -15,6 +15,13 @@ public class Command_playerverify extends FreedomCommand
     @Override
     protected boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+        
+        if (plugin.al.isAdmin(sender))
+        {
+            msg("This command is only for OP's.", ChatColor.RED);
+            return true;
+        }
+        
         VPlayer target = plugin.pv.getVerificationPlayer(playerSender);
 
         if (args.length == 1)
@@ -41,12 +48,6 @@ public class Command_playerverify extends FreedomCommand
         if (args.length < 1)
         {
             return false;
-        }
-
-        if (plugin.al.isAdmin(sender))
-        {
-            msg("This command is only for OP's.", ChatColor.RED);
-            return true;
         }
 
         VPlayer data = plugin.pv.getVerificationPlayer(playerSender);
