@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>2018.4.1 (MC 1.13.1)</version>
+    <version>2018.4.1 (feature/banhistory)</version>
     <packaging>jar</packaging>
 
     <properties>

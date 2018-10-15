@@ -8,6 +8,8 @@ import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import net.pravian.aero.config.YamlConfig;
+import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 
 public class PunishmentList extends FreedomService
 {
@@ -126,4 +128,30 @@ public class PunishmentList extends FreedomService
         return false;
     }
 
+    public boolean getPlayerPunishments(String player, CommandSender sender)
+    {
+        final StringBuilder message = new StringBuilder(ChatColor.GOLD + "Player: " + ChatColor.BLUE + player + "\n");
+        message.append(ChatColor.GOLD + "--------------\n");
+        String banned_by;
+        String date;
+        String ip;
+        String reason;
+        for (String id : config.getKeys(false))
+        {
+            if (config.getString(id + ".username").equals(player) && config.getString(id + ".type").equals("ban"))
+            {
+                banned_by = ChatColor.BLUE + config.getString(id + ".by");
+                date = ChatColor.BLUE + config.getString(id + ".issued_on");
+                ip = ChatColor.BLUE + config.getString(id + ".ip");
+                reason = ChatColor.BLUE + config.getString(id + ".reason");
+                message.append(ChatColor.GOLD + "Issued by: " + banned_by + "\n");
+                message.append(ChatColor.GOLD + "Date: ").append(date).append("\n");
+                message.append(ChatColor.GOLD + "IP: ").append(ip).append("\n");
+                message.append(ChatColor.GOLD + "Reason: " + reason + "\n");
+                message.append(ChatColor.GOLD + "--------------\n");
+            }
+        }
+        sender.sendMessage(message.toString());
+        return true;
+    }
 }
