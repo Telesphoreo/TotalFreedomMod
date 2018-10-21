@@ -204,7 +204,6 @@ public class BanManager extends FreedomService
             saveAll();
             return true;
         }
-
         return false;
     }
 
@@ -301,5 +300,4 @@ public class BanManager extends FreedomService
             }
         }
     }
-
 }

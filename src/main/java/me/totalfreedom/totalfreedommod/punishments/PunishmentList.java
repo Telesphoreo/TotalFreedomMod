@@ -128,7 +128,7 @@ public class PunishmentList extends FreedomService
         return false;
     }
 
-    public boolean getPlayerPunishments(String player, CommandSender sender)
+    public void getPlayerPunishments(String player, int amount, CommandSender sender)
     {
         final StringBuilder message = new StringBuilder(ChatColor.GOLD + "Player: " + ChatColor.BLUE + player + "\n");
         message.append(ChatColor.GOLD + "--------------\n");
@@ -138,12 +138,13 @@ public class PunishmentList extends FreedomService
         String reason;
         for (String id : config.getKeys(false))
         {
-            if (config.getString(id + ".username").equals(player) && config.getString(id + ".type").equals("ban"))
+            if (config.getString(ids + ".username").equals(player)
+                    && config.getString(ids + ".type").equals("ban"))
             {
-                banned_by = ChatColor.BLUE + config.getString(id + ".by");
-                date = ChatColor.BLUE + config.getString(id + ".issued_on");
-                ip = ChatColor.BLUE + config.getString(id + ".ip");
-                reason = ChatColor.BLUE + config.getString(id + ".reason");
+                banned_by = ChatColor.BLUE + config.getString(ids + ".by");
+                date = ChatColor.BLUE + config.getString(ids + ".issued_on");
+                ip = ChatColor.BLUE + config.getString(ids + ".ip");
+                reason = ChatColor.BLUE + config.getString(ids + ".reason");
                 message.append(ChatColor.GOLD + "Issued by: " + banned_by + "\n");
                 message.append(ChatColor.GOLD + "Date: ").append(date).append("\n");
                 message.append(ChatColor.GOLD + "IP: ").append(ip).append("\n");
@@ -152,6 +153,5 @@ public class PunishmentList extends FreedomService
             }
         }
         sender.sendMessage(message.toString());
-        return true;
     }
 }

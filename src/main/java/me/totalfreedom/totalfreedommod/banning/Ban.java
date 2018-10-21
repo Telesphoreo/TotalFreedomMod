@@ -269,6 +269,5 @@ public class Ban implements ConfigLoadable, ConfigSavable, Validatable
                 it.remove();
             }
         }
-
     }
 }
