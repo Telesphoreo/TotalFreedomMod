@@ -136,7 +136,11 @@ public class PunishmentList extends FreedomService
         String date;
         String ip;
         String reason;
-        for (String id : config.getKeys(false))
+
+        //broken
+        Set<String> ids = config.getKeys(false);
+
+        for (int i = 0; i < amount; i++)
         {
             if (config.getString(ids + ".username").equals(player)
                     && config.getString(ids + ".type").equals("ban"))
