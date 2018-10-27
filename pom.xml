@@ -77,15 +77,9 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.13.1-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.bukkit</groupId>
-            <artifactId>bukkit</artifactId>
             <version>1.13.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <systemPath>${project.basedir}/lib/spigot-1.13.2.jar</systemPath>
+            <scope>system</scope>
         </dependency>
 
         <dependency>
@@ -105,21 +99,21 @@
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
-            <version>987f79acd1</version>
+            <version>4081f345f8</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-WorldEdit</artifactId>
-            <version>76e3b56e92</version>
+            <version>542497f7bb</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-EssentialsX</artifactId>
-            <version>6151e715f6</version>
+            <version>4b8dcce7d8</version>
             <scope>provided</scope>
         </dependency>
 
