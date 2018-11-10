@@ -64,6 +64,11 @@
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
+
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -77,9 +82,8 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.13.2-R0.1-SNAPSHOT</version>
-            <systemPath>${project.basedir}/lib/spigot-1.13.2.jar</systemPath>
-            <scope>system</scope>
+            <version>1.13.1-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -97,6 +101,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.4</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
             <version>4081f345f8</version>
@@ -104,9 +115,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-WorldEdit</artifactId>
-            <version>542497f7bb</version>
+            <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>1a2e327dcf</version>
             <scope>provided</scope>
         </dependency>
 
@@ -120,7 +131,7 @@
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>Wave</artifactId>
-            <version>1.4.1</version>
+            <version>1.5.0</version>
             <scope>provided</scope>
         </dependency>
 
@@ -174,6 +185,31 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <!-- Shading !-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <!-- Do not include the <configuration>...</configuration> part if you are using Sponge! -->
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <!-- Replace this with your package! -->
+                            <shadedPattern>me.totalfreedom.totalfreedommod</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Git describe -->

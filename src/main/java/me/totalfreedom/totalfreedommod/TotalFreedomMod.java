@@ -50,7 +50,7 @@ import me.totalfreedom.totalfreedommod.world.CleanroomChunkGenerator;
 import me.totalfreedom.totalfreedommod.world.WorldManager;
 import net.pravian.aero.component.service.ServiceManager;
 import net.pravian.aero.plugin.AeroPlugin;
-import org.bstats.Metrics;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
@@ -258,7 +258,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         FLog.info("Version " + pluginVersion + " for " + ServerInterface.COMPILE_NMS_VERSION + " enabled in " + timer.getTotal() + "ms");
 
         // Metrics @ https://bstats.org/plugin/bukkit/TotalFreedomMod
-        new Metrics(this);
+        Metrics metrics = new Metrics(this);
 
         // Add spawnpoints later - https://github.com/TotalFreedom/TotalFreedomMod/issues/438
         new BukkitRunnable()
