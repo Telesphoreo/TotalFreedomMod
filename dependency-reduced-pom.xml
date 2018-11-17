@@ -189,10 +189,6 @@
       <url>https://jitpack.io</url>
     </repository>
     <repository>
-      <id>spigot-repo</id>
-      <url>https://hub.spigotmc.org/nexus/content/repositories/</url>
-    </repository>
-    <repository>
       <id>jcenter</id>
       <name>jcenter-bintray</name>
       <url>http://jcenter.bintray.com</url>
@@ -209,6 +205,10 @@
       <id>CodeMC</id>
       <url>https://repo.codemc.org/repository/maven-public</url>
     </repository>
+    <repository>
+      <id>nms-repo</id>
+      <url>https://repo.codemc.org/repository/nms/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -219,8 +219,40 @@
     </dependency>
     <dependency>
       <groupId>org.spigotmc</groupId>
+      <artifactId>spigot-api</artifactId>
+      <version>1.13.2-R0.1-SNAPSHOT</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>commons-lang</artifactId>
+          <groupId>commons-lang</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>json-simple</artifactId>
+          <groupId>com.googlecode.json-simple</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>guava</artifactId>
+          <groupId>com.google.guava</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>gson</artifactId>
+          <groupId>com.google.code.gson</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>snakeyaml</artifactId>
+          <groupId>org.yaml</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>bungeecord-chat</artifactId>
+          <groupId>net.md-5</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.spigotmc</groupId>
       <artifactId>spigot</artifactId>
-      <version>1.13.1-R0.1-SNAPSHOT</version>
+      <version>1.13.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -228,12 +260,6 @@
       <artifactId>Aero</artifactId>
       <version>5f82926</version>
       <scope>provided</scope>
-      <exclusions>
-        <exclusion>
-          <artifactId>spigot-api</artifactId>
-          <groupId>org.spigotmc</groupId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>com.github.TotalFreedom</groupId>
@@ -244,10 +270,6 @@
         <exclusion>
           <artifactId>log4j-core</artifactId>
           <groupId>org.apache.logging.log4j</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spigot-api</artifactId>
-          <groupId>org.spigotmc</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -260,10 +282,6 @@
         <exclusion>
           <artifactId>ProtocolLib</artifactId>
           <groupId>com.comphenix.protocol</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>spigot-api</artifactId>
-          <groupId>org.spigotmc</groupId>
         </exclusion>
       </exclusions>
     </dependency>
@@ -410,10 +428,6 @@
         <exclusion>
           <artifactId>commandbook</artifactId>
           <groupId>com.sk89q</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>bstats-bukkit</artifactId>
-          <groupId>org.bstats.bStats-Metrics</groupId>
         </exclusion>
         <exclusion>
           <artifactId>worldedit-bukkit</artifactId>
