@@ -276,7 +276,7 @@
     <dependency>
       <groupId>com.github.Telesphoreo</groupId>
       <artifactId>TF-LibsDisguises</artifactId>
-      <version>4081f345f8</version>
+      <version>86a6f229f1</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -288,7 +288,7 @@
     <dependency>
       <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
       <artifactId>worldedit-bukkit</artifactId>
-      <version>1a2e327dcf</version>
+      <version>02671830ec</version>
       <scope>provided</scope>
       <exclusions>
         <exclusion>
@@ -356,7 +356,7 @@
     <dependency>
       <groupId>com.github.Telesphoreo</groupId>
       <artifactId>Wave</artifactId>
-      <version>1.5.0</version>
+      <version>1.6</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
