@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>2018.4.2 Beta for 1.13.2</version>
+    <version>2018.4.3 Beta for 1.13.2</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -45,17 +45,6 @@
         </repository>
 
         <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-
-        <repository>
             <id>jcenter</id>
             <name>jcenter-bintray</name>
             <url>http://jcenter.bintray.com</url>
@@ -70,6 +59,16 @@
             <id>sk89q-repo</id>
             <url>http://maven.sk89q.com/repo/</url>
         </repository>
+
+        <repository>
+            <id>CodeMC</id>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
+
+        <repository>
+            <id>nms-repo</id>
+            <url>https://repo.codemc.org/repository/nms/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -80,13 +79,18 @@
             <scope>provided</scope>
         </dependency>
 
-        <!-- Spigot on Maven isn't working for 1.13.2, only temporary !-->
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>1.13.2-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.13.2-R0.1-SNAPSHOT</version>
-            <systemPath>${project.basedir}/lib/spigot-1.13.2.jar</systemPath>
-            <scope>system</scope>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -104,37 +108,44 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-LibsDisguises</artifactId>
-            <version>987f79acd1</version>
-            <scope>provided</scope>
+            <groupId>org.bstats</groupId>
+            <artifactId>bstats-bukkit</artifactId>
+            <version>1.4</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-WorldEdit</artifactId>
-            <version>76e3b56e92</version>
+            <artifactId>TF-LibsDisguises</artifactId>
+            <version>86a6f229f1</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
+            <artifactId>worldedit-bukkit</artifactId>
+            <version>02671830ec</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-EssentialsX</artifactId>
-            <version>6151e715f6</version>
+            <version>4b8dcce7d8</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>Wave</artifactId>
-            <version>1.4.0</version>
+            <version>1.6</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>3.8.0_423</version>
+            <version>3.8.1_437</version>
             <scope>provided</scope>
         </dependency>
 
@@ -148,6 +159,13 @@
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-legacy</artifactId>
+            <version>7.0.0-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-core</artifactId>
             <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
@@ -174,6 +192,31 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+
+            <!-- Shading !-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <!-- Do not include the <configuration>...</configuration> part if you are using Sponge! -->
+                <configuration>
+                    <relocations>
+                        <relocation>
+                            <pattern>org.bstats</pattern>
+                            <!-- Replace this with your package! -->
+                            <shadedPattern>me.totalfreedom.totalfreedommod</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Git describe -->
