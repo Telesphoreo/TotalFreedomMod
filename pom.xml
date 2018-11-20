@@ -62,7 +62,12 @@
 
         <repository>
             <id>CodeMC</id>
-            <url>https://repo.codemc.org/repository/</url>
+            <url>https://repo.codemc.org/repository/maven-public</url>
+        </repository>
+
+        <repository>
+            <id>nms-repo</id>
+            <url>https://repo.codemc.org/repository/nms/</url>
         </repository>
     </repositories>
 
