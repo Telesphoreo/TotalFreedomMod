@@ -15,7 +15,6 @@ public class Command_invsee extends FreedomCommand
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-
         if (args.length < 1)
         {
             return false;
@@ -25,13 +24,13 @@ public class Command_invsee extends FreedomCommand
 
         if (player == null)
         {
-            msg("This player is not online.");
+            msg(FreedomCommand.PLAYER_NOT_FOUND);
             return false;
         }
 
         if (playerSender == player)
         {
-            msg("You cannot invsee yourself.");
+            msg("You cannot use this command on yourself.");
             return true;
         }
 
@@ -43,70 +42,48 @@ public class Command_invsee extends FreedomCommand
         }
 
         Inventory inv;
-
-        if (plugin.al.isAdmin(player))
+        FPlayer fPlayer = plugin.pl.getPlayer(playerSender);
+        if (args.length > 1)
         {
-            if (args.length > 1)
+            if (args[1].equals("offhand"))
             {
-                if (args[1].equals("offhand"))
+                ItemStack offhand = player.getInventory().getItemInOffHand();
+                if (offhand == null)
                 {
-                    ItemStack offhand = player.getInventory().getItemInOffHand();
-                    if (offhand == null)
-                    {
-                        msg("That player has nothing in their offhand.");
-                        return true;
-                    }
-                    Inventory inventory = server.createInventory(null, 9, player.getName() + "'s offhand");
-                    inventory.setItem(1, offhand);
-                    playerSender.openInventory(inventory);
+                    msg(player.getName() + " has nothing in their offhand.");
                     return true;
                 }
-                else if (args[1].equals("armor"))
+                Inventory inventory = server.createInventory(null, 9, player.getName() + "'s offhand");
+                inventory.setItem(1, offhand);
+                playerSender.closeInventory();
+                if (!plugin.al.isAdmin(playerSender))
                 {
-                    Inventory inventory = server.createInventory(null, 9, player.getName() + "'s armor");
-                    inventory.setContents(player.getInventory().getArmorContents());
-                    playerSender.openInventory(inventory);
-                    return true;
+                    fPlayer.setInvSee(true);
                 }
+                playerSender.openInventory(inventory);
+                return true;
             }
-            inv = player.getInventory();
-            playerSender.closeInventory();
-            playerSender.openInventory(inv);
-            return true;
+            else if (args[1].equals("armor"))
+            {
+                Inventory inventory = server.createInventory(null, 9, player.getName() + "'s armor");
+                inventory.setContents(player.getInventory().getArmorContents());
+                playerSender.closeInventory();
+                if (!plugin.al.isAdmin(playerSender))
+                {
+                    fPlayer.setInvSee(true);
+                }
+                playerSender.openInventory(inventory);
+                return true;
+            }
         }
 
-        if (!plugin.al.isAdmin(player))
+        inv = player.getInventory();
+        playerSender.closeInventory();
+        if (!plugin.al.isAdmin(playerSender))
         {
-            if (args.length > 1)
-            {
-                if (args[1].equals("offhand"))
-                {
-                    ItemStack offhand = player.getInventory().getItemInOffHand();
-                    if (offhand == null)
-                    {
-                        msg("That player has nothing in their offhand.");
-                        return true;
-                    }
-                    Inventory inventory = server.createInventory(null, 9, player.getName() + "'s offhand");
-                    inventory.setItem(1, offhand);
-                    playerSender.openInventory(inventory);
-                    return true;
-                }
-                else if (args[1].equals("armor"))
-                {
-                    Inventory inventory = server.createInventory(null, 9, player.getName() + "'s armor");
-                    inventory.setContents(player.getInventory().getArmorContents());
-                    playerSender.openInventory(inventory);
-                    return true;
-                }
-            }
-            inv = player.getInventory();
-            playerSender.closeInventory();
-            FPlayer fPlayer = plugin.pl.getPlayer(playerSender);
             fPlayer.setInvSee(true);
-            playerSender.openInventory(inv);
-            return true;
         }
+        playerSender.openInventory(inv);
         return true;
     }
 }
