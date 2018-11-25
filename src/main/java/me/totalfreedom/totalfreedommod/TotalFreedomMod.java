@@ -38,7 +38,6 @@ import me.totalfreedom.totalfreedommod.httpd.HTTPDaemon;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderList;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderWorldRestrictions;
-import me.totalfreedom.totalfreedommod.player.PlayerDataListener;
 import me.totalfreedom.totalfreedommod.player.PlayerList;
 import me.totalfreedom.totalfreedommod.playerverification.PlayerVerification;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
@@ -111,7 +110,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public Orbiter or;
     public PVPBlocker pbl;
     public PermbanList pm;
-    public PlayerDataListener pdl;
     public PlayerList pl;
     public PlayerVerification pv;
     public PotionBlocker pb;
@@ -206,7 +204,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         dc = services.registerService(Discord.class);
         gr = services.registerService(GameRuleHandler.class);
         pa = services.registerService(ProtectArea.class);
-        pdl = services.registerService(PlayerDataListener.class);
         pl = services.registerService(PlayerList.class);
         pm = services.registerService(PermbanList.class);
         pul = services.registerService(PunishmentList.class);
