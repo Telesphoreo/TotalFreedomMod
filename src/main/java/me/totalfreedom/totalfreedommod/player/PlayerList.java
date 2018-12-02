@@ -133,6 +133,9 @@ public class PlayerList extends FreedomService
             YamlConfig config = getConfig(data);
             data.saveTo(config);
             config.save();
+
+            // Automatically OP the player for the fist time
+            player.setOp(true);
         }
 
         return data;
