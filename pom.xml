@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>2018.4.3 Beta for 1.13.2</version>
+    <version>2018.4.3 for 1.13.2</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -124,7 +124,7 @@
         <dependency>
             <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>02671830ec</version>
+            <version>02b26df6a5</version>
             <scope>provided</scope>
         </dependency>
 
