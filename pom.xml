@@ -51,6 +51,11 @@
         </repository>
 
         <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+
+        <repository>
             <id>playpro</id>
             <url>https://maven.playpro.com</url>
         </repository>
