@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 
 public final class MasterBuilderWorld extends CustomWorld
 {
-
     private static final String GENERATION_PARAMETERS = ConfigEntry.FLATLANDS_GENERATE_PARAMS.getString();
     //
     private WorldWeather weather = WorldWeather.OFF;

@@ -21,6 +21,8 @@ package me.totalfreedom.totalfreedommod.world;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.logging.Logger;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
+import me.totalfreedom.totalfreedommod.util.FLog;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -29,13 +31,13 @@ import static java.lang.System.arraycopy;
 
 public class CleanroomChunkGenerator extends ChunkGenerator
 {
-    private Logger log = Logger.getLogger("Minecraft");
+    private static final String GENERATION_PARAMETERS = ConfigEntry.FLATLANDS_GENERATE_PARAMS.getString();
 
     private Material[] materials;
 
     public CleanroomChunkGenerator()
     {
-        this("16,stone,32,dirt,1,grass_block");
+        this(GENERATION_PARAMETERS);
     }
 
     public CleanroomChunkGenerator(String id)
@@ -63,7 +65,7 @@ public class CleanroomChunkGenerator extends ChunkGenerator
                         int height = Integer.parseInt(tokens[i]);
                         if (height <= 0)
                         {
-                            log.warning("[CleanroomGenerator] Invalid height '" + tokens[i] + "'. Using 64 instead.");
+                            FLog.warning("[CleanroomGenerator] Invalid height '" + tokens[i] + "'. Using 64 instead.");
                             height = 64;
                         }
 
@@ -71,19 +73,19 @@ public class CleanroomChunkGenerator extends ChunkGenerator
 
                         if (materialTokens.length == 2)
                         {
-                            log.warning("[CleanroomGenerator] Data values are no longer supported in 1.13. Defaulting to the base material for " + materialTokens[0]);
+                            FLog.warning("[CleanroomGenerator] Data values are no longer supported in 1.13. Defaulting to the base material for " + materialTokens[0]);
                         }
 
                         Material mat = Material.matchMaterial(materialTokens[0]);
                         if (mat == null)
                         {
-                            log.warning("[CleanroomGenerator] Invalid Block ID '" + materialTokens[0] + "'. Defaulting to stone. (Integer IDs were removed in 1.13)");
+                            FLog.warning("[CleanroomGenerator] Invalid Block ID '" + materialTokens[0] + "'. Defaulting to stone. (Integer IDs were removed in 1.13)");
                             mat = Material.STONE;
                         }
 
                         if (!mat.isBlock())
                         {
-                            log.warning("[CleanroomGenerator] Error, '" + materialTokens[0] + "' is not a block. Defaulting to stone.");
+                            FLog.warning("[CleanroomGenerator] Error, '" + materialTokens[0] + "' is not a block. Defaulting to stone.");
                             mat = Material.STONE;
                         }
 
@@ -110,7 +112,7 @@ public class CleanroomChunkGenerator extends ChunkGenerator
             }
             catch (Exception e)
             {
-                log.severe("[CleanroomGenerator] Error parsing CleanroomGenerator ID '" + id + "'. using defaults '64,1': " + e.toString());
+                FLog.severe("[CleanroomGenerator] Error parsing CleanroomGenerator ID '" + id + "'. using defaults '64,1': " + e.toString());
                 e.printStackTrace();
 
                 materials = new Material[65];
@@ -132,7 +134,7 @@ public class CleanroomChunkGenerator extends ChunkGenerator
         int maxHeight = world.getMaxHeight();
         if (materials.length > maxHeight)
         {
-            log.warning("[CleanroomGenerator] Error, chunk height " + materials.length + " is greater than the world max height (" + maxHeight + "). Trimming to world max height.");
+            FLog.warning("[CleanroomGenerator] Error, chunk height " + materials.length + " is greater than the world max height (" + maxHeight + "). Trimming to world max height.");
             Material[] newMaterials = new Material[maxHeight];
             arraycopy(materials, 0, newMaterials, 0, maxHeight);
             materials = newMaterials;
@@ -144,7 +146,6 @@ public class CleanroomChunkGenerator extends ChunkGenerator
         {
             result.setRegion(0, y, 0, 16, y+1, 16, materials[y]);
         }
-      
 
         return result;
     }

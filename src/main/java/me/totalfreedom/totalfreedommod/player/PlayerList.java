@@ -134,7 +134,7 @@ public class PlayerList extends FreedomService
             data.saveTo(config);
             config.save();
 
-            // Automatically OP the player for the fist time
+            // Automatically OP the player for the first time
             player.setOp(true);
         }
 

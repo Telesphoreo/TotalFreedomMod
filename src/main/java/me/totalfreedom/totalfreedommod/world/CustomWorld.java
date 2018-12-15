@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 
 public abstract class CustomWorld extends PluginComponent<TotalFreedomMod>
 {
-
     @Getter
     private final String name;
     //
