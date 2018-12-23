@@ -59,7 +59,6 @@ import org.spigotmc.SpigotConfig;
 
 public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 {
-
     public static final String CONFIG_FILENAME = "config.yml";
     //
     public static final BuildProperties build = new BuildProperties();

@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 
 public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
 {
-
     private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
