@@ -42,6 +42,8 @@ import me.totalfreedom.totalfreedommod.player.PlayerList;
 import me.totalfreedom.totalfreedommod.playerverification.PlayerVerification;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
 import me.totalfreedom.totalfreedommod.rank.RankManager;
+import me.totalfreedom.totalfreedommod.reporting.Report;
+import me.totalfreedom.totalfreedommod.reporting.ReportList;
 import me.totalfreedom.totalfreedommod.rollback.RollbackManager;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -70,6 +72,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     //
     // Services
     public ServiceManager<TotalFreedomMod> services;
+    public AntiSpambot ab;
     public AdminList al;
     public Announcer an;
     public AntiNuke nu;
@@ -88,7 +91,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public EntityWiper ew;
     public EventBlocker eb;
     public Freezer fm;
-    public FrontDoor fd;
     public Fuckoff fo;
     public GameRuleHandler gr;
     public HTTPDaemon hd;
@@ -115,6 +117,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public ProtectArea pa;
     public PunishmentList pul;
     public RankManager rm;
+    public ReportList rel;
     public RollbackManager rb;
     public SavedFlags sf;
     public ServerInterface si;
@@ -181,6 +184,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         al = services.registerService(AdminList.class);
         as = services.registerService(AntiSpam.class);
         bb = services.registerService(BlockBlocker.class);
+        ab = services.registerService(AntiSpambot.class);
         cb = services.registerService(CommandBlocker.class);
         cl = services.registerService(CommandLoader.class);
         eb = services.registerService(EventBlocker.class);
@@ -206,6 +210,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         pl = services.registerService(PlayerList.class);
         pm = services.registerService(PermbanList.class);
         pul = services.registerService(PunishmentList.class);
+        rel = services.registerService(ReportList.class);
         sb = services.registerService(SignBlocker.class);
 
         // Single admin utils
@@ -215,7 +220,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         cs = services.registerService(CommandSpy.class);
         ebl = services.registerService(EditBlocker.class);
         ew = services.registerService(EntityWiper.class);
-        fd = services.registerService(FrontDoor.class);
         fm = services.registerService(Freezer.class);
         fo = services.registerService(Fuckoff.class);
         mo = services.registerService(Monitors.class);

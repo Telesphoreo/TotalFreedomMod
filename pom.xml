@@ -5,12 +5,12 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>totalfreedom</artifactId>
-    <version>2018.5.1 for 1.13.2</version>
+    <version>2019.1.1 Beta for 1.13.2</version>
     <packaging>jar</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tfm.build.codename>Hero</tfm.build.codename>
+        <tfm.build.codename>Iris</tfm.build.codename>
         <jar.finalName>${project.name}</jar.finalName>
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>MM/dd/yyyy HH:mm</maven.build.timestamp.format>
@@ -56,13 +56,13 @@
         </repository>
 
         <repository>
-            <id>playpro</id>
-            <url>https://maven.playpro.com</url>
+            <id>sk89q-repo</id>
+            <url>http://maven.sk89q.com/repo/</url>
         </repository>
 
         <repository>
-            <id>sk89q-repo</id>
-            <url>http://maven.sk89q.com/repo/</url>
+            <id>telesphoreo-repo</id>
+            <url>https://telesphoreo.me/repo/maven/</url>
         </repository>
 
         <repository>
@@ -119,31 +119,37 @@
             <scope>compile</scope>
         </dependency>
 
-        <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
+        <!-- <dependency>
+            <groupId>me.libraryaddict</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
             <version>9.7.1</version>
             <scope>provided</scope>
+        </dependency> !-->
+
+        <dependency>
+            <groupId>com.github.Telesphoreo</groupId>
+            <artifactId>TF-LibsDisguises</artifactId>
+            <version>a70bbec344</version>
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo.TF-WorldEdit</groupId>
+            <groupId>com.sk89q.TF-WorldEdit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>7.0.0-TF-beta-04</version>
+            <version>7.0.0-beta-04</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
+            <groupId>com.earth2me</groupId>
             <artifactId>TF-EssentialsX</artifactId>
-            <version>2.16.0-pre1-TF</version>
+            <version>2.16.0-pre2</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
+            <groupId>me.telesphoreo</groupId>
             <artifactId>Wave</artifactId>
-            <version>1.6</version>
+            <version>1.6.1</version>
             <scope>provided</scope>
         </dependency>
 
@@ -156,8 +162,8 @@
 
         <dependency>
             <groupId>net.coreprotect</groupId>
-            <artifactId>coreprotect</artifactId>
-            <version>2.15.0</version>
+            <artifactId>CoreProtect</artifactId>
+            <version>2.15.2</version>
             <scope>provided</scope>
         </dependency>
 

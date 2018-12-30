@@ -95,14 +95,7 @@ public class Module_schematic extends HTTPDModule
                     }
                 }
 
-                Collections.sort(schematicsFormatted, new Comparator<String>()
-                {
-                    @Override
-                    public int compare(String a, String b)
-                    {
-                        return a.toLowerCase().compareTo(b.toLowerCase());
-                    }
-                });
+                Collections.sort(schematicsFormatted, Comparator.comparing(String::toLowerCase));
 
                 out
                         .append(HTMLGenerationTools.heading("Schematics:", 1))

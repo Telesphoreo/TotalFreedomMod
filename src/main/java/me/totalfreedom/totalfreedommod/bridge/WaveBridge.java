@@ -5,8 +5,8 @@ import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import us.flowdesigns.wave.PermissionCheck;
-import us.flowdesigns.wave.Wave;
+import me.telesphoreo.wave.PermissionCheck;
+import me.telesphoreo.wave.Wave;
 
 public class WaveBridge extends FreedomService
 {

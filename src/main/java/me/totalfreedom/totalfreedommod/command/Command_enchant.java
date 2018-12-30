@@ -91,7 +91,7 @@ public class Command_enchant extends FreedomCommand
 
             try
             {
-                ench = Enchantment.getByName(args[1]);
+                ench = Enchantment.getByName(args[1].toUpperCase());
             }
             catch (Exception ex)
             {

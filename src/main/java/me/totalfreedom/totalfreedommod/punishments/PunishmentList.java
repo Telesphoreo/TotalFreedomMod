@@ -57,7 +57,7 @@ public class PunishmentList extends FreedomService
     protected void onStop()
     {
         saveAll();
-        logger.info("Saved " + punishments.size() + " player bans");
+        logger.info("Saved " + punishments.size() + " punishments.");
     }
 
     public void saveAll()

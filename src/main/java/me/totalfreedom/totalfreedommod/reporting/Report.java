@@ -1,4 +1,4 @@
-package me.totalfreedom.totalfreedommod.punishments;
+package me.totalfreedom.totalfreedommod.reporting;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,7 +10,7 @@ import net.pravian.aero.base.ConfigSavable;
 import net.pravian.aero.base.Validatable;
 import org.bukkit.configuration.ConfigurationSection;
 
-public class Punishment implements ConfigLoadable, ConfigSavable, Validatable
+public class Report implements ConfigLoadable, ConfigSavable, Validatable
 {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
 
@@ -24,24 +24,20 @@ public class Punishment implements ConfigLoadable, ConfigSavable, Validatable
     private String by = null;
     @Getter
     @Setter
-    private PunishmentType type = null;
-    @Getter
-    @Setter
     private String reason = null;
     @Getter
     @Setter
     private Date issued_on = null;
 
-    public Punishment()
+    public Report()
     {
     }
 
-    public Punishment(String username, String ip, String by, PunishmentType type, String reason)
+    public Report(String username, String ip, String by, String reason)
     {
         this.username = username;
         this.ip = ip;
         this.by = by;
-        this.type = type;
         this.reason = reason;
         this.issued_on = new Date();
     }
@@ -52,7 +48,6 @@ public class Punishment implements ConfigLoadable, ConfigSavable, Validatable
         this.username = cs.getString("username", null);
         this.ip = cs.getString("ip", null);
         this.by = cs.getString("by", null);
-        this.type = PunishmentType.valueOf(cs.getString("type", null).toUpperCase());
         this.reason = cs.getString("reason", null);
         try
         {
@@ -71,7 +66,6 @@ public class Punishment implements ConfigLoadable, ConfigSavable, Validatable
         cs.set("username", username);
         cs.set("ip", ip);
         cs.set("by", by);
-        cs.set("type", type.name().toLowerCase());
         cs.set("reason", reason);
         cs.set("issued_on", DATE_FORMAT.format(issued_on));
     }
