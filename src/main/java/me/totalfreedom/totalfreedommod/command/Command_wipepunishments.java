@@ -1,6 +1,8 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.io.File;
+import me.totalfreedom.totalfreedommod.TotalFreedomMod;
+import me.totalfreedom.totalfreedommod.punishments.Punishment;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.reporting.ReportList;
@@ -24,17 +26,14 @@ public class Command_wipepunishments extends FreedomCommand
         if (args[0].equalsIgnoreCase("-a"))
         {
             FUtil.adminAction(sender.getName(), "Wiping the punishment history", true);
-            FUtil.deleteFile(new File(PunishmentList.CONFIG_FILENAME));
-
+            plugin.pul.clear();
             msg("Wiped " + plugin.pul.clear() + " punishments.");
         }
         else
         {
-            // TODO: make it actually work...
             String username = args[0];
-
             FUtil.adminAction(sender.getName(), "Wiping the punishment history for " + username, true);
-
+            plugin.pul.clear(username);
             msg("Wiped " + plugin.pul.clear(username) + " punishments for " + username + ".");
         }
 

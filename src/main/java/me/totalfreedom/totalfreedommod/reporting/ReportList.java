@@ -76,7 +76,8 @@ public class ReportList extends FreedomService
     {
         int removed = reports.size();
         reports.clear();
-        saveAll();
+        config.clear();
+        config.save();
 
         return removed;
     }

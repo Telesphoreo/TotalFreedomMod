@@ -1,11 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import java.io.File;
-import java.util.Objects;
-import me.totalfreedom.totalfreedommod.TotalFreedomMod;
-import me.totalfreedom.totalfreedommod.punishments.Punishment;
 import me.totalfreedom.totalfreedommod.rank.Rank;
-import me.totalfreedom.totalfreedommod.reporting.ReportList;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,20 +21,16 @@ public class Command_wipereports extends FreedomCommand
         if (args[0].equalsIgnoreCase("-a"))
         {
             FUtil.adminAction(sender.getName(), "Wiping the reports history", true);
-            FUtil.deleteFile(new File(Objects.requireNonNull(TotalFreedomMod.plugin()).getDataFolder(), ReportList.CONFIG_FILENAME));
-
+            plugin.rel.clear();
             msg("Wiped " + plugin.pul.clear() + " reports.");
         }
         else
         {
-            // TODO: make it actually work...
             String username = args[0];
-
             FUtil.adminAction(sender.getName(), "Wiping the report history for " + username, true);
-
+            plugin.rel.clear(username);
             msg("Wiped " + plugin.pul.clear(username) + " reports for " + username + ".");
         }
-
         return true;
     }
 }

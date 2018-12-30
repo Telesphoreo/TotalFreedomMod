@@ -30,7 +30,7 @@ public class Command_report extends FreedomCommand
             return true;
         }
 
-        /*if (sender instanceof Player)
+        if (sender instanceof Player)
         {
             if (player.equals(playerSender))
             {
@@ -43,11 +43,11 @@ public class Command_report extends FreedomCommand
         {
             msg(ChatColor.RED + "You can not report an admin.");
             return true;
-        }*/
+        }
 
         String location = player.getWorld().getName() + ", " + player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
-
         String report = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
+
         plugin.cm.reportAction(playerSender, player, report);
         plugin.rel.logReport(new Report(player.getName(), Ips.getIp(player), sender.getName(), report, location));
 
