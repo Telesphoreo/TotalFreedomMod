@@ -45,9 +45,11 @@ public class Command_report extends FreedomCommand
             return true;
         }
 
+        String location = player.getWorld() + "," + player.getLocation().getBlockX() + ", " + player.getLocation().getBlockY() + ", " + player.getLocation().getBlockZ();
+
         String report = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
         plugin.cm.reportAction(playerSender, player, report);
-        plugin.rel.logReport(new Report(player.getName(), Ips.getIp(player), sender.getName(), report));
+        plugin.rel.logReport(new Report(player.getName(), Ips.getIp(player), sender.getName(), report, location));
 
         msg(ChatColor.GREEN + "Thank you, your report has been successfully logged.");
 

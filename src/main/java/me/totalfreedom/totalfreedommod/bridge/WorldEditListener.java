@@ -58,5 +58,4 @@ public class WorldEditListener extends PluginListener<TotalFreedomMod>
             player.sendMessage(ChatColor.RED + "You cannot set your limit higher than 200000 or to -1!");
         }
     }
-
 }

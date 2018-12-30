@@ -8,6 +8,7 @@ import lombok.Setter;
 import net.pravian.aero.base.ConfigLoadable;
 import net.pravian.aero.base.ConfigSavable;
 import net.pravian.aero.base.Validatable;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class Report implements ConfigLoadable, ConfigSavable, Validatable
@@ -27,18 +28,22 @@ public class Report implements ConfigLoadable, ConfigSavable, Validatable
     private String reason = null;
     @Getter
     @Setter
+    private String location = null;
+    @Getter
+    @Setter
     private Date issued_on = null;
 
     public Report()
     {
     }
 
-    public Report(String username, String ip, String by, String reason)
+    public Report(String username, String ip, String by, String reason, String location)
     {
         this.username = username;
         this.ip = ip;
         this.by = by;
         this.reason = reason;
+        this.location = location;
         this.issued_on = new Date();
     }
 
@@ -49,6 +54,7 @@ public class Report implements ConfigLoadable, ConfigSavable, Validatable
         this.ip = cs.getString("ip", null);
         this.by = cs.getString("by", null);
         this.reason = cs.getString("reason", null);
+        this.location = cs.getString("location", null);
         try
         {
             this.issued_on = DATE_FORMAT.parse(cs.getString("issued_on", null));
@@ -67,6 +73,7 @@ public class Report implements ConfigLoadable, ConfigSavable, Validatable
         cs.set("ip", ip);
         cs.set("by", by);
         cs.set("reason", reason);
+        cs.set("location", location);
         cs.set("issued_on", DATE_FORMAT.format(issued_on));
     }
 

@@ -3,11 +3,9 @@ package me.totalfreedom.totalfreedommod.blocking;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
-import me.totalfreedom.totalfreedommod.player.FPlayer;
-import me.totalfreedom.totalfreedommod.rank.Rank;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,13 +22,9 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.FireworkExplodeEvent;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
-import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
 
 public class EventBlocker extends FreedomService
 {
@@ -204,67 +198,17 @@ public class EventBlocker extends FreedomService
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onInventoryClick(InventoryClickEvent event)
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPlayerRespawn(PlayerRespawnEvent event)
     {
-        Player refreshPlayer = null;
-        Inventory inventory = event.getView().getTopInventory();
-        InventoryType inventoryType = inventory.getType();
-        Player player = (Player)event.getWhoClicked();
-        FPlayer fPlayer = plugin.pl.getPlayer(player);
-        if (inventoryType == InventoryType.PLAYER && fPlayer.isInvSee())
+        double maxHealth = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        if (maxHealth < 1)
         {
-            final InventoryHolder inventoryHolder = inventory.getHolder();
-            if (inventoryHolder != null && inventoryHolder instanceof HumanEntity)
+            for (AttributeModifier attributeModifier : event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getModifiers())
             {
-                Player invOwner = (Player)inventoryHolder;
-                Rank recieverRank = plugin.rm.getRank(player);
-                Rank playerRank = plugin.rm.getRank(invOwner);
-                if (playerRank.ordinal() >= recieverRank.ordinal() || !invOwner.isOnline())
-                {
-                    event.setCancelled(true);
-                    refreshPlayer = player;
-                }
+                event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).removeModifier(attributeModifier);
             }
-        }
-        if (refreshPlayer != null)
-        {
-            final Player p = refreshPlayer;
-            new BukkitRunnable()
-            {
-                @Override
-                public void run()
-                {
-                    p.updateInventory();
-                }
-            }.runTaskLater(plugin, 20L);
         }
     }
 
-    @EventHandler(priority = EventPriority.MONITOR)
-    public void onInventoryClose(InventoryCloseEvent event)
-    {
-        Player refreshPlayer = null;
-        Inventory inventory = event.getView().getTopInventory();
-        InventoryType inventoryType = inventory.getType();
-        Player player = (Player)event.getPlayer();
-        FPlayer fPlayer = plugin.pl.getPlayer(player);
-        if (inventoryType == InventoryType.PLAYER && fPlayer.isInvSee())
-        {
-            fPlayer.setInvSee(false);
-            refreshPlayer = player;
-        }
-        if (refreshPlayer != null)
-        {
-            final Player p = refreshPlayer;
-            new BukkitRunnable()
-            {
-                @Override
-                public void run()
-                {
-                    p.updateInventory();
-                }
-            }.runTaskLater(plugin, 20L);
-        }
-    }
 }

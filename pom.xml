@@ -129,7 +129,8 @@
         <dependency>
             <groupId>com.github.Telesphoreo</groupId>
             <artifactId>TF-LibsDisguises</artifactId>
-            <version>a70bbec344</version>
+            <version>dd9c3a9d10</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
