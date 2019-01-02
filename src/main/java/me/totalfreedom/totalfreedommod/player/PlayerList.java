@@ -20,9 +20,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerList extends FreedomService
 {
-
-    public static final long AUTO_PURGE_TICKS = 20L * 60L * 5L;
-    //
     @Getter
     public final Map<String, FPlayer> playerMap = Maps.newHashMap(); // ip,dataMap
     @Getter

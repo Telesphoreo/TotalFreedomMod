@@ -161,7 +161,6 @@ public class Command_mbconfig extends FreedomCommand
                         player.setOp(true);
                         player.sendMessage(YOU_ARE_OP);
                     }
-                    plugin.pv.removeEntry(player.getName()); // master builders can't have player verification entries
                 }
                 return true;
             }

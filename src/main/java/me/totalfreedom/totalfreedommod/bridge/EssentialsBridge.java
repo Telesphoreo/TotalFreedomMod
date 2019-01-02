@@ -105,6 +105,22 @@ public class EssentialsBridge extends FreedomService
         return null;
     }
 
+    public boolean getGodMode(String username)
+    {
+        try
+        {
+            User user = getEssentialsUser(username);
+            if (user != null)
+            {
+                return user.isGodModeEnabled();
+            }
+        } catch (Exception ex)
+        {
+            FLog.severe(ex);
+        }
+        return false;
+    }
+
     public long getLastActivity(String username)
     {
         try

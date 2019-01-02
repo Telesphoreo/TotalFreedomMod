@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Pretty rainbow trails.", usage = "/<command> [off]")
 public class Command_trail extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

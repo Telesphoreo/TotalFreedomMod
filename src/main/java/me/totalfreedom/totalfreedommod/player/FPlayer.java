@@ -9,6 +9,7 @@ import me.totalfreedom.totalfreedommod.caging.CageData;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.freeze.FreezeData;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import me.totalfreedom.totalfreedommod.verification.VerifyStage;
 import net.pravian.aero.util.Ips;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -74,6 +75,12 @@ public class FPlayer
     @Getter
     @Setter
     private boolean invSee = false;
+    @Getter
+    @Setter
+    private VerifyStage verifyStage = VerifyStage.NONE;
+    @Getter
+    @Setter
+    private String newVerifyPassword = null;
 
     public FPlayer(TotalFreedomMod plugin, Player player)
     {
