@@ -119,18 +119,10 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- seth broke all backwards compatibility
         <dependency>
             <groupId>me.libraryaddict</groupId>
-            <artifactId>TF-LibsDisguises</artifactId>
-            <version>9.7.1</version>
-            <scope>provided</scope>
-        </dependency> !-->
-
-        <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-LibsDisguises</artifactId>
-            <version>dd9c3a9d10</version>
+            <artifactId>LibsDisguises</artifactId>
+            <version>9.7.1-TF</version>
             <scope>provided</scope>
         </dependency>
 
