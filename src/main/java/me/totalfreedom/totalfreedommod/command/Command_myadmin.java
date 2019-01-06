@@ -1,7 +1,9 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.util.Arrays;
+import java.util.Random;
 import me.totalfreedom.totalfreedommod.admin.Admin;
+import me.totalfreedom.totalfreedommod.discord.Discord;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.util.Ips;
@@ -203,6 +205,66 @@ public class Command_myadmin extends FreedomCommand
                 plugin.al.updateTables();
                 msg((target.getLogStick() ? "Enabled" : "Disabled") + " log-stick lookup.");
                 return true;
+            }
+            case "verification":
+            {
+                if (args.length != 2)
+                {
+                    return false;
+                }
+                if (args[1].equalsIgnoreCase("enable"))
+                {
+                    if (!plugin.dc.enabled)
+                    {
+                        msg("The Discord verification system is currently disabled.", ChatColor.RED);
+                        return true;
+                    }
+
+                    if (target.getDiscordID() != null)
+                    {
+                        msg("Your Minecraft account is already linked to a Discord account.");
+                        return true;
+                    }
+                    else
+                    {
+                        if (Discord.LINK_CODES.containsValue(target))
+                        {
+                            msg("Your linking code is " + ChatColor.GREEN + Discord.getCodeForAdmin(target), ChatColor.AQUA);
+                            msg("DM this code on Discord to: " + Discord.bot.getSelfUser().getName() + "#" + Discord.bot.getSelfUser().getDiscriminator());
+                        }
+                        else
+                        {
+                            String code = "";
+                            Random random = new Random();
+                            for (int i = 0; i < 5; i++)
+                            {
+                                code += random.nextInt(10);
+                            }
+                            Discord.LINK_CODES.put(code, target);
+                            msg("Your linking code is " + ChatColor.GREEN + code, ChatColor.AQUA);
+                            msg("DM this code on Discord to: " + Discord.bot.getSelfUser().getName() + "#" + Discord.bot.getSelfUser().getDiscriminator());
+                        }
+                    }
+                    return true;
+                }
+                if (args[1].equalsIgnoreCase("disable"))
+                {
+                    if (!plugin.dc.enabled)
+                    {
+                        msg("The Discord verification system is currently disabled.", ChatColor.RED);
+                        return true;
+                    }
+
+                    if (target.getDiscordID() == null)
+                    {
+                        msg("Your Minecraft account is not linked to a Discord account.");
+                        return true;
+                    }
+                    target.setDiscordID(null);
+                    plugin.al.save();
+                    msg("Your Minecraft account has been successfully unlinked from the Discord account.");
+                    return true;
+                }
             }
             default:
             {

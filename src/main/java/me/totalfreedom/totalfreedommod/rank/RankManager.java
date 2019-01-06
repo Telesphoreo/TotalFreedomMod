@@ -5,6 +5,7 @@ import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
+import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.util.ChatUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -109,7 +110,7 @@ public class RankManager extends FreedomService
 
     public Rank getRank(Player player)
     {
-        if (plugin.al.isAdminImpostor(player) || plugin.mbl.isMasterBuilderImpostor(player))
+        if (plugin.al.isAdminImpostor(player) || plugin.pv.isPlayerImpostor(player) || plugin.mbl.isMasterBuilderImpostor(player))
         {
             return Rank.IMPOSTOR;
         }
@@ -150,6 +151,7 @@ public class RankManager extends FreedomService
         final Player player = event.getPlayer();
         //plugin.pl.getData(player);
         final FPlayer fPlayer = plugin.pl.getPlayer(player);
+        VPlayer target = plugin.pv.getVerificationPlayer(player);
 
         // Unban admins
         boolean isAdmin = plugin.al.isAdmin(player);
@@ -169,7 +171,7 @@ public class RankManager extends FreedomService
         }
 
         // Handle impostors
-        boolean isImpostor = plugin.al.isAdminImpostor(player) || plugin.mbl.isMasterBuilderImpostor(player);
+        boolean isImpostor = plugin.al.isAdminImpostor(player) || plugin.pv.isPlayerImpostor(player) || plugin.mbl.isMasterBuilderImpostor(player);
         if (isImpostor)
         {
             FUtil.bcastMsg(ChatColor.AQUA + player.getName() + " is " + Rank.IMPOSTOR.getColoredLoginMessage());
@@ -180,6 +182,10 @@ public class RankManager extends FreedomService
             else if (plugin.mbl.isMasterBuilderImpostor(player))
             {
                 FUtil.bcastMsg("Warning: " + player.getName() + " has been flagged as a Master Builder impostor and has been frozen!", ChatColor.RED);
+            }
+            else if (plugin.pv.isPlayerImpostor(player))
+            {
+                FUtil.bcastMsg("Warning: " + player.getName() + " has been flagged as a player impostor and has been frozen!", ChatColor.RED);
             }
             String displayName = Rank.IMPOSTOR.getColor() + player.getName();
             player.setPlayerListName(StringUtils.substring(displayName, 0, 16));
@@ -224,6 +230,14 @@ public class RankManager extends FreedomService
             }
             catch (IllegalArgumentException ex)
             {
+            }
+        }
+
+        if (!plugin.pv.isPlayerImpostor(player) && target.getEnabled())
+        {
+            if (target.getTag() != null)
+            {
+                plugin.pl.getPlayer(player).setTag(FUtil.colorize(target.getTag()));
             }
         }
     }

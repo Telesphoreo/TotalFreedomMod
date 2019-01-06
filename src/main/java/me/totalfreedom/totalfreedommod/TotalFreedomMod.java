@@ -26,6 +26,7 @@ import me.totalfreedom.totalfreedommod.bridge.WorldGuardBridge;
 import me.totalfreedom.totalfreedommod.caging.Cager;
 import me.totalfreedom.totalfreedommod.command.CommandLoader;
 import me.totalfreedom.totalfreedommod.config.MainConfig;
+import me.totalfreedom.totalfreedommod.discord.Discord;
 import me.totalfreedom.totalfreedommod.freeze.Freezer;
 import me.totalfreedom.totalfreedommod.fun.ItemFun;
 import me.totalfreedom.totalfreedommod.fun.Jumppads;
@@ -38,14 +39,15 @@ import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderList;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderWorldRestrictions;
 import me.totalfreedom.totalfreedommod.player.PlayerList;
+import me.totalfreedom.totalfreedommod.playerverification.PlayerVerification;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
 import me.totalfreedom.totalfreedommod.rank.RankManager;
+import me.totalfreedom.totalfreedommod.reporting.Report;
 import me.totalfreedom.totalfreedommod.reporting.ReportList;
 import me.totalfreedom.totalfreedommod.rollback.RollbackManager;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.util.MethodTimer;
-import me.totalfreedom.totalfreedommod.verification.VerificationManager;
 import me.totalfreedom.totalfreedommod.world.CleanroomChunkGenerator;
 import me.totalfreedom.totalfreedommod.world.WorldManager;
 import net.pravian.aero.component.service.ServiceManager;
@@ -84,6 +86,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public CommandBlocker cb;
     public CommandLoader cl;
     public CommandSpy cs;
+    public Discord dc;
     public EditBlocker ebl;
     public EntityWiper ew;
     public EventBlocker eb;
@@ -109,6 +112,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public PVPBlocker pbl;
     public PermbanList pm;
     public PlayerList pl;
+    public PlayerVerification pv;
     public PotionBlocker pb;
     public ProtectArea pa;
     public PunishmentList pul;
@@ -121,7 +125,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public SignBlocker sb;
     public Trailer tr;
     public WorldManager wm;
-    public VerificationManager vm;
     //
     // Bridges
     public ServiceManager<TotalFreedomMod> bridges;
@@ -197,11 +200,11 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         sf = services.registerService(SavedFlags.class);
         si = services.registerService(ServerInterface.class);
         wm = services.registerService(WorldManager.class);
-        vm = services.registerService(VerificationManager.class);
 
         an = services.registerService(Announcer.class);
         bm = services.registerService(BanManager.class);
         cm = services.registerService(ChatManager.class);
+        dc = services.registerService(Discord.class);
         gr = services.registerService(GameRuleHandler.class);
         pa = services.registerService(ProtectArea.class);
         pl = services.registerService(PlayerList.class);
@@ -224,6 +227,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         mv = services.registerService(MovementValidator.class);
         or = services.registerService(Orbiter.class);
         pbl = services.registerService(PVPBlocker.class);
+        pv = services.registerService(PlayerVerification.class);
         rb = services.registerService(RollbackManager.class);
         sp = services.registerService(ServerPing.class);
 

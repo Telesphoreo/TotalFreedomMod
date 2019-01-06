@@ -25,5 +25,4 @@ public class Command_trail extends FreedomCommand
 
         return true;
     }
-
 }

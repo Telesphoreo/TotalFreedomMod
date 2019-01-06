@@ -30,6 +30,9 @@ public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
     private Date lastLogin = new Date();
     @Getter
     @Setter
+    private String discordID = null;
+    @Getter
+    @Setter
     private String tag = null;
 
     public static final String CONFIG_FILENAME = "masterbuilders.yml";
@@ -54,6 +57,7 @@ public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
         output.append("MasterBuilder: ").append(name).append("\n")
                 .append("- IPs: ").append(StringUtils.join(ips, ", ")).append("\n")
                 .append("- Last Login: ").append(FUtil.dateToString(lastLogin)).append("\n")
+                .append("- Discord ID: ").append(discordID).append("\n")
                 .append("- Tag: ").append(tag).append("\n");
 
         return output.toString();
@@ -74,6 +78,7 @@ public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
         ips.clear();
         ips.addAll(cs.getStringList("ips"));
         lastLogin = FUtil.stringToDate(cs.getString("last_login"));
+        discordID = cs.getString("discord_id", null);
         tag = cs.getString("tag", null);
     }
 
@@ -84,6 +89,7 @@ public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
         cs.set("username", name);
         cs.set("ips", Lists.newArrayList(ips));
         cs.set("last_login", FUtil.dateToString(lastLogin));
+        cs.set("discord_id", discordID);
         cs.set("tag", tag);
     }
 

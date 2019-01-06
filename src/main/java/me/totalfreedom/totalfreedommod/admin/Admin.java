@@ -9,7 +9,6 @@ import me.totalfreedom.totalfreedommod.LogViewer.LogsRegistrationMode;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
-import me.totalfreedom.totalfreedommod.verification.Verify;
 import net.pravian.aero.base.ConfigLoadable;
 import net.pravian.aero.base.ConfigSavable;
 import net.pravian.aero.base.Validatable;
@@ -42,6 +41,9 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     private String loginMessage = null;
     @Getter
     @Setter
+    private String discordID = null;
+    @Getter
+    @Setter
     private String tag = null;
     @Getter
     @Setter
@@ -58,8 +60,6 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private Boolean logStick = false;
-    @Getter
-    private final Verify verify = new Verify();
 
     public static final String CONFIG_FILENAME = "admins.yml";
 
@@ -86,7 +86,7 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
                 .append("- Custom Login Message: ").append(loginMessage).append("\n")
                 .append("- Rank: ").append(rank.getName()).append("\n")
                 .append("- Is Active: ").append(active).append("\n")
-                .append("- Verification: ").append(verify.hasPassword()).append("\n")
+                .append("- Discord ID: ").append(discordID).append("\n")
                 .append("- Tag: ").append(tag).append("\n")
                 .append("- Potion Spy: ").append(potionSpy).append("\n")
                 .append("- Admin Chat Format: ").append(acFormat).append("\n")
@@ -114,10 +114,7 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
         ips.addAll(cs.getStringList("ips"));
         lastLogin = FUtil.stringToDate(cs.getString("last_login"));
         loginMessage = cs.getString("login_message", null);
-        if (!cs.isConfigurationSection("verify")) {
-            cs.createSection("verify");
-        }
-        verify.loadFrom(cs.getConfigurationSection("verify"));
+        discordID = cs.getString("discord_id", null);
         tag = cs.getString("tag", null);
         commandSpy = cs.getBoolean("command_spy", false);
         potionSpy = cs.getBoolean("potion_spy", false);
@@ -136,7 +133,7 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
         cs.set("ips", Lists.newArrayList(ips));
         cs.set("last_login", FUtil.dateToString(lastLogin));
         cs.set("login_message", loginMessage);
-        verify.saveTo(cs.createSection("verify"));
+        cs.set("discord_id", discordID);
         cs.set("tag", tag);
         cs.set("command_spy", commandSpy);
         cs.set("potion_spy", potionSpy);
@@ -268,5 +265,15 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     public void setLoginMessage(final String loginMessage)
     {
         this.loginMessage = loginMessage;
+    }
+
+    public String getDiscordID()
+    {
+        return this.discordID;
+    }
+
+    public void setDiscordID(String discordID)
+    {
+        this.discordID = discordID;
     }
 }

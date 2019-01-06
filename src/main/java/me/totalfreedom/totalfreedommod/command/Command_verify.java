@@ -1,119 +1,184 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.Date;
+import java.util.Random;
 import me.totalfreedom.totalfreedommod.admin.Admin;
-import me.totalfreedom.totalfreedommod.verification.Verify;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
+import me.totalfreedom.totalfreedommod.discord.Discord;
+import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
-import me.totalfreedom.totalfreedommod.verification.VerifyStage;
 import me.totalfreedom.totalfreedommod.rank.Rank;
+import me.totalfreedom.totalfreedommod.util.FUtil;
+import net.pravian.aero.util.Ips;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.ChatPaginator;
 
-@CommandPermissions(level = Rank.IMPOSTOR, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Verify yourself, set verification details", usage = "/<command> [set <password | otp>]")
+@CommandPermissions(level = Rank.IMPOSTOR, source = SourceType.BOTH)
+@CommandParameters(description = "Sends a verification code to the player, or the player can input the sent code. Admins can manually verify a player impostor.", usage = "/<command> <code | <playername>>")
 public class Command_verify extends FreedomCommand
 {
     @Override
-    protected boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
+    public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        FPlayer fPlayer = plugin.pl.getPlayer(playerSender);
-
-        // Verification sequence
-        if (plugin.al.isAdminImpostor(playerSender))
+        if (!plugin.dc.enabled)
         {
-            final Admin admin = plugin.al.getEntryByName(sender.getName());
+            msg("The Discord verification system is currently disabled", ChatColor.RED);
+            return true;
+        }
 
-            if (!admin.getVerify().hasPassword() || !admin.getVerify().hasTotpSecret())
+        if (args.length == 1 && plugin.al.isAdmin(playerSender))
+        {
+            final Player player = getPlayer(args[0]);
+            if (player == null)
             {
-                plugin.vm.veriMsg(sender, "You can not verify because you have no verification information set!");
+                msg(FreedomCommand.PLAYER_NOT_FOUND);
+                return true;
+            }
+            if (!plugin.pv.isPlayerImpostor(player))
+            {
+                msg("That player is not an impostor.");
+                return true;
+            }
+            FUtil.adminAction(sender.getName(), "Manually verifying player " + player.getName(), false);
+            player.setOp(true);
+            player.sendMessage(YOU_ARE_OP);
+            if (plugin.pl.getPlayer(player).getFreezeData().isFrozen())
+            {
+                plugin.pl.getPlayer(player).getFreezeData().setFrozen(false);
+                player.sendMessage(ChatColor.GRAY + "You have been unfrozen.");
+            }
+            plugin.pv.verifyPlayer(player);
+            plugin.rm.updateDisplay(player);
+            return true;
+        }
+        else
+        {
+            if (senderIsConsole || plugin.al.isAdmin(playerSender))
+            {
+                msg("/verify <playername>", ChatColor.WHITE);
                 return true;
             }
 
-            if (args.length != 0)
+            if (!plugin.pv.isPlayerImpostor(playerSender) && !plugin.al.isAdminImpostor(playerSender))
             {
-                return false;
-            }
-
-            fPlayer.setVerifyStage(VerifyStage.VERIFY_PASSWORD);
-            plugin.vm.veriMsg(sender, "Please enter your password:");
-            return true;
-        }
-
-        if (!isAdmin(sender))
-        {
-            msg("You do not have permission to use this command!", ChatColor.RED);
-            return true;
-        }
-
-        final Admin admin = getAdmin(sender);
-        final Verify verify = admin.getVerify();
-
-        if (args.length == 0)
-        {
-            msg("TotalFreedomMod verification system", ChatColor.GOLD);
-            StringBuilder line = new StringBuilder();
-            while (line.length() < ChatPaginator.GUARANTEED_NO_WRAP_CHAT_PAGE_WIDTH)
-            {
-                line.append("-");
-            }
-            msg(line.toString());
-
-            msg("By setting a password and using a OTP code generator,", ChatColor.GOLD);
-            msg("you can verify yourself if you are an impostor.", ChatColor.GOLD);
-            msg("Note: For this to work, you need to have a OTP generator", ChatColor.GOLD);
-            msg("such as Google Authenticator installed.", ChatColor.GOLD);
-            msg("");
-            msg("Password set: " + (verify.hasPassword() ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
-            msg("OTP set: " + (verify.hasTotpSecret() ? ChatColor.GREEN + "yes" : ChatColor.RED + "no"));
-            msg("");
-            msg("You can set your password and OTP code generator with /verify set <password | otp>");
-            return true;
-        }
-
-        if (args.length != 2 || !args[0].equals("set"))
-        {
-            return false;
-        }
-
-        if (args[1].equals("password"))
-        {
-            if (verify.hasPassword())
-            {
-                plugin.vm.veriMsg(sender, "Type 'exit' to cancel");
-                plugin.vm.veriMsg(sender, "Please enter your CURRENT password:");
-                fPlayer.setVerifyStage(VerifyStage.SET_PASSWORD_VERIFY_OLD);
+                msg("You are not an impostor, therefore you do not need to verify.", ChatColor.RED);
                 return true;
             }
 
-            plugin.vm.veriMsg(sender, "Type 'exit' to cancel");
-            plugin.vm.veriMsg(sender, "Please enter your NEW password:");
-            fPlayer.setVerifyStage(VerifyStage.SET_PASSWORD);
-            return true;
-        }
+            String discordId = "";
 
-        if (args[1].equals("otp"))
-        {
-            if (!verify.hasPassword())
+            if (plugin.al.isAdminImpostor(playerSender))
             {
-                plugin.vm.veriMsg(sender, "You can only set your OTP generator after you've set your password.");
-                return true;
+                Admin admin = plugin.al.getEntryByName(playerSender.getName());
+                if (admin.getDiscordID() == null)
+                {
+                    msg("You do not have a Discord account linked to your Minecraft account, please verify the manual way.", ChatColor.RED);
+                    return true;
+                }
+                discordId = admin.getDiscordID();
             }
 
-            if (verify.hasTotpSecret())
+            if (plugin.pv.isPlayerImpostor(playerSender))
             {
-                plugin.vm.veriMsg(sender, "You already have generator secret set!");
-                plugin.vm.veriMsg(sender, "Setting your generator secret will invalidate your old one!");
+                if (plugin.pv.getVerificationPlayer(playerSender).getDiscordId() == null)
+                {
+                    msg("You do not have a Discord account linked to your Minecraft account, please verify the manual way.", ChatColor.RED);
+                    return true;
+                }
+                discordId = plugin.pv.getVerificationPlayer(playerSender).getDiscordId();
             }
 
-            plugin.vm.veriMsg(sender, "Your generator secret is: " + ChatColor.UNDERLINE + verify.generateTotpSecret());
-            plugin.vm.veriMsg(sender, "Please enter this code into your OTP app.");
-            plugin.vm.veriMsg(sender, "Type 'exit' to cancel");
-            plugin.vm.veriMsg(sender, "Please enter a the code received from your app:");
-            fPlayer.setVerifyStage(VerifyStage.SET_TOTP_CONFIRM);
-            return true;
+            if (args.length < 1)
+            {
+                String code = "";
+                Random random = new Random();
+                for (int i = 0; i < 10; i++)
+                {
+                    code += random.nextInt(10);
+                }
+                Discord.VERIFY_CODES.add(code);
+                Discord.bot.getUserById(discordId).openPrivateChannel().complete().sendMessage("A user with the IP `" + Ips.getIp(playerSender) + "` has sent a verification request. Please run the following in-game command: `/verify " + code + "`").complete();
+                msg("A verification code has been sent to your account, please copy the code and run /verify <code>", ChatColor.GREEN);
+            }
+            else
+            {
+                String code = args[0];
+                if (!Discord.VERIFY_CODES.contains(code))
+                {
+                    msg("You have entered an invalid verification code", ChatColor.RED);
+                    return true;
+                }
+
+                if (plugin.al.isAdminImpostor(playerSender))
+                {
+                    Admin admin = plugin.al.getEntryByName(playerSender.getName());
+                    Discord.VERIFY_CODES.remove(code);
+                    FUtil.bcastMsg(playerSender.getName() + " has verified!", ChatColor.GOLD);
+                    FUtil.adminAction(ConfigEntry.SERVER_NAME.getString(), "Re-adding " + admin.getName() + " to the admin list", true);
+
+                    admin.setName(playerSender.getName());
+                    admin.addIp(Ips.getIp(playerSender));
+                    plugin.wvb.updatePermissions(playerSender);
+
+                    if (!plugin.mbl.isMasterBuilder(playerSender))
+                    {
+                        MasterBuilder masterBuilder = null;
+                        for (MasterBuilder loopMasterBuilder : plugin.mbl.getAllMasterBuilders().values())
+                        {
+                            if (loopMasterBuilder.getName().equalsIgnoreCase(playerSender.getName()))
+                            {
+                                masterBuilder = loopMasterBuilder;
+                                break;
+                            }
+                        }
+
+                        if (masterBuilder != null)
+                        {
+                            masterBuilder.setName(playerSender.getName());
+                            masterBuilder.addIp(Ips.getIp(playerSender));
+
+                            masterBuilder.setLastLogin(new Date());
+
+                            plugin.mbl.save();
+                            plugin.mbl.updateTables();
+                        }
+                    }
+
+                    admin.setActive(true);
+                    admin.setLastLogin(new Date());
+                    plugin.al.save();
+                    plugin.al.updateTables();
+                    plugin.rm.updateDisplay(playerSender);
+                    playerSender.setOp(true);
+                    msg(YOU_ARE_OP);
+                    final FPlayer fPlayer = plugin.pl.getPlayer(playerSender);
+                    if (fPlayer.getFreezeData().isFrozen())
+                    {
+                        fPlayer.getFreezeData().setFrozen(false);
+                        msg("You have been unfrozen.");
+                    }
+                    return true;
+                }
+
+                if (plugin.pv.isPlayerImpostor(playerSender))
+                {
+                    final FPlayer fPlayer = plugin.pl.getPlayer(playerSender);
+                    FUtil.bcastMsg(playerSender.getName() + " has verified!", ChatColor.GOLD);
+                    plugin.rm.updateDisplay(playerSender);
+                    playerSender.setOp(true);
+                    msg(YOU_ARE_OP);
+                    if (fPlayer.getFreezeData().isFrozen())
+                    {
+                        fPlayer.getFreezeData().setFrozen(false);
+                        msg("You have been unfrozen.");
+                    }
+                    plugin.pv.verifyPlayer(playerSender);
+                    return true;
+                }
+            }
         }
-        return false;
+        return true;
     }
 }

@@ -262,6 +262,7 @@ public class Command_saconfig extends FreedomCommand
                         player.sendMessage(YOU_ARE_OP);
                     }
                     plugin.wvb.updatePermissions(player);
+                    plugin.pv.removeEntry(player.getName()); // admins can't have player verification entries
                 }
 
                 return true;
