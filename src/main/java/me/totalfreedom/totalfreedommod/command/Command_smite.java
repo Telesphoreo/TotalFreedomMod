@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Someone being a little bitch? Smite them down...", usage = "/<command> <player> [reason]")
 public class Command_smite extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

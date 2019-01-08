@@ -77,8 +77,7 @@ public class PunishmentList extends FreedomService
     {
         int removed = punishments.size();
         punishments.clear();
-        config.clear();
-        config.save();
+        saveAll();
 
         return removed;
     }
@@ -123,8 +122,6 @@ public class PunishmentList extends FreedomService
             saveAll();
             return true;
         }
-
         return false;
     }
-
 }
