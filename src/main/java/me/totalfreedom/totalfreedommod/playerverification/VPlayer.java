@@ -30,6 +30,9 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private String tag = null;
+    @Getter
+    @Setter
+    private boolean clearChatOptOut = false;
 
     public VPlayer(String name)
     {
@@ -50,6 +53,7 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
         discordId = cs.getString("discordId", null);
         enabled = cs.getBoolean("enabled", false);
         tag = cs.getString("tag", null);
+        clearChatOptOut = cs.getBoolean("clearChatOptOut", false);
     }
 
     @Override
@@ -61,6 +65,7 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
         cs.set("enabled", enabled);
         cs.set("tag", tag);
         cs.set("ips", Lists.newArrayList(ips));
+        cs.set("clearChatOptOut", clearChatOptOut);
     }
 
     public List<String> getIps()
@@ -70,12 +75,12 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
 
     public boolean addIp(String ip)
     {
-        return ips.contains(ip) ? false : ips.add(ip);
+        return !ips.contains(ip) && ips.add(ip);
     }
 
-    public boolean removeIp(String ip)
+    public void removeIp(String ip)
     {
-        return ips.remove(ip);
+        ips.remove(ip);
     }
 
     public void setDiscordId(final String discordId)

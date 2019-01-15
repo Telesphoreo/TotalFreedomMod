@@ -160,8 +160,7 @@ public class EventBlocker extends FreedomService
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onLeavesDecay(LeavesDecayEvent event
-    )
+    public void onLeavesDecay(LeavesDecayEvent event)
     {
         event.setCancelled(true);
     }
@@ -214,7 +213,6 @@ public class EventBlocker extends FreedomService
             }
         }
     }
-
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockDispense(BlockDispenseEvent event)
     {

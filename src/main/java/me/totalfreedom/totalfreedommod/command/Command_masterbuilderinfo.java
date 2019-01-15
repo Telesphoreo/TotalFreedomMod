@@ -17,16 +17,17 @@ public class Command_masterbuilderinfo extends FreedomCommand
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        List<String> mbInfo = ConfigEntry.MASTERBUILDERINFO.getStringList();
+        List<String> masterBuilderInfo = ConfigEntry.MASTER_BUILDER_INFO.getStringList();
 
-        if (mbInfo.isEmpty())
+        if (masterBuilderInfo.isEmpty())
         {
             msg("There is no Master Builder information set in the config.", ChatColor.RED);
         }
         else
         {
-            msg(FUtil.colorize(StringUtils.join(mbInfo, "\n")));
+            msg(FUtil.colorize(StringUtils.join(masterBuilderInfo, "\n")));
         }
+
         return true;
     }
 }
