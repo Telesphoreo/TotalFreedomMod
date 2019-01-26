@@ -291,7 +291,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 
     public static class BuildProperties
     {
-
         public String author;
         public String codename;
         public String version;

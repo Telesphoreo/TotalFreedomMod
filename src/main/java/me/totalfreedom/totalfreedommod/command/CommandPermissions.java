@@ -7,7 +7,6 @@ import me.totalfreedom.totalfreedommod.rank.Rank;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CommandPermissions
 {
-
     Rank level();
 
     SourceType source();

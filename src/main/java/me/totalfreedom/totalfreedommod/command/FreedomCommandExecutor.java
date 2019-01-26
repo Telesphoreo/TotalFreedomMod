@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 
 public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends AbstractCommandExecutor<C>
 {
-
     private final TotalFreedomMod plugin;
 
     public FreedomCommandExecutor(TotalFreedomMod plugin, AeroCommandHandler<?> handler, String name, C command)
@@ -55,6 +54,7 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
         }
         pluginCommand.setDescription(params.description());
         pluginCommand.setUsage(params.usage());
+        pluginCommand.setTabCompleter(new FreedomCommandTabCompleter());
 
         // Check if permisions are correctly set up
         CommandPermissions perms = command.getPerms();
@@ -82,7 +82,7 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
         }
         catch (Exception ex)
         {
-            // If this is ever ran, TFM failed :
+            // If this is ever ran, TFM failed:
             FLog.severe("Unhandled command exception: " + command.getName());
             FLog.severe(ex);
             sender.sendMessage(ChatColor.RED + "Unhandled Command Error: " + command.getName());
@@ -164,7 +164,6 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
 
     public static class FreedomExecutorFactory implements AeroCommandExecutorFactory
     {
-
         private final TotalFreedomMod plugin;
 
         public FreedomExecutorFactory(TotalFreedomMod plugin)
@@ -177,7 +176,6 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
         {
             return new FreedomCommandExecutor<>(plugin, handler, name, command);
         }
-
     }
 
 }
