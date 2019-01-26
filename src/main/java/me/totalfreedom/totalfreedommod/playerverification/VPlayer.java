@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 
 public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
 {
+
     private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
@@ -81,11 +82,6 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
     public void removeIp(String ip)
     {
         ips.remove(ip);
-    }
-
-    public void setDiscordId(final String discordId)
-    {
-        this.discordId = discordId;
     }
 
     @Override

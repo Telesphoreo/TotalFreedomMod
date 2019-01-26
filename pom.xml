@@ -162,6 +162,12 @@
             <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.TFPatches</groupId>
+            <artifactId>BukkitSSH</artifactId>
+            <version>master-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>
