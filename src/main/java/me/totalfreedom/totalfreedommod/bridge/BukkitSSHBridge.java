@@ -1,20 +1,12 @@
 package me.totalfreedom.totalfreedommod.bridge;
 
 import com.ryanmichela.bukkitssh.BukkitSSH;
-import com.ryanmichela.bukkitssh.SshTerminal;
 import me.totalfreedom.bukkitssh.SSHCommandEvent;
 import me.totalfreedom.bukkitssh.SSHPreLoginEvent;
-import java.util.ArrayList;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.admin.Admin;
-import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FLog;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.plugin.Plugin;

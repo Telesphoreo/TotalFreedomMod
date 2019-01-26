@@ -21,7 +21,6 @@ import org.bukkit.plugin.Plugin;
 
 public class BukkitTelnetBridge extends FreedomService
 {
-
     private BukkitTelnet bukkitTelnetPlugin = null;
 
     public BukkitTelnetBridge(TotalFreedomMod plugin)
