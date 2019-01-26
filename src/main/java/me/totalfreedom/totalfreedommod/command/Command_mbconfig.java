@@ -12,11 +12,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-@CommandPermissions(level = Rank.OP, source = SourceType.BOTH, blockHostConsole = true)
-@CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | | <add | remove | info> <username>>")
+@CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
+@CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | <add | remove | info <username>>>")
 public class Command_mbconfig extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -30,14 +29,12 @@ public class Command_mbconfig extends FreedomCommand
             case "list":
             {
                 msg("Master Builders: " + StringUtils.join(plugin.mbl.getMasterBuilderNames(), ", "), ChatColor.GOLD);
-
                 return true;
             }
 
             case "reload":
             {
                 checkRank(Rank.SENIOR_ADMIN);
-
                 FUtil.adminAction(sender.getName(), "Reloading the Master Builder list", true);
                 plugin.mbl.load();
                 msg("Master Builder list reloaded!");
@@ -197,12 +194,10 @@ public class Command_mbconfig extends FreedomCommand
                 }
                 return true;
             }
-
             default:
             {
                 return false;
             }
         }
     }
-
 }
