@@ -113,8 +113,8 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Telesphoreo</groupId>
-            <artifactId>TF-LibsDisguises</artifactId>
+            <groupId>me.libraryaddict</groupId>
+            <artifactId>LibsDisguises</artifactId>
             <version>9.7.1-TF</version>
             <scope>provided</scope>
         </dependency>
