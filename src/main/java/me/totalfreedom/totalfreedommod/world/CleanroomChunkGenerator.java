@@ -20,7 +20,6 @@ package me.totalfreedom.totalfreedommod.world;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.logging.Logger;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import org.bukkit.Location;

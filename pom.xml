@@ -164,7 +164,7 @@
         <dependency>
             <groupId>com.github.TFPatches</groupId>
             <artifactId>BukkitSSH</artifactId>
-            <version>rewrite-SNAPSHOT</version>
+            <version>master-1.2-ge9214e4-23</version>
         </dependency>
     </dependencies>
 

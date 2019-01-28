@@ -1,7 +1,5 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import lombok.Getter;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.admin.Admin;
@@ -66,25 +64,6 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
             sender.sendMessage(ChatColor.RED + "Command error: " + (ex.getMessage() == null ? "Unknown cause" : ex.getMessage()));
             return true;
         }
-    }
-
-    protected ArrayList<String> filterTabs(ArrayList<String> list, String[] origArgs) {
-        if (origArgs.length == 0)
-            return list;
-
-        Iterator<String> itel = list.iterator();
-        String label = origArgs[origArgs.length - 1].toLowerCase();
-
-        while (itel.hasNext()) {
-            String name = itel.next();
-
-            if (name.toLowerCase().startsWith(label))
-                continue;
-
-            itel.remove();
-        }
-
-        return list;
     }
 
     protected abstract boolean run(final CommandSender sender, final Player playerSender, final Command cmd, final String commandLabel, final String[] args, final boolean senderIsConsole);

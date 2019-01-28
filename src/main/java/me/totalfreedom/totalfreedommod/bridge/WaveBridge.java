@@ -1,12 +1,12 @@
 package me.totalfreedom.totalfreedommod.bridge;
 
+import me.telesphoreo.wave.PermissionCheck;
+import me.telesphoreo.wave.Wave;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import me.telesphoreo.wave.PermissionCheck;
-import me.telesphoreo.wave.Wave;
 
 public class WaveBridge extends FreedomService
 {

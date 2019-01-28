@@ -8,7 +8,6 @@ import lombok.Setter;
 import net.pravian.aero.base.ConfigLoadable;
 import net.pravian.aero.base.ConfigSavable;
 import net.pravian.aero.base.Validatable;
-import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
 public class Report implements ConfigLoadable, ConfigSavable, Validatable
