@@ -54,7 +54,6 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
         }
         pluginCommand.setDescription(params.description());
         pluginCommand.setUsage(params.usage());
-        pluginCommand.setTabCompleter(new FreedomCommandTabCompleter());
 
         // Check if permisions are correctly set up
         CommandPermissions perms = command.getPerms();
