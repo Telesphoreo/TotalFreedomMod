@@ -72,7 +72,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     //
     // Services
     public ServiceManager<TotalFreedomMod> services;
-    public AntiSpambot ab;
     public AdminList al;
     public Announcer an;
     public AntiNuke nu;
@@ -185,7 +184,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         al = services.registerService(AdminList.class);
         as = services.registerService(AntiSpam.class);
         bb = services.registerService(BlockBlocker.class);
-        ab = services.registerService(AntiSpambot.class);
         cb = services.registerService(CommandBlocker.class);
         cl = services.registerService(CommandLoader.class);
         eb = services.registerService(EventBlocker.class);
