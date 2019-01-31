@@ -92,9 +92,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.Pravian</groupId>
-            <artifactId>Aero</artifactId>
-            <version>5f82926</version>
+            <groupId>net.pravian</groupId>
+            <artifactId>aero</artifactId>
+            <version>2.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 

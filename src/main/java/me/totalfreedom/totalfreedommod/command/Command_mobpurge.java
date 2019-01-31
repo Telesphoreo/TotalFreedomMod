@@ -1,5 +1,8 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.util.Groups;
@@ -73,5 +76,26 @@ public class Command_mobpurge extends FreedomCommand
         }
 
         return removed;
+    }
+
+    public static List<String> getAllMobNames()
+    {
+        List<String> names = new ArrayList<>();
+        for (EntityType entityType : Groups.MOB_TYPES)
+        {
+            names.add(entityType.name());
+        }
+        return names;
+    }
+
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (args.length == 1)
+        {
+            return getAllMobNames();
+        }
+
+        return Collections.emptyList();
     }
 }
