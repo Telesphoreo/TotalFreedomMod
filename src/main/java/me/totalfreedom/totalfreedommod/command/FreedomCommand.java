@@ -67,8 +67,9 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
             return true;
         }
     }
-
-    protected List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args) {
+    
+    protected List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
         return null;
     }
 
@@ -76,7 +77,8 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
     public List<String> tabComplete(CommandSender sender, Command command, String alias, String[] args)
     {
         List<String> options = getTabCompleteOptions(sender, command, alias, args);
-        if (options == null) {
+        if (options == null)
+        {
             return null;
         }
         return StringUtil.copyPartialMatches(args[args.length - 1], options, Lists.<String>newArrayList());

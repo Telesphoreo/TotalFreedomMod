@@ -114,7 +114,8 @@ public class EssentialsBridge extends FreedomService
             {
                 return user.isGodModeEnabled();
             }
-        } catch (Exception ex)
+        }
+        catch (Exception ex)
         {
             FLog.severe(ex);
         }

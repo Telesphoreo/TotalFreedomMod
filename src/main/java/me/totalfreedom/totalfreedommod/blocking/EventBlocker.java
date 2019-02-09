@@ -213,6 +213,7 @@ public class EventBlocker extends FreedomService
             }
         }
     }
+
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockDispense(BlockDispenseEvent event)
     {

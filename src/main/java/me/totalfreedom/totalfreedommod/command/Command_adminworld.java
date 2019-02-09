@@ -290,5 +290,4 @@ public class Command_adminworld extends FreedomCommand
         }
         return Collections.emptyList();
     }
-
 }

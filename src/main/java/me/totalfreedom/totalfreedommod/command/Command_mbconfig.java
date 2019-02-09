@@ -208,6 +208,7 @@ public class Command_mbconfig extends FreedomCommand
             }
         }
     }
+
     @Override
     public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
     {

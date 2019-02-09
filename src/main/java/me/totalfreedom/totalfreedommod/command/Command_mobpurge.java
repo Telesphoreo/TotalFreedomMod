@@ -51,7 +51,7 @@ public class Command_mobpurge extends FreedomCommand
             mobName = WordUtils.capitalizeFully(type.name().replace("_", " "));
         }
 
-        FUtil.adminAction(sender.getName(), "Purging all " + (type != null ? mobName  + "s" : "mobs"), true);
+        FUtil.adminAction(sender.getName(), "Purging all " + (type != null ? mobName + "s" : "mobs"), true);
         msg(purgeMobs(type) + " " + (type != null ? mobName : "mob") + "s removed.");
         return true;
     }
