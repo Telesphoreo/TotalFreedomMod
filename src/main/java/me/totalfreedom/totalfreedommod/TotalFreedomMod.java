@@ -2,7 +2,9 @@ package me.totalfreedom.totalfreedommod;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.Locale;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import me.totalfreedom.totalfreedommod.admin.AdminList;
 import me.totalfreedom.totalfreedommod.amp.AMP;
 import me.totalfreedom.totalfreedommod.banning.BanManager;
@@ -36,6 +38,7 @@ import me.totalfreedom.totalfreedommod.fun.MP44;
 import me.totalfreedom.totalfreedommod.fun.MobStacker;
 import me.totalfreedom.totalfreedommod.fun.Trailer;
 import me.totalfreedom.totalfreedommod.httpd.HTTPDaemon;
+import me.totalfreedom.totalfreedommod.i18n.MessagesConfig;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderList;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderWorldRestrictions;
@@ -58,6 +61,7 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.spigotmc.SpigotConfig;
+import sun.misc.resources.Messages;
 
 public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 {
@@ -69,6 +73,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public static String pluginVersion;
     //
     public MainConfig config;
+    //
     //
     // Services
     public ServiceManager<TotalFreedomMod> services;
@@ -95,6 +100,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public HTTPDaemon hd;
     public InteractBlocker ib;
     public ItemFun it;
+    public MessagesConfig i18n;
     public Jumppads jp;
     public Landminer lm;
     public LogViewer lv;
@@ -187,6 +193,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         cb = services.registerService(CommandBlocker.class);
         cl = services.registerService(CommandLoader.class);
         eb = services.registerService(EventBlocker.class);
+        i18n = services.registerService(MessagesConfig.class);
         ib = services.registerService(InteractBlocker.class);
         lp = services.registerService(LoginProcess.class);
         lv = services.registerService(LogViewer.class);

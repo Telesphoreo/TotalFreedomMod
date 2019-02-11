@@ -15,7 +15,6 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 public class MainConfig extends PluginComponent<TotalFreedomMod>
 {
-
     public static final String CONFIG_FILENAME = "config.yml";
     //
     private final EnumMap<ConfigEntry, Object> entries;

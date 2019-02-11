@@ -3,7 +3,6 @@ package me.totalfreedom.totalfreedommod.config;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 
-
 public enum ConfigEntry
 {
     FORCE_IP_ENABLED(Boolean.class, "forceip.enabled"),

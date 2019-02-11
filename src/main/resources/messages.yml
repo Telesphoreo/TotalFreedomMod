@@ -1,0 +1,25 @@
+#
+# TotalFreedomMod 2019.2.1 i18n
+#
+
+serverOpenToAllPlayers: "Opening the server to all players."
+serverClosedToNonAdmins: "Closing the server to non-admins."
+serverNowClosedToNonAdmins: "Server is now closed to non-admins."
+onlyPlayersCanToggleAdminChat: "Only in-game players can toggle AdminChat."
+toggledAdminChat: "Toggled Admin Chat "
+on: "on"
+off: "off"
+noAdminInfoSet: "There is no admin information set in the config."
+goingToMainWorld: "Going to the main world."
+goingToAdminWorld: "Going to the AdminWorld."
+noPermissionForAdminWorld: "You don't have permission to access the AdminWorld."
+adminWorldGuestList: "AdminWorld guest list: "
+adminWorldGuestListPurged: "AdminWorld guest list purged."
+adminWorldGuestAdded: "AdminWorld guest added: "
+adminWorldGuestCouldNotBeAdded: "Could not add player to guest list."
+adminWorldGuestRemoved: "AdminWorld guest removed: "
+adminWorldGuestEntryNotFound: "Can't find guest entry for: "
+adminWorldTimeSet: "AdminWorld time set to: "
+adminWorldTimeInvalid: "Invalid time of day. Can be: sunrise, noon, sunset, midnight"
+adminWorldWeatherSet: "AdminWorld weather set to: "
+adminWorldWeatherInvalid: "Invalid weather mode. Can be: off, rain, storm"

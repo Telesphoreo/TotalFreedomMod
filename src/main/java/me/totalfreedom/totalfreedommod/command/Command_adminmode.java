@@ -3,6 +3,8 @@ package me.totalfreedom.totalfreedommod.command;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -14,7 +16,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Close server to non-admins.", usage = "/<command> [on | off]")
 public class Command_adminmode extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -26,18 +27,18 @@ public class Command_adminmode extends FreedomCommand
         if (args[0].equalsIgnoreCase("off"))
         {
             ConfigEntry.ADMIN_ONLY_MODE.setBoolean(false);
-            FUtil.adminAction(sender.getName(), "Opening the server to all players.", true);
+            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("serverOpenToAllPlayers"), true);
             return true;
         }
         else if (args[0].equalsIgnoreCase("on"))
         {
             ConfigEntry.ADMIN_ONLY_MODE.setBoolean(true);
-            FUtil.adminAction(sender.getName(), "Closing the server to non-admins.", true);
+            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("serverClosedToNonAdmins"), true);
             for (Player player : server.getOnlinePlayers())
             {
                 if (!isAdmin(player))
                 {
-                    player.kickPlayer("Server is now closed to non-admins.");
+                    player.kickPlayer(plugin.i18n.getMessage("serverNowClosedToNonAdmins"));
                 }
             }
             return true;

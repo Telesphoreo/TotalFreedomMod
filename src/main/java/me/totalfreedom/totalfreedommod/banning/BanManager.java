@@ -25,7 +25,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class BanManager extends FreedomService
 {
-
     private final Set<Ban> bans = Sets.newHashSet();
     private final Map<String, Ban> ipBans = Maps.newHashMap();
     private final Map<String, Ban> nameBans = Maps.newHashMap();
@@ -45,8 +44,8 @@ public class BanManager extends FreedomService
     protected void onStart()
     {
         config.load();
-
         bans.clear();
+
         for (String id : config.getKeys(false))
         {
             if (!config.isConfigurationSection(id))
@@ -301,5 +300,4 @@ public class BanManager extends FreedomService
             }
         }
     }
-
 }
