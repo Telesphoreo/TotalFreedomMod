@@ -10,11 +10,10 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Lists all possible attributes.", usage = "/<command>")
 public class Command_attributelist extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        String list = "All possible attributes: ";
+        String list = plugin.i18n.getMessage("allPossibleAttributes");
 
         for (Attribute attribute : Attribute.values())
         {

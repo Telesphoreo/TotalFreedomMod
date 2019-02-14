@@ -13,11 +13,10 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Clears lingering potion area effect clouds.", usage = "/<command>", aliases = "aec")
 public class Command_aeclear extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        FUtil.adminAction(sender.getName(), "Removing all area effect clouds.", true);
+        FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("areaEffectCloudsRemoving"), true);
         int removed = 0;
         for (World world : server.getWorlds())
         {
@@ -30,7 +29,7 @@ public class Command_aeclear extends FreedomCommand
                 }
             }
         }
-        msg(removed + " area effect clouds removed.");
+        msg(removed + plugin.i18n.getMessage("areaEffectCloudsRemoved"));
         return true;
     }
 }

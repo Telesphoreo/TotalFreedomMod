@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
         aliases = "aw")
 public class Command_adminworld extends FreedomCommand
 {
-
     private enum CommandMode
     {
         TELEPORT, GUEST, TIME, WEATHER
@@ -129,11 +128,11 @@ public class Command_adminworld extends FreedomCommand
 
                             if (plugin.wm.adminworld.addGuest(player, playerSender))
                             {
-                                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminWorldGuestAdded") + player.getName(), false);
+                                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminworldGuestAdded") + player.getName(), false);
                             }
                             else
                             {
-                                msg(plugin.i18n.getMessage("adminWorldGuestCouldNotBeAdded"));
+                                msg(plugin.i18n.getMessage("adminworldGuestCouldNotBeAdded"));
                             }
                         }
                         else if ("remove".equals(args[1]))
@@ -141,11 +140,11 @@ public class Command_adminworld extends FreedomCommand
                             final Player player = plugin.wm.adminworld.removeGuest(args[2]);
                             if (player != null)
                             {
-                                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminWorldGuestRemoved") + player.getName(), false);
+                                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminworldGuestRemoved") + player.getName(), false);
                             }
                             else
                             {
-                                msg(plugin.i18n.getMessage("adminWorldGuestEntryNotFound") + args[2]);
+                                msg(plugin.i18n.getMessage("adminworldGuestEntryNotFound") + args[2]);
                             }
                         }
                         else
@@ -166,11 +165,11 @@ public class Command_adminworld extends FreedomCommand
                         if (timeOfDay != null)
                         {
                             plugin.wm.adminworld.setTimeOfDay(timeOfDay);
-                            msg(plugin.i18n.getMessage("adminWorldTimeSet") + timeOfDay.name());
+                            msg(plugin.i18n.getMessage("adminworldTimeSet") + timeOfDay.name());
                         }
                         else
                         {
-                            msg(plugin.i18n.getMessage("adminWorldTimeInvalid"));
+                            msg(plugin.i18n.getMessage("adminworldTimeInvalid"));
                         }
                     }
                     else
@@ -190,11 +189,11 @@ public class Command_adminworld extends FreedomCommand
                         if (weatherMode != null)
                         {
                             plugin.wm.adminworld.setWeatherMode(weatherMode);
-                            msg(plugin.i18n.getMessage("adminWorldWeatherSet") + weatherMode.name());
+                            msg(plugin.i18n.getMessage("adminworldWeatherSet") + weatherMode.name());
                         }
                         else
                         {
-                            msg(plugin.i18n.getMessage("adminWorldWeatherInvalid"));
+                            msg(plugin.i18n.getMessage("adminworldWeatherInvalid"));
                         }
                     }
                     else
