@@ -9,7 +9,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Kill someone with force, for those who REALLY need to die.", usage = "/<command> [playername]")
 public class Command_forcekill extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -32,6 +31,7 @@ public class Command_forcekill extends FreedomCommand
         }
 
         player.setHealth(0);
+        msg(plugin.i18n.getMessage("killedPlayer", player));
 
         return true;
     }

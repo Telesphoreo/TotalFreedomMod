@@ -19,7 +19,6 @@ import org.bukkit.inventory.ItemStack;
 @CommandParameters(description = "Fill nearby dispensers with a set of items of your choice.", usage = "/<command> <radius> <comma,separated,items>")
 public class Command_dispfill extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -33,7 +32,7 @@ public class Command_dispfill extends FreedomCommand
             }
             catch (NumberFormatException ex)
             {
-                sender.sendMessage("Invalid radius.");
+                msg(plugin.i18n.getMessage("invalidRadius"));
                 return true;
             }
 
@@ -50,7 +49,7 @@ public class Command_dispfill extends FreedomCommand
                 }
                 else
                 {
-                    sender.sendMessage("Skipping invalid item: " + searchItem);
+                    msg(plugin.i18n.getMessage("skippingInvalidItem") + searchItem);
                 }
             }
 
@@ -70,7 +69,7 @@ public class Command_dispfill extends FreedomCommand
                         {
                             if (targetBlock.getType().equals(Material.DISPENSER))
                             {
-                                sender.sendMessage("Filling dispenser @ " + FUtil.formatLocation(targetBlock.getLocation()));
+                                msg(plugin.i18n.getMessage("fillingDispenserAt") + FUtil.formatLocation(targetBlock.getLocation()));
                                 setDispenserContents(targetBlock, itemsArray);
                                 affected++;
                             }
@@ -79,7 +78,7 @@ public class Command_dispfill extends FreedomCommand
                 }
             }
 
-            sender.sendMessage("Done. " + affected + " dispenser(s) filled.");
+            msg(plugin.i18n.getMessage("dispensersFilled", affected));
         }
         else
         {

@@ -13,12 +13,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH, blockHostConsole = true)
 @CommandParameters(description = "Bans or unbans any player, even those who are not logged in anymore.", usage = "/<command> <ban <username> [reason] | unban <username> | banip <ip> <reason> | unbanip <ip> | nameban <name> | unbanname <name>>")
 public class Command_glist extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -33,7 +31,7 @@ public class Command_glist extends FreedomCommand
             {
                 checkRank(Rank.SENIOR_ADMIN);
                 plugin.pl.purgeAllData();
-                msg("Purged playerbase.");
+                msg(plugin.i18n.getMessage("purgedPlayerbase"));
 
                 return true;
             }
@@ -64,7 +62,7 @@ public class Command_glist extends FreedomCommand
 
                 if (entry == null)
                 {
-                    msg("Can't find that user. If target is not logged in, make sure that you spelled the name exactly.");
+                    msg(plugin.i18n.getMessage("userNotFound"));
                     return true;
                 }
 
@@ -84,7 +82,7 @@ public class Command_glist extends FreedomCommand
             case "gtfo":
                 if (usingIp)
                 {
-                    msg("Please specify a player, not an ip.");
+                    msg(plugin.i18n.getMessage("specifyPlayerNotIP"));
                     return true;
                 }
                 final String playerBanReason = args.length > 2 ? StringUtils.join(args, " ", 2, args.length) : null;
@@ -104,13 +102,13 @@ public class Command_glist extends FreedomCommand
                 }
 
                 plugin.pul.logPunishment(new Punishment(username, ips.get(0), sender.getName(), PunishmentType.BAN, null));
-
                 return true;
+
             case "unban":
             case "pardon":
                 if (usingIp)
                 {
-                    msg("Please specify a player, not an ip.");
+                    msg(plugin.i18n.getMessage("specifyPlayerNotIP"));
                     return true;
                 }
                 FUtil.adminAction(sender.getName(), "Unbanning " + username + " and IPs: " + StringUtils.join(ips, ", "), true);
@@ -134,7 +132,7 @@ public class Command_glist extends FreedomCommand
             case "banname":
                 if (usingIp)
                 {
-                    msg("Please specify a name, not an ip.");
+                    msg(plugin.i18n.getMessage("specifyNameNotIP"));
                     return true;
                 }
                 final String nameBanReason = args.length > 2 ? StringUtils.join(args, " ", 2, args.length) : null;
@@ -152,7 +150,7 @@ public class Command_glist extends FreedomCommand
             case "nameunban":
                 if (usingIp)
                 {
-                    msg("Please specify a name, not an ip.");
+                    msg(plugin.i18n.getMessage("specifyNameNotIP"));
                     return true;
                 }
                 FUtil.adminAction(sender.getName(), "Unbanning IGN: " + username, true);
@@ -162,7 +160,7 @@ public class Command_glist extends FreedomCommand
             case "ipban":
                 if (!usingIp)
                 {
-                    msg("Please specify an IP.");
+                    msg(plugin.i18n.getMessage("specifyIP"));
                     return true;
                 }
 
@@ -175,7 +173,7 @@ public class Command_glist extends FreedomCommand
             case "pardonip":
                 if (!usingIp)
                 {
-                    msg("Please specify an IP.");
+                    msg(plugin.i18n.getMessage("specifyIP"));
                     return true;
                 }
 
