@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Show the last command that someone used.", usage = "/<command> <player>")
 public class Command_lastcmd extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -35,9 +34,9 @@ public class Command_lastcmd extends FreedomCommand
             String lastCommand = playerdata.getLastCommand();
             if (lastCommand.isEmpty())
             {
-                lastCommand = "(none)";
+                lastCommand = plugin.i18n.getMessage("none");
             }
-            msg(player.getName() + " - Last Command: " + lastCommand, ChatColor.GRAY);
+            msg(plugin.i18n.getMessage("lastCommand", player, lastCommand));
         }
 
         return true;

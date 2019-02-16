@@ -19,7 +19,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Muter extends FreedomService
 {
-    private static final List<String> MUTE_COMMANDS = Arrays.asList(StringUtils.split("say,me,msg,tell,reply,mail", ","));
+    private static final List<String> MUTE_COMMANDS = ConfigEntry.BLOCKED_MUTED.getStringList();
+
     public final ArrayList MUTED_PLAYERS = new ArrayList();
 
     public Muter(TotalFreedomMod plugin)
@@ -56,7 +57,7 @@ public class Muter extends FreedomService
             return;
         }
 
-        FSync.playerMsg(event.getPlayer(), ChatColor.RED + "You are muted, STFU! - You will be unmuted in 5 minutes.");
+        FSync.playerMsg(event.getPlayer(), plugin.i18n.getMessage("chatBlockedWhileMuted"));
         event.setCancelled(true);
     }
 
@@ -93,7 +94,7 @@ public class Muter extends FreedomService
 
         if (MUTE_COMMANDS.contains(cmdName))
         {
-            player.sendMessage(ChatColor.RED + "That command is blocked while you are muted.");
+            player.sendMessage(plugin.i18n.getMessage("commandsBlockedWhileMuted"));
             event.setCancelled(true);
             return;
         }

@@ -15,7 +15,6 @@ import org.bukkit.util.Vector;
 @CommandParameters(description = "Push people away from you.", usage = "/<command> [radius] [strength]")
 public class Command_expel extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -78,11 +77,11 @@ public class Command_expel extends FreedomCommand
 
         if (pushedPlayers.isEmpty())
         {
-            msg("No players pushed.");
+            msg(plugin.i18n.getMessage("noPlayersPushed"));
         }
         else
         {
-            msg("Pushed " + pushedPlayers.size() + " players: " + StringUtils.join(pushedPlayers, ", "));
+            msg(plugin.i18n.getMessage("noPlayersPushed", pushedPlayers.size(), StringUtils.join(pushedPlayers, ", ")));
         }
 
         return true;

@@ -12,7 +12,6 @@ import org.bukkit.inventory.ItemStack;
 @CommandParameters(description = "Enchant items.", usage = "/<command> <list | addall | reset | add <name> | remove <name>>")
 public class Command_enchant extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -25,7 +24,7 @@ public class Command_enchant extends FreedomCommand
 
         if (item == null || item.getType() == Material.AIR)
         {
-            msg("You have to hold an item to enchant it");
+            msg(plugin.i18n.getMessage("holdItemToEnchant"));
             return true;
         }
 
@@ -33,7 +32,7 @@ public class Command_enchant extends FreedomCommand
         {
             boolean has_enchantments = false;
 
-            StringBuilder possible_ench = new StringBuilder("Possible enchantments for held item: ");
+            StringBuilder possible_ench = new StringBuilder(plugin.i18n.getMessage("possibleEnchantments"));
             for (Enchantment ench : Enchantment.values())
             {
                 if (ench.canEnchantItem(item))
@@ -49,7 +48,7 @@ public class Command_enchant extends FreedomCommand
             }
             else
             {
-                msg("The held item has no enchantments.");
+                msg(plugin.i18n.getMessage("noEnchantments"));
             }
         }
         else if (args[0].equalsIgnoreCase("addall"))
@@ -65,11 +64,11 @@ public class Command_enchant extends FreedomCommand
                 }
                 catch (Exception ex)
                 {
-                    msg("Could not add enchantment: " + ench.getName());
+                    msg(plugin.i18n.getMessage("couldNotAddEnchantment") + ench.getName());
                 }
             }
 
-            msg("Added all possible enchantments for this item.");
+            msg(plugin.i18n.getMessage("addedAllEnchantments"));
         }
         else if (args[0].equalsIgnoreCase("reset"))
         {
@@ -78,7 +77,7 @@ public class Command_enchant extends FreedomCommand
                 item.removeEnchantment(ench);
             }
 
-            msg("Removed all enchantments.");
+            msg(plugin.i18n.getMessage("removedAllEnchantments"));
         }
         else
         {
@@ -99,7 +98,7 @@ public class Command_enchant extends FreedomCommand
 
             if (ench == null)
             {
-                msg(args[1] + " is an invalid enchantment for the held item. Type \"/enchant list\" for valid enchantments for this item.");
+                msg(plugin.i18n.getMessage("invalidEnchantment", args[1]));
                 return true;
             }
 
@@ -109,21 +108,20 @@ public class Command_enchant extends FreedomCommand
                 {
                     item.addEnchantment(ench, ench.getMaxLevel());
 
-                    msg("Added enchantment: " + ench.getName());
+                    msg(plugin.i18n.getMessage("enchantmentAdded") + ench.getName());
                 }
                 else
                 {
-                    msg("Can't use this enchantment on held item.");
+                    msg(plugin.i18n.getMessage("couldNotUseEnchantment"));
                 }
             }
             else if (args[0].equals("remove"))
             {
                 item.removeEnchantment(ench);
 
-                msg("Removed enchantment: " + ench.getName());
+                msg(plugin.i18n.getMessage("enchantmentRemoved") + ench.getName());
             }
         }
-
         return true;
     }
 }

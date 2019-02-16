@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Shows all IPs registered to a player", usage = "/<command> <player>")
 public class Command_findip extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -23,13 +22,12 @@ public class Command_findip extends FreedomCommand
 
         if (player == null)
         {
-
             msg(FreedomCommand.PLAYER_NOT_FOUND);
             return true;
         }
 
-        msg("Player IPs: " + StringUtils.join(plugin.pl.getData(player).getIps(), ", "));
-
+        msg(plugin.i18n.getMessage("playerIps",
+                StringUtils.join(plugin.pl.getData(player).getIps(), ", ")));
         return true;
     }
 }

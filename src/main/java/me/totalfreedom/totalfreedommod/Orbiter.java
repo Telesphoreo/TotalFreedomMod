@@ -9,7 +9,6 @@ import org.bukkit.util.Vector;
 
 public class Orbiter extends FreedomService
 {
-
     public Orbiter(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -28,7 +27,6 @@ public class Orbiter extends FreedomService
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerMove(PlayerMoveEvent event)
     {
-
         final Player player = event.getPlayer();
         final FPlayer fPlayer = plugin.pl.getPlayer(player);
 
@@ -42,5 +40,4 @@ public class Orbiter extends FreedomService
             player.setVelocity(new Vector(0, fPlayer.orbitStrength(), 0));
         }
     }
-
 }

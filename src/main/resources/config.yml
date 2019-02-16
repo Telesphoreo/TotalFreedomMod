@@ -37,7 +37,6 @@ discord:
 
 # Admin list
 adminlist:
-
   # The amount of hours after which admins may be removed from the admin list
   clean_threshold_hours: 167
 
@@ -184,6 +183,22 @@ blocked_commands:
   - 's:b:/team:_'
   - 'n:b:/bossbar:_'
 
+# A list of commands that should be blocked from /wildcard
+wildcard_blocked:
+    - wildcard
+    - gtfo
+    - doom
+    - saconfig
+
+# A list of commands that should be blocked when a player is muted
+muted_blocked:
+  - say
+  - me
+  - msg
+  - tell
+  - reply
+  - mail
+
 # Automatically wipe dropped objects
 auto_wipe: true
 
@@ -292,15 +307,6 @@ masterbuilderinfo:
   - '&bHow to apply for Master Builder on the TotalFreedom Server:'
   - ' &6- Do not ask for Master Builder in game'
   - ' &2- Screenshot some of your previous builds (be ready to prove that the builds are yours)'
-  - ' &6- Copy the template and create a thread on our forums'
-  - ' &2- Template:'
-  - '    &9bit.ly/TFMasterBuilderTemplate'
-
-# What to display in the masterbuilder info command.
-masterbuilderinfo:
-  - '&bHow to apply for Master Builder on the TotalFreedom Server:'
-  - ' &6- Do not ask for Master Builder in game'
-  - ' &2- Screenshot some of your previous builds'
   - ' &6- Copy the template and create a thread on our forums'
   - ' &2- Template:'
   - '    &9bit.ly/TFMasterBuilderTemplate'

@@ -1,7 +1,7 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import java.util.Arrays;
 import java.util.List;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
@@ -13,13 +13,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Run any command on all users, username placeholder = ?.", usage = "/<command> [fluff] ? [fluff] ?")
 public class Command_wildcard extends FreedomCommand
 {
-
-    public static final List<String> BLOCKED_COMMANDS = Arrays.asList(
-            "wildcard",
-            "gtfo",
-            "doom",
-            "saconfig"
-    );
+    private static final List<String> BLOCKED_COMMANDS = ConfigEntry.BLOCKED_WILDCARD_COMMANDS.getStringList();
 
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
@@ -32,13 +26,13 @@ public class Command_wildcard extends FreedomCommand
         Command runCmd = server.getPluginCommand(args[0]);
         if (runCmd == null)
         {
-            msg("Unknown command: " + args[0], ChatColor.RED);
+            msg(plugin.i18n.getMessage("wildcardUnknownCommand") + args[0], ChatColor.RED);
             return true;
         }
 
         if (BLOCKED_COMMANDS.contains(runCmd.getName()))
         {
-            msg("Did you really think that was going to work?", ChatColor.RED);
+            msg(plugin.i18n.getMessage("wildcardBlockedCommand"));
             return true;
         }
 
@@ -53,7 +47,7 @@ public class Command_wildcard extends FreedomCommand
         for (Player player : server.getOnlinePlayers())
         {
             String runCommand = baseCommand.replaceAll("\\x3f", player.getName());
-            msg("Running Command: " + runCommand);
+            msg(plugin.i18n.getMessage("wildcardRunningCommand") + runCommand);
             server.dispatchCommand(sender, runCommand);
         }
 

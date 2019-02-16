@@ -30,13 +30,13 @@ public class Command_invsee extends FreedomCommand
 
         if (playerSender == player)
         {
-            msg("You cannot use this command on yourself.");
+            msg(plugin.i18n.getMessage("cannotUseCommandOnSelf"));
             return true;
         }
 
         if (plugin.al.isAdmin(player) && !plugin.al.isAdmin(playerSender))
         {
-            msg("You cannot spy on administrators.");
+            msg(plugin.i18n.getMessage("cannotSpyOnAdmins"));
             return true;
 
         }
@@ -50,7 +50,7 @@ public class Command_invsee extends FreedomCommand
                 ItemStack offhand = player.getInventory().getItemInOffHand();
                 if (offhand == null)
                 {
-                    msg(player.getName() + " has nothing in their offhand.");
+                    msg(plugin.i18n.getMessage("nothingInOffhand", player));
                     return true;
                 }
                 Inventory inventory = server.createInventory(null, 9, player.getName() + "'s offhand");

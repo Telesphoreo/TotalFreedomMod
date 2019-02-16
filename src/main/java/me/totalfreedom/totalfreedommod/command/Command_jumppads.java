@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Manage jumppads", usage = "/<command> <on | off | info | sideways <on | off>>", aliases = "launchpads,jp")
 public class Command_jumppads extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -36,20 +35,20 @@ public class Command_jumppads extends FreedomCommand
             {
                 if (plugin.jp.players.get(playerSender) == Jumppads.JumpPadMode.OFF)
                 {
-                    msg("Your jumppads are already disabled.");
+                    msg(plugin.i18n.getMessage("jumppadsAlreadyDisabled"));
                     return true;
                 }
-                msg("Disabled your jumppads.", ChatColor.GRAY);
+                msg(plugin.i18n.getMessage("jumppadsDisabled"));
                 plugin.jp.players.put(playerSender, Jumppads.JumpPadMode.OFF);
             }
             else
             {
                 if (plugin.jp.players.get(playerSender) != Jumppads.JumpPadMode.OFF)
                 {
-                    msg("Your jumppads are already enabled.");
+                    msg(plugin.i18n.getMessage("jumppadsAlreadyEnabled"));
                     return true;
                 }
-                msg("Enabled your jumpppads.", ChatColor.GRAY);
+                msg(plugin.i18n.getMessage("jumppadsEnabled"));
                 plugin.jp.players.put(playerSender, Jumppads.JumpPadMode.MADGEEK);
             }
         }
@@ -57,7 +56,7 @@ public class Command_jumppads extends FreedomCommand
         {
             if (plugin.jp.players.get(playerSender) == Jumppads.JumpPadMode.OFF)
             {
-                msg("Your jumppads are currently disabled, please enable them before changing jumppads settings.");
+                msg(plugin.i18n.getMessage("enableJumppadsBeforeChangingSettings"));
                 return true;
             }
 
@@ -67,20 +66,20 @@ public class Command_jumppads extends FreedomCommand
                 {
                     if (plugin.jp.players.get(playerSender) == Jumppads.JumpPadMode.MADGEEK)
                     {
-                        msg("Your jumppads are already set to normal mode.");
+                        msg(plugin.i18n.getMessage("jumppadsAlreadyNormalMode"));
                         return true;
                     }
-                    msg("Set Jumppads mode to: Normal", ChatColor.GRAY);
+                    msg(plugin.i18n.getMessage("jumppadsSetToNormal"));
                     plugin.jp.players.put(playerSender, Jumppads.JumpPadMode.MADGEEK);
                 }
                 else
                 {
                     if (plugin.jp.players.get(playerSender) == Jumppads.JumpPadMode.NORMAL_AND_SIDEWAYS)
                     {
-                        msg("Your jumppads are already set to normal and sideways mode.");
+                        msg(plugin.i18n.getMessage("jumppadsAlreadySidewaysMode"));
                         return true;
                     }
-                    msg("Set Jumppads mode to: Normal and Sideways", ChatColor.GRAY);
+                    msg(plugin.i18n.getMessage("jumppadsSetToSideways"));
                     plugin.jp.players.put(playerSender, Jumppads.JumpPadMode.NORMAL_AND_SIDEWAYS);
                 }
             }
