@@ -54,6 +54,15 @@ public class MessagesConfig extends FreedomService
                         .replace("%input%", inputMessage));
     }
 
+    public String getMessage(String message, Player player, String inputMessage)
+    {
+        return FUtil.colorize(
+                config.getString(message,
+                        ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file.")
+                        .replace("%player%", player.getName())
+                        .replace("%input%", inputMessage));
+    }
+
     public String getMessage(String message, String inputMessage)
     {
         return FUtil.colorize(
