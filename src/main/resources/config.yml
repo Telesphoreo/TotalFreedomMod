@@ -46,9 +46,12 @@ adminlist:
 
 # CoreProtect
 coreprotect:
-  auto_wipe: false
-
-  file_limit: 5000
+  enabled: false
+  host: 'localhost'
+  port: '3306'
+  username: ''
+  password: ''
+  database: 'coreprotect'
 
 # ForceIP configuration
 forceip:
@@ -81,6 +84,7 @@ allow:
   redstone: true
   fireworks: false
   frostwalker: false
+  unsafe_enchantments: false
 
 # Blocked commands:
 #
@@ -142,6 +146,8 @@ blocked_commands:
   - 'n:b:/function:_'
   - 'n:b:/data:_'
   - 'n:b:/datapack:_'
+  - 'n:b:/bossbar:_'
+  - 'n:b://forceload:_'
 
   # Admin commands
   - 's:b:/save-all:_'
@@ -181,7 +187,6 @@ blocked_commands:
   - 's:b:/fill:_'
   - 's:b:/flood:_'
   - 's:b:/team:_'
-  - 'n:b:/bossbar:_'
 
 # A list of commands that should be blocked from /wildcard
 wildcard_blocked:

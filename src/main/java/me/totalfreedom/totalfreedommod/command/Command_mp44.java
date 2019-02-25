@@ -14,13 +14,12 @@ import org.bukkit.inventory.ItemStack;
 @CommandParameters(description = "Modern weaponry, FTW. Use 'draw' to start firing, 'sling' to stop firing.", usage = "/<command> <draw | sling>")
 public class Command_mp44 extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
         if (!ConfigEntry.MP44_ENABLED.getBoolean())
         {
-            msg("The mp44 is currently disabled.", ChatColor.GREEN);
+            msg(plugin.i18n.getMessage("mp44Disabled"));
             return true;
         }
 
@@ -35,8 +34,7 @@ public class Command_mp44 extends FreedomCommand
         {
             playerdata.armMP44();
 
-            msg("mp44 is ARMED! Left click with gunpowder to start firing, left click again to quit.", ChatColor.GREEN);
-            msg("Type /mp44 sling to disable.  -by Madgeek1450", ChatColor.GREEN);
+            msg(plugin.i18n.getMessage("mp44Armed"));
 
             playerSender.getEquipment().setItemInMainHand(new ItemStack(Material.GUNPOWDER, 1));
         }
@@ -44,7 +42,7 @@ public class Command_mp44 extends FreedomCommand
         {
             playerdata.disarmMP44();
 
-            sender.sendMessage(ChatColor.GREEN + "mp44 Disarmed.");
+            msg(plugin.i18n.getMessage("mp44Disarmed"));
         }
 
         return true;

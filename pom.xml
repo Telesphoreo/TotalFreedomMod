@@ -160,12 +160,6 @@
             <version>7.0.0-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
-
-        <dependency>
-            <groupId>com.github.TFPatches</groupId>
-            <artifactId>BukkitSSH</artifactId>
-            <version>master-1.2-ge9214e4-23</version>
-        </dependency>
     </dependencies>
 
     <build>
