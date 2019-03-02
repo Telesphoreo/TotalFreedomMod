@@ -3,7 +3,6 @@ package me.totalfreedom.totalfreedommod.command;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
@@ -19,7 +18,6 @@ import org.bukkit.inventory.ItemStack;
 @CommandParameters(description = "Enchant items.", usage = "/<command> <list | addall | reset | add <name> [level] | remove <name>>")
 public class Command_enchant extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -98,7 +96,7 @@ public class Command_enchant extends FreedomCommand
 
             try
             {
-                ench = Enchantment.getByName(args[1]);
+                ench = Enchantment.getByName(args[1].toUpperCase());
             }
             catch (Exception ex)
             {

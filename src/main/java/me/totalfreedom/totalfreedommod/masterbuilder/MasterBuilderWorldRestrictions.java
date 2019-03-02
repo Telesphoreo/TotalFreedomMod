@@ -39,12 +39,10 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
     public boolean doRestrict(Player player)
     {
-        if (!plugin.mbl.isMasterBuilder(player) && !FUtil.isExecutive(player.getName()) && player.getWorld().equals(plugin.wm.masterBuilderWorld.getWorld()))
-        {
-            return true;
-        }
+        return !plugin.mbl.isMasterBuilder(player)
+                && !FUtil.isExecutive(player.getName())
+                && player.getWorld().equals(plugin.wm.masterBuilderWorld.getWorld());
 
-        return false;
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
