@@ -128,6 +128,7 @@ userNotFound: "Can't find that user. If target is not logged in, make sure that 
 =======
 toggledAdminChat: "Toggled Admin Chat "
 unblockedCommandsForAllPlayers: "Unblocked commands for %amount% players."
+<<<<<<< HEAD
 unblockingCommandsForAllPlayers: "Unblocking commands for all players"
 editsBlockedFor: "The following have block modification abilities restricted:"
 none: "none"
@@ -142,3 +143,6 @@ editsCannotBeBlocked: "%player% is an admin, and cannot have their block edits b
 blockedEditsFor: "Blocked all block modification abilities for %player%"
 editsBlocked: "&cYour block modification abilities have been blocked."
 >>>>>>> parent of ef1a1ca6... this is gonna take forever
+=======
+unblockingCommandsForAllPlayers: "Unblocking commands for all players"
+>>>>>>> parent of 8ed70d9b... IT TAKES SO LONG TO DO THESE

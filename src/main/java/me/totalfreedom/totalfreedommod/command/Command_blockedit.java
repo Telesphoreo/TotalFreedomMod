@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Restricts/unrestricts block modification abilities", usage = "/<command> [[-s] <player> [reason] | list | purge | all]")
 public class Command_blockedit extends FreedomCommand
 {
+
     @Override
     public boolean run(final CommandSender sender, final Player playerSender, final Command cmd, final String commandLabel, String[] args, final boolean senderIsConsole)
     {
@@ -24,7 +25,7 @@ public class Command_blockedit extends FreedomCommand
 
         if (args[0].equals("list"))
         {
-            msg(plugin.i18n.getMessage("editsBlockedFor"));
+            msg("The following have block modification abilities restricted:");
             int count = 0;
             for (Player player : server.getOnlinePlayers())
             {
@@ -38,14 +39,14 @@ public class Command_blockedit extends FreedomCommand
 
             if (count == 0)
             {
-                msg("- " + plugin.i18n.getMessage("none"));
+                msg("- none");
             }
             return true;
         }
 
         if (args[0].equals("purge"))
         {
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("editsUnblockedForAllPlayers"), true);
+            FUtil.adminAction(sender.getName(), "Unblocking block modification abilities for all players.", true);
             int count = 0;
             for (final Player player : this.server.getOnlinePlayers())
             {
@@ -56,17 +57,17 @@ public class Command_blockedit extends FreedomCommand
                     ++count;
                 }
             }
-            msg(plugin.i18n.getMessage("editsUnblockedForAllPlayersCount", count));
+            msg("Unblocked all block modification abilities for " + count + " players.");
             return true;
         }
 
         if (args[0].equals("all"))
         {
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("editsBlockedForAllPlayers"), true);
+            FUtil.adminAction(sender.getName(), "Blocking block modification abilities for all non-admins.", true);
             int counter = 0;
             for (final Player player : this.server.getOnlinePlayers())
             {
-                if (!plugin.al.isAdmin(player))
+                if (!plugin.al.isAdmin((CommandSender)player))
                 {
                     final FPlayer playerdata = plugin.pl.getPlayer(player);
                     playerdata.setEditBlocked(true);
@@ -74,7 +75,7 @@ public class Command_blockedit extends FreedomCommand
                 }
             }
 
-            msg(plugin.i18n.getMessage("editsBlockedForAllPlayersCount", counter));
+            msg("Blocked block modification abilities for " + counter + " players.");
             return true;
         }
 
@@ -88,8 +89,8 @@ public class Command_blockedit extends FreedomCommand
             }
         }
 
-        final Player player = getPlayer(args[0]);
-        if (player == null)
+        final Player player2 = getPlayer(args[0]);
+        if (player2 == null)
         {
             sender.sendMessage(FreedomCommand.PLAYER_NOT_FOUND);
             return true;
@@ -98,35 +99,35 @@ public class Command_blockedit extends FreedomCommand
         String reason = null;
         if (args.length > 1)
         {
-            reason = StringUtils.join(args, " ", 1, args.length);
+            reason = StringUtils.join((Object[])args, " ", 1, args.length);
         }
 
-        final FPlayer pd = plugin.pl.getPlayer(player);
+        final FPlayer pd = plugin.pl.getPlayer(player2);
         if (pd.isEditBlocked())
         {
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("editsUnblockedForPlayer", player), true);
+            FUtil.adminAction(sender.getName(), "Unblocking block modification abilities for " + player2.getName(), true);
             pd.setEditBlocked(false);
-            msg(plugin.i18n.getMessage("editsUnblockedForPlayer", player));
-            msg(player, plugin.i18n.getMessage("blockPlaceAbilityRestored"), ChatColor.RED);
+            msg("Unblocking block modification abilities for " + player2.getName());
+            msg(player2, "Your block modification abilities have been restored.", ChatColor.RED);
         }
         else
         {
-            if (plugin.al.isAdmin(player))
+            if (plugin.al.isAdmin((CommandSender)player2))
             {
-                msg(plugin.i18n.getMessage("editsCannotBeBlocked", player));
+                msg(player2.getName() + " is an admin, and cannot have their block edits blocked.");
                 return true;
             }
 
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("editsBlockedForPlayer", player), true);
+            FUtil.adminAction(sender.getName(), "Blocking block modification abilities for " + player2.getName(), true);
             pd.setEditBlocked(true);
 
             if (smite)
             {
-                Command_smite.smite(sender, player, reason);
+                Command_smite.smite(sender, player2, reason);
             }
 
-            msg(player, plugin.i18n.getMessage("editsBlocked"));
-            msg(plugin.i18n.getMessage("blockedEditsFor", player));
+            msg(player2, "Your block modification abilities have been blocked.", ChatColor.RED);
+            msg("Blocked all block modification abilities for " + player2.getName());
         }
         return true;
     }
