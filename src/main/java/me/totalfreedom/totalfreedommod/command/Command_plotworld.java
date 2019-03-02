@@ -20,7 +20,7 @@ public class Command_plotworld extends FreedomCommand
         }
         else
         {
-            msg(plugin.i18n.getMessage("plotworldDoesNotExist"));
+            msg("Teleporting to the plotworld.");
         }
         return true;
     }
