@@ -153,6 +153,9 @@ public class Command_enchant extends FreedomCommand
                 else
                 {
                     msg("Can't use this enchantment on held item.");
+<<<<<<< HEAD
+>>>>>>> parent of 661583ca... more i18n shit
+=======
 >>>>>>> parent of 661583ca... more i18n shit
                 }
 

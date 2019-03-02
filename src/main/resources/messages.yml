@@ -84,6 +84,7 @@ toggledAdminChat: "Toggled Admin Chat "
 unblockedCommandsForAllPlayers: "Unblocked commands for %amount% players."
 unblockingCommandsForAllPlayers: "Unblocking commands for all players"
 <<<<<<< HEAD
+<<<<<<< HEAD
 userNotFound: "Can't find that user. If target is not logged in, make sure that you spelled the name exactly."
 wildcardUnknownCommand: "Unknown command: "
 wildcardBlockedCommand: "&cDid you really think that was going to work?"
@@ -133,3 +134,6 @@ explosionsDisabled: "&aExplosions are currently disabled."
 landminePlanted: "&aLandmine planted - Radius = %amount% blocks."
 lastCommand: "%player% Last Command - %input%"
 >>>>>>> parent of 6200c0ae... Fix broken lastcmd + formatting
+=======
+userNotFound: "Can't find that user. If target is not logged in, make sure that you spelled the name exactly."
+>>>>>>> parent of 661583ca... more i18n shit

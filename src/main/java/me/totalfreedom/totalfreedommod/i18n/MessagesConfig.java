@@ -43,6 +43,7 @@ public class MessagesConfig extends FreedomService
                 config.getString(message,
                         ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file.")
 <<<<<<< HEAD
+<<<<<<< HEAD
                         .replace("%player%", player.getName()));
     }
 
@@ -61,6 +62,10 @@ public class MessagesConfig extends FreedomService
                 config.getString(message,
                         ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file.")
                         .replace("%input%", inputMessage));
+=======
+                        .replace("%player%", player.getName())
+        );
+>>>>>>> parent of 661583ca... more i18n shit
 =======
                         .replace("%player%", player.getName())
         );

@@ -188,6 +188,10 @@ blocked_commands:
   - 's:b:/fill:_'
   - 's:b:/flood:_'
   - 's:b:/team:_'
+<<<<<<< HEAD
+=======
+  - 'n:b:/bossbar:_'
+>>>>>>> parent of 661583ca... more i18n shit
 
 # Automatically wipe dropped objects
 auto_wipe: true
