@@ -17,7 +17,7 @@ public class Command_disguisetoggle extends FreedomCommand
     {
         if (!plugin.ldb.isEnabled())
         {
-            msg(plugin.i18n.getMessage("libsdisguisesNotEnabled"));
+            msg("LibsDisguises is not enabled.");
             return true;
         }
 

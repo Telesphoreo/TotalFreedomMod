@@ -10,10 +10,11 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Deop everyone on the server.", usage = "/<command>")
 public class Command_deopall extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("deoppingAll"), true);
+        FUtil.adminAction(sender.getName(), "De-opping all players on the server", true);
 
         for (Player player : server.getOnlinePlayers())
         {

@@ -40,13 +40,12 @@ public class Command_clearchat extends FreedomCommand
                     IntStream.range(0, 100).mapToObj(i -> "").forEach(player::sendMessage);
                 }
             }
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("clearedChat"), true);
+            FUtil.adminAction(sender.getName(), "Cleared chat", true);
         }
         else if (plugin.mbl.isMasterBuilder(playerSender))
         {
             MasterBuilder mb = plugin.mbl.getMasterBuilder(playerSender);
             mb.setClearChatOptOut(!mb.isClearChatOptOut());
-            // TODO
             msg((mb.isClearChatOptOut() ? "Opted-out of" : "Opted-in to") + " clear chat.");
             plugin.mbl.save();
             plugin.mbl.updateTables();
@@ -62,7 +61,7 @@ public class Command_clearchat extends FreedomCommand
         }
         else
         {
-            msg(plugin.i18n.getMessage("optOutOfClearChat"));
+            msg("Only Master Builders and players with verification enabled can opt-out of clear chat.", ChatColor.RED);
             return true;
         }
         return true;
