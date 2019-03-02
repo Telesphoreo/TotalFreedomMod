@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Muter extends FreedomService
 {
-    private static final List<String> MUTE_COMMANDS = Arrays.asList(StringUtils.split("say,me,msg,tell,reply,mail", ","));
+    private final static List<String> MUTE_COMMANDS = ConfigEntry.BLOCKED_MUTED_COMMANDS.getStringList();
     public final ArrayList MUTED_PLAYERS = new ArrayList();
 
     public Muter(TotalFreedomMod plugin)

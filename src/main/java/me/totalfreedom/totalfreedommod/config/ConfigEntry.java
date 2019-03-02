@@ -3,7 +3,6 @@ package me.totalfreedom.totalfreedommod.config;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 
-
 public enum ConfigEntry
 {
     FORCE_IP_ENABLED(Boolean.class, "forceip.enabled"),
@@ -23,7 +22,9 @@ public enum ConfigEntry
     ALLOW_FROSTWALKER(Boolean.class, "allow.frostwalker"),
     ALLOW_UNSAFE_ENCHANTMENTS(Boolean.class, "allow.unsafe_enchantments"),
     //
-    BLOCKED_CHATCODES(String.class, "blocked_chatcodes"),
+    BLOCKED_WILDCARD_COMMANDS(List.class, "blocked.wildcard_commands"),
+    BLOCKED_MUTED_COMMANDS(List.class, "blocked.muted_commands"),
+    BLOCKED_CHATCODES(String.class, "blocked.chatcodes"),
     //
     MOB_LIMITER_ENABLED(Boolean.class, "moblimiter.enabled"),
     MOB_LIMITER_MAX(Integer.class, "moblimiter.max"),

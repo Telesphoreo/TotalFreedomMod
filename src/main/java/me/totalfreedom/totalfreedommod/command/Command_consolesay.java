@@ -21,7 +21,7 @@ public class Command_consolesay extends FreedomCommand
         }
 
         String message = StringUtils.join(args, " ");
-        FUtil.bcastMsg(String.format("§7[CONSOLE] §f<§c%s§f> %s", sender.getName(), StringUtils.join(args, " ")));
+        FUtil.bcastMsg(String.format("§7[CONSOLE] §f<§c%s§f> %s", sender.getName(), message));
         return true;
     }
 }

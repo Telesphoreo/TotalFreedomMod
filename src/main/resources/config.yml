@@ -188,10 +188,25 @@ blocked_commands:
   - 's:b:/fill:_'
   - 's:b:/flood:_'
   - 's:b:/team:_'
-<<<<<<< HEAD
-=======
-  - 'n:b:/bossbar:_'
->>>>>>> parent of 661583ca... more i18n shit
+
+# Commands that should be blocked in certain circumstances
+blocked:
+  # Commands blocked from wildcard
+  wildcard_commands:
+    - wildcard
+    - gtfo
+    - doom
+    - saconfig
+  # Commands blocked while a player is muted
+  muted_commands:
+    - say
+    - me
+    - msg
+    - tell
+    - reply
+    - mail
+  # Blocked Chat Codes - Use &code,&code2,&code3 (No spaces)
+  chatcodes: "&0,&k,&m,&n"
 
 # Automatically wipe dropped objects
 auto_wipe: true
@@ -213,7 +228,6 @@ preprocess_log: true
 disable:
   night: true
   weather: true
-
 
 # Enable misc. features
 landmines_enabled: false
@@ -305,15 +319,6 @@ masterbuilderinfo:
   - ' &2- Template:'
   - '    &9bit.ly/TFMasterBuilderTemplate'
 
-# What to display in the masterbuilder info command.
-masterbuilderinfo:
-  - '&bHow to apply for Master Builder on the TotalFreedom Server:'
-  - ' &6- Do not ask for Master Builder in game'
-  - ' &2- Screenshot some of your previous builds'
-  - ' &6- Copy the template and create a thread on our forums'
-  - ' &2- Template:'
-  - '    &9bit.ly/TFMasterBuilderTemplate'
-
 # Famous players - cannot be banned by username
 famous_players:
   - honeydew
@@ -394,9 +399,6 @@ overlord_ips:
   - 107.191.101.27
   - 178.62.117.94
   - 141.101.104.243
-
-# Blocked Chat Codes - Use &code,&code2,&code3 (No spaces)
-blocked_chatcodes: '&0,&k,&m,&n'
 
 # AMP Integration, used to restart server (optional, without it, have to start server manually after stop)
 amp:
