@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
         aliases = "o,ac")
 public class Command_adminchat extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -21,18 +22,19 @@ public class Command_adminchat extends FreedomCommand
         {
             if (senderIsConsole)
             {
-                msg(plugin.i18n.getMessage("onlyPlayersCanToggleAdminChat"));
+                msg("Only in-game players can toggle AdminChat.");
                 return true;
             }
 
             FPlayer userinfo = plugin.pl.getPlayer(playerSender);
             userinfo.setAdminChat(!userinfo.inAdminChat());
-            msg(plugin.i18n.getMessage("toggledAdminChat") + (userinfo.inAdminChat() ? plugin.i18n.getMessage("on") : plugin.i18n.getMessage("on")) + ".");
+            msg("Toggled Admin Chat " + (userinfo.inAdminChat() ? "on" : "off") + ".");
         }
         else
         {
             plugin.cm.adminChat(sender, StringUtils.join(args, " "));
         }
+
         return true;
     }
 }

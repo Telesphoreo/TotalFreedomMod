@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Information on how to apply for admin.", usage = "/<command>", aliases = "ai")
 public class Command_admininfo extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -21,7 +22,7 @@ public class Command_admininfo extends FreedomCommand
 
         if (adminInfo.isEmpty())
         {
-            msg(plugin.i18n.getMessage("noAdminInfoSet"), ChatColor.RED);
+            msg("There is no admin information set in the config.", ChatColor.RED);
         }
         else
         {

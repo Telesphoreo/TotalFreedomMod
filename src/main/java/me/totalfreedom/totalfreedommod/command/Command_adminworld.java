@@ -76,19 +76,19 @@ public class Command_adminworld extends FreedomCommand
 
                     if (adminWorld == null || playerSender.getWorld() == adminWorld)
                     {
-                        msg(plugin.i18n.getMessage("goingToMainWorld"));
+                        msg("Going to the main world.");
                         playerSender.teleport(server.getWorlds().get(0).getSpawnLocation());
                     }
                     else
                     {
                         if (plugin.wm.adminworld.canAccessWorld(playerSender))
                         {
-                            msg(plugin.i18n.getMessage("goingToAdminWorld"));
+                            msg("Going to the AdminWorld.");
                             plugin.wm.adminworld.sendToWorld(playerSender);
                         }
                         else
                         {
-                            msg(plugin.i18n.getMessage("noPermissionForAdminWorld"));
+                            msg("You don't have permission to access the AdminWorld.");
                         }
                     }
 
@@ -100,13 +100,13 @@ public class Command_adminworld extends FreedomCommand
                     {
                         if ("list".equalsIgnoreCase(args[1]))
                         {
-                            msg(plugin.i18n.getMessage("adminworldGuestList") + plugin.wm.adminworld.guestListToString());
+                            msg("AdminWorld guest list: " + plugin.wm.adminworld.guestListToString());
                         }
                         else if ("purge".equalsIgnoreCase(args[1]))
                         {
                             assertCommandPerms(sender, playerSender);
                             plugin.wm.adminworld.purgeGuestList();
-                            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminworldGuestListPurged"), false);
+                            FUtil.adminAction(sender.getName(), "AdminWorld guest list purged.", false);
                         }
                         else
                         {
@@ -129,11 +129,11 @@ public class Command_adminworld extends FreedomCommand
 
                             if (plugin.wm.adminworld.addGuest(player, playerSender))
                             {
-                                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminWorldGuestAdded") + player.getName(), false);
+                                FUtil.adminAction(sender.getName(), "AdminWorld guest added: " + player.getName(), false);
                             }
                             else
                             {
-                                msg(plugin.i18n.getMessage("adminWorldGuestCouldNotBeAdded"));
+                                msg("Could not add player to guest list.");
                             }
                         }
                         else if ("remove".equals(args[1]))
@@ -141,11 +141,11 @@ public class Command_adminworld extends FreedomCommand
                             final Player player = plugin.wm.adminworld.removeGuest(args[2]);
                             if (player != null)
                             {
-                                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("adminWorldGuestRemoved") + player.getName(), false);
+                                FUtil.adminAction(sender.getName(), "AdminWorld guest removed: " + player.getName(), false);
                             }
                             else
                             {
-                                msg(plugin.i18n.getMessage("adminWorldGuestEntryNotFound") + args[2]);
+                                msg("Can't find guest entry for: " + args[2]);
                             }
                         }
                         else
@@ -166,11 +166,11 @@ public class Command_adminworld extends FreedomCommand
                         if (timeOfDay != null)
                         {
                             plugin.wm.adminworld.setTimeOfDay(timeOfDay);
-                            msg(plugin.i18n.getMessage("adminWorldTimeSet") + timeOfDay.name());
+                            msg("AdminWorld time set to: " + timeOfDay.name());
                         }
                         else
                         {
-                            msg(plugin.i18n.getMessage("adminWorldTimeInvalid"));
+                            msg("Invalid time of day. Can be: sunrise, noon, sunset, midnight");
                         }
                     }
                     else
@@ -190,11 +190,11 @@ public class Command_adminworld extends FreedomCommand
                         if (weatherMode != null)
                         {
                             plugin.wm.adminworld.setWeatherMode(weatherMode);
-                            msg(plugin.i18n.getMessage("adminWorldWeatherSet") + weatherMode.name());
+                            msg("AdminWorld weather set to: " + weatherMode.name());
                         }
                         else
                         {
-                            msg(plugin.i18n.getMessage("adminWorldWeatherInvalid"));
+                            msg("Invalid weather mode. Can be: off, rain, storm");
                         }
                     }
                     else
@@ -234,6 +234,7 @@ public class Command_adminworld extends FreedomCommand
 
     private class PermissionDeniedException extends Exception
     {
+
         private static final long serialVersionUID = 1L;
 
         private PermissionDeniedException()

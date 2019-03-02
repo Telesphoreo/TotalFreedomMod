@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerLoginEvent;
 
 public class PermbanList extends FreedomService
 {
+
     public static final String CONFIG_FILENAME = "permbans.yml";
 
     @Getter
@@ -83,6 +84,7 @@ public class PermbanList extends FreedomService
                 return;
             }
         }
+
     }
 
     public Set<String> getPermbannedNames()

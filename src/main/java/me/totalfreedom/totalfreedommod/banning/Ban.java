@@ -257,6 +257,7 @@ public class Ban implements ConfigLoadable, ConfigSavable, Validatable
 
     private void dedupeIps()
     {
+
         Set<String> uniqueIps = new HashSet<>();
 
         Iterator<String> it = ips.iterator();
@@ -267,5 +268,6 @@ public class Ban implements ConfigLoadable, ConfigSavable, Validatable
                 it.remove();
             }
         }
+
     }
 }
