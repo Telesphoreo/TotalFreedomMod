@@ -13,9 +13,11 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Eject everything off of you.", usage = "/<command>")
 public class Command_eject extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+
         List<String> names = new ArrayList();
 
         for (Entity entity : playerSender.getPassengers())
@@ -25,12 +27,11 @@ public class Command_eject extends FreedomCommand
 
         if (names.isEmpty())
         {
-            msg(plugin.i18n.getMessage("nothingEjected"));
+            msg("Nothing was ejected.", ChatColor.GREEN);
             return true;
         }
 
-        String ejected = StringUtils.join(names, ", ");
-        msg(plugin.i18n.getMessage("ejecting", ejected));
+        msg("Ejecting " + StringUtils.join(names, ", ") + ".", ChatColor.GREEN);
         playerSender.eject();
 
         return true;

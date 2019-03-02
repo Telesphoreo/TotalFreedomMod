@@ -112,7 +112,11 @@ stoppedOrbiting: "Stopped orbiting %player%"
 toggledAdminChat: "Toggled Admin Chat "
 unblockedCommandsForAllPlayers: "Unblocked commands for %amount% players."
 unblockingCommandsForAllPlayers: "Unblocking commands for all players"
+<<<<<<< HEAD
 userNotFound: "Can't find that user. If target is not logged in, make sure that you spelled the name exactly."
 wildcardBlockedCommand: "&cDid you really think that was going to work?"
 wildcardRunningCommand: "Running Command: "
 wildcardUnknownCommand: "Unknown command: "
+=======
+userNotFound: "Can't find that user. If target is not logged in, make sure that you spelled the name exactly."
+>>>>>>> parent of 661583ca... more i18n shit

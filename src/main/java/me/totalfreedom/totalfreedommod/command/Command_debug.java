@@ -33,7 +33,7 @@ public class Command_debug extends FreedomCommand
 
             setStaticValue(className, fieldName, newValue);
 
-            sender.sendMessage(plugin.i18n.getMessage("debugOk"));
+            msg(plugin.i18n.getMessage("debugOk"));
         }
         catch (Exception ex)
         {

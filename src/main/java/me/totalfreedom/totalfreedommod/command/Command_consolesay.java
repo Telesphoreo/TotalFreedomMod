@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Telnet command - Send a chat message with chat formatting over telnet.", usage = "/<command> <message>", aliases = "csay")
 public class Command_consolesay extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -20,7 +21,7 @@ public class Command_consolesay extends FreedomCommand
         }
 
         String message = StringUtils.join(args, " ");
-        FUtil.bcastMsg(plugin.i18n.getMessage("consoleSayFormat", sender, message));
+        FUtil.bcastMsg(String.format("§7[CONSOLE] §f<§c%s§f> %s", sender.getName(), StringUtils.join(args, " ")));
         return true;
     }
 }

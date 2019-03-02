@@ -22,10 +22,7 @@ public enum ConfigEntry
     ALLOW_FROSTWALKER(Boolean.class, "allow.frostwalker"),
     ALLOW_UNSAFE_ENCHANTMENTS(Boolean.class, "allow.unsafe_enchantments"),
     //
-    BLOCKED_COMMANDS(List.class, "blocked_commands"),
     BLOCKED_CHATCODES(String.class, "blocked_chatcodes"),
-    BLOCKED_WILDCARD_COMMANDS(List.class, "wildcard_blocked"),
-    BLOCKED_MUTED(List.class, "muted_blocked"),
     //
     MOB_LIMITER_ENABLED(Boolean.class, "moblimiter.enabled"),
     MOB_LIMITER_MAX(Integer.class, "moblimiter.max"),
@@ -96,6 +93,7 @@ public enum ConfigEntry
     EXPLOSIVE_RADIUS(Double.class, "explosive_radius"),
     FREECAM_TRIGGER_COUNT(Integer.class, "freecam_trigger_count"),
     SERVICE_CHECKER_URL(String.class, "service_checker_url"),
+    BLOCKED_COMMANDS(List.class, "blocked_commands"),
     HOST_SENDER_NAMES(List.class, "host_sender_names"),
     FAMOUS_PLAYERS(List.class, "famous_players"),
     OVERLORD_IPS(List.class, "overlord_ips"),

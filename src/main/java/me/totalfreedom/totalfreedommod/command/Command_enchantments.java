@@ -10,10 +10,11 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Lists all possible enchantments.", usage = "/<command>")
 public class Command_enchantments extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        String list = plugin.i18n.getMessage("allPossibleEnchantments");
+        String list = "All possible enchantments: ";
 
         for (Enchantment enchantment : Enchantment.values())
         {

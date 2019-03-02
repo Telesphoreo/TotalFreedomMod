@@ -25,7 +25,7 @@ public class Command_invis extends FreedomCommand
         {
             if (args[0].equalsIgnoreCase("clear"))
             {
-                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("clearingInvisibilityFromAllPlayers"), true);
+                FUtil.adminAction(sender.getName(), "Clearing all invisibility potion effects from all players", true);
                 clear = true;
             }
             else
@@ -52,16 +52,16 @@ public class Command_invis extends FreedomCommand
 
         if (players.isEmpty())
         {
-            msg(plugin.i18n.getMessage("noInvisiblePlayers"));
+            msg("There are no invisible players");
             return true;
         }
         if (clear)
         {
-            msg(plugin.i18n.getMessage("clearedInvisiblePlayers", clears));
+            msg("Cleared " + clears + " players");
         }
         else
         {
-            msg(plugin.i18n.getMessage("invisiblePlayers", players.size(), StringUtils.join(players, ", ")));
+            msg("Invisible players (" + players.size() + "): " + StringUtils.join(players, ", "));
         }
         return true;
     }

@@ -6,7 +6,6 @@ import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.config.YamlConfig;
 import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class MessagesConfig extends FreedomService
@@ -37,11 +36,13 @@ public class MessagesConfig extends FreedomService
         return FUtil.colorize(config.getString(message, ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file."));
     }
 
+    // is there a better way to do this
     public String getMessage(String message, Player player)
     {
         return FUtil.colorize(
                 config.getString(message,
                         ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file.")
+<<<<<<< HEAD
                         .replace("%player%", player.getName()));
     }
 
@@ -69,6 +70,10 @@ public class MessagesConfig extends FreedomService
                 config.getString(message,
                         ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file.")
                         .replace("%input%", inputMessage));
+=======
+                        .replace("%player%", player.getName())
+        );
+>>>>>>> parent of 661583ca... more i18n shit
     }
 
     public String getMessage(String message, int amount)
@@ -76,28 +81,7 @@ public class MessagesConfig extends FreedomService
         StringBuilder output = new StringBuilder(
                 FUtil.colorize(config.getString(message,
                         ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file."))
-                        .replace("%amount%", Integer.toString(amount)));
-
-        return output.toString();
-    }
-
-    public String getMessage(String message, double amount)
-    {
-        StringBuilder output = new StringBuilder(
-                FUtil.colorize(config.getString(message,
-                        ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file."))
-                        .replace("%amount%", Double.toString(amount)));
-
-        return output.toString();
-    }
-
-    public String getMessage(String message, int amount, String inputMessage)
-    {
-        StringBuilder output = new StringBuilder(
-                FUtil.colorize(config.getString(message,
-                        ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file."))
-                        .replace("%amount%", Integer.toString(amount))
-                        .replace("%input%", inputMessage));
+                .replace("%amount%", Integer.toString(amount)));
 
         return output.toString();
     }

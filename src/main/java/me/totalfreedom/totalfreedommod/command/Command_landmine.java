@@ -4,6 +4,7 @@ import java.util.Iterator;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.fun.Landminer.Landmine;
 import me.totalfreedom.totalfreedommod.rank.Rank;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -15,18 +16,19 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Set a landmine trap.", usage = "/<command>")
 public class Command_landmine extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
         if (!ConfigEntry.LANDMINES_ENABLED.getBoolean())
         {
-            msg(plugin.i18n.getMessage("landmineDisabled"));
+            msg("The landmine is currently disabled.", ChatColor.GREEN);
             return true;
         }
 
         if (!ConfigEntry.ALLOW_EXPLOSIONS.getBoolean())
         {
-            msg(plugin.i18n.getMessage("explosionsDisabled"));
+            msg("Explosions are currently disabled.", ChatColor.GREEN);
             return true;
         }
 
@@ -57,7 +59,9 @@ public class Command_landmine extends FreedomCommand
         landmine.setType(Material.TNT);
         plugin.lm.add(new Landmine(landmine.getLocation(), playerSender, radius));
 
-        msg(plugin.i18n.getMessage("landminePlanted", radius));
+        msg("Landmine planted - Radius = " + radius + " blocks.", ChatColor.GREEN);
+
         return true;
     }
+
 }
