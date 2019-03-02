@@ -23,7 +23,7 @@ public class Command_blockcmd extends FreedomCommand
 
         if (args[0].equals("purge"))
         {
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("unblockingCommandsForAllPlayers"), true);
+            FUtil.adminAction(sender.getName(), "Unblocking commands for all players", true);
             int counter = 0;
             for (Player player : server.getOnlinePlayers())
             {
@@ -34,13 +34,13 @@ public class Command_blockcmd extends FreedomCommand
                     playerdata.setCommandsBlocked(false);
                 }
             }
-            msg(plugin.i18n.getMessage("unblockedCommandsForAllPlayers", counter));
+            msg("Unblocked commands for " + counter + " players.");
             return true;
         }
 
         if (args[0].equals("-a"))
         {
-            FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("blockingCommandsForAllPlayers"), true);
+            FUtil.adminAction(sender.getName(), "Blocking commands for all non-admins", true);
             int counter = 0;
             for (Player player : server.getOnlinePlayers())
             {
@@ -51,10 +51,10 @@ public class Command_blockcmd extends FreedomCommand
 
                 counter += 1;
                 plugin.pl.getPlayer(player).setCommandsBlocked(true);
-                msg(player, plugin.i18n.getMessage("commandsBlockedByAnAdmin"), ChatColor.RED);
+                msg(player, "Your commands have been blocked by an admin.", ChatColor.RED);
             }
 
-            msg(plugin.i18n.getMessage("blockedCommandsForAllPlayers", counter));
+            msg("Blocked commands for " + counter + " players.");
             return true;
         }
 
@@ -68,7 +68,7 @@ public class Command_blockcmd extends FreedomCommand
 
         if (isAdmin(player))
         {
-            msg(plugin.i18n.getMessage("commandsCannotBeBlocked", player));
+            msg(player.getName() + " is an admin, and cannot have their commands blocked.");
             return true;
         }
 
@@ -76,7 +76,6 @@ public class Command_blockcmd extends FreedomCommand
 
         playerdata.setCommandsBlocked(!playerdata.allCommandsBlocked());
 
-        // TODO
         FUtil.adminAction(sender.getName(), (playerdata.allCommandsBlocked() ? "B" : "Unb") + "locking all commands for " + player.getName(), true);
         msg((playerdata.allCommandsBlocked() ? "B" : "Unb") + "locked all commands.");
 

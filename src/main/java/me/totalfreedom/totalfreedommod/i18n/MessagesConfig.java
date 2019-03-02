@@ -3,10 +3,7 @@ package me.totalfreedom.totalfreedommod.i18n;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
-import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.config.YamlConfig;
-import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 
 public class MessagesConfig extends FreedomService
 {
@@ -33,6 +30,7 @@ public class MessagesConfig extends FreedomService
 
     public String getMessage(String message)
     {
+<<<<<<< HEAD
         return FUtil.colorize(config.getString(message, ChatColor.DARK_RED + "String " + message + " was not found in the messages.yml file."));
     }
 
@@ -80,5 +78,8 @@ public class MessagesConfig extends FreedomService
                 .replace("%amount%", Integer.toString(amount)));
 
         return output.toString();
+=======
+        return config.getString(message);
+>>>>>>> parent of 09c41015... Slowly but surely
     }
 }

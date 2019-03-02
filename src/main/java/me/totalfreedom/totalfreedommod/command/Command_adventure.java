@@ -18,12 +18,12 @@ public class Command_adventure extends FreedomCommand
         {
             if (isConsole())
             {
-                sender.sendMessage(plugin.i18n.getMessage("mustBePlayer"));
+                sender.sendMessage("When used from the console, you must define a target player.");
                 return true;
             }
 
             playerSender.setGameMode(GameMode.ADVENTURE);
-            msg(plugin.i18n.getMessage("gamemodeAdventure"));
+            msg("Gamemode set to adventure.");
             return true;
         }
 
@@ -36,7 +36,7 @@ public class Command_adventure extends FreedomCommand
                 targetPlayer.setGameMode(GameMode.ADVENTURE);
             }
 
-            FUtil.adminAction(sender.getName(), "gamemodeAdventureEveryone", false);
+            FUtil.adminAction(sender.getName(), "Changing everyone's gamemode to adventure", false);
             return true;
         }
 
@@ -48,8 +48,8 @@ public class Command_adventure extends FreedomCommand
             return true;
         }
 
-        msg(plugin.i18n.getMessage("settingtoGamemodeAdventure", player));
-        msg(player, sender.getName() + plugin.i18n.getMessage("gamemodeSetToAdventureByOtherPlayer"));
+        msg("Setting " + player.getName() + " to game mode adventure.");
+        msg(player, sender.getName() + " set your game mode to adventure.");
         player.setGameMode(GameMode.ADVENTURE);
         return true;
     }

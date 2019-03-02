@@ -2,28 +2,19 @@
 # TotalFreedomMod 2019.2.1 Messages
 #
 
-adminworldGuestAdded: "AdminWorld guest added: "
-adminworldGuestCouldNotBeAdded: "Could not add player to guest list."
-adminworldGuestEntryNotFound: "Can't find guest entry for: "
-adminworldGuestList: "AdminWorld guest list: "
-adminworldGuestListPurged: "AdminWorld guest list purged."
-adminworldGuestRemoved: "AdminWorld guest removed: "
-adminworldTimeInvalid: "Invalid time of day. Can be: sunrise, noon, sunset, midnight"
-adminworldTimeSet: "AdminWorld time set to: "
-adminworldWeatherInvalid: "Invalid weather mode. Can be: off, rain, storm"
-adminworldWeatherSet: "AdminWorld weather set to: "
-allPossibleAttributes: "All possible attributes: "
-areaEffectCloudsRemoved: " area effect clouds removed."
-areaEffectCloudsRemoving: "Removing all area effect clouds."
-blockedCommandsForAllPlayers: "Blocked commands for %amount% players."
-blockingCommandsForAllPlayers: "Blocking commands for all non-admins"
-commandsBlockedByAnAdmin: "Your commands have been blocked by an admin."
-commandsCannotBeBlocked: "%player% is an admin, and cannot have their commands blocked."
-gamemodeAdventure: "Gamemode set to adventure."
-gamemodeAdventureEveryone: "Changing everyone's gamemode to adventure"
-gamemodeSetToAdventureByOtherPlayer: " set your game mode to adventure."
+adminWorldGuestAdded: "AdminWorld guest added: "
+adminWorldGuestCouldNotBeAdded: "Could not add player to guest list."
+adminWorldGuestEntryNotFound: "Can't find guest entry for: "
+adminWorldGuestList: "AdminWorld guest list: "
+adminWorldGuestListPurged: "AdminWorld guest list purged."
+adminWorldGuestRemoved: "AdminWorld guest removed: "
+adminWorldTimeInvalid: "Invalid time of day. Can be: sunrise, noon, sunset, midnight"
+adminWorldTimeSet: "AdminWorld time set to: "
+adminWorldWeatherInvalid: "Invalid weather mode. Can be: off, rain, storm"
+adminWorldWeatherSet: "AdminWorld weather set to: "
 goingToAdminWorld: "Going to the AdminWorld."
 goingToMainWorld: "Going to the main world."
+<<<<<<< HEAD
 <<<<<<< HEAD
 goodbird: ":goodbird:"
 holdItemToEnchant: "You have to hold an item to enchant it."
@@ -40,11 +31,14 @@ mp44Disarmed: "&amp44 Disarmed."
 =======
 >>>>>>> parent of ef1a1ca6... this is gonna take forever
 mustBePlayer: "When used from the console, you must define a target player."
+=======
+>>>>>>> parent of 09c41015... Slowly but surely
 noAdminInfoSet: "There is no admin information set in the config."
 noPermissionForAdminWorld: "You don't have permission to access the AdminWorld."
 off: "off"
 on: "on"
 onlyPlayersCanToggleAdminChat: "Only in-game players can toggle AdminChat."
+<<<<<<< HEAD
 <<<<<<< HEAD
 optOutOfClearChat: "&cOnly Master Builders and players with verification enabled can opt-out of clear chat."
 <<<<<<< HEAD
@@ -146,3 +140,9 @@ editsBlocked: "&cYour block modification abilities have been blocked."
 =======
 unblockingCommandsForAllPlayers: "Unblocking commands for all players"
 >>>>>>> parent of 8ed70d9b... IT TAKES SO LONG TO DO THESE
+=======
+serverClosedToNonAdmins: "Closing the server to non-admins."
+serverNowClosedToNonAdmins: "Server is now closed to non-admins."
+serverOpenToAllPlayers: "Opening the server to all players."
+toggledAdminChat: "Toggled Admin Chat "
+>>>>>>> parent of 09c41015... Slowly but surely

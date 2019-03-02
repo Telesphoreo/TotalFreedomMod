@@ -10,6 +10,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Shows all banned player names. Superadmins may optionally use 'purge' to clear the list.", usage = "/<command> [purge]")
 public class Command_banlist extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -19,15 +20,17 @@ public class Command_banlist extends FreedomCommand
             {
                 checkRank(Rank.SENIOR_ADMIN);
 
-                FUtil.adminAction(sender.getName(), plugin.i18n.getMessage("purgingBanList"), true);
+                FUtil.adminAction(sender.getName(), "Purging the ban list", true);
                 int amount = plugin.bm.purge();
-                msg(plugin.i18n.getMessage("purgedBans", amount));
+                sender.sendMessage(ChatColor.GRAY + "Purged " + amount + " player bans.");
+
                 return true;
+
             }
+
             return false;
         }
 
-        // TODO
         msg(plugin.bm.getAllBans().size() + " player bans ("
                 + plugin.bm.getUsernameBans().size() + " usernames, "
                 + plugin.bm.getIpBans().size() + " IPs)");
