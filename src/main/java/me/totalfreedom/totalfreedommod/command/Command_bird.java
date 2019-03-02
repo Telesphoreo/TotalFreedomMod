@@ -19,7 +19,7 @@ public class Command_bird extends FreedomCommand
     {
         Location location = playerSender.getTargetBlock(null, 15).getLocation().add(0, 1, 0);
         playerSender.getWorld().spawnEntity(location, getRandomFish());
-        msg(plugin.i18n.getMessage("goodbird"));
+        msg(":goodbird:");
         return true;
     }
 
