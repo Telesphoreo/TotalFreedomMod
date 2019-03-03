@@ -2,11 +2,14 @@ package me.totalfreedom.totalfreedommod.bridge;
 
 import com.earth2me.essentials.Essentials;
 import com.earth2me.essentials.User;
+import com.earth2me.essentials.utils.DateUtil;
+import com.earth2me.essentials.utils.EnumUtil;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.command.Command_vanish;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -69,6 +72,26 @@ public class EssentialsBridge extends FreedomService
             FLog.severe(ex);
         }
         return null;
+    }
+
+    public String getPlaytime(String username)
+    {
+        User user = getEssentialsUser(username);
+        Statistic PLAY_ONE_TICK = EnumUtil.getStatistic("PLAY_ONE_MINUTE", "PLAY_ONE_TICK");
+        long playtimeMs = System.currentTimeMillis() - (user.getBase().getStatistic(PLAY_ONE_TICK) * 50);
+        return DateUtil.formatDateDiff(playtimeMs);
+    }
+
+    public boolean isAFK(String username)
+    {
+        User user = getEssentialsUser(username);
+        return user.isAfk();
+    }
+
+    public String getAFKDuration(String username)
+    {
+        User user = getEssentialsUser(username);
+        return DateUtil.formatDateDiff(user.getAfkSince());
     }
 
     public void setNickname(String username, String nickname)

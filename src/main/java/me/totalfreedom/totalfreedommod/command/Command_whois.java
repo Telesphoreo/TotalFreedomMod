@@ -48,11 +48,14 @@ public class Command_whois extends FreedomCommand
                 player.getLocation().getBlockY() + ", " +
                 player.getLocation().getBlockZ();
         msg(" - Location: " + location);
-        if (senderIsConsole || plugin.al.isAdmin(sender))
+        if (plugin.al.isAdmin(sender))
         {
             msg(" - IP Address: " + Ips.getIp(player));
         }
+        msg(" - Playtime: " +  plugin.esb.getPlaytime(player.getName()));
+        msg(" - AFK: " + (plugin.esb.isAFK(player.getName()) ? "true, for " + plugin.esb.getAFKDuration(player.getName()) : "false"));
         msg(" - Gamemode: " + player.getGameMode().toString().toLowerCase());
+        msg(" - Flying: " + player.isFlying());
         msg(" - God mode: " + plugin.esb.getGodMode(player.getName()));
         msg(" - Muted: " + fPlayer.isMuted());
         msg(" - Caged: " + fPlayer.getCageData().isCaged());
