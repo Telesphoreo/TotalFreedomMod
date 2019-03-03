@@ -28,7 +28,6 @@ public class Command_admininfo extends FreedomCommand
         {
             msg(FUtil.colorize(StringUtils.join(adminInfo, "\n")));
         }
-
         return true;
     }
 }
