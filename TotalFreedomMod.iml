@@ -52,8 +52,9 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q:jchronic:0.2.4a" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.thoughtworks.paranamer:paranamer:2.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.lib:jlibnoise:1.0.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q:dummypermscompat:1.8" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q:dummypermscompat:1.10" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.papermc:paperlib:1.0.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.slf4j:slf4j-jdk14:1.7.26" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldguard:worldguard-legacy:7.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.worldguard:worldguard-core:7.0.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.sk89q.intake:intake:4.2-SNAPSHOT" level="project" />

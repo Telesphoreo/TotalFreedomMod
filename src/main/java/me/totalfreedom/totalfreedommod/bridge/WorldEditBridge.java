@@ -11,7 +11,6 @@ import org.bukkit.plugin.Plugin;
 
 public class WorldEditBridge extends FreedomService
 {
-
     private final WorldEditListener listener;
     //
     private WorldEditPlugin worldeditPlugin = null;
@@ -70,8 +69,7 @@ public class WorldEditBridge extends FreedomService
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        com.sk89q.worldedit.entity.Player wePlayer = bukkitPlayer;
-                        session.undo(session.getBlockBag(wePlayer), wePlayer);
+                        session.undo(session.getBlockBag(bukkitPlayer), bukkitPlayer);
                     }
                 }
             }
@@ -94,8 +92,7 @@ public class WorldEditBridge extends FreedomService
                 {
                     for (int i = 0; i < count; i++)
                     {
-                        com.sk89q.worldedit.entity.Player wePlayer = bukkitPlayer;
-                        session.redo(session.getBlockBag(wePlayer), wePlayer);
+                        session.redo(session.getBlockBag(bukkitPlayer), bukkitPlayer);
                     }
                 }
             }
