@@ -24,13 +24,13 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Module_schematic extends HTTPDModule
 {
-
     private static final File SCHEMATIC_FOLDER = new File("./plugins/WorldEdit/schematics/");
     private static final String REQUEST_FORM_FILE_ELEMENT_NAME = "schematicFile";
     private static final Pattern SCHEMATIC_FILENAME_LC = Pattern.compile("^[a-z0-9_'!,\\-]*\\.(schem|schematic)$");
     private static final String[] SCHEMATIC_FILTER = new String[]
             {
-                    "schematic"
+                    "schematic",
+                    "schem"
             };
     private static final String UPLOAD_FORM = "<form method=\"post\" name=\"schematicForm\" id=\"schematicForm\" action=\"/schematic/upload/\" enctype=\"multipart/form-data\">\n"
             + "<p>Select a schematic file to upload. Filenames must be alphanumeric, between 1 and 30 characters long (inclusive), and have a .schematic extension.</p>\n"
@@ -99,7 +99,7 @@ public class Module_schematic extends HTTPDModule
                     }
                 }
 
-                Collections.sort(schematicsFormatted, Comparator.comparing(String::toLowerCase));
+                schematicsFormatted.sort(Comparator.comparing(String::toLowerCase));
 
                 out
                         .append(HTMLGenerationTools.heading("Schematics:", 1))
@@ -126,7 +126,7 @@ public class Module_schematic extends HTTPDModule
                 final String remoteAddress = socket.getInetAddress().getHostAddress();
                 if (!isAuthorized(remoteAddress))
                 {
-                    out.append(HTMLGenerationTools.paragraph("Schematic upload access denied: Your IP, " + remoteAddress + ", is not registered to a superadmin on this server."));
+                    out.append(HTMLGenerationTools.paragraph("Schematic upload access denied: Your IP, " + remoteAddress + ", is not registered to an admin on this server."));
                 }
                 else
                 {
@@ -240,7 +240,6 @@ public class Module_schematic extends HTTPDModule
 
     private static class SchematicTransferException extends Exception
     {
-
         public SchematicTransferException()
         {
         }
@@ -253,7 +252,6 @@ public class Module_schematic extends HTTPDModule
 
     private static class ResponseOverrideException extends Exception
     {
-
         private final Response response;
 
         public ResponseOverrideException(Response response)
@@ -273,9 +271,8 @@ public class Module_schematic extends HTTPDModule
         return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
     }
 
-    private static enum ModuleMode
+    private enum ModuleMode
     {
-
         LIST("list"),
         UPLOAD("upload"),
         DOWNLOAD("download"),
