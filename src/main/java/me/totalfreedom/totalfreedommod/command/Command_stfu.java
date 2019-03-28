@@ -21,7 +21,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Mutes a player with brute force.", usage = "/<command> [[-s] <player> [reason] | list | purge | all]", aliases = "mute")
 public class Command_stfu extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -151,7 +150,6 @@ public class Command_stfu extends FreedomCommand
             plugin.pul.logPunishment(new Punishment(player.getName(), Ips.getIp(player), sender.getName(), PunishmentType.MUTE, reason));
 
         }
-
         return true;
     }
 
@@ -170,7 +168,6 @@ public class Command_stfu extends FreedomCommand
             arguments.addAll(Arrays.asList("list", "purge", "all"));
             return arguments;
         }
-
         return Collections.emptyList();
     }
 }

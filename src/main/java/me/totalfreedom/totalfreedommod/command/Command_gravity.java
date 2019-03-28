@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Make other people your bitch.", usage = "/<command>")
 public class Command_gravity extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

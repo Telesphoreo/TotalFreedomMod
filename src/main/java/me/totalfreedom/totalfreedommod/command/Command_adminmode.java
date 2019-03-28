@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Close server to non-admins.", usage = "/<command> [on | off]")
 public class Command_adminmode extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

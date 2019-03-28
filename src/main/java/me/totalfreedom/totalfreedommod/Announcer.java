@@ -11,7 +11,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class Announcer extends FreedomService
 {
-
     private final List<String> announcements = Lists.newArrayList();
     @Getter
     private boolean enabled;
@@ -84,5 +83,4 @@ public class Announcer extends FreedomService
     {
         FUtil.bcastMsg(prefix + message);
     }
-
 }

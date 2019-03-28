@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Broadcasts the given message. Supports colors.", usage = "/<command> <message>")
 public class Command_rawsay extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -19,7 +18,6 @@ public class Command_rawsay extends FreedomCommand
         {
             FUtil.bcastMsg(FUtil.colorize(StringUtils.join(args, " ")));
         }
-
         return true;
     }
 }

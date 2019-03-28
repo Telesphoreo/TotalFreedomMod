@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Essentials Interface Command - Remove distracting things from nicknames of all players on server.", usage = "/<command>", aliases = "nc")
 public class Command_nickclean extends FreedomCommand
 {
-
     private static final String[] BLOCK = ConfigEntry.BLOCKED_CHATCODES.getString().split(",");
 
     private static final Pattern REGEX = Pattern.compile(FUtil.colorize(ChatColor.COLOR_CHAR + "[" + StringUtils.join(BLOCK, "") + "]"), Pattern.CASE_INSENSITIVE);

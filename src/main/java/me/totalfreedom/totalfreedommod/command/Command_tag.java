@@ -19,7 +19,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Sets yourself a prefix", usage = "/<command> [-s[ave]] <set <tag..> | list | off | clear <player> | clearall>")
 public class Command_tag extends FreedomCommand
 {
-
     public static final List<String> FORBIDDEN_WORDS = Arrays.asList(
             "admin", "owner", "moderator", "developer", "console", "dev", "staff", "mod", "sra", "tca", "sta", "sa");
 

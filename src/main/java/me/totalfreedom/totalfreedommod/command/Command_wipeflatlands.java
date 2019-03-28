@@ -43,7 +43,6 @@ public class Command_wipeflatlands extends FreedomCommand
         {
             plugin.amp.restartServer();
         }
-
         return true;
     }
 }

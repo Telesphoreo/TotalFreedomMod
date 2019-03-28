@@ -16,7 +16,6 @@ import org.bukkit.material.Lever;
 @CommandParameters(description = "Set the on/off state of the lever at position x, y, z in world 'worldname'.", usage = "/<command> <x> <y> <z> <worldname> <on|off>")
 public class Command_setlever extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -75,7 +74,6 @@ public class Command_setlever extends FreedomCommand
             msg("Target block " + targetBlock + "  is not a lever.");
             return true;
         }
-
         return true;
     }
 }

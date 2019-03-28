@@ -12,7 +12,6 @@ import org.bukkit.configuration.ConfigurationSection;
 
 public class Punishment implements ConfigLoadable, ConfigSavable, Validatable
 {
-
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
 
     @Getter

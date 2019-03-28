@@ -18,10 +18,8 @@ import org.bukkit.entity.Player;
         usage = "/<command> [list | [<kick | nameban | ipban | ban | op | deop | ci | fr | smite> <targethash>] ]")
 public class Command_gadmin extends FreedomCommand
 {
-
     private enum GadminMode
     {
-
         LIST("list"),
         KICK("kick"),
         NAMEBAN("nameban"),
@@ -34,7 +32,7 @@ public class Command_gadmin extends FreedomCommand
         SMITE("smite");
         private final String modeName;
 
-        private GadminMode(String command)
+        GadminMode(String command)
         {
             this.modeName = command;
         }

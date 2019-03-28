@@ -11,7 +11,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 @CommandParameters(description = "Wipes the CoreProtect data for the flatlands", usage = "/<command>")
 public class Command_wipecoreprotectdata extends FreedomCommand
 {
-
     @Override
     public boolean run(final CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -31,7 +30,6 @@ public class Command_wipecoreprotectdata extends FreedomCommand
                 plugin.cpb.clearDatabase(plugin.wm.flatlands.getWorld());
             }
         }.runTaskAsynchronously(plugin);
-
         return true;
     }
 }

@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Manage jumppads", usage = "/<command> <on | off | info | sideways <on | off>>", aliases = "launchpads,jp")
 public class Command_jumppads extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

@@ -16,7 +16,6 @@ import org.spigotmc.SpigotConfig;
 @CommandParameters(description = "Overlord - control this server in-game", usage = "access", aliases = "ov")
 public class Command_overlord extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -73,8 +72,6 @@ public class Command_overlord extends FreedomCommand
             msg("ok");
             return true;
         }
-
         return false;
     }
-
 }

@@ -20,7 +20,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | | <add | remove | info> <username>>")
 public class Command_mbconfig extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -244,9 +243,6 @@ public class Command_mbconfig extends FreedomCommand
                 }
             }
         }
-
         return Collections.emptyList();
     }
-
-
 }

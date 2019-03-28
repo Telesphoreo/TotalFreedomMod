@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Spawn an entity.", usage = "/<command> <entitytype> [amount]", aliases = "spawnentity")
 public class Command_spawnmob extends FreedomCommand
 {
-
     @Override
     protected boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -87,5 +86,4 @@ public class Command_spawnmob extends FreedomCommand
         }
         return true;
     }
-
 }

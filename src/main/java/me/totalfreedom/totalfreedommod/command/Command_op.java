@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Makes a player operator", usage = "/<command> <playername>")
 public class Command_op extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Goto the plot world", usage = "/<command>", aliases = "pw")
 public class Command_plotworld extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

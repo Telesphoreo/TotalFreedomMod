@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Toggle PVP mode for players.", usage = "/<command> [[-s] <player> [reason] | list | purge | all]", aliases = "pvpblock,pvpmode")
 public class Command_blockpvp extends FreedomCommand
 {
-
     @Override
     public boolean run(final CommandSender sender, final Player playerSender, final Command cmd, final String commandLabel, String[] args, final boolean senderIsConsole)
     {

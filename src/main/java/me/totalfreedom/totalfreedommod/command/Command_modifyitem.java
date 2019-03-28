@@ -24,7 +24,6 @@ import org.bukkit.potion.PotionEffectType;
 @CommandParameters(description = "Modify the current item in your hand", usage = "/<command> <name <message> | lore <message> | enchant <enchantment> <level> | potion <effect> <duration> <amplifier> | attribute <name> <amount> | clear>", aliases = "mi")
 public class Command_modifyitem extends FreedomCommand
 {
-
     @Override
     public boolean run(final CommandSender sender, final Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

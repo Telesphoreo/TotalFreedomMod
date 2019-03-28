@@ -18,7 +18,6 @@ import org.bukkit.entity.Player;
         aliases = "aw")
 public class Command_adminworld extends FreedomCommand
 {
-
     private enum CommandMode
     {
         TELEPORT, GUEST, TIME, WEATHER

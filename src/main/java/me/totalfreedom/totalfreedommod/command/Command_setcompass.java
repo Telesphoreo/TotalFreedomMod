@@ -11,16 +11,13 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Set your compass to a position.", usage = "/<command> <x> <y> <z>")
 public class Command_setcompass extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-
         if (args.length < 3)
         {
             return false;
         }
-
         try
         {
             Location location = new Location(playerSender.getWorld(), Integer.valueOf(args[0]), Integer.valueOf(args[1]), Integer.valueOf(args[2]));
@@ -31,7 +28,6 @@ public class Command_setcompass extends FreedomCommand
         {
             msg("One or more of your coordinates are not a valid integer.", ChatColor.RED);
         }
-
         return true;
     }
 }

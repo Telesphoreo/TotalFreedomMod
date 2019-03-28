@@ -20,7 +20,6 @@ import org.bukkit.potion.PotionEffectType;
         usage = "/<command> <list | clear [target name] | add <type> <duration> <amplifier> [target name]>")
 public class Command_potion extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -228,7 +227,6 @@ public class Command_potion extends FreedomCommand
                 return FUtil.getPlayerList();
             }
         }
-
         return Collections.emptyList();
     }
 
@@ -244,5 +242,4 @@ public class Command_potion extends FreedomCommand
         }
         return types;
     }
-
 }

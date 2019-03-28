@@ -204,7 +204,6 @@ public class Command_saconfig extends FreedomCommand
                     if (player != null)
                     {
                         plugin.rm.updateDisplay(player);
-                        plugin.wvb.updatePermissions(player);
                     }
                 }
                 else // Existing admin
@@ -270,7 +269,6 @@ public class Command_saconfig extends FreedomCommand
                         player.setOp(true);
                         player.sendMessage(YOU_ARE_OP);
                     }
-                    plugin.wvb.updatePermissions(player);
                     plugin.pv.removeEntry(player.getName()); // admins can't have player verification entries
                 }
 
@@ -303,7 +301,6 @@ public class Command_saconfig extends FreedomCommand
                 if (player != null)
                 {
                     plugin.rm.updateDisplay(player);
-                    plugin.wvb.updatePermissions(player);
                 }
                 return true;
             }

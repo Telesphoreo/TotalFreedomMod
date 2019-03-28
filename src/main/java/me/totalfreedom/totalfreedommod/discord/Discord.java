@@ -3,7 +3,6 @@ package me.totalfreedom.totalfreedommod.discord;
 import com.google.common.base.Strings;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.security.auth.login.LoginException;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
@@ -19,7 +18,7 @@ public class Discord extends FreedomService
 {
     public static HashMap<String, Admin> LINK_CODES = new HashMap<>();
     public static HashMap<String, VPlayer> PLAYER_LINK_CODES = new HashMap<String, VPlayer>();
-    public static List<String> VERIFY_CODES = new ArrayList();
+    public static ArrayList VERIFY_CODES = new ArrayList();
     public static JDA bot = null;
     public Boolean enabled = false;
 
@@ -49,7 +48,7 @@ public class Discord extends FreedomService
         }
         catch (LoginException e)
         {
-            FLog.warning("An invalid token for the discord verification bot, the bot will not enable.");
+            FLog.warning("Invalid token for the Discord verification bot! The bot will not enable.");
         }
         catch (IllegalArgumentException | InterruptedException e)
         {

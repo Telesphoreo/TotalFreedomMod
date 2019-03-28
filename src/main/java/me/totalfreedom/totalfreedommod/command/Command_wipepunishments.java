@@ -17,7 +17,6 @@ public class Command_wipepunishments extends FreedomCommand
         {
             return false;
         }
-
         if (args[0].equalsIgnoreCase("-a"))
         {
             FUtil.adminAction(sender.getName(), "Wiping the punishment history", true);
@@ -31,7 +30,6 @@ public class Command_wipepunishments extends FreedomCommand
             plugin.pul.clear(username);
             msg("Wiped " + plugin.pul.clear(username) + " punishments for " + username + ".");
         }
-
         return true;
     }
 }

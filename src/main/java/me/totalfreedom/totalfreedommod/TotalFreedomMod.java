@@ -20,7 +20,6 @@ import me.totalfreedom.totalfreedommod.bridge.BukkitTelnetBridge;
 import me.totalfreedom.totalfreedommod.bridge.CoreProtectBridge;
 import me.totalfreedom.totalfreedommod.bridge.EssentialsBridge;
 import me.totalfreedom.totalfreedommod.bridge.LibsDisguisesBridge;
-import me.totalfreedom.totalfreedommod.bridge.WaveBridge;
 import me.totalfreedom.totalfreedommod.bridge.WorldEditBridge;
 import me.totalfreedom.totalfreedommod.bridge.WorldGuardBridge;
 import me.totalfreedom.totalfreedommod.caging.Cager;
@@ -131,7 +130,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public CoreProtectBridge cpb;
     public EssentialsBridge esb;
     public LibsDisguisesBridge ldb;
-    public WaveBridge wvb;
     public WorldEditBridge web;
     public WorldGuardBridge wgb;
 
@@ -249,7 +247,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         ldb = bridges.registerService(LibsDisguisesBridge.class);
         web = bridges.registerService(WorldEditBridge.class);
         wgb = bridges.registerService(WorldGuardBridge.class);
-        wvb = bridges.registerService(WaveBridge.class);
         bridges.start();
 
         timer.update();

@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Undisguise all players on the server", usage = "/<command> [-a]", aliases = "uall")
 public class Command_undisguiseall extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -34,10 +33,8 @@ public class Command_undisguiseall extends FreedomCommand
             admins = true;
         }
 
-        FUtil.adminAction(sender.getName(), "Undisguising all " + (admins ? "players" : "non-admins"), true);
-
         plugin.ldb.undisguiseAll(admins);
-
+        FUtil.adminAction(sender.getName(), "Undisguising all " + (admins ? "players" : "non-admins"), true);
         return true;
     }
 }

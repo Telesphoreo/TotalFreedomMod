@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Unbans a player", usage = "/<command> <username> [-r[estore]]")
 public class Command_unban extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "See who has a block and optionally clears the item.", usage = "/<command> <item> clear", aliases = "wh")
 public class Command_whohas extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -50,13 +49,12 @@ public class Command_whohas extends FreedomCommand
 
         if (players.isEmpty())
         {
-            msg("There are no players with that item");
+            msg("There are no players with that item.");
         }
         else
         {
             msg("Players with item " + material.name() + ": " + StringUtils.join(players, ", "));
         }
-
         return true;
     }
 }

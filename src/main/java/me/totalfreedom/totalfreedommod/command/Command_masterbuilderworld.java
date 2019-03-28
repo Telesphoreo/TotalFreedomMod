@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
         aliases = "mbw,mbworld")
 public class Command_masterbuilderworld extends FreedomCommand
 {
-
     private enum CommandMode
     {
         TELEPORT, TIME, WEATHER

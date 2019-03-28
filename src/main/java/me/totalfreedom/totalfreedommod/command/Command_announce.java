@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Make an announcement", usage = "/<command> <message>")
 public class Command_announce extends FreedomCommand
 {
-
     @Override
     protected boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -22,5 +21,4 @@ public class Command_announce extends FreedomCommand
         plugin.an.announce(StringUtils.join(args, " "));
         return true;
     }
-
 }

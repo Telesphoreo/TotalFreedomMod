@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = ":goodbird:", usage = "/<command>")
 public class Command_bird extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -24,7 +23,7 @@ public class Command_bird extends FreedomCommand
         return true;
     }
 
-    public EntityType getRandomFish()
+    private EntityType getRandomFish()
     {
         List<EntityType> fishTypes = Arrays.asList(EntityType.COD, EntityType.SALMON, EntityType.PUFFERFISH, EntityType.TROPICAL_FISH);
         Random random = new Random();

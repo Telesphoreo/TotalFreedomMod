@@ -19,7 +19,6 @@ import org.bukkit.util.Vector;
 @CommandParameters(description = "For the bad admins", usage = "/<command> <playername>")
 public class Command_doom extends FreedomCommand
 {
-
     @Override
     public boolean run(final CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
