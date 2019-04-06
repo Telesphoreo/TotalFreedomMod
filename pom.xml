@@ -118,7 +118,7 @@
         </dependency>
 
         <dependency>
-            <groupId>me.libraryaddict</groupId>
+            <groupId>LibsDisguises</groupId>
             <artifactId>LibsDisguises</artifactId>
             <version>9.8.0-TF</version>
             <scope>provided</scope>
