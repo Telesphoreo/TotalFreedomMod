@@ -18,11 +18,6 @@ import org.bukkit.entity.Player;
         aliases = "aw")
 public class Command_adminworld extends FreedomCommand
 {
-    private enum CommandMode
-    {
-        TELEPORT, GUEST, TIME, WEATHER
-    }
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -231,22 +226,6 @@ public class Command_adminworld extends FreedomCommand
         }
     }
 
-    private class PermissionDeniedException extends Exception
-    {
-
-        private static final long serialVersionUID = 1L;
-
-        private PermissionDeniedException()
-        {
-            super("");
-        }
-
-        private PermissionDeniedException(String string)
-        {
-            super(string);
-        }
-    }
-
     @Override
     public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
     {
@@ -288,5 +267,26 @@ public class Command_adminworld extends FreedomCommand
             }
         }
         return Collections.emptyList();
+    }
+
+    private enum CommandMode
+    {
+        TELEPORT, GUEST, TIME, WEATHER
+    }
+
+    private class PermissionDeniedException extends Exception
+    {
+
+        private static final long serialVersionUID = 1L;
+
+        private PermissionDeniedException()
+        {
+            super("");
+        }
+
+        private PermissionDeniedException(String string)
+        {
+            super(string);
+        }
     }
 }

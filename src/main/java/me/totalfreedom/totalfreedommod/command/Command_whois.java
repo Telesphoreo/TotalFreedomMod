@@ -52,7 +52,7 @@ public class Command_whois extends FreedomCommand
         {
             msg(" - IP Address: " + Ips.getIp(player));
         }
-        msg(" - Playtime: " +  plugin.esb.getPlaytime(player.getName()));
+        msg(" - Playtime: " + plugin.esb.getPlaytime(player.getName()));
         msg(" - AFK: " + (plugin.esb.isAFK(player.getName()) ? "true, for " + plugin.esb.getAFKDuration(player.getName()) : "false"));
         msg(" - Gamemode: " + player.getGameMode().toString().toLowerCase());
         msg(" - Flying: " + player.isFlying());

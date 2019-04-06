@@ -27,6 +27,30 @@ public class Discord extends FreedomService
         super(plugin);
     }
 
+    public static String getCodeForAdmin(Admin admin)
+    {
+        for (String code : LINK_CODES.keySet())
+        {
+            if (LINK_CODES.get(code).equals(admin))
+            {
+                return code;
+            }
+        }
+        return null;
+    }
+
+    public static String getCodeForPlayer(VPlayer playerData)
+    {
+        for (String code : PLAYER_LINK_CODES.keySet())
+        {
+            if (PLAYER_LINK_CODES.get(code).equals(playerData))
+            {
+                return code;
+            }
+        }
+        return null;
+    }
+
     public void startBot()
     {
         enabled = !Strings.isNullOrEmpty(ConfigEntry.DISCORD_TOKEN.getString());
@@ -60,30 +84,6 @@ public class Discord extends FreedomService
     protected void onStart()
     {
         startBot();
-    }
-
-    public static String getCodeForAdmin(Admin admin)
-    {
-        for (String code : LINK_CODES.keySet())
-        {
-            if (LINK_CODES.get(code).equals(admin))
-            {
-                return code;
-            }
-        }
-        return null;
-    }
-
-    public static String getCodeForPlayer(VPlayer playerData)
-    {
-        for (String code : PLAYER_LINK_CODES.keySet())
-        {
-            if (PLAYER_LINK_CODES.get(code).equals(playerData))
-            {
-                return code;
-            }
-        }
-        return null;
     }
 
     @Override

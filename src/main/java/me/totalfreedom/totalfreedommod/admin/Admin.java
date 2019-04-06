@@ -22,6 +22,9 @@ import org.bukkit.entity.Player;
 public class Admin implements ConfigLoadable, ConfigSavable, Validatable
 {
 
+    public static final String CONFIG_FILENAME = "admins.yml";
+    @Getter
+    private final List<String> ips = Lists.newArrayList();
     @Getter
     private String configKey;
     @Getter
@@ -32,8 +35,6 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private Rank rank = Rank.SUPER_ADMIN;
-    @Getter
-    private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
     private Date lastLogin = new Date();
@@ -61,8 +62,6 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private Boolean logStick = false;
-
-    public static final String CONFIG_FILENAME = "admins.yml";
 
     public Admin(Player player)
     {
@@ -175,6 +174,11 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
         return this.loginMessage;
     }
 
+    public void setLoginMessage(final String loginMessage)
+    {
+        this.loginMessage = loginMessage;
+    }
+
     public void removeIp(String ip)
     {
         if (ips.contains(ip))
@@ -186,6 +190,21 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     public void clearIPs()
     {
         ips.clear();
+    }
+
+    @Override
+    public boolean isValid()
+    {
+        return configKey != null
+                && name != null
+                && rank != null
+                && !ips.isEmpty()
+                && lastLogin != null;
+    }
+
+    public boolean isActive()
+    {
+        return this.active;
     }
 
     public void setActive(boolean active)
@@ -206,21 +225,6 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
 
             plugin.lv.updateLogsRegistration(null, getName(), LogsRegistrationMode.DELETE);
         }
-    }
-
-    @Override
-    public boolean isValid()
-    {
-        return configKey != null
-                && name != null
-                && rank != null
-                && !ips.isEmpty()
-                && lastLogin != null;
-    }
-
-    public boolean isActive()
-    {
-        return this.active;
     }
 
     public String getConfigKey()
@@ -261,11 +265,6 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     public void setLastLogin(final Date lastLogin)
     {
         this.lastLogin = lastLogin;
-    }
-
-    public void setLoginMessage(final String loginMessage)
-    {
-        this.loginMessage = loginMessage;
     }
 
     public String getDiscordID()

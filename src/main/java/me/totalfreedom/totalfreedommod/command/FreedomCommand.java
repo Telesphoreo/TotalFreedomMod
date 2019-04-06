@@ -45,6 +45,18 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
         }
     }
 
+    public static FreedomCommand getFrom(Command command)
+    {
+        try
+        {
+            return (FreedomCommand)((FreedomCommandExecutor)(((PluginCommand)command).getExecutor())).getCommandBase();
+        }
+        catch (Exception ex)
+        {
+            return null;
+        }
+    }
+
     @Override
     public final boolean runCommand(final CommandSender sender, final Command command, final String label, final String[] args)
     {
@@ -67,7 +79,7 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
             return true;
         }
     }
-    
+
     protected List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
     {
         return null;
@@ -175,18 +187,5 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
     protected PlayerData getData(Player player)
     {
         return plugin.pl.getData(player);
-    }
-
-
-    public static FreedomCommand getFrom(Command command)
-    {
-        try
-        {
-            return (FreedomCommand)((FreedomCommandExecutor)(((PluginCommand)command).getExecutor())).getCommandBase();
-        }
-        catch (Exception ex)
-        {
-            return null;
-        }
     }
 }

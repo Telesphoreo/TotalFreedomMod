@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import lombok.Getter;
@@ -24,12 +23,11 @@ import org.bukkit.entity.Player;
 public class Ban implements ConfigLoadable, ConfigSavable, Validatable
 {
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
-
+    @Getter
+    private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
     private String username = null;
-    @Getter
-    private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
     private String by = null;
@@ -69,7 +67,6 @@ public class Ban implements ConfigLoadable, ConfigSavable, Validatable
         this.reason = reason;
     }
 
-    //
     // For player IP
     public static Ban forPlayerIp(Player player, CommandSender by)
     {
@@ -105,7 +102,6 @@ public class Ban implements ConfigLoadable, ConfigSavable, Validatable
                 reason);
     }
 
-    //
     // For player
     public static Ban forPlayer(Player player, CommandSender by)
     {
@@ -257,17 +253,7 @@ public class Ban implements ConfigLoadable, ConfigSavable, Validatable
 
     private void dedupeIps()
     {
-
         Set<String> uniqueIps = new HashSet<>();
-
-        Iterator<String> it = ips.iterator();
-        while (it.hasNext())
-        {
-            if (!uniqueIps.add(it.next()))
-            {
-                it.remove();
-            }
-        }
-
+        ips.removeIf(s -> !uniqueIps.add(s));
     }
 }

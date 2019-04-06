@@ -19,16 +19,6 @@ public class ServerInterface extends FreedomService
         super(plugin);
     }
 
-    @Override
-    protected void onStart()
-    {
-    }
-
-    @Override
-    protected void onStop()
-    {
-    }
-
     public static void warnVersion()
     {
         final String nms = FUtil.getNMSVersion();
@@ -38,6 +28,16 @@ public class ServerInterface extends FreedomService
             FLog.warning(TotalFreedomMod.pluginName + " is compiled for " + COMPILE_NMS_VERSION + " but the server is running version " + nms + "!");
             FLog.warning("This might result in unexpected behaviour!");
         }
+    }
+
+    @Override
+    protected void onStart()
+    {
+    }
+
+    @Override
+    protected void onStop()
+    {
     }
 
     public void setOnlineMode(boolean mode)

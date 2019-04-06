@@ -34,12 +34,10 @@ import org.bukkit.scheduler.BukkitTask;
 public class FUtil
 {
 
-    private static final Random RANDOM = new Random();
     //
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
     public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "Arcaknight", "OxLemonxO", "Wild1145", "Catholic_Mario");
-    public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
     public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<>();
     public static final List<ChatColor> CHAT_COLOR_POOL = Arrays.asList(
             ChatColor.DARK_RED,
@@ -54,6 +52,8 @@ public class FUtil
             ChatColor.DARK_BLUE,
             ChatColor.DARK_PURPLE,
             ChatColor.LIGHT_PURPLE);
+    private static final Random RANDOM = new Random();
+    public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
     private static Iterator<ChatColor> CHAT_COLOR_ITERATOR;
 
     static

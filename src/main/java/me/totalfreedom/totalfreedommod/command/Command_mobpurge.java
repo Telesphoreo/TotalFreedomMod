@@ -21,6 +21,38 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Purge all mobs in all worlds.", usage = "/<command> [name]", aliases = "mp")
 public class Command_mobpurge extends FreedomCommand
 {
+    public static int purgeMobs(EntityType type)
+    {
+        int removed = 0;
+        for (World world : Bukkit.getWorlds())
+        {
+            for (Entity ent : world.getLivingEntities())
+            {
+                if (ent instanceof LivingEntity && !(ent instanceof Player))
+                {
+                    if (type != null && !ent.getType().equals(type))
+                    {
+                        continue;
+                    }
+                    ent.remove();
+                    removed++;
+                }
+            }
+        }
+
+        return removed;
+    }
+
+    public static List<String> getAllMobNames()
+    {
+        List<String> names = new ArrayList<>();
+        for (EntityType entityType : Groups.MOB_TYPES)
+        {
+            names.add(entityType.name());
+        }
+        return names;
+    }
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -53,38 +85,6 @@ public class Command_mobpurge extends FreedomCommand
         FUtil.adminAction(sender.getName(), "Purging all " + (type != null ? mobName + "s" : "mobs"), true);
         msg(purgeMobs(type) + " " + (type != null ? mobName : "mob") + "s removed.");
         return true;
-    }
-
-    public static int purgeMobs(EntityType type)
-    {
-        int removed = 0;
-        for (World world : Bukkit.getWorlds())
-        {
-            for (Entity ent : world.getLivingEntities())
-            {
-                if (ent instanceof LivingEntity && !(ent instanceof Player))
-                {
-                    if (type != null && !ent.getType().equals(type))
-                    {
-                        continue;
-                    }
-                    ent.remove();
-                    removed++;
-                }
-            }
-        }
-
-        return removed;
-    }
-
-    public static List<String> getAllMobNames()
-    {
-        List<String> names = new ArrayList<>();
-        for (EntityType entityType : Groups.MOB_TYPES)
-        {
-            names.add(entityType.name());
-        }
-        return names;
     }
 
     @Override

@@ -19,6 +19,16 @@ import org.bukkit.inventory.ItemStack;
 @CommandParameters(description = "Fill nearby dispensers with a set of items of your choice.", usage = "/<command> <radius> <comma,separated,items>")
 public class Command_dispfill extends FreedomCommand
 {
+    private static void setDispenserContents(final Block targetBlock, final ItemStack[] items)
+    {
+        if (targetBlock.getType() == Material.DISPENSER)
+        {
+            final Inventory dispenserInv = ((Dispenser)targetBlock.getState()).getInventory();
+            dispenserInv.clear();
+            dispenserInv.addItem(items);
+        }
+    }
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -86,15 +96,5 @@ public class Command_dispfill extends FreedomCommand
         }
 
         return true;
-    }
-
-    private static void setDispenserContents(final Block targetBlock, final ItemStack[] items)
-    {
-        if (targetBlock.getType() == Material.DISPENSER)
-        {
-            final Inventory dispenserInv = ((Dispenser)targetBlock.getState()).getInventory();
-            dispenserInv.clear();
-            dispenserInv.addItem(items);
-        }
     }
 }

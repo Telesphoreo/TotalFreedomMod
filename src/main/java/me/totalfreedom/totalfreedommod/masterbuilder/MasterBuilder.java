@@ -18,13 +18,14 @@ import org.bukkit.entity.Player;
 public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
 {
 
+    public static final String CONFIG_FILENAME = "masterbuilders.yml";
+    @Getter
+    private final List<String> ips = Lists.newArrayList();
     @Getter
     private String configKey;
     @Getter
     @Setter
     private String name;
-    @Getter
-    private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
     private Date lastLogin = new Date();
@@ -37,8 +38,6 @@ public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private boolean clearChatOptOut = false;
-
-    public static final String CONFIG_FILENAME = "masterbuilders.yml";
 
     public MasterBuilder(Player player)
     {

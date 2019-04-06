@@ -40,13 +40,13 @@ import org.bukkit.scheduler.BukkitTask;
 public class EntityWiper extends FreedomService
 {
 
-    @Getter
-    private boolean enabled;
     public static final long ENTITY_WIPE_RATE = 5 * 20L;
     public static final long ITEM_DESPAWN_RATE = 20L * 20L;
     public static final int CHUNK_ENTITY_MAX = 20;
     //
     private final List<Class<? extends Entity>> wipables = new ArrayList<>();
+    @Getter
+    private boolean enabled;
     //
     private BukkitTask wipeTask;
 

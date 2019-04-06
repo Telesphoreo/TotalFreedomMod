@@ -11,8 +11,8 @@ import net.pravian.aero.config.YamlConfig;
 
 public class PunishmentList extends FreedomService
 {
-    private final Set<Punishment> punishments = Sets.newHashSet();
     public static final String CONFIG_FILENAME = "punishments.yml";
+    private final Set<Punishment> punishments = Sets.newHashSet();
     private final YamlConfig config;
 
     public PunishmentList(TotalFreedomMod plugin)

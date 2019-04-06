@@ -43,6 +43,12 @@ public class Module_schematic extends HTTPDModule
         super(plugin, session);
     }
 
+    private static String getArg(String[] args, int index)
+    {
+        String out = (args.length == index + 1 ? args[index] : null);
+        return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
+    }
+
     @Override
     public Response getResponse()
     {
@@ -237,6 +243,40 @@ public class Module_schematic extends HTTPDModule
         return entry != null && entry.isActive();
     }
 
+    private enum ModuleMode
+    {
+        LIST("list"),
+        UPLOAD("upload"),
+        DOWNLOAD("download"),
+        INVALID(null);
+        //
+        private final String modeName;
+
+        private ModuleMode(String modeName)
+        {
+            this.modeName = modeName;
+        }
+
+        public static ModuleMode getMode(String needle)
+        {
+            for (ModuleMode mode : values())
+            {
+                final String haystack = mode.toString();
+                if (haystack != null && haystack.equalsIgnoreCase(needle))
+                {
+                    return mode;
+                }
+            }
+            return INVALID;
+        }
+
+        @Override
+        public String toString()
+        {
+            return this.modeName;
+        }
+    }
+
     private static class SchematicTransferException extends Exception
     {
         public SchematicTransferException()
@@ -261,46 +301,6 @@ public class Module_schematic extends HTTPDModule
         public Response getResponse()
         {
             return response;
-        }
-    }
-
-    private static String getArg(String[] args, int index)
-    {
-        String out = (args.length == index + 1 ? args[index] : null);
-        return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
-    }
-
-    private enum ModuleMode
-    {
-        LIST("list"),
-        UPLOAD("upload"),
-        DOWNLOAD("download"),
-        INVALID(null);
-        //
-        private final String modeName;
-
-        private ModuleMode(String modeName)
-        {
-            this.modeName = modeName;
-        }
-
-        @Override
-        public String toString()
-        {
-            return this.modeName;
-        }
-
-        public static ModuleMode getMode(String needle)
-        {
-            for (ModuleMode mode : values())
-            {
-                final String haystack = mode.toString();
-                if (haystack != null && haystack.equalsIgnoreCase(needle))
-                {
-                    return mode;
-                }
-            }
-            return INVALID;
         }
     }
 

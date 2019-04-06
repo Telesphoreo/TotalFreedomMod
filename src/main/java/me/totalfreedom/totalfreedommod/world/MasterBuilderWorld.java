@@ -13,10 +13,10 @@ import org.bukkit.entity.Player;
 public final class MasterBuilderWorld extends CustomWorld
 {
     private static final String GENERATION_PARAMETERS = ConfigEntry.FLATLANDS_GENERATE_PARAMS.getString();
+    String WORLD_NAME = "masterbuilderworld";
     //
     private WorldWeather weather = WorldWeather.OFF;
     private WorldTime time = WorldTime.INHERIT;
-    String WORLD_NAME = "masterbuilderworld";
 
     public MasterBuilderWorld()
     {

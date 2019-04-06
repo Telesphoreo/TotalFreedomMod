@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 public class Command_status extends FreedomCommand
 {
     public static final Map<String, String> SERVICE_MAP = new HashMap<>();
+
     static
     {
         SERVICE_MAP.put("minecraft.net", "Minecraft.net");
@@ -23,6 +24,7 @@ public class Command_status extends FreedomCommand
         SERVICE_MAP.put("auth.mojang.com", "Mojang Accounts Login");
         SERVICE_MAP.put("skins.minecraft.net", "Minecraft Skins");
     }
+
     @Override
     public boolean run(final CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

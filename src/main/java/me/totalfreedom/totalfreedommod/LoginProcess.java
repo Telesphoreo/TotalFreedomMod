@@ -36,6 +36,11 @@ public class LoginProcess extends FreedomService
         super(plugin);
     }
 
+    public static boolean isLockdownEnabled()
+    {
+        return lockdownEnabled;
+    }
+
     @Override
     protected void onStart()
     {
@@ -232,11 +237,6 @@ public class LoginProcess extends FreedomService
                 }
             }
         }.runTaskLater(plugin, 20L * 1L);
-    }
-
-    public static boolean isLockdownEnabled()
-    {
-        return lockdownEnabled;
     }
 
     public boolean setLockdownEnabled(boolean toggle)

@@ -99,6 +99,11 @@ public class LibsDisguisesBridge extends FreedomService
         }
     }
 
+    public boolean isDisguisesEnabled()
+    {
+        return DisguiseBlocker.enabled;
+    }
+
     public void setDisguisesEnabled(boolean state)
     {
         final LibsDisguises libsDisguises = getLibsDisguisesPlugin();
@@ -109,11 +114,6 @@ public class LibsDisguisesBridge extends FreedomService
         }
 
         libsDisguises.toggleUsability(state);
-    }
-
-    public boolean isDisguisesEnabled()
-    {
-        return DisguiseBlocker.enabled;
     }
 
     public boolean isEnabled()

@@ -11,9 +11,8 @@ import net.pravian.aero.config.YamlConfig;
 
 public class ReportList extends FreedomService
 {
-    private final Set<Report> reports = Sets.newHashSet();
     public static final String CONFIG_FILENAME = "reports.yml";
-
+    private final Set<Report> reports = Sets.newHashSet();
     //
     private final YamlConfig config;
 

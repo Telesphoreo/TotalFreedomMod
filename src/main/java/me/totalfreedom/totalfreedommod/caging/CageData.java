@@ -11,6 +11,8 @@ import org.bukkit.block.Skull;
 
 public class CageData
 {
+    @Getter
+    private static String input = null;
     private final FPlayer fPlayer;
     //
     private final List<BlockData> cageHistory = new ArrayList<>();
@@ -23,25 +25,85 @@ public class CageData
     private Material outerMaterial = Material.GLASS;
     @Getter
     private Material innerMaterial = Material.AIR;
-    @Getter
-    private static String input = null;
 
     public CageData(FPlayer player)
     {
         this.fPlayer = player;
     }
 
-    public void setCaged(boolean cage)
+    // Util methods
+    public static void generateCube(Location location, int length, Material material)
     {
-        if (cage)
+        final Block center = location.getBlock();
+        for (int xOffset = -length; xOffset <= length; xOffset++)
         {
-            cage(fPlayer.getPlayer().getLocation(), Material.GLASS, Material.GLASS);
+            for (int yOffset = -length; yOffset <= length; yOffset++)
+            {
+                for (int zOffset = -length; zOffset <= length; zOffset++)
+                {
+                    final Block block = center.getRelative(xOffset, yOffset, zOffset);
+                    if (block.getType() != material)
+                    {
+                        block.setType(material);
+                    }
+                }
+            }
         }
-        else
+    }
+
+    public static void generateHollowCube(Location location, int length, Material material)
+    {
+        final Block center = location.getBlock();
+        for (int xOffset = -length; xOffset <= length; xOffset++)
         {
-            this.caged = false;
-            regenerateHistory();
-            clearHistory();
+            for (int yOffset = -length; yOffset <= length; yOffset++)
+            {
+                for (int zOffset = -length; zOffset <= length; zOffset++)
+                {
+                    // Hollow
+                    if (Math.abs(xOffset) != length && Math.abs(yOffset) != length && Math.abs(zOffset) != length)
+                    {
+                        continue;
+                    }
+
+                    final Block block = center.getRelative(xOffset, yOffset, zOffset);
+
+                    if (material != Material.PLAYER_HEAD)
+                    {
+                        // Glowstone light
+                        if (material != Material.GLASS && xOffset == 0 && yOffset == 2 && zOffset == 0)
+                        {
+                            block.setType(Material.GLOWSTONE);
+                            continue;
+                        }
+
+                        block.setType(material);
+                    }
+                    else
+                    {
+                        if (Math.abs(xOffset) == length && Math.abs(yOffset) == length && Math.abs(zOffset) == length)
+                        {
+                            block.setType(Material.GLOWSTONE);
+                            continue;
+                        }
+
+                        block.setType(Material.PLAYER_HEAD);
+                        if (input != null)
+                        {
+                            try
+                            {
+                                Skull skull = (Skull)block.getState();
+                                // This may or may not work in future versions of spigot
+                                skull.setOwner(input);
+                                skull.update();
+                            }
+                            catch (ClassCastException e)
+                            {
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -144,85 +206,23 @@ public class CageData
         }
     }
 
-    // Util methods
-    public static void generateCube(Location location, int length, Material material)
-    {
-        final Block center = location.getBlock();
-        for (int xOffset = -length; xOffset <= length; xOffset++)
-        {
-            for (int yOffset = -length; yOffset <= length; yOffset++)
-            {
-                for (int zOffset = -length; zOffset <= length; zOffset++)
-                {
-                    final Block block = center.getRelative(xOffset, yOffset, zOffset);
-                    if (block.getType() != material)
-                    {
-                        block.setType(material);
-                    }
-                }
-            }
-        }
-    }
-
-    public static void generateHollowCube(Location location, int length, Material material)
-    {
-        final Block center = location.getBlock();
-        for (int xOffset = -length; xOffset <= length; xOffset++)
-        {
-            for (int yOffset = -length; yOffset <= length; yOffset++)
-            {
-                for (int zOffset = -length; zOffset <= length; zOffset++)
-                {
-                    // Hollow
-                    if (Math.abs(xOffset) != length && Math.abs(yOffset) != length && Math.abs(zOffset) != length)
-                    {
-                        continue;
-                    }
-
-                    final Block block = center.getRelative(xOffset, yOffset, zOffset);
-
-                    if (material != Material.PLAYER_HEAD)
-                    {
-                        // Glowstone light
-                        if (material != Material.GLASS && xOffset == 0 && yOffset == 2 && zOffset == 0)
-                        {
-                            block.setType(Material.GLOWSTONE);
-                            continue;
-                        }
-
-                        block.setType(material);
-                    }
-                    else
-                    {
-                        if (Math.abs(xOffset) == length && Math.abs(yOffset) == length && Math.abs(zOffset) == length)
-                        {
-                            block.setType(Material.GLOWSTONE);
-                            continue;
-                        }
-
-                        block.setType(Material.PLAYER_HEAD);
-                        if (input != null)
-                        {
-                            try
-                            {
-                                Skull skull = (Skull)block.getState();
-                                // This may or may not work in future versions of spigot
-                                skull.setOwner(input);
-                                skull.update();
-                            }
-                            catch (ClassCastException e)
-                            {
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public boolean isCaged()
     {
         return this.caged;
+    }
+
+    public void setCaged(boolean cage)
+    {
+        if (cage)
+        {
+            cage(fPlayer.getPlayer().getLocation(), Material.GLASS, Material.GLASS);
+        }
+        else
+        {
+            this.caged = false;
+            regenerateHistory();
+            clearHistory();
+        }
     }
 
     public Location getLocation()

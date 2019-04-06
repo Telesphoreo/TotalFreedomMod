@@ -29,12 +29,12 @@ public final class AdminWorld extends CustomWorld
     //
     private final Map<Player, Long> teleportCooldown = new HashMap<>();
     private final Map<CommandSender, Boolean> accessCache = new HashMap<>();
+    String WORLD_NAME = "adminworld";
     //
     private Long cacheLastCleared = null;
     private Map<Player, Player> guestList = new HashMap<>(); // Guest, Supervisor
     private WorldWeather weather = WorldWeather.OFF;
     private WorldTime time = WorldTime.INHERIT;
-    String WORLD_NAME = "adminworld";
 
     public AdminWorld()
     {
