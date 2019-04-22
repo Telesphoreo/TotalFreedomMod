@@ -50,7 +50,10 @@ public class Command_report extends FreedomCommand
 
         plugin.cm.reportAction(playerSender, player, report);
         plugin.rel.logReport(new Report(player.getName(), Ips.getIp(player), sender.getName(), report, location));
-
+        if (plugin.dc.enabled)
+        {
+            plugin.dc.sendReport(playerSender, player, report, location);
+        }
         msg(ChatColor.GREEN + "Thank you, your report has been successfully logged.");
 
         return true;

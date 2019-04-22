@@ -63,7 +63,7 @@ public class MasterBuilder implements ConfigLoadable, ConfigSavable, Validatable
                 .append("- Tag: ").append(tag).append("\n")
                 .append("- Clear Chat Opt Out: ").append(clearChatOptOut);
 
-        return output.toString();
+        return output.toString().replace("null", "not set");
     }
 
     public void loadFrom(Player player)

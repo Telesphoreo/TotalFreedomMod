@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 
 public interface Displayable
 {
-
     public String getName();
 
     public String getTag();
@@ -18,5 +17,4 @@ public interface Displayable
     public String getColoredTag();
 
     public String getColoredLoginMessage();
-
 }

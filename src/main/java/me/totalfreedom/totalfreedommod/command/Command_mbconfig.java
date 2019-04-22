@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
@@ -17,7 +18,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH, blockHostConsole = true)
-@CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | | <add | remove | info> <username>>")
+@CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | <add | remove | info> <username>>")
 public class Command_mbconfig extends FreedomCommand
 {
     @Override
@@ -33,14 +34,12 @@ public class Command_mbconfig extends FreedomCommand
             case "list":
             {
                 msg("Master Builders: " + StringUtils.join(plugin.mbl.getMasterBuilderNames(), ", "), ChatColor.GOLD);
-
                 return true;
             }
 
             case "reload":
             {
                 checkRank(Rank.SENIOR_ADMIN);
-
                 FUtil.adminAction(sender.getName(), "Reloading the Master Builder list", true);
                 plugin.mbl.load();
                 msg("Master Builder list reloaded!");
@@ -112,7 +111,7 @@ public class Command_mbconfig extends FreedomCommand
                 if (masterBuilder == null) // New entry
                 {
                     checkRank(Rank.SENIOR_ADMIN);
-                    if (!FUtil.isExecutive(sender.getName()))
+                    if (!FUtil.hasMbConfigPermission(sender.getName()))
                     {
                         noPerms();
                     }
@@ -178,7 +177,7 @@ public class Command_mbconfig extends FreedomCommand
 
                 checkConsole();
                 checkRank(Rank.SENIOR_ADMIN);
-                if (!FUtil.isExecutive(sender.getName()))
+                if (FUtil.hasMbConfigPermission(sender.getName()))
                 {
                     noPerms();
                 }
@@ -222,10 +221,6 @@ public class Command_mbconfig extends FreedomCommand
                     arguments.add("info");
                 }
                 return arguments;
-            }
-            else if (args.length == 2 && args[0].equals("info") && plugin.al.isAdmin(sender))
-            {
-                return plugin.al.getActiveAdminNames();
             }
             return Collections.emptyList();
         }
