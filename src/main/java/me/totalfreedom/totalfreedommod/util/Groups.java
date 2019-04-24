@@ -43,6 +43,20 @@ public class Groups
             Material.LIGHT_GRAY_SHULKER_BOX,
             Material.BLACK_SHULKER_BOX);
 
+    public static final List<Material> SIGNS = Arrays.asList(
+            Material.ACACIA_SIGN,
+            Material.ACACIA_WALL_SIGN,
+            Material.SPRUCE_SIGN,
+            Material.SPRUCE_WALL_SIGN,
+            Material.BIRCH_SIGN,
+            Material.BIRCH_WALL_SIGN,
+            Material.DARK_OAK_SIGN,
+            Material.DARK_OAK_WALL_SIGN,
+            Material.JUNGLE_SIGN,
+            Material.JUNGLE_WALL_SIGN,
+            Material.OAK_SIGN,
+            Material.OAK_WALL_SIGN);
+
     public static final List<EntityType> MOB_TYPES = Arrays.asList(
             EntityType.BAT,
             EntityType.BLAZE,

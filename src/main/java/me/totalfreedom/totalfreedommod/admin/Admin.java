@@ -21,7 +21,6 @@ import org.bukkit.entity.Player;
 
 public class Admin implements ConfigLoadable, ConfigSavable, Validatable
 {
-
     public static final String CONFIG_FILENAME = "admins.yml";
     @Getter
     private final List<String> ips = Lists.newArrayList();
