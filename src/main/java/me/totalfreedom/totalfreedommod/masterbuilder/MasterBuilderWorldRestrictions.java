@@ -40,7 +40,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
     public boolean doRestrict(Player player)
     {
         return !plugin.mbl.isMasterBuilder(player)
-                && !FUtil.isExecutive(player.getName())
+                && !FUtil.hasMbConfigPermission(player.getName())
                 && player.getWorld().equals(plugin.wm.masterBuilderWorld.getWorld());
 
     }

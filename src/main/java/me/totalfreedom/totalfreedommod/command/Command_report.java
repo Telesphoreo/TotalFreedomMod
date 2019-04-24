@@ -50,11 +50,13 @@ public class Command_report extends FreedomCommand
 
         plugin.cm.reportAction(playerSender, player, report);
         plugin.rel.logReport(new Report(player.getName(), Ips.getIp(player), sender.getName(), report, location));
+        msg(ChatColor.GREEN + "Thank you, your report has been successfully logged.");
+
         if (plugin.dc.enabled)
         {
-            plugin.dc.sendReport(playerSender, player, report, location);
+            plugin.dc.sendReport(playerSender, player, report);
+            msg(ChatColor.RED + "Note: This report has been logged to a Discord channel. As with any report system, spamming reports can lead to you getting banned.");
         }
-        msg(ChatColor.GREEN + "Thank you, your report has been successfully logged.");
 
         return true;
     }
