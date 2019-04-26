@@ -5,7 +5,6 @@ import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.Groups;
 import net.minecraft.server.v1_14_R1.NBTTagCompound;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,7 +16,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class SignBlocker extends FreedomService
 {
-
     public SignBlocker(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -37,7 +35,7 @@ public class SignBlocker extends FreedomService
     public void onPlayerPlaceBlock(BlockPlaceEvent event)
     {
         final Player player = event.getPlayer();
-        if (event.getBlock().getType().equals(Groups.SIGNS))
+        if (Groups.SIGNS.contains(event.getBlock().getType()))
         {
             ItemStack sign = event.getItemInHand();
             net.minecraft.server.v1_14_R1.ItemStack nmsSign = CraftItemStack.asNMSCopy(sign);
@@ -63,7 +61,7 @@ public class SignBlocker extends FreedomService
             return;
         }
 
-        if (event.getClickedBlock() != null && event.getClickedBlock().getType().equals(Groups.SIGNS))
+        if (event.getClickedBlock() != null && Groups.SIGNS.contains(event.getClickedBlock().getType()))
         {
             event.setCancelled(true);
         }
