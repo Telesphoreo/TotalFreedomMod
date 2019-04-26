@@ -11,7 +11,6 @@ import org.bukkit.plugin.Plugin;
 
 public class WorldEditBridge extends FreedomService
 {
-
     private final WorldEditListener listener;
     //
     private WorldEditPlugin worldeditPlugin = null;
@@ -34,7 +33,7 @@ public class WorldEditBridge extends FreedomService
         listener.unregister();
     }
 
-    private WorldEditPlugin getWorldEditPlugin()
+    public WorldEditPlugin getWorldEditPlugin()
     {
         if (worldeditPlugin == null)
         {
@@ -118,6 +117,30 @@ public class WorldEditBridge extends FreedomService
         {
             FLog.severe(ex);
         }
+
+    }
+
+    public int getDefaultLimit()
+    {
+        final WorldEditPlugin wep = getWorldEditPlugin();
+        if (wep == null)
+        {
+            return 0;
+        }
+
+        return wep.getLocalConfiguration().defaultChangeLimit;
+
+    }
+
+    public int getMaxLimit()
+    {
+        final WorldEditPlugin wep = getWorldEditPlugin();
+        if (wep == null)
+        {
+            return 0;
+        }
+
+        return wep.getLocalConfiguration().maxChangeLimit;
 
     }
 

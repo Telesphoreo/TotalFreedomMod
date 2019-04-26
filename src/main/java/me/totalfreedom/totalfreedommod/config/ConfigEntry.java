@@ -3,7 +3,6 @@ package me.totalfreedom.totalfreedommod.config;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 
-
 public enum ConfigEntry
 {
     FORCE_IP_ENABLED(Boolean.class, "forceip.enabled"),
@@ -21,8 +20,11 @@ public enum ConfigEntry
     ALLOW_REDSTONE(Boolean.class, "allow.redstone"),
     ALLOW_FIREWORK_EXPLOSION(Boolean.class, "allow.fireworks"),
     ALLOW_FROSTWALKER(Boolean.class, "allow.frostwalker"),
+    ALLOW_UNSAFE_ENCHANTMENTS(Boolean.class, "allow.unsafe_enchantments"),
     //
-    BLOCKED_CHATCODES(String.class, "blocked_chatcodes"),
+    BLOCKED_WILDCARD_COMMANDS(List.class, "blocked.wildcard_commands"),
+    BLOCKED_MUTED_COMMANDS(List.class, "blocked.muted_commands"),
+    BLOCKED_CHATCODES(String.class, "blocked.chatcodes"),
     //
     MOB_LIMITER_ENABLED(Boolean.class, "moblimiter.enabled"),
     MOB_LIMITER_MAX(Integer.class, "moblimiter.max"),
@@ -41,16 +43,27 @@ public enum ConfigEntry
     SERVER_MOTD(String.class, "server.motd"),
     SERVER_OWNERS(List.class, "server.owners"),
     SERVER_EXECUTIVES(List.class, "server.executives"),
+    SERVER_MASTER_BUILDER_MANAGEMENT(List.class, "server.master_builder_management"),
     SERVER_BAN_URL(String.class, "server.ban_url"),
     SERVER_PERMBAN_URL(String.class, "server.permban_url"),
     //
     DISCORD_TOKEN(String.class, "discord.token"),
+    DISCORD_REPORT_CHANNEL_ID(String.class, "discord.report_channel_id"),
+    DISCORD_ROLE_SYNC(Boolean.class, "discord.role_sync"),
+    DISCORD_SERVER_ID(String.class, "discord.server_id"),
+    DISCORD_SUPER_ROLE_ID(String.class, "discord.super_role_id"),
+    DISCORD_TELNET_ROLE_ID(String.class, "discord.telnet_role_id"),
+    DISCORD_SENIOR_ROLE_ID(String.class, "discord.senior_role_id"),
     //
     ADMINLIST_CLEAN_THESHOLD_HOURS(Integer.class, "adminlist.clean_threshold_hours"),
     ADMINLIST_CONSOLE_IS_SENIOR(Boolean.class, "adminlist.console_is_senior"),
     //
-    COREPROTECT_AUTO_WIPING_ENABLED(Boolean.class, "coreprotect.auto_wipe"),
-    COREPROTECT_FILE_LIMIT(Integer.class, "coreprotect.file_limit"),
+    COREPROTECT_MYSQL_ENABLED(Boolean.class, "coreprotect.enabled"),
+    COREPROTECT_MYSQL_HOST(String.class, "coreprotect.host"),
+    COREPROTECT_MYSQL_PORT(String.class, "coreprotect.port"),
+    COREPROTECT_MYSQL_USERNAME(String.class, "coreprotect.username"),
+    COREPROTECT_MYSQL_PASSWORD(String.class, "coreprotect.password"),
+    COREPROTECT_MYSQL_DATABASE(String.class, "coreprotect.database"),
     //
     DISABLE_NIGHT(Boolean.class, "disable.night"),
     DISABLE_WEATHER(Boolean.class, "disable.weather"),
@@ -95,8 +108,8 @@ public enum ConfigEntry
     OVERLORD_IPS(List.class, "overlord_ips"),
     NOADMIN_IPS(List.class, "noadmin_ips"),
     ADMIN_ONLY_MODE(Boolean.class, "admin_only_mode"),
-    ADMININFO(List.class, "admininfo"),
-    MASTERBUILDERINFO(List.class, "masterbuilderinfo"),
+    ADMIN_INFO(List.class, "admininfo"),
+    MASTER_BUILDER_INFO(List.class, "masterbuilderinfo"),
     AUTO_ENTITY_WIPE(Boolean.class, "auto_wipe"),
     //
     AMP_ENABLED(Boolean.class, "amp.enabled"),
@@ -111,6 +124,19 @@ public enum ConfigEntry
     {
         this.type = type;
         this.configName = configName;
+    }
+
+    public static ConfigEntry findConfigEntry(String name)
+    {
+        name = name.toLowerCase().replace("_", "");
+        for (ConfigEntry entry : values())
+        {
+            if (entry.toString().toLowerCase().replace("_", "").equals(name))
+            {
+                return entry;
+            }
+        }
+        return null;
     }
 
     public Class<?> getType()
@@ -181,18 +207,5 @@ public enum ConfigEntry
     private MainConfig getConfig()
     {
         return TotalFreedomMod.plugin().config;
-    }
-
-    public static ConfigEntry findConfigEntry(String name)
-    {
-        name = name.toLowerCase().replace("_", "");
-        for (ConfigEntry entry : values())
-        {
-            if (entry.toString().toLowerCase().replace("_", "").equals(name))
-            {
-                return entry;
-            }
-        }
-        return null;
     }
 }

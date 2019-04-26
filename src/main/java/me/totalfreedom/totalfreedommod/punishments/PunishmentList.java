@@ -8,16 +8,11 @@ import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import net.pravian.aero.config.YamlConfig;
-import org.bukkit.ChatColor;
-import org.bukkit.command.CommandSender;
 
 public class PunishmentList extends FreedomService
 {
-
-    private final Set<Punishment> punishments = Sets.newHashSet();
     public static final String CONFIG_FILENAME = "punishments.yml";
-
-    //
+    private final Set<Punishment> punishments = Sets.newHashSet();
     private final YamlConfig config;
 
     public PunishmentList(TotalFreedomMod plugin)
@@ -59,7 +54,7 @@ public class PunishmentList extends FreedomService
     protected void onStop()
     {
         saveAll();
-        logger.info("Saved " + punishments.size() + " player bans");
+        logger.info("Saved " + punishments.size() + " punishments.");
     }
 
     public void saveAll()
@@ -124,38 +119,6 @@ public class PunishmentList extends FreedomService
             saveAll();
             return true;
         }
-
         return false;
-    }
-
-    public void getPlayerPunishments(String player, int amount, CommandSender sender)
-    {
-        final StringBuilder message = new StringBuilder(ChatColor.GOLD + "Player: " + ChatColor.BLUE + player + "\n");
-        message.append(ChatColor.GOLD + "--------------\n");
-        String banned_by;
-        String date;
-        String ip;
-        String reason;
-
-        //broken
-        Set<String> ids = config.getKeys(false);
-
-        for (int i = 0; i < amount; i++)
-        {
-            if (config.getString(ids + ".username").equals(player)
-                    && config.getString(ids + ".type").equals("ban"))
-            {
-                banned_by = ChatColor.BLUE + config.getString(ids + ".by");
-                date = ChatColor.BLUE + config.getString(ids + ".issued_on");
-                ip = ChatColor.BLUE + config.getString(ids + ".ip");
-                reason = ChatColor.BLUE + config.getString(ids + ".reason");
-                message.append(ChatColor.GOLD + "Issued by: " + banned_by + "\n");
-                message.append(ChatColor.GOLD + "Date: ").append(date).append("\n");
-                message.append(ChatColor.GOLD + "IP: ").append(ip).append("\n");
-                message.append(ChatColor.GOLD + "Reason: " + reason + "\n");
-                message.append(ChatColor.GOLD + "--------------\n");
-            }
-        }
-        sender.sendMessage(message.toString());
     }
 }

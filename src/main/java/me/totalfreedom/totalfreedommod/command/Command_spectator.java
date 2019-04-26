@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Quickly change your own gamemode to spectator, or define someone's username to change theirs.", usage = "/<command> <[partialname]>", aliases = "gmsp")
 public class Command_spectator extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

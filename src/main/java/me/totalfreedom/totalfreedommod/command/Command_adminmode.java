@@ -1,5 +1,8 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -11,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Close server to non-admins.", usage = "/<command> [on | off]")
 public class Command_adminmode extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -41,5 +43,16 @@ public class Command_adminmode extends FreedomCommand
         }
 
         return false;
+    }
+
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (args.length == 1 && plugin.al.isAdmin(sender) && !(sender instanceof Player))
+        {
+            return Arrays.asList("on", "off");
+        }
+
+        return Collections.emptyList();
     }
 }

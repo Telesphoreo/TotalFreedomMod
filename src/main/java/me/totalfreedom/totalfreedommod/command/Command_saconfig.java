@@ -1,9 +1,15 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.admin.Admin;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
+import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.util.Ips;
@@ -14,10 +20,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
-@CommandParameters(description = "Manage admins.", usage = "/<command> <list | clean | reload | | setrank <username> <rank> | <add | remove | info> <username>>")
+@CommandParameters(description = "Manage admins.", usage = "/<command> <list | clean | reload | setrank <username> <rank> | <add | remove | info> <username>>")
 public class Command_saconfig extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -82,7 +87,7 @@ public class Command_saconfig extends FreedomCommand
 
                 if (!rank.isAtLeast(Rank.SUPER_ADMIN))
                 {
-                    msg("Rank must be superadmin or higher.", ChatColor.RED);
+                    msg("Rank must be Super Admin or higher.", ChatColor.RED);
                     return true;
                 }
 
@@ -102,6 +107,11 @@ public class Command_saconfig extends FreedomCommand
                 if (player != null)
                 {
                     plugin.rm.updateDisplay(player);
+                }
+
+                if (plugin.dc.enabled && ConfigEntry.DISCORD_ROLE_SYNC.getBoolean())
+                {
+                    plugin.dc.syncRoles(admin);
                 }
 
                 msg("Set " + admin.getName() + "'s rank to " + rank.getName());
@@ -177,11 +187,17 @@ public class Command_saconfig extends FreedomCommand
                     }
                 }
 
+                if (plugin.pv.isPlayerImpostor(player))
+                {
+                    msg("This player was labeled as a player impostor and is not an admin, therefore they cannot be added to the admin list.", ChatColor.RED);
+                    return true;
+                }
+
                 if (admin == null) // New admin
                 {
                     if (plugin.mbl.isMasterBuilderImpostor(player))
                     {
-                        msg("This player was labeled as a Master Builder impostor and is not an admin, therefore they can not be added to the admin list.", ChatColor.RED);
+                        msg("This player was labeled as a Master Builder impostor and is not an admin, therefore they cannot be added to the admin list.", ChatColor.RED);
                         return true;
                     }
                     if (player == null)
@@ -195,7 +211,20 @@ public class Command_saconfig extends FreedomCommand
                     if (player != null)
                     {
                         plugin.rm.updateDisplay(player);
-                        plugin.wvb.updatePermissions(player);
+                    }
+                    // Attempt to find Discord account
+                    if (plugin.mbl.isMasterBuilder(player))
+                    {
+                        MasterBuilder masterBuilder = plugin.mbl.getMasterBuilder(player);
+                        admin.setDiscordID(masterBuilder.getDiscordID());
+                    }
+                    else if (plugin.pv.getVerificationPlayer(admin.getName()) != null)
+                    {
+                        VPlayer vPlayer = plugin.pv.getVerificationPlayer(admin.getName());
+                        if (vPlayer.getDiscordId() != null)
+                        {
+                            admin.setDiscordID(vPlayer.getDiscordId());
+                        }
                     }
                 }
                 else // Existing admin
@@ -239,11 +268,31 @@ public class Command_saconfig extends FreedomCommand
                     admin.setActive(true);
                     admin.setLastLogin(new Date());
 
+                    // Attempt to find Discord account
+                    if (plugin.mbl.isMasterBuilder(player))
+                    {
+                        MasterBuilder masterBuilder = plugin.mbl.getMasterBuilder(player);
+                        admin.setDiscordID(masterBuilder.getDiscordID());
+                    }
+                    else if (plugin.pv.getVerificationPlayer(admin.getName()) != null)
+                    {
+                        VPlayer vPlayer = plugin.pv.getVerificationPlayer(admin.getName());
+                        if (vPlayer.getDiscordId() != null)
+                        {
+                            admin.setDiscordID(vPlayer.getDiscordId());
+                        }
+                    }
+
                     plugin.al.save();
                     plugin.al.updateTables();
                     if (player != null)
                     {
                         plugin.rm.updateDisplay(player);
+                    }
+
+                    if (plugin.dc.enabled && ConfigEntry.DISCORD_ROLE_SYNC.getBoolean())
+                    {
+                        plugin.dc.syncRoles(admin);
                     }
                 }
 
@@ -261,8 +310,7 @@ public class Command_saconfig extends FreedomCommand
                         player.setOp(true);
                         player.sendMessage(YOU_ARE_OP);
                     }
-                    plugin.wvb.updatePermissions(player);
-                    plugin.pv.removeEntry(player.getName()); // admins can't have player verification entries
+                    plugin.pv.removeEntry(player.getName()); // Admins can't have player verification entries
                 }
 
                 return true;
@@ -294,8 +342,13 @@ public class Command_saconfig extends FreedomCommand
                 if (player != null)
                 {
                     plugin.rm.updateDisplay(player);
-                    plugin.wvb.updatePermissions(player);
                 }
+
+                if (plugin.dc.enabled && ConfigEntry.DISCORD_ROLE_SYNC.getBoolean())
+                {
+                    plugin.dc.syncRoles(admin);
+                }
+
                 return true;
             }
 
@@ -304,5 +357,48 @@ public class Command_saconfig extends FreedomCommand
                 return false;
             }
         }
+    }
+
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (sender instanceof Player)
+        {
+            if (args.length == 1)
+            {
+                List<String> arguments = new ArrayList<>();
+                arguments.add("list");
+                if (plugin.al.isAdmin(sender))
+                {
+                    arguments.add("info");
+                }
+                return arguments;
+            }
+            else if (args.length == 2 && args[0].equals("info") && plugin.al.isAdmin(sender))
+            {
+                return plugin.al.getActiveAdminNames();
+            }
+            return Collections.emptyList();
+        }
+        else
+        {
+            if (args.length == 1)
+            {
+                return Arrays.asList("add", "remove", "clean", "reload", "setrank", "info", "list");
+            }
+            else if (args.length == 2)
+            {
+                if (args[0].equals("add") || args[0].equals("remove") || args[0].equals("setrank") || args[0].equals("info"))
+                {
+                    return FUtil.getPlayerList();
+                }
+            }
+            else if (args.length == 3 && args[0].equals("setrank"))
+            {
+                return Arrays.asList("super_admin", "telnet_admin", "senior_admin");
+            }
+        }
+
+        return Collections.emptyList();
     }
 }

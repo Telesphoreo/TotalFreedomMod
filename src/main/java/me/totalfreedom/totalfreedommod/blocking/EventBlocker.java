@@ -3,11 +3,16 @@ package me.totalfreedom.totalfreedommod.blocking;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
+import me.totalfreedom.totalfreedommod.util.Groups;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBurnEvent;
+import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.BlockFromToEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
@@ -21,6 +26,9 @@ import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class EventBlocker extends FreedomService
 {
@@ -152,8 +160,7 @@ public class EventBlocker extends FreedomService
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
-    public void onLeavesDecay(LeavesDecayEvent event
-    )
+    public void onLeavesDecay(LeavesDecayEvent event)
     {
         event.setCancelled(true);
     }
@@ -194,4 +201,35 @@ public class EventBlocker extends FreedomService
         }
     }
 
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onPlayerRespawn(PlayerRespawnEvent event)
+    {
+        double maxHealth = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        if (maxHealth < 1)
+        {
+            for (AttributeModifier attributeModifier : event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).getModifiers())
+            {
+                event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).removeModifier(attributeModifier);
+            }
+        }
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onBlockDispense(BlockDispenseEvent event)
+    {
+        ItemStack item = event.getItem();
+        if (Groups.SHULKER_BOXES.contains(item.getType()))
+        {
+            BlockStateMeta blockStateMeta = (BlockStateMeta)item.getItemMeta();
+            ShulkerBox shulkerBox = (ShulkerBox)blockStateMeta.getBlockState();
+            for (ItemStack itemStack : shulkerBox.getInventory().getContents())
+            {
+                if (itemStack != null)
+                {
+                    event.setCancelled(true);
+                    break;
+                }
+            }
+        }
+    }
 }

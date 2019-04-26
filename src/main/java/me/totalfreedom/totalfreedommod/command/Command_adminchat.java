@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
         aliases = "o,ac")
 public class Command_adminchat extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -34,7 +33,6 @@ public class Command_adminchat extends FreedomCommand
         {
             plugin.cm.adminChat(sender, StringUtils.join(args, " "));
         }
-
         return true;
     }
 }

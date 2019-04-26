@@ -12,38 +12,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "For developers only - debug things via reflection.", usage = "/<command>")
 public class Command_debug extends FreedomCommand
 {
-
-    @Override
-    public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
-    {
-        if (args.length < 3)
-        {
-            return false;
-        }
-
-        try
-        {
-            String className = args[0];
-            String fieldName = args[1];
-            String newValue = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
-
-            if (className.equalsIgnoreCase("_"))
-            {
-                className = "me.totalfreedom.totalfreedommod.TotalFreedomMod";
-            }
-
-            setStaticValue(className, fieldName, newValue);
-
-            sender.sendMessage("Debug: OK");
-        }
-        catch (Exception ex)
-        {
-            sender.sendMessage(ex.getMessage());
-        }
-
-        return true;
-    }
-
     public static void setStaticValue(final String className, final String fieldName, final String newValueString) throws Exception
     {
         Class<?> forName = Class.forName(className);
@@ -109,5 +77,36 @@ public class Command_debug extends FreedomCommand
                 field.setAccessible(false);
             }
         }
+    }
+
+    @Override
+    public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
+    {
+        if (args.length < 3)
+        {
+            return false;
+        }
+
+        try
+        {
+            String className = args[0];
+            String fieldName = args[1];
+            String newValue = StringUtils.join(ArrayUtils.subarray(args, 2, args.length), " ");
+
+            if (className.equalsIgnoreCase("_"))
+            {
+                className = "me.totalfreedom.totalfreedommod.TotalFreedomMod";
+            }
+
+            setStaticValue(className, fieldName, newValue);
+
+            sender.sendMessage("Debug: OK");
+        }
+        catch (Exception ex)
+        {
+            sender.sendMessage(ex.getMessage());
+        }
+
+        return true;
     }
 }

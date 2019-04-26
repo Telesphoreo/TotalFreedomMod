@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Block all commands for a specific player.", usage = "/<command> <-a | purge | <player>>", aliases = "blockcommands,blockcommand,bc,bcmd")
 public class Command_blockcmd extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Essentials Interface Command - Rainbowify your nickname.", usage = "/<command> <nick>")
 public class Command_rainbownick extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

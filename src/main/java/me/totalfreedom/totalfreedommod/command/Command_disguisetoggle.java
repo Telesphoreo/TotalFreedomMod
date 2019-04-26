@@ -1,6 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import me.totalfreedom.libsdisguise.TF_DisguiseAPI;
+import me.totalfreedom.disguise.DisguiseBlocker;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.bukkit.command.Command;
@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Toggle the disguise plugin", usage = "/<command>", aliases = "dtoggle")
 public class Command_disguisetoggle extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -21,8 +20,7 @@ public class Command_disguisetoggle extends FreedomCommand
             return true;
         }
 
-        FUtil.adminAction(sender.getName(), (TF_DisguiseAPI.disabled ? "Enabling" : "Disabling")
-                + " disguises", false);
+        FUtil.adminAction(sender.getName(), (DisguiseBlocker.enabled ? "Disabling" : "Enabling") + " disguises", false);
 
         if (plugin.ldb.isDisguisesEnabled())
         {
@@ -34,7 +32,7 @@ public class Command_disguisetoggle extends FreedomCommand
             plugin.ldb.setDisguisesEnabled(true);
         }
 
-        msg("Disguises are now " + (!TF_DisguiseAPI.disabled ? "enabled." : "disabled."));
+        msg("Disguises are now " + (DisguiseBlocker.enabled ? "enabled." : "disabled."));
 
         return true;
     }

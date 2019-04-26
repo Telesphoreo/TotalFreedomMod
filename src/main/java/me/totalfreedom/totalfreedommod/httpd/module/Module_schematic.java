@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -24,13 +23,13 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Module_schematic extends HTTPDModule
 {
-
     private static final File SCHEMATIC_FOLDER = new File("./plugins/WorldEdit/schematics/");
     private static final String REQUEST_FORM_FILE_ELEMENT_NAME = "schematicFile";
-    private static final Pattern SCHEMATIC_FILENAME_LC = Pattern.compile("^[a-z0-9_'!,\\-]{1,30}\\.schematic$");
+    private static final Pattern SCHEMATIC_FILENAME_LC = Pattern.compile("^[a-z0-9_'!,\\-]*\\.(schem|schematic)$");
     private static final String[] SCHEMATIC_FILTER = new String[]
             {
-                    "schematic"
+                    "schematic",
+                    "schem"
             };
     private static final String UPLOAD_FORM = "<form method=\"post\" name=\"schematicForm\" id=\"schematicForm\" action=\"/schematic/upload/\" enctype=\"multipart/form-data\">\n"
             + "<p>Select a schematic file to upload. Filenames must be alphanumeric, between 1 and 30 characters long (inclusive), and have a .schematic extension.</p>\n"
@@ -42,6 +41,12 @@ public class Module_schematic extends HTTPDModule
     public Module_schematic(TotalFreedomMod plugin, NanoHTTPD.HTTPSession session)
     {
         super(plugin, session);
+    }
+
+    private static String getArg(String[] args, int index)
+    {
+        String out = (args.length == index + 1 ? args[index] : null);
+        return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
     }
 
     @Override
@@ -89,20 +94,17 @@ public class Module_schematic extends HTTPDModule
                     {
                         schematicsFormatted.add("<li><a href=\"/schematic/download?schematicName=" + filename + "\">" + filename + "</a></li>");
                     }
+                    else if (filename.length() > 254)
+                    {
+                        schematicsFormatted.add("<li>" + filename + " - (Filename too long, can't download)</li>");
+                    }
                     else
                     {
                         schematicsFormatted.add("<li>" + filename + " - (Illegal filename, can't download)</li>");
                     }
                 }
 
-                Collections.sort(schematicsFormatted, new Comparator<String>()
-                {
-                    @Override
-                    public int compare(String a, String b)
-                    {
-                        return a.toLowerCase().compareTo(b.toLowerCase());
-                    }
-                });
+                schematicsFormatted.sort(Comparator.comparing(String::toLowerCase));
 
                 out
                         .append(HTMLGenerationTools.heading("Schematics:", 1))
@@ -129,7 +131,7 @@ public class Module_schematic extends HTTPDModule
                 final String remoteAddress = socket.getInetAddress().getHostAddress();
                 if (!isAuthorized(remoteAddress))
                 {
-                    out.append(HTMLGenerationTools.paragraph("Schematic upload access denied: Your IP, " + remoteAddress + ", is not registered to a superadmin on this server."));
+                    out.append(HTMLGenerationTools.paragraph("Schematic upload access denied: Your IP, " + remoteAddress + ", is not registered to an admin on this server."));
                 }
                 else
                 {
@@ -241,44 +243,8 @@ public class Module_schematic extends HTTPDModule
         return entry != null && entry.isActive();
     }
 
-    private static class SchematicTransferException extends Exception
+    private enum ModuleMode
     {
-
-        public SchematicTransferException()
-        {
-        }
-
-        public SchematicTransferException(String string)
-        {
-            super(string);
-        }
-    }
-
-    private static class ResponseOverrideException extends Exception
-    {
-
-        private final Response response;
-
-        public ResponseOverrideException(Response response)
-        {
-            this.response = response;
-        }
-
-        public Response getResponse()
-        {
-            return response;
-        }
-    }
-
-    private static String getArg(String[] args, int index)
-    {
-        String out = (args.length == index + 1 ? args[index] : null);
-        return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
-    }
-
-    private static enum ModuleMode
-    {
-
         LIST("list"),
         UPLOAD("upload"),
         DOWNLOAD("download"),
@@ -289,12 +255,6 @@ public class Module_schematic extends HTTPDModule
         private ModuleMode(String modeName)
         {
             this.modeName = modeName;
-        }
-
-        @Override
-        public String toString()
-        {
-            return this.modeName;
         }
 
         public static ModuleMode getMode(String needle)
@@ -308,6 +268,39 @@ public class Module_schematic extends HTTPDModule
                 }
             }
             return INVALID;
+        }
+
+        @Override
+        public String toString()
+        {
+            return this.modeName;
+        }
+    }
+
+    private static class SchematicTransferException extends Exception
+    {
+        public SchematicTransferException()
+        {
+        }
+
+        public SchematicTransferException(String string)
+        {
+            super(string);
+        }
+    }
+
+    private static class ResponseOverrideException extends Exception
+    {
+        private final Response response;
+
+        public ResponseOverrideException(Response response)
+        {
+            this.response = response;
+        }
+
+        public Response getResponse()
+        {
+            return response;
         }
     }
 

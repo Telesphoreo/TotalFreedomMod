@@ -12,7 +12,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Warns a player.", usage = "/<command> <player> <reason>")
 public class Command_warn extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -45,7 +44,6 @@ public class Command_warn extends FreedomCommand
         }
 
         String warnReason = StringUtils.join(ArrayUtils.subarray(args, 1, args.length), " ");
-
         msg(player, ChatColor.RED + "[WARNING] You received a warning: " + warnReason);
         msg(ChatColor.GREEN + "You have successfully warned " + player.getName());
         final StringBuilder adminNotice = new StringBuilder()
@@ -58,9 +56,7 @@ public class Command_warn extends FreedomCommand
                 .append(ChatColor.YELLOW)
                 .append(warnReason);
         plugin.al.messageAllAdmins(adminNotice.toString());
-
         plugin.pl.getPlayer(player).incrementWarnings();
-
         return true;
     }
 }

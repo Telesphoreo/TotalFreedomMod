@@ -38,7 +38,7 @@ public class Flatlands extends CustomWorld
         worldCreator.generateStructures(false);
         worldCreator.type(WorldType.NORMAL);
         worldCreator.environment(World.Environment.NORMAL);
-        worldCreator.generator(new CleanroomChunkGenerator("64,stone"));
+        worldCreator.generator(new CleanroomChunkGenerator(GENERATION_PARAMETERS));
 
         final World world = Bukkit.getServer().createWorld(worldCreator);
 

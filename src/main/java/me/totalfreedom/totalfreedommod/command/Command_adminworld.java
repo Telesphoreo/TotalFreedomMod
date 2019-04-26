@@ -1,5 +1,8 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.world.WorldTime;
@@ -11,16 +14,10 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
 @CommandParameters(description = "Go to the AdminWorld.",
-        usage = "/<command> [guest < list | purge | add <player> | remove <player> > | time <morning | noon | evening | night> | weather <off | on | storm>]",
+        usage = "/<command> [guest <list | purge | add <player> | remove <player>> | time <morning | noon | evening | night> | weather <off | rain | storm>]",
         aliases = "aw")
 public class Command_adminworld extends FreedomCommand
 {
-
-    private enum CommandMode
-    {
-        TELEPORT, GUEST, TIME, WEATHER
-    }
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -229,6 +226,54 @@ public class Command_adminworld extends FreedomCommand
         }
     }
 
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (!plugin.al.isAdmin(sender))
+        {
+            return Collections.emptyList();
+        }
+        if (args.length == 1)
+        {
+            return Arrays.asList("guest", "time", "weather");
+        }
+        else if (args.length == 2)
+        {
+            if (args[0].equals("guest"))
+            {
+                return Arrays.asList("add", "remove", "list", "purge");
+            }
+            else if (args[0].equals("time"))
+            {
+                return Arrays.asList("morning", "noon", "evening", "night");
+            }
+            else if (args[0].equals("weather"))
+            {
+                return Arrays.asList("off", "rain", "storm");
+            }
+        }
+        else if (args.length == 3)
+        {
+            if (args[0].equals("guest"))
+            {
+                if (args[1].equals("add"))
+                {
+                    return FUtil.getPlayerList();
+                }
+                else if (args[1].equals("remove"))
+                {
+                    return plugin.wm.adminworld.getGuestList();
+                }
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    private enum CommandMode
+    {
+        TELEPORT, GUEST, TIME, WEATHER
+    }
+
     private class PermissionDeniedException extends Exception
     {
 
@@ -244,5 +289,4 @@ public class Command_adminworld extends FreedomCommand
             super(string);
         }
     }
-
 }

@@ -20,7 +20,6 @@ import me.totalfreedom.totalfreedommod.bridge.BukkitTelnetBridge;
 import me.totalfreedom.totalfreedommod.bridge.CoreProtectBridge;
 import me.totalfreedom.totalfreedommod.bridge.EssentialsBridge;
 import me.totalfreedom.totalfreedommod.bridge.LibsDisguisesBridge;
-import me.totalfreedom.totalfreedommod.bridge.WaveBridge;
 import me.totalfreedom.totalfreedommod.bridge.WorldEditBridge;
 import me.totalfreedom.totalfreedommod.bridge.WorldGuardBridge;
 import me.totalfreedom.totalfreedommod.caging.Cager;
@@ -42,6 +41,7 @@ import me.totalfreedom.totalfreedommod.player.PlayerList;
 import me.totalfreedom.totalfreedommod.playerverification.PlayerVerification;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
 import me.totalfreedom.totalfreedommod.rank.RankManager;
+import me.totalfreedom.totalfreedommod.reporting.ReportList;
 import me.totalfreedom.totalfreedommod.rollback.RollbackManager;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -59,7 +59,6 @@ import org.spigotmc.SpigotConfig;
 
 public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 {
-
     public static final String CONFIG_FILENAME = "config.yml";
     //
     public static final BuildProperties build = new BuildProperties();
@@ -71,69 +70,80 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     //
     // Services
     public ServiceManager<TotalFreedomMod> services;
-    public ServerInterface si;
-    public SavedFlags sf;
-    public WorldManager wm;
-    public LogViewer lv;
     public AdminList al;
-    public RankManager rm;
-    public CommandLoader cl;
-    public CommandBlocker cb;
-    public EventBlocker eb;
-    public BlockBlocker bb;
-    public MobBlocker mb;
-    public InteractBlocker ib;
-    public PotionBlocker pb;
-    public LoginProcess lp;
+    public Announcer an;
     public AntiNuke nu;
     public AntiSpam as;
-    public PlayerList pl;
-    public Announcer an;
-    public ChatManager cm;
-    public Discord dc;
-    public PunishmentList pul;
-    public BanManager bm;
-    public PermbanList pm;
-    public ProtectArea pa;
-    public GameRuleHandler gr;
-    public RollbackManager rb;
-    public CommandSpy cs;
-    public Cager ca;
-    public Freezer fm;
-    public EditBlocker ebl;
-    public PVPBlocker pbl;
-    public Orbiter or;
-    public Muter mu;
-    public Fuckoff fo;
-    public AutoKick ak;
     public AutoEject ae;
-    public Monitors mo;
-    public MovementValidator mv;
+    public AutoKick ak;
+    public BanManager bm;
+    public BlockBlocker bb;
+    public Cager ca;
+    public ChatManager cm;
+    public CommandBlocker cb;
+    public CommandLoader cl;
+    public CommandSpy cs;
+    public Discord dc;
+    public EditBlocker ebl;
     public EntityWiper ew;
-    public FrontDoor fd;
-    public ServerPing sp;
-    public ItemFun it;
-    public Landminer lm;
-    public MobStacker ms;
-    public MP44 mp;
-    public Jumppads jp;
-    public Trailer tr;
+    public EventBlocker eb;
+    public Freezer fm;
+    public Fuckoff fo;
+    public GameRuleHandler gr;
     public HTTPDaemon hd;
+    public InteractBlocker ib;
+    public ItemFun it;
+    public Jumppads jp;
+    public Landminer lm;
+    public LogViewer lv;
+    public LoginProcess lp;
+    public MP44 mp;
     public MasterBuilderList mbl;
     public MasterBuilderWorldRestrictions mbwr;
-    public SignBlocker snp;
+    public MobBlocker mb;
+    public MobStacker ms;
+    public Monitors mo;
+    public MovementValidator mv;
+    public Muter mu;
+    public Orbiter or;
+    public PVPBlocker pbl;
+    public PermbanList pm;
+    public PlayerList pl;
     public PlayerVerification pv;
+    public PotionBlocker pb;
+    public ProtectArea pa;
+    public PunishmentList pul;
+    public RankManager rm;
+    public ReportList rel;
+    public RollbackManager rb;
+    public SavedFlags sf;
+    public ServerInterface si;
+    public ServerPing sp;
+    public SignBlocker sb;
+    public Trailer tr;
+    public WorldManager wm;
     //
     // Bridges
     public ServiceManager<TotalFreedomMod> bridges;
+    public AMP amp;
     public BukkitTelnetBridge btb;
+    public CoreProtectBridge cpb;
     public EssentialsBridge esb;
     public LibsDisguisesBridge ldb;
-    public CoreProtectBridge cpb;
-    public WaveBridge wvb;
     public WorldEditBridge web;
     public WorldGuardBridge wgb;
-    public AMP amp;
+
+    public static TotalFreedomMod plugin()
+    {
+        for (Plugin plugin : Bukkit.getPluginManager().getPlugins())
+        {
+            if (plugin.getName().equalsIgnoreCase(pluginName))
+            {
+                return (TotalFreedomMod)plugin;
+            }
+        }
+        return null;
+    }
 
     @Override
     public void load()
@@ -179,63 +189,61 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 
         // Start services
         services = new ServiceManager<>(plugin);
-        si = services.registerService(ServerInterface.class);
-        sf = services.registerService(SavedFlags.class);
-        wm = services.registerService(WorldManager.class);
-        lv = services.registerService(LogViewer.class);
         al = services.registerService(AdminList.class);
-        rm = services.registerService(RankManager.class);
-        cl = services.registerService(CommandLoader.class);
-        cb = services.registerService(CommandBlocker.class);
-        eb = services.registerService(EventBlocker.class);
-        bb = services.registerService(BlockBlocker.class);
-        mb = services.registerService(MobBlocker.class);
-        ib = services.registerService(InteractBlocker.class);
-        pb = services.registerService(PotionBlocker.class);
-        lp = services.registerService(LoginProcess.class);
-        nu = services.registerService(AntiNuke.class);
         as = services.registerService(AntiSpam.class);
+        bb = services.registerService(BlockBlocker.class);
+        cb = services.registerService(CommandBlocker.class);
+        cl = services.registerService(CommandLoader.class);
+        eb = services.registerService(EventBlocker.class);
+        ib = services.registerService(InteractBlocker.class);
+        lp = services.registerService(LoginProcess.class);
+        lv = services.registerService(LogViewer.class);
+        mb = services.registerService(MobBlocker.class);
         mbl = services.registerService(MasterBuilderList.class);
         mbwr = services.registerService(MasterBuilderWorldRestrictions.class);
+        nu = services.registerService(AntiNuke.class);
+        pb = services.registerService(PotionBlocker.class);
+        rm = services.registerService(RankManager.class);
+        sf = services.registerService(SavedFlags.class);
+        si = services.registerService(ServerInterface.class);
+        wm = services.registerService(WorldManager.class);
 
-        pl = services.registerService(PlayerList.class);
         an = services.registerService(Announcer.class);
+        bm = services.registerService(BanManager.class);
         cm = services.registerService(ChatManager.class);
         dc = services.registerService(Discord.class);
-        pul = services.registerService(PunishmentList.class);
-        bm = services.registerService(BanManager.class);
-        pm = services.registerService(PermbanList.class);
-        pa = services.registerService(ProtectArea.class);
         gr = services.registerService(GameRuleHandler.class);
-        snp = services.registerService(SignBlocker.class);
+        pa = services.registerService(ProtectArea.class);
+        pl = services.registerService(PlayerList.class);
+        pm = services.registerService(PermbanList.class);
+        pul = services.registerService(PunishmentList.class);
+        rel = services.registerService(ReportList.class);
+        sb = services.registerService(SignBlocker.class);
 
         // Single admin utils
-        rb = services.registerService(RollbackManager.class);
-        cs = services.registerService(CommandSpy.class);
-        ca = services.registerService(Cager.class);
-        fm = services.registerService(Freezer.class);
-        or = services.registerService(Orbiter.class);
-        mu = services.registerService(Muter.class);
-        ebl = services.registerService(EditBlocker.class);
-        pbl = services.registerService(PVPBlocker.class);
-        fo = services.registerService(Fuckoff.class);
-        ak = services.registerService(AutoKick.class);
         ae = services.registerService(AutoEject.class);
-        mo = services.registerService(Monitors.class);
-
-
-        mv = services.registerService(MovementValidator.class);
+        ak = services.registerService(AutoKick.class);
+        ca = services.registerService(Cager.class);
+        cs = services.registerService(CommandSpy.class);
+        ebl = services.registerService(EditBlocker.class);
         ew = services.registerService(EntityWiper.class);
-        fd = services.registerService(FrontDoor.class);
-        sp = services.registerService(ServerPing.class);
+        fm = services.registerService(Freezer.class);
+        fo = services.registerService(Fuckoff.class);
+        mo = services.registerService(Monitors.class);
+        mu = services.registerService(Muter.class);
+        mv = services.registerService(MovementValidator.class);
+        or = services.registerService(Orbiter.class);
+        pbl = services.registerService(PVPBlocker.class);
         pv = services.registerService(PlayerVerification.class);
+        rb = services.registerService(RollbackManager.class);
+        sp = services.registerService(ServerPing.class);
 
         // Fun
         it = services.registerService(ItemFun.class);
-        lm = services.registerService(Landminer.class);
-        ms = services.registerService(MobStacker.class);
-        mp = services.registerService(MP44.class);
         jp = services.registerService(Jumppads.class);
+        lm = services.registerService(Landminer.class);
+        mp = services.registerService(MP44.class);
+        ms = services.registerService(MobStacker.class);
         tr = services.registerService(Trailer.class);
 
         // HTTPD
@@ -244,14 +252,13 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
 
         // Start bridges
         bridges = new ServiceManager<>(plugin);
+        amp = bridges.registerService(AMP.class);
         btb = bridges.registerService(BukkitTelnetBridge.class);
         cpb = bridges.registerService(CoreProtectBridge.class);
         esb = bridges.registerService(EssentialsBridge.class);
         ldb = bridges.registerService(LibsDisguisesBridge.class);
-        wvb = bridges.registerService(WaveBridge.class);
         web = bridges.registerService(WorldEditBridge.class);
         wgb = bridges.registerService(WorldGuardBridge.class);
-        amp = bridges.registerService(AMP.class);
         bridges.start();
 
         timer.update();
@@ -285,9 +292,14 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         FLog.info("Plugin disabled");
     }
 
+    @Override
+    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id)
+    {
+        return new CleanroomChunkGenerator(id);
+    }
+
     public static class BuildProperties
     {
-
         public String author;
         public String codename;
         public String version;
@@ -326,23 +338,5 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         {
             return pluginVersion + "." + number + " (" + head + ")";
         }
-    }
-
-    public static TotalFreedomMod plugin()
-    {
-        for (Plugin plugin : Bukkit.getPluginManager().getPlugins())
-        {
-            if (plugin.getName().equalsIgnoreCase(pluginName))
-            {
-                return (TotalFreedomMod)plugin;
-            }
-        }
-        return null;
-    }
-
-    @Override
-    public ChunkGenerator getDefaultWorldGenerator(String worldName, String id)
-    {
-        return new CleanroomChunkGenerator(id);
     }
 }

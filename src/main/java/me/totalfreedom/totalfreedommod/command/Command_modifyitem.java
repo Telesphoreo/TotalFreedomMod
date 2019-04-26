@@ -24,7 +24,6 @@ import org.bukkit.potion.PotionEffectType;
 @CommandParameters(description = "Modify the current item in your hand", usage = "/<command> <name <message> | lore <message> | enchant <enchantment> <level> | potion <effect> <duration> <amplifier> | attribute <name> <amount> | clear>", aliases = "mi")
 public class Command_modifyitem extends FreedomCommand
 {
-
     @Override
     public boolean run(final CommandSender sender, final Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -227,17 +226,6 @@ public class Command_modifyitem extends FreedomCommand
             this.attribute = attribute;
         }
 
-        public String getAttribute()
-        {
-            return attribute;
-        }
-
-        @Override
-        public String toString()
-        {
-            return name;
-        }
-
         public static Attribute getByName(String name)
         {
             for (Attribute attr : Attribute.values())
@@ -248,6 +236,17 @@ public class Command_modifyitem extends FreedomCommand
                 }
             }
             return null;
+        }
+
+        public String getAttribute()
+        {
+            return attribute;
+        }
+
+        @Override
+        public String toString()
+        {
+            return name;
         }
     }
 }

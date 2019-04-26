@@ -33,6 +33,12 @@ public class Module_logfile extends HTTPDModule
         super(plugin, session);
     }
 
+    private static String getArg(String[] args, int index)
+    {
+        String out = (args.length == index + 1 ? args[index] : null);
+        return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
+    }
+
     @Override
     public Response getResponse()
     {
@@ -162,6 +168,40 @@ public class Module_logfile extends HTTPDModule
         return entry != null && entry.isActive();
     }
 
+    private static enum ModuleMode
+    {
+
+        LIST("list"),
+        DOWNLOAD("download"),
+        INVALID(null);
+        //
+        private final String modeName;
+
+        private ModuleMode(String modeName)
+        {
+            this.modeName = modeName;
+        }
+
+        public static ModuleMode getMode(String needle)
+        {
+            for (ModuleMode mode : values())
+            {
+                final String haystack = mode.toString();
+                if (haystack != null && haystack.equalsIgnoreCase(needle))
+                {
+                    return mode;
+                }
+            }
+            return INVALID;
+        }
+
+        @Override
+        public String toString()
+        {
+            return this.modeName;
+        }
+    }
+
     private static class LogFileTransferException extends Exception
     {
 
@@ -188,46 +228,6 @@ public class Module_logfile extends HTTPDModule
         public Response getResponse()
         {
             return response;
-        }
-    }
-
-    private static String getArg(String[] args, int index)
-    {
-        String out = (args.length == index + 1 ? args[index] : null);
-        return (out == null ? null : (out.trim().isEmpty() ? null : out.trim()));
-    }
-
-    private static enum ModuleMode
-    {
-
-        LIST("list"),
-        DOWNLOAD("download"),
-        INVALID(null);
-        //
-        private final String modeName;
-
-        private ModuleMode(String modeName)
-        {
-            this.modeName = modeName;
-        }
-
-        @Override
-        public String toString()
-        {
-            return this.modeName;
-        }
-
-        public static ModuleMode getMode(String needle)
-        {
-            for (ModuleMode mode : values())
-            {
-                final String haystack = mode.toString();
-                if (haystack != null && haystack.equalsIgnoreCase(needle))
-                {
-                    return mode;
-                }
-            }
-            return INVALID;
         }
     }
 

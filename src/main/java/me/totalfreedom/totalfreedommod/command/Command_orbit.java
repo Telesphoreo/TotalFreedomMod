@@ -15,7 +15,6 @@ import org.bukkit.util.Vector;
         usage = "/<command> <target> [<<power> | stop>]")
 public class Command_orbit extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

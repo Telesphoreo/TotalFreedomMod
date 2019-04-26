@@ -16,8 +16,8 @@ import static me.totalfreedom.totalfreedommod.httpd.HTMLGenerationTools.paragrap
 public class Module_dump extends HTTPDModule
 {
 
-    private File echoFile = null;
     private final String body;
+    private File echoFile = null;
 
     public Module_dump(TotalFreedomMod plugin, NanoHTTPD.HTTPSession session)
     {

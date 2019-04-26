@@ -13,7 +13,6 @@ import org.bukkit.scheduler.BukkitTask;
 @CommandParameters(description = "Block a player's Minecraft input. This is evil, and I never should have wrote it.", usage = "/<command> <all | purge | <<partialname> on | off>>")
 public class Command_lockup extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

@@ -1,6 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import me.totalfreedom.libsdisguise.TF_DisguiseAPI;
+import me.totalfreedom.disguise.DisguiseBlocker;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.bukkit.command.Command;
@@ -8,10 +8,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH)
-@CommandParameters(description = "Undisguise all players on the server", usage = "/<command>", aliases = "uall")
+@CommandParameters(description = "Undisguise all players on the server", usage = "/<command> [-a]", aliases = "uall")
 public class Command_undisguiseall extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -21,16 +20,21 @@ public class Command_undisguiseall extends FreedomCommand
             return true;
         }
 
-        if (TF_DisguiseAPI.disabled)
+        if (!DisguiseBlocker.enabled)
         {
             msg("Disguises are not enabled.");
             return true;
         }
 
-        FUtil.adminAction(sender.getName(), "Undisguising all non-admins", true);
+        boolean admins = false;
 
-        plugin.ldb.undisguiseAll(false);
+        if (args.length > 0 && args[0].equalsIgnoreCase("-a"))
+        {
+            admins = true;
+        }
 
+        plugin.ldb.undisguiseAll(admins);
+        FUtil.adminAction(sender.getName(), "Undisguising all " + (admins ? "players" : "non-admins"), true);
         return true;
     }
 }

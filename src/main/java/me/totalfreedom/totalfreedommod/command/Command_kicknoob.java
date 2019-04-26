@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Kick all non-admins on server.", usage = "/<command>")
 public class Command_kicknoob extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

@@ -2,6 +2,7 @@ package me.totalfreedom.totalfreedommod.command;
 
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.banning.Ban;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.punishments.Punishment;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentType;
 import me.totalfreedom.totalfreedommod.rank.Rank;
@@ -19,7 +20,6 @@ import org.bukkit.util.Vector;
 @CommandParameters(description = "For the bad admins", usage = "/<command> <playername>")
 public class Command_doom extends FreedomCommand
 {
-
     @Override
     public boolean run(final CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -49,6 +49,10 @@ public class Command_doom extends FreedomCommand
             admin.setActive(false);
             plugin.al.save();
             plugin.al.updateTables();
+            if (plugin.dc.enabled && ConfigEntry.DISCORD_ROLE_SYNC.getBoolean())
+            {
+                plugin.dc.syncRoles(admin);
+            }
         }
 
         // Remove from whitelist

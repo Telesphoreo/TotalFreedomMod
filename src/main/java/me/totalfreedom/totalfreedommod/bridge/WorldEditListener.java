@@ -10,7 +10,6 @@ import org.bukkit.event.EventHandler;
 
 public class WorldEditListener extends PluginListener<TotalFreedomMod>
 {
-
     public WorldEditListener(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -39,24 +38,26 @@ public class WorldEditListener extends PluginListener<TotalFreedomMod>
     @EventHandler
     public void onLimitChanged(LimitChangedEvent event)
     {
-        final Player player = event.getPlayer();
+        Player player = event.getPlayer();
+        Player target = event.getTarget();
 
         if (plugin.al.isAdmin(player))
         {
             return;
         }
 
-        if (!event.getPlayer().equals(event.getTarget()))
+        if (!player.equals(target))
         {
             player.sendMessage(ChatColor.RED + "Only admins can change the limit for other players!");
             event.setCancelled(true);
+            return;
         }
 
         if (event.getLimit() < 0 || event.getLimit() > 200000)
         {
-            event.setCancelled(true);
             player.sendMessage(ChatColor.RED + "You cannot set your limit higher than 200000 or to -1!");
+            event.setCancelled(true);
+            return;
         }
     }
-
 }

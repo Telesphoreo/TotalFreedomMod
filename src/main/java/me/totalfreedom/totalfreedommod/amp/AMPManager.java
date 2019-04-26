@@ -76,34 +76,30 @@ public class AMPManager
                     if (resp.contains("Unauthorized Access"))
                     {
                         //try connecting one more time
-                        LoginCallback callback = new LoginCallback()
+                        LoginCallback callback = success ->
                         {
-                            @Override
-                            public void loginDone(boolean success)
+                            if (!success)
                             {
-                                if (!success)
+                                FLog.severe("Failed to connect to AMP. Did the panel go down? Were panel user details changed/deleted? Check for more info above. Connection was successful when plugin started, but unsuccessful now." +
+                                        " Using server.shutdown() instead.");
+                                plugin.getServer().shutdown();
+                                return;
+                            }
+                            try
+                            {
+                                String response = postRequestToEndpoint(apiEndpoint, body);
+                                if (response.contains("Unauthorized Access"))
                                 {
-                                    FLog.severe("Failed to connect to AMP. Did the panel go down? Were panel user details changed/deleted? Check for more info above. Connection was successful when plugin started, but unsuccessful now." +
-                                            " Using server.shutdown() instead.");
+                                    FLog.severe("Contact a developer. Panel gives Session ID but trying to use it gives a no perms error. The panel user set in config doesn't" +
+                                            " have perms to restart server. Using server.shutdown() instead.");
                                     plugin.getServer().shutdown();
-                                    return;
-                                }
-                                try
-                                {
-                                    String response = postRequestToEndpoint(apiEndpoint, body);
-                                    if (response.contains("Unauthorized Access"))
-                                    {
-                                        FLog.severe("Contact a developer. Panel gives Session ID but trying to use it gives a no perms error. The panel user set in config doesn't" +
-                                                " have perms to restart server. Using server.shutdown() instead. ");
-                                        plugin.getServer().shutdown();
 
-                                    }
                                 }
-                                catch (IOException e)
-                                {
-                                    FLog.severe("Could not restart. Using server.shutdown() instead. Stacktrace" + e.getMessage());
-                                    plugin.getServer().shutdown();
-                                }
+                            }
+                            catch (IOException e)
+                            {
+                                FLog.severe("Could not restart. Using server.shutdown() instead. Stacktrace" + e.getMessage());
+                                plugin.getServer().shutdown();
                             }
                         };
                         plugin.amp.ampManager.connectAsync(callback);

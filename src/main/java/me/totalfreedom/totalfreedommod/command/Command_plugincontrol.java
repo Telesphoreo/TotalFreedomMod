@@ -1,5 +1,9 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
@@ -13,7 +17,6 @@ import org.bukkit.plugin.PluginManager;
 @CommandParameters(description = "Manage plugins", usage = "/<command> <<enable | disable | reload> <pluginname>> | list>", aliases = "plc")
 public class Command_plugincontrol extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -35,10 +38,8 @@ public class Command_plugincontrol extends FreedomCommand
                             + ChatColor.GOLD + (version != null && !version.isEmpty() ? " v" + version : "") + " by "
                             + StringUtils.join(serverPlugin.getDescription().getAuthors(), ", "));
                 }
-
                 return true;
             }
-
             return false;
         }
 
@@ -124,6 +125,39 @@ public class Command_plugincontrol extends FreedomCommand
         }
 
         return false;
+    }
+
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (!plugin.al.isAdmin(sender))
+        {
+            return Collections.emptyList();
+        }
+        if (args.length == 1)
+        {
+            return Arrays.asList("enable", "disable", "reload", "list");
+        }
+        else if (args.length == 2)
+        {
+            if (!args[0].equals("list"))
+            {
+                return getAllPluginNames();
+            }
+        }
+
+        return Collections.emptyList();
+    }
+
+    public List<String> getAllPluginNames()
+    {
+        List<String> names = new ArrayList<>();
+        for (Plugin plugin : server.getPluginManager().getPlugins())
+        {
+            names.add(plugin.getName());
+        }
+        names.remove(plugin.getName());
+        return names;
     }
 
     public Plugin getPlugin(String name)

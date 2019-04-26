@@ -9,7 +9,6 @@ import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
 
 public class Module_punishments extends HTTPDModule
 {
-
     public Module_punishments(TotalFreedomMod plugin, NanoHTTPD.HTTPSession session)
     {
         super(plugin, session);
@@ -18,8 +17,8 @@ public class Module_punishments extends HTTPDModule
     @Override
     public NanoHTTPD.Response getResponse()
     {
-        File adminFile = new File(plugin.getDataFolder(), PunishmentList.CONFIG_FILENAME);
-        if (adminFile.exists())
+        File punishmentFile = new File(plugin.getDataFolder(), PunishmentList.CONFIG_FILENAME);
+        if (punishmentFile.exists())
         {
             final String remoteAddress = socket.getInetAddress().getHostAddress();
             if (!isAuthorized(remoteAddress))

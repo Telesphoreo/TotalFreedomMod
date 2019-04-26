@@ -1,5 +1,5 @@
 #
-# TotalFreedomMod 2018.4.3 Configuration
+# TotalFreedomMod 2019.2.2 Configuration
 # by Madgeek1450 and Prozza
 #
 
@@ -19,10 +19,13 @@ server:
 
   # All players who show up as owner
   owners:
-    - TheMinecraft
+    - Catholic_Mario
 
   # All players who show up as executive
   executives: []
+
+  # All players who can manage the master builder list
+  master_builder_management: []
 
   # URL players should appeal for bans at
   ban_url: http://totalfreedom.boards.net/
@@ -34,6 +37,18 @@ server:
 discord:
   # If you do not have a token, make a bot account and get one at https://discordapp.com/developers/applications/me
   token: ''
+  # The official Discord server's ID for this server
+  server_id: ''
+  # Channel to send /report messages to
+  report_channel_id: ''
+  # Do you want roles to sync with the server?
+  role_sync: false
+  # Super Admin role ID
+  super_role_id: ''
+  # Telnet Admin role ID
+  telnet_role_id: ''
+  # Senior Admin role ID
+  senior_role_id: ''
 
 # Admin list
 adminlist:
@@ -44,12 +59,15 @@ adminlist:
   # Give the default CONSOLE senior admin privileges.
   # Handy in development environments.
   console_is_senior: true
-  
+
 # CoreProtect
 coreprotect:
-  auto_wipe: false
-
-  file_limit: 5000
+  enabled: false
+  host: 'localhost'
+  port: '3306'
+  username: ''
+  password: ''
+  database: 'coreprotect'
 
 # ForceIP configuration
 forceip:
@@ -82,6 +100,7 @@ allow:
   redstone: true
   fireworks: false
   frostwalker: false
+  unsafe_enchantments: false
 
 # Blocked commands:
 #
@@ -117,7 +136,7 @@ allow:
 #   - 'n:b:/ban:_'
 #
 blocked_commands:
-    # Disabled commands
+  # Disabled commands
   - 'n:b:/time:Server-side time changing is disabled. Please use /ptime to set your own personal time.'
   - 'n:b:/gamemode:Use /creative and /survival to set your gamemode.'
   - 'n:b:/pardon:_'
@@ -143,6 +162,8 @@ blocked_commands:
   - 'n:b:/function:_'
   - 'n:b:/data:_'
   - 'n:b:/datapack:_'
+  - 'n:b:/bossbar:_'
+  - 'n:b://forceload:_'
 
   # Admin commands
   - 's:b:/save-all:_'
@@ -182,7 +203,25 @@ blocked_commands:
   - 's:b:/fill:_'
   - 's:b:/flood:_'
   - 's:b:/team:_'
-  - 'n:b:/bossbar:_'
+
+# Commands that should be blocked in certain circumstances
+blocked:
+  # Commands blocked from wildcard
+  wildcard_commands:
+    - wildcard
+    - gtfo
+    - doom
+    - saconfig
+  # Commands blocked while a player is muted
+  muted_commands:
+    - say
+    - me
+    - msg
+    - tell
+    - reply
+    - mail
+  # Blocked Chat Codes - Use &code,&code2,&code3 (No spaces)
+  chatcodes: "&0,&k,&m,&n"
 
 # Automatically wipe dropped objects
 auto_wipe: true
@@ -204,7 +243,6 @@ preprocess_log: true
 disable:
   night: true
   weather: true
-
 
 # Enable misc. features
 landmines_enabled: false
@@ -266,7 +304,7 @@ announcer:
     - 'Famous players, such as Notch, are always fake! We are an offline/cracked server!'
     - 'You may contact TotalFreedom support on Twitter! https://tiny.re/tfsupport'
     - 'You may download TotalFreedomMod here: https://tiny.re/tfm+'
-    - 'TheMinecraft is the owner of TotalFreedom.'
+    - 'Catholic_Mario is the owner of TotalFreedom.'
     - 'MarkByron is the founder of TotalFreedom.'
     - 'Server lagging? Check the lag via "/tps"'
     - 'You are allowed to record and stream videos on TotalFreedom.'
@@ -280,21 +318,21 @@ announcer:
 
 # What to display in the admininfo command.
 admininfo:
-    - '&bHow to apply for admin on the TotalFreedom Server:'
-    - ' &6- Do not ask for admin in game'
-    - ' &2- Be helpful within the server'
-    - ' &6- Report those breaking the rules'
-    - ' &2- And apply on our forums at the link:'
-    - '    &9www.totalfreedom.boards.net'
+  - '&bHow to apply for admin on the TotalFreedom Server:'
+  - ' &6- Do not ask for admin in game'
+  - ' &2- Be helpful within the server'
+  - ' &6- Report those breaking the rules'
+  - ' &2- And apply on our forums at the link:'
+  - '    &9www.totalfreedom.boards.net'
 
-# What to display in the masterbuilder info command.
+# What to display in the Master Builder info command.
 masterbuilderinfo:
-- '&bHow to apply for Master Builder on the TotalFreedom Server:'
-- ' &6- Do not ask for Master Builder in game'
-- ' &2- Screenshot some of your previous builds'
-- ' &6- Copy the template and create a thread on our forums'
-- ' &2- Template:'
-- '    &9bit.ly/TFMasterBuilderTemplate'
+  - '&bHow to apply for Master Builder on the TotalFreedom Server:'
+  - ' &6- Do not ask for Master Builder in game'
+  - ' &2- Screenshot some of your previous builds (be ready to prove that the builds are yours)'
+  - ' &6- Copy the template and create a thread on our forums'
+  - ' &2- Template:'
+  - '    &9bit.ly/TFMasterBuilderTemplate'
 
 # Famous players - cannot be banned by username
 famous_players:
@@ -376,9 +414,6 @@ overlord_ips:
   - 107.191.101.27
   - 178.62.117.94
   - 141.101.104.243
-  
-# Blocked Chat Codes - Use &code,&code2,&code3 (No spaces)
-blocked_chatcodes: '&0,&k,&m,&n'
 
 # AMP Integration, used to restart server (optional, without it, have to start server manually after stop)
 amp:

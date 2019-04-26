@@ -1,5 +1,8 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.GameRuleHandler;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
@@ -12,7 +15,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Toggles TotalFreedomMod settings", usage = "/<command> [option] [value] [value]")
 public class Command_toggle extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -33,6 +35,7 @@ public class Command_toggle extends FreedomCommand
             msg("- entitywipe");
             msg("- nonuke [range] [count]");
             msg("- explosives [radius]");
+            msg("- unsafeenchs");
             return false;
         }
 
@@ -150,6 +153,11 @@ public class Command_toggle extends FreedomCommand
             }
             return true;
         }
+        else if (args[0].equalsIgnoreCase("unsafeenchs"))
+        {
+            toggle("Invalid enchantments are", ConfigEntry.ALLOW_UNSAFE_ENCHANTMENTS);
+            return true;
+        }
         else
         {
             return false;
@@ -159,6 +167,19 @@ public class Command_toggle extends FreedomCommand
     private void toggle(final String name, final ConfigEntry entry)
     {
         msg(name + " now " + (entry.setBoolean(!entry.getBoolean()) ? "enabled." : "disabled."));
+    }
+
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (args.length == 1)
+        {
+            return Arrays.asList(
+                    "waterplace", "fireplace", "lavaplace", "fluidspread", "lavadmg", "firespread", "frostwalk",
+                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs");
+        }
+
+        return Collections.emptyList();
     }
 }
 

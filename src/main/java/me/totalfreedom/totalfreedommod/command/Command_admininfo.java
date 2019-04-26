@@ -14,11 +14,10 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Information on how to apply for admin.", usage = "/<command>", aliases = "ai")
 public class Command_admininfo extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        List<String> adminInfo = ConfigEntry.ADMININFO.getStringList();
+        List<String> adminInfo = ConfigEntry.ADMIN_INFO.getStringList();
 
         if (adminInfo.isEmpty())
         {
@@ -28,7 +27,6 @@ public class Command_admininfo extends FreedomCommand
         {
             msg(FUtil.colorize(StringUtils.join(adminInfo, "\n")));
         }
-
         return true;
     }
 }

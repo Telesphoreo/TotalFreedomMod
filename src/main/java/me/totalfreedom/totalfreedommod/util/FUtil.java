@@ -25,6 +25,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -33,12 +34,10 @@ import org.bukkit.scheduler.BukkitTask;
 public class FUtil
 {
 
-    private static final Random RANDOM = new Random();
     //
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
-    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "aggelosQQ", "OxLemonxO", "Wild1145", "ZeroEpoch1969", "Mafrans");
-    public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
+    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "Arcaknight", "OxLemonxO", "Wild1145", "Catholic_Mario");
     public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<>();
     public static final List<ChatColor> CHAT_COLOR_POOL = Arrays.asList(
             ChatColor.DARK_RED,
@@ -53,6 +52,8 @@ public class FUtil
             ChatColor.DARK_BLUE,
             ChatColor.DARK_PURPLE,
             ChatColor.LIGHT_PURPLE);
+    private static final Random RANDOM = new Random();
+    public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
     private static Iterator<ChatColor> CHAT_COLOR_ITERATOR;
 
     static
@@ -82,6 +83,31 @@ public class FUtil
     public static boolean isExecutive(String name)
     {
         return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name);
+    }
+
+    public static boolean hasMbConfigPermission(String name)
+    {
+        return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name) || ConfigEntry.SERVER_MASTER_BUILDER_MANAGEMENT.getStringList().contains(name);
+    }
+
+    public static List<String> getPlayerList()
+    {
+        List<String> names = new ArrayList<>();
+        for (Player player : Bukkit.getOnlinePlayers())
+        {
+            names.add(player.getName());
+        }
+        return names;
+    }
+
+    public static List<String> getAllMaterialNames()
+    {
+        List<String> names = new ArrayList<>();
+        for (Material material : Material.values())
+        {
+            names.add(material.name());
+        }
+        return names;
     }
 
     public static void bcastMsg(String message, ChatColor color)
@@ -139,6 +165,16 @@ public class FUtil
         }
         return false;
     }
+
+    public static boolean deleteFile(File file)
+    {
+        if (file.exists() && file.isFile())
+        {
+            return FileUtils.deleteQuietly(file);
+        }
+        return false;
+    }
+
 
     public static void deleteCoreDumps()
     {

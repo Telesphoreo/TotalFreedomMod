@@ -1,13 +1,11 @@
 package me.totalfreedom.totalfreedommod;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FSync;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.entity.Player;
@@ -19,7 +17,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 public class Muter extends FreedomService
 {
-    private static final List<String> MUTE_COMMANDS = Arrays.asList(StringUtils.split("say,me,msg,tell,reply,mail", ","));
+    private final static List<String> MUTE_COMMANDS = ConfigEntry.BLOCKED_MUTED_COMMANDS.getStringList();
     public final ArrayList MUTED_PLAYERS = new ArrayList();
 
     public Muter(TotalFreedomMod plugin)

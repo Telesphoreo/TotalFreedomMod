@@ -120,7 +120,6 @@ public class Command_verify extends FreedomCommand
 
                     admin.setName(playerSender.getName());
                     admin.addIp(Ips.getIp(playerSender));
-                    plugin.wvb.updatePermissions(playerSender);
 
                     if (!plugin.mbl.isMasterBuilder(playerSender))
                     {

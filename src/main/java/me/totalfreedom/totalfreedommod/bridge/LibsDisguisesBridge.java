@@ -2,7 +2,7 @@ package me.totalfreedom.totalfreedommod.bridge;
 
 import me.libraryaddict.disguise.DisguiseAPI;
 import me.libraryaddict.disguise.LibsDisguises;
-import me.totalfreedom.libsdisguise.TF_DisguiseAPI;
+import me.totalfreedom.disguise.DisguiseBlocker;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
@@ -99,6 +99,11 @@ public class LibsDisguisesBridge extends FreedomService
         }
     }
 
+    public boolean isDisguisesEnabled()
+    {
+        return DisguiseBlocker.enabled;
+    }
+
     public void setDisguisesEnabled(boolean state)
     {
         final LibsDisguises libsDisguises = getLibsDisguisesPlugin();
@@ -108,19 +113,7 @@ public class LibsDisguisesBridge extends FreedomService
             return;
         }
 
-        if (state)
-        {
-            TF_DisguiseAPI.enableDisguises();
-        }
-        else
-        {
-            TF_DisguiseAPI.disableDisguises();
-        }
-    }
-
-    public boolean isDisguisesEnabled()
-    {
-        return !TF_DisguiseAPI.disabled;
+        libsDisguises.toggleUsability(state);
     }
 
     public boolean isEnabled()

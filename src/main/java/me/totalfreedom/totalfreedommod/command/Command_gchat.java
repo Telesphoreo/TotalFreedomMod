@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Send a chat message as someone else.", usage = "/<command> <fromname> <outmessage>")
 public class Command_gchat extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

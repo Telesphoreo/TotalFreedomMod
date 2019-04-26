@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Control mob rezzing parameters.", usage = "/<command> <on|off|setmax <count>|dragon|giant|ghast|slime>")
 public class Command_moblimiter extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

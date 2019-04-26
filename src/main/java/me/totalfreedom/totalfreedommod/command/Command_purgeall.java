@@ -12,7 +12,6 @@ import org.bukkit.potion.PotionEffect;
 @CommandParameters(description = "Purge everything! (except for bans).", usage = "/<command>")
 public class Command_purgeall extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -66,7 +65,7 @@ public class Command_purgeall extends FreedomCommand
         plugin.fm.setGlobalFreeze(false);
 
         // Remove all mobs
-        Command_mobpurge.purgeMobs();
+        Command_mobpurge.purgeMobs(null);
 
         return true;
     }

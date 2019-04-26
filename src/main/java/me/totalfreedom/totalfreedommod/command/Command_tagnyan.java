@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Gives you a tag with random colors", usage = "/<command> <tag>", aliases = "tn")
 public class Command_tagnyan extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -31,16 +30,18 @@ public class Command_tagnyan extends FreedomCommand
 
         String tagStr = tag.toString();
 
+        int tagLimit = (plugin.al.isAdmin(sender) ? 30 : 20);
+
+        final String rawTag = ChatColor.stripColor(tagStr).toLowerCase();
+
+        if (rawTag.length() > tagLimit)
+        {
+            msg("That tag is too long (Max is " + String.valueOf(tagLimit) + " characters).");
+            return true;
+        }
+
         if (!plugin.al.isAdmin(sender))
         {
-            final String rawTag = ChatColor.stripColor(tagStr).toLowerCase();
-
-            if (rawTag.length() > 20)
-            {
-                msg("That tag is too long (Max is 20 characters).");
-                return true;
-            }
-
             for (String word : Command_tag.FORBIDDEN_WORDS)
             {
                 if (rawTag.contains(word))

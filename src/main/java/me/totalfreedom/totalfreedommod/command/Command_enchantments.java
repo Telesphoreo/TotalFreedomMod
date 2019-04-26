@@ -10,7 +10,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Lists all possible enchantments.", usage = "/<command>")
 public class Command_enchantments extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

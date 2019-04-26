@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Clears lingering potion area effect clouds.", usage = "/<command>", aliases = "aec")
 public class Command_aeclear extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

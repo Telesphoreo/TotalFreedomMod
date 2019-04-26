@@ -30,6 +30,29 @@ public class Module_help extends HTTPDModule
         super(plugin, session);
     }
 
+    private static String buildDescription(Command command)
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(
+                "<li><span class=\"commandName\">{$CMD_NAME}</span> - Usage: <span class=\"commandUsage\">{$CMD_USAGE}</span>"
+                        .replace("{$CMD_NAME}", escapeHtml4(command.getName().trim()))
+                        .replace("{$CMD_USAGE}", escapeHtml4(command.getUsage().trim())));
+
+        if (!command.getAliases().isEmpty())
+        {
+            sb.append(
+                    " - Aliases: <span class=\"commandAliases\">{$CMD_ALIASES}</span>"
+                            .replace("{$CMD_ALIASES}", escapeHtml4(StringUtils.join(command.getAliases(), ", "))));
+        }
+
+        sb.append(
+                "<br><span class=\"commandDescription\">{$CMD_DESC}</span></li>\r\n"
+                        .replace("{$CMD_DESC}", escapeHtml4(command.getDescription().trim())));
+
+        return sb.toString();
+    }
+
     @Override
     public String getBody()
     {
@@ -94,29 +117,6 @@ public class Module_help extends HTTPDModule
         }
 
         return responseBody.toString();
-    }
-
-    private static String buildDescription(Command command)
-    {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append(
-                "<li><span class=\"commandName\">{$CMD_NAME}</span> - Usage: <span class=\"commandUsage\">{$CMD_USAGE}</span>"
-                        .replace("{$CMD_NAME}", escapeHtml4(command.getName().trim()))
-                        .replace("{$CMD_USAGE}", escapeHtml4(command.getUsage().trim())));
-
-        if (!command.getAliases().isEmpty())
-        {
-            sb.append(
-                    " - Aliases: <span class=\"commandAliases\">{$CMD_ALIASES}</span>"
-                            .replace("{$CMD_ALIASES}", escapeHtml4(StringUtils.join(command.getAliases(), ", "))));
-        }
-
-        sb.append(
-                "<br><span class=\"commandDescription\">{$CMD_DESC}</span></li>\r\n"
-                        .replace("{$CMD_DESC}", escapeHtml4(command.getDescription().trim())));
-
-        return sb.toString();
     }
 
     @Override

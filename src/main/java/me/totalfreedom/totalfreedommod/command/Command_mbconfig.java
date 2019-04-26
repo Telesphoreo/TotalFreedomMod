@@ -1,6 +1,10 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
@@ -13,10 +17,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH, blockHostConsole = true)
-@CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | | <add | remove | info> <username>>")
+@CommandParameters(description = "Manage master builders.", usage = "/<command> <list | reload | <add | remove | info> <username>>")
 public class Command_mbconfig extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -30,14 +33,12 @@ public class Command_mbconfig extends FreedomCommand
             case "list":
             {
                 msg("Master Builders: " + StringUtils.join(plugin.mbl.getMasterBuilderNames(), ", "), ChatColor.GOLD);
-
                 return true;
             }
 
             case "reload":
             {
                 checkRank(Rank.SENIOR_ADMIN);
-
                 FUtil.adminAction(sender.getName(), "Reloading the Master Builder list", true);
                 plugin.mbl.load();
                 msg("Master Builder list reloaded!");
@@ -109,7 +110,7 @@ public class Command_mbconfig extends FreedomCommand
                 if (masterBuilder == null) // New entry
                 {
                     checkRank(Rank.SENIOR_ADMIN);
-                    if (!FUtil.isExecutive(sender.getName()))
+                    if (!FUtil.hasMbConfigPermission(sender.getName()))
                     {
                         noPerms();
                     }
@@ -175,7 +176,7 @@ public class Command_mbconfig extends FreedomCommand
 
                 checkConsole();
                 checkRank(Rank.SENIOR_ADMIN);
-                if (!FUtil.isExecutive(sender.getName()))
+                if (FUtil.hasMbConfigPermission(sender.getName()))
                 {
                     noPerms();
                 }
@@ -205,4 +206,37 @@ public class Command_mbconfig extends FreedomCommand
         }
     }
 
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (sender instanceof Player)
+        {
+            if (args.length == 1)
+            {
+                List<String> arguments = new ArrayList<>();
+                arguments.add("list");
+                if (plugin.al.isAdmin(sender))
+                {
+                    arguments.add("info");
+                }
+                return arguments;
+            }
+            return Collections.emptyList();
+        }
+        else
+        {
+            if (args.length == 1)
+            {
+                return Arrays.asList("add", "remove", "reload", "list", "info");
+            }
+            else if (args.length == 2)
+            {
+                if (args[0].equals("add") || args[0].equals("remove") || args[0].equals("setrank") || args[0].equals("info"))
+                {
+                    return FUtil.getPlayerList();
+                }
+            }
+        }
+        return Collections.emptyList();
+    }
 }

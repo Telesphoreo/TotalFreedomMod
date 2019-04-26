@@ -13,12 +13,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH, blockHostConsole = true)
 @CommandParameters(description = "Bans or unbans any player, even those who are not logged in anymore.", usage = "/<command> <ban <username> [reason] | unban <username> | banip <ip> <reason> | unbanip <ip> | nameban <name> | unbanname <name>>")
 public class Command_glist extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

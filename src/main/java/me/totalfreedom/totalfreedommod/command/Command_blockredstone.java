@@ -12,7 +12,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 @CommandParameters(description = "Blocks redstone on the server.", usage = "/<command>", aliases = "bre")
 public class Command_blockredstone extends FreedomCommand
 {
-
     public boolean run(final CommandSender sender, final Player playerSender, final Command cmd, final String commandLabel, final String[] args, final boolean senderIsConsole)
     {
         if (ConfigEntry.ALLOW_REDSTONE.getBoolean())

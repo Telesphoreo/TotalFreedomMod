@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 @CommandParameters(description = "Get a stick of happiness.", usage = "/<command>")
 public class Command_debugstick extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

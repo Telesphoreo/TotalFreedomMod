@@ -23,19 +23,18 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 public final class AdminWorld extends CustomWorld
 {
-
     private static final long CACHE_CLEAR_FREQUENCY = 30L * 1000L; //30 seconds, milliseconds
     private static final long TP_COOLDOWN_TIME = 500L; //0.5 seconds, milliseconds
     private static final String GENERATION_PARAMETERS = ConfigEntry.FLATLANDS_GENERATE_PARAMS.getString();
     //
     private final Map<Player, Long> teleportCooldown = new HashMap<>();
     private final Map<CommandSender, Boolean> accessCache = new HashMap<>();
+    String WORLD_NAME = "adminworld";
     //
     private Long cacheLastCleared = null;
     private Map<Player, Player> guestList = new HashMap<>(); // Guest, Supervisor
     private WorldWeather weather = WorldWeather.OFF;
     private WorldTime time = WorldTime.INHERIT;
-    String WORLD_NAME = "adminworld";
 
     public AdminWorld()
     {
@@ -106,6 +105,16 @@ public final class AdminWorld extends CustomWorld
         final Player player = guestList.remove(guest);
         wipeAccessCache();
         return player;
+    }
+
+    public List<String> getGuestList()
+    {
+        List<String> guests = new ArrayList<>();
+        for (Player guest : guestList.keySet())
+        {
+            guests.add(guest.getName());
+        }
+        return guests;
     }
 
     public Player removeGuest(String partialName)

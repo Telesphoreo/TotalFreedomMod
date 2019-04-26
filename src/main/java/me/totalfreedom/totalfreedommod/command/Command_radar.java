@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Shows nearby people sorted by distance.", usage = "/<command> [range]")
 public class Command_radar extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -109,5 +108,4 @@ public class Command_radar extends FreedomCommand
             }
         }
     }
-
 }

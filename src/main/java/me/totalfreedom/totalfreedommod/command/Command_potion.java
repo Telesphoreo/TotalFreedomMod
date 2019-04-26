@@ -1,6 +1,8 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -18,7 +20,6 @@ import org.bukkit.potion.PotionEffectType;
         usage = "/<command> <list | clear [target name] | add <type> <duration> <amplifier> [target name]>")
 public class Command_potion extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -71,7 +72,7 @@ public class Command_potion extends FreedomCommand
                 {
                     if (!plugin.al.isAdmin(sender))
                     {
-                        msg("Only superadmins can clear potion effects from other players.");
+                        msg(ChatColor.RED + "Only admins can clear potion effects from other players.");
                         return true;
                     }
                 }
@@ -115,7 +116,7 @@ public class Command_potion extends FreedomCommand
                 {
                     if (!plugin.al.isAdmin(sender))
                     {
-                        sender.sendMessage("Only superadmins can apply potion effects to other players.");
+                        sender.sendMessage(ChatColor.RED + "Only admins can apply potion effects to other players.");
                         return true;
                     }
                 }
@@ -176,5 +177,69 @@ public class Command_potion extends FreedomCommand
             return false;
         }
         return true;
+    }
+
+    @Override
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (args.length == 1)
+        {
+            List<String> arguments = new ArrayList<>();
+            arguments.addAll(Arrays.asList("list", "clear", "add"));
+            if (plugin.al.isAdmin(sender))
+            {
+                arguments.add("clearall");
+            }
+            return arguments;
+        }
+        else if (args.length == 2)
+        {
+            if (args[0].equals("clear"))
+            {
+                if (plugin.al.isAdmin(sender))
+                {
+                    return FUtil.getPlayerList();
+                }
+            }
+            else if (args[0].equals("add"))
+            {
+                return getAllPotionTypes();
+            }
+        }
+        else if (args.length == 3)
+        {
+            if (args[0].equals("add"))
+            {
+                return Arrays.asList("<duration>");
+            }
+        }
+        else if (args.length == 4)
+        {
+            if (args[0].equals("add"))
+            {
+                return Arrays.asList("<amplifier>");
+            }
+        }
+        else if (args.length == 5 && plugin.al.isAdmin(sender))
+        {
+            if (args[0].equals("add"))
+            {
+                return FUtil.getPlayerList();
+            }
+        }
+        return Collections.emptyList();
+    }
+
+    public List<String> getAllPotionTypes()
+    {
+        List<String> types = new ArrayList<>();
+        for (PotionEffectType potionEffectType : PotionEffectType.values())
+        {
+            if (potionEffectType != null)
+            {
+                types.add(potionEffectType.getName());
+            }
+        }
+        return types;
     }
 }
