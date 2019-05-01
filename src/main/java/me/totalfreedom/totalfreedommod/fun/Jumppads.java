@@ -17,7 +17,6 @@ import org.bukkit.util.Vector;
 
 public class Jumppads extends FreedomService
 {
-
     public static final double DAMPING_COEFFICIENT = 0.8;
     //
     private final Map<Player, Boolean> pushMap = Maps.newHashMap();
@@ -35,13 +34,11 @@ public class Jumppads extends FreedomService
     @Override
     public void onStart()
     {
-
     }
 
     @Override
     public void onStop()
     {
-
     }
 
     @EventHandler
@@ -124,9 +121,8 @@ public class Jumppads extends FreedomService
         }
     }
 
-    public static enum JumpPadMode
+    public enum JumpPadMode
     {
-
         OFF(false), NORMAL_AND_SIDEWAYS(true), MADGEEK(true);
         private final boolean on;
 

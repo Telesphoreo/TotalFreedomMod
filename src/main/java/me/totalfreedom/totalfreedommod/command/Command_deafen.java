@@ -13,7 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 @CommandParameters(description = "Make some noise.", usage = "/<command>")
 public class Command_deafen extends FreedomCommand
 {
-    public static final double STEPS = 10.0;
+    private static final double STEPS = 10.0;
     private static final Random random = new Random();
 
     private static Location randomOffset(Location a, double magnitude)

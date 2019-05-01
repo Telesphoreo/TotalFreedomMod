@@ -88,6 +88,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public EntityWiper ew;
     public EventBlocker eb;
     public Freezer fm;
+    public FrontDoor fd;
     public Fuckoff fo;
     public GameRuleHandler gr;
     public HTTPDaemon hd;
@@ -195,6 +196,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         cb = services.registerService(CommandBlocker.class);
         cl = services.registerService(CommandLoader.class);
         eb = services.registerService(EventBlocker.class);
+        fd = services.registerService(FrontDoor.class);
         ib = services.registerService(InteractBlocker.class);
         lp = services.registerService(LoginProcess.class);
         lv = services.registerService(LogViewer.class);
