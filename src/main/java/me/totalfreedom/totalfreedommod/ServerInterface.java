@@ -10,7 +10,7 @@ import org.bukkit.OfflinePlayer;
 
 public class ServerInterface extends FreedomService
 {
-    public static final String COMPILE_NMS_VERSION = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+    public final static String nmsVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
 
     public ServerInterface(TotalFreedomMod plugin)
     {
@@ -21,9 +21,9 @@ public class ServerInterface extends FreedomService
     {
         final String nms = FUtil.getNMSVersion();
 
-        if (!COMPILE_NMS_VERSION.equals(nms))
+        if (!nmsVersion.equals(nms))
         {
-            FLog.warning(TotalFreedomMod.pluginName + " is compiled for " + COMPILE_NMS_VERSION + " but the server is running version " + nms + "!");
+            FLog.warning(TotalFreedomMod.pluginName + " is compiled for " + nmsVersion + " but the server is running version " + nms + "!");
             FLog.warning("This might result in unexpected behaviour!");
         }
     }
@@ -48,6 +48,7 @@ public class ServerInterface extends FreedomService
     {
     }
 
+    // Need to do this. Bukkit's methods don't save, so online mode will always default to true.
     public boolean setOnlineMode(boolean mode)
     {
         if (Bukkit.getOnlineMode() == mode)
@@ -55,11 +56,11 @@ public class ServerInterface extends FreedomService
             return true;
         }
 
-        String ver = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+        String classNmsVersion = "net.minecraft.server." + nmsVersion;
 
         try
         {
-            Class<?> c = Class.forName(ver + ".MinecraftServer");
+            Class<?> c = Class.forName(classNmsVersion + ".MinecraftServer");
             Object obj = c.getMethod("getServer").invoke(null);
             obj.getClass().getMethod("setOnlineMode", boolean.class).invoke(obj, mode);
             Object server = c.getDeclaredField("server").get(obj);
