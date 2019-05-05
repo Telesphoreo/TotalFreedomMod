@@ -59,7 +59,7 @@ public class PotionBlocker extends FreedomService
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onThrowLingeringPotion(LingeringPotionSplashEvent event)
     {
-        LingeringPotion potion = event.getEntity();
+        LingeringPotion potion = (LingeringPotion)event.getEntity();
         ProjectileSource projectileSource = potion.getShooter();
         Player player = null;
         if (projectileSource instanceof Player)

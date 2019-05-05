@@ -184,6 +184,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         backups.createBackups(PermbanList.CONFIG_FILENAME);
         backups.createBackups(MasterBuilder.CONFIG_FILENAME);
         backups.createBackups(PunishmentList.CONFIG_FILENAME);
+        backups.createBackups(ReportList.CONFIG_FILENAME);
 
         config = new MainConfig(this);
         config.load();
@@ -264,6 +265,8 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         bridges.start();
 
         timer.update();
+        // Warn if Java version is not Java 11+
+        ServerInterface.warnJavaVersion();
         FLog.info("Version " + pluginVersion + " for " + ServerInterface.COMPILE_NMS_VERSION + " enabled in " + timer.getTotal() + "ms");
 
         // Metrics @ https://bstats.org/plugin/bukkit/TotalFreedomMod

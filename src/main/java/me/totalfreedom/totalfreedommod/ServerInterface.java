@@ -1,18 +1,16 @@
 package me.totalfreedom.totalfreedommod;
 
-import java.util.Arrays;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
-import net.minecraft.server.v1_14_R1.EntityPlayer;
-import net.minecraft.server.v1_14_R1.MinecraftServer;
-import net.minecraft.server.v1_14_R1.PropertyManager;
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_14_R1.CraftServer;
+import org.bukkit.OfflinePlayer;
 
 public class ServerInterface extends FreedomService
 {
-    public static final String COMPILE_NMS_VERSION = "v1_14_R1";
+    public static final String COMPILE_NMS_VERSION = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
 
     public ServerInterface(TotalFreedomMod plugin)
     {
@@ -30,6 +28,16 @@ public class ServerInterface extends FreedomService
         }
     }
 
+    public static void warnJavaVersion()
+    {
+        double javaVersion = Double.parseDouble(System.getProperty("java.specification.version"));
+        if (javaVersion < 11.0)
+        {
+            FLog.warning("Java 8 is EOL. Eventually, there will be no more support or updates for Java 8.");
+            FLog.warning("Please consider upgrading to Java 11 or later.");
+        }
+    }
+
     @Override
     protected void onStart()
     {
@@ -40,23 +48,48 @@ public class ServerInterface extends FreedomService
     {
     }
 
-    public void setOnlineMode(boolean mode)
+    public boolean setOnlineMode(boolean mode)
     {
-        getServer().setOnlineMode(mode);
+        if (Bukkit.getOnlineMode() == mode)
+        {
+            return true;
+        }
+
+        String ver = "net.minecraft.server." + Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+
+        try
+        {
+            Class<?> c = Class.forName(ver + ".MinecraftServer");
+            Object obj = c.getMethod("getServer").invoke(null);
+            obj.getClass().getMethod("setOnlineMode", boolean.class).invoke(obj, mode);
+            Object server = c.getDeclaredField("server").get(obj);
+            Field f = server.getClass().getDeclaredField("online");
+            f.setAccessible(true);
+            Object wrapper = f.get(server);
+            Field sf = wrapper.getClass().getDeclaredField("value");
+            sf.setAccessible(true);
+            sf.set(wrapper, mode);
+            return true;
+        }
+        catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | SecurityException | NoSuchFieldException | InvocationTargetException | NoSuchMethodException e)
+        {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public int purgeWhitelist()
     {
-        String[] whitelisted = getServer().getPlayerList().getWhitelisted();
-        int size = whitelisted.length;
-        for (EntityPlayer player : getServer().getPlayerList().players)
+        int size = 0;
+        for (OfflinePlayer player : Bukkit.getWhitelistedPlayers())
         {
-            getServer().getPlayerList().getWhitelist().remove(player.getProfile());
+            Bukkit.getWhitelistedPlayers().remove(player);
+            size++;
         }
 
         try
         {
-            getServer().getPlayerList().getWhitelist().save();
+           Bukkit.reloadWhitelist();
         }
         catch (Exception ex)
         {
@@ -68,21 +101,16 @@ public class ServerInterface extends FreedomService
 
     public boolean isWhitelisted()
     {
-        return getServer().getPlayerList().getHasWhitelist();
+        return Bukkit.hasWhitelist();
     }
 
     public List<?> getWhitelisted()
     {
-        return Arrays.asList(getServer().getPlayerList().getWhitelisted());
+        return (List<?>)Bukkit.getWhitelistedPlayers();
     }
 
     public String getVersion()
     {
-        return getServer().getVersion();
-    }
-
-    private MinecraftServer getServer()
-    {
-        return ((CraftServer)Bukkit.getServer()).getServer();
+        return Bukkit.getVersion();
     }
 }
