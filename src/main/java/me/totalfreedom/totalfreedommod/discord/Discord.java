@@ -91,6 +91,11 @@ public class Discord extends FreedomService
         {
             FLog.warning("Discord verification bot failed to start.");
         }
+        catch (NoClassDefFoundError e)
+        {
+            FLog.warning("The Discord plugin is not installed, therefore the bot cannot start.");
+            FLog.warning("To resolve this error, please download the Discord plugin from: https://updater.telesphoreo.me/Discord.jar");
+        }
     }
 
     @Override

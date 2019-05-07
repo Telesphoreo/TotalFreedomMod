@@ -30,6 +30,16 @@ public class ServerInterface extends FreedomService
         }
     }
 
+    public static void warnJavaVersion()
+    {
+        double javaVersion = Double.parseDouble(System.getProperty("java.specification.version"));
+        if (javaVersion < 11.0)
+        {
+            FLog.warning("Java 8 is EOL. Eventually, there will be no more support or updates for Java 8.");
+            FLog.warning("Please consider upgrading to Java 11 or later.");
+        }
+    }
+
     @Override
     protected void onStart()
     {

@@ -6,6 +6,7 @@ import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -25,7 +26,7 @@ public class Command_onlinemode extends FreedomCommand
         }
         else
         {
-            boolean onlineMode;
+            boolean onlineMode = Bukkit.getOnlineMode();
 
             if (sender instanceof Player && !plugin.al.isSeniorAdmin(sender))
             {
@@ -35,10 +36,20 @@ public class Command_onlinemode extends FreedomCommand
 
             if (args[0].equalsIgnoreCase("on"))
             {
+                if (onlineMode)
+                {
+                    msg("The server is already running in online mode.", ChatColor.RED);
+                    return true;
+                }
                 onlineMode = true;
             }
             else if (args[0].equalsIgnoreCase("off"))
             {
+                if (!onlineMode)
+                {
+                    msg("The server is already running in offline mode.", ChatColor.RED);
+                    return true;
+                }
                 onlineMode = false;
             }
             else

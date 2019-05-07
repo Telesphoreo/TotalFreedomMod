@@ -88,6 +88,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public EntityWiper ew;
     public EventBlocker eb;
     public Freezer fm;
+    public FrontDoor fd;
     public Fuckoff fo;
     public GameRuleHandler gr;
     public HTTPDaemon hd;
@@ -183,6 +184,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         backups.createBackups(PermbanList.CONFIG_FILENAME);
         backups.createBackups(MasterBuilder.CONFIG_FILENAME);
         backups.createBackups(PunishmentList.CONFIG_FILENAME);
+        backups.createBackups(ReportList.CONFIG_FILENAME);
 
         config = new MainConfig(this);
         config.load();
@@ -195,6 +197,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         cb = services.registerService(CommandBlocker.class);
         cl = services.registerService(CommandLoader.class);
         eb = services.registerService(EventBlocker.class);
+        fd = services.registerService(FrontDoor.class);
         ib = services.registerService(InteractBlocker.class);
         lp = services.registerService(LoginProcess.class);
         lv = services.registerService(LogViewer.class);
@@ -262,6 +265,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         bridges.start();
 
         timer.update();
+        ServerInterface.warnJavaVersion();
         FLog.info("Version " + pluginVersion + " for " + ServerInterface.COMPILE_NMS_VERSION + " enabled in " + timer.getTotal() + "ms");
 
         // Metrics @ https://bstats.org/plugin/bukkit/TotalFreedomMod
