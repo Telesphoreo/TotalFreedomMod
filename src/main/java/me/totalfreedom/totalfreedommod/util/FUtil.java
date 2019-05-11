@@ -80,11 +80,6 @@ public class FUtil
         }
     }
 
-    public static boolean isExecutive(String name)
-    {
-        return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name);
-    }
-
     public static boolean hasMbConfigPermission(String name)
     {
         return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name) || ConfigEntry.SERVER_MASTER_BUILDER_MANAGEMENT.getStringList().contains(name);
@@ -455,8 +450,7 @@ public class FUtil
 
     public static String getNMSVersion()
     {
-        String packageName = Bukkit.getServer().getClass().getPackage().getName();
-        return packageName.substring(packageName.lastIndexOf('.') + 1);
+        return Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
     }
 
     public static int random(int min, int max)
