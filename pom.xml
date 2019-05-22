@@ -79,6 +79,11 @@
             <id>ess-repo</id>
             <url>https://ci.ender.zone/plugin/repository/everything/</url>
         </repository>
+
+        <repository>
+            <id>playpro</id>
+            <url>https://maven.playpro.com/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -132,7 +137,7 @@
         <dependency>
             <groupId>LibsDisguises</groupId>
             <artifactId>LibsDisguises</artifactId>
-            <version>9.8.0-TF</version>
+            <version>9.8.1-TF</version>
             <scope>provided</scope>
         </dependency>
 
@@ -159,8 +164,8 @@
 
         <dependency>
             <groupId>net.coreprotect</groupId>
-            <artifactId>CoreProtect</artifactId>
-            <version>2.16.0</version>
+            <artifactId>coreprotect</artifactId>
+            <version>2.16.3</version>
             <scope>provided</scope>
         </dependency>
 

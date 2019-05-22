@@ -33,8 +33,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class FUtil
 {
-
-    //
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
     public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "Arcaknight", "OxLemonxO", "Wild1145", "Catholic_Mario");
@@ -78,11 +76,6 @@ public class FUtil
         catch (Exception ex)
         {
         }
-    }
-
-    public static boolean isExecutive(String name)
-    {
-        return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name);
     }
 
     public static boolean hasMbConfigPermission(String name)
@@ -178,14 +171,7 @@ public class FUtil
 
     public static void deleteCoreDumps()
     {
-        final File[] coreDumps = new File(".").listFiles(new FileFilter()
-        {
-            @Override
-            public boolean accept(File file)
-            {
-                return file.getName().startsWith("java.core");
-            }
-        });
+        final File[] coreDumps = new File(".").listFiles(file -> file.getName().startsWith("java.core"));
 
         for (File dump : coreDumps)
         {
@@ -455,8 +441,7 @@ public class FUtil
 
     public static String getNMSVersion()
     {
-        String packageName = Bukkit.getServer().getClass().getPackage().getName();
-        return packageName.substring(packageName.lastIndexOf('.') + 1);
+        return Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
     }
 
     public static int random(int min, int max)
