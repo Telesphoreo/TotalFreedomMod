@@ -26,7 +26,6 @@ import org.bukkit.plugin.ServicePriority;
 
 public class AdminList extends FreedomService
 {
-
     public static final String CONFIG_FILENAME = "admins.yml";
 
     @Getter
@@ -42,7 +41,6 @@ public class AdminList extends FreedomService
     public AdminList(TotalFreedomMod plugin)
     {
         super(plugin);
-
         this.config = new YamlConfig(plugin, CONFIG_FILENAME, true);
     }
 
@@ -50,16 +48,7 @@ public class AdminList extends FreedomService
     protected void onStart()
     {
         load();
-
-        server.getServicesManager().register(Function.class, new Function<Player, Boolean>()
-        {
-            @Override
-            public Boolean apply(Player player)
-            {
-                return isAdmin(player);
-            }
-        }, plugin, ServicePriority.Normal);
-
+        server.getServicesManager().register(Function.class, (Function<Player, Boolean>)this::isAdmin, plugin, ServicePriority.Normal);
         deactivateOldEntries(false);
     }
 

@@ -208,6 +208,7 @@ public class Command_saconfig extends FreedomCommand
 
                     FUtil.adminAction(sender.getName(), "Adding " + player.getName() + " to the admin list", true);
                     plugin.al.addAdmin(new Admin(player));
+                    admin = new Admin(player);
                     if (player != null)
                     {
                         plugin.rm.updateDisplay(player);

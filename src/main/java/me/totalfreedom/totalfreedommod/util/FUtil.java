@@ -33,8 +33,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class FUtil
 {
-
-    //
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
     public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "Arcaknight", "OxLemonxO", "Wild1145", "Catholic_Mario");
@@ -173,14 +171,7 @@ public class FUtil
 
     public static void deleteCoreDumps()
     {
-        final File[] coreDumps = new File(".").listFiles(new FileFilter()
-        {
-            @Override
-            public boolean accept(File file)
-            {
-                return file.getName().startsWith("java.core");
-            }
-        });
+        final File[] coreDumps = new File(".").listFiles(file -> file.getName().startsWith("java.core"));
 
         for (File dump : coreDumps)
         {
