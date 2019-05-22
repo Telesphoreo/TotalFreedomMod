@@ -10,7 +10,8 @@ import org.bukkit.OfflinePlayer;
 
 public class ServerInterface extends FreedomService
 {
-    public final static String nmsVersion = Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
+    public final static String COMPILE_NMS_VERSION = "v1_13_R2";
+    public final static String nms = FUtil.getNMSVersion();
 
     public ServerInterface(TotalFreedomMod plugin)
     {
@@ -19,11 +20,10 @@ public class ServerInterface extends FreedomService
 
     public static void warnVersion()
     {
-        final String nms = FUtil.getNMSVersion();
 
-        if (!nmsVersion.equals(nms))
+        if (!COMPILE_NMS_VERSION.equals(nms))
         {
-            FLog.warning(TotalFreedomMod.pluginName + " is compiled for " + nmsVersion + " but the server is running version " + nms + "!");
+            FLog.warning(TotalFreedomMod.pluginName + " is compiled for " + COMPILE_NMS_VERSION + " but the server is running version " + nms + "!");
             FLog.warning("This might result in unexpected behaviour!");
         }
     }
@@ -56,7 +56,7 @@ public class ServerInterface extends FreedomService
             return true;
         }
 
-        String classNmsVersion = "net.minecraft.server." + nmsVersion;
+        String classNmsVersion = "net.minecraft.server." + nms;
 
         try
         {
