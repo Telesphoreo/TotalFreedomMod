@@ -267,7 +267,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         timer.update();
         // Warn if Java version is not Java 11+
         ServerInterface.warnJavaVersion();
-        FLog.info("Version " + pluginVersion + " for " + ServerInterface.nmsVersion + " enabled in " + timer.getTotal() + "ms");
+        FLog.info("Version " + pluginVersion + " for " + ServerInterface.COMPILE_NMS_VERSION + " enabled in " + timer.getTotal() + "ms");
 
         // Metrics @ https://bstats.org/plugin/bukkit/TotalFreedomMod
         Metrics metrics = new Metrics(this);

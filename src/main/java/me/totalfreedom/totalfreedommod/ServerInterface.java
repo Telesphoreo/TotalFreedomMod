@@ -10,7 +10,7 @@ import org.bukkit.OfflinePlayer;
 
 public class ServerInterface extends FreedomService
 {
-    public final static String COMPILE_NMS_VERSION = "v1_13_R2";
+    public final static String COMPILE_NMS_VERSION = "v1_14_R1";
     public final static String nms = FUtil.getNMSVersion();
 
     public ServerInterface(TotalFreedomMod plugin)
@@ -84,7 +84,7 @@ public class ServerInterface extends FreedomService
         int size = 0;
         for (OfflinePlayer player : Bukkit.getWhitelistedPlayers())
         {
-            Bukkit.getWhitelistedPlayers().remove(player);
+            player.setWhitelisted(false);
             size++;
         }
 
@@ -98,20 +98,5 @@ public class ServerInterface extends FreedomService
             FLog.warning(ex);
         }
         return size;
-    }
-
-    public boolean isWhitelisted()
-    {
-        return Bukkit.hasWhitelist();
-    }
-
-    public List<?> getWhitelisted()
-    {
-        return (List<?>)Bukkit.getWhitelistedPlayers();
-    }
-
-    public String getVersion()
-    {
-        return Bukkit.getVersion();
     }
 }

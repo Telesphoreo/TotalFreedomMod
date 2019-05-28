@@ -1,5 +1,6 @@
 package me.totalfreedom.totalfreedommod;
 
+import java.util.List;
 import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.util.FSync;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +23,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class LoginProcess extends FreedomService
 {
-
     public static final int DEFAULT_PORT = 25565;
     public static final int MIN_USERNAME_LENGTH = 2;
     public static final int MAX_USERNAME_LENGTH = 20;
@@ -177,9 +178,9 @@ public class LoginProcess extends FreedomService
         }
 
         // Whitelist
-        if (plugin.si.isWhitelisted())
+        if (server.hasWhitelist())
         {
-            if (!plugin.si.getWhitelisted().contains(username.toLowerCase()))
+            if (!player.isWhitelisted())
             {
                 event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You are not whitelisted on this server.");
                 return;

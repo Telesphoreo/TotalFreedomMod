@@ -10,7 +10,6 @@ import org.bukkit.event.server.ServerListPingEvent;
 
 public class ServerPing extends FreedomService
 {
-
     public ServerPing(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -61,7 +60,7 @@ public class ServerPing extends FreedomService
             return;
         }
 
-        String baseMotd = ConfigEntry.SERVER_MOTD.getString().replace("%mcversion%", plugin.si.getVersion());
+        String baseMotd = ConfigEntry.SERVER_MOTD.getString().replace("%mcversion%", Bukkit.getVersion());
         baseMotd = baseMotd.replace("\\n", "\n");
         baseMotd = FUtil.colorize(baseMotd);
 
@@ -80,5 +79,4 @@ public class ServerPing extends FreedomService
 
         event.setMotd(motd.toString().trim());
     }
-
 }
