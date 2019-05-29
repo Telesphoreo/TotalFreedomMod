@@ -7,6 +7,7 @@ import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.DepreciationAggregator;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
@@ -188,13 +189,17 @@ public class Command_whitelist extends FreedomCommand
             {
                 return FUtil.getPlayerList();
             }
-            /* Temporarily broken
             else if (args[0].equals("remove"))
             {
-            return getWhitelistedNames();
-            }*/
+                return getWhitelistedNames();
+            }
         }
 
         return Collections.emptyList();
+    }
+
+    public List<String> getWhitelistedNames()
+    {
+        return Arrays.asList(StringUtils.split(FUtil.playerListToNames(server.getWhitelistedPlayers()).replace(",", "")));
     }
 }

@@ -148,7 +148,7 @@ public class LoginProcess extends FreedomService
 
             if (count >= server.getMaxPlayers())
             {
-                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "The server is full and a player could not be kicked, sorry!");
+                event.disallow(PlayerLoginEvent.Result.KICK_FULL, "The server is full and a player could not be kicked, sorry!");
                 return;
             }
 
@@ -159,7 +159,7 @@ public class LoginProcess extends FreedomService
         // Server full check
         if (server.getOnlinePlayers().size() >= server.getMaxPlayers())
         {
-            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "Sorry, but this server is full.");
+            event.disallow(PlayerLoginEvent.Result.KICK_FULL, "Sorry, but this server is full.");
             return;
         }
 
@@ -178,13 +178,10 @@ public class LoginProcess extends FreedomService
         }
 
         // Whitelist
-        if (server.hasWhitelist())
+        if (server.hasWhitelist() && !player.isWhitelisted())
         {
-            if (!player.isWhitelisted())
-            {
-                event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You are not whitelisted on this server.");
-                return;
-            }
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, "You are not whitelisted on this server.");
+            return;
         }
     }
 
@@ -237,7 +234,7 @@ public class LoginProcess extends FreedomService
                     FUtil.playerMsg(player, "Warning: Server is currenty in lockdown-mode, new players will not be able to join!", ChatColor.RED);
                 }
             }
-        }.runTaskLater(plugin, 20L * 1L);
+        }.runTaskLater(plugin, 20L);
     }
 
     public boolean setLockdownEnabled(boolean toggle)
