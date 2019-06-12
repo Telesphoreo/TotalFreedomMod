@@ -102,9 +102,8 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.14.2-R0.1-SNAPSHOT</version>
-            <systemPath>${project.basedir}/lib/spigot-1.14.2.jar</systemPath>
-            <scope>system</scope>
+            <version>1.14-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -136,7 +135,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>1.4</version>
+            <version>1.5</version>
             <scope>compile</scope>
         </dependency>
 
@@ -150,7 +149,7 @@
         <dependency>
             <groupId>com.sk89q.WorldEdit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>7.0.0-beta-05</version>
+            <version>7.0.0-TF</version>
             <scope>provided</scope>
         </dependency>
 
