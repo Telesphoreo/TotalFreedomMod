@@ -1,7 +1,6 @@
 package me.totalfreedom.totalfreedommod.util;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.lang.reflect.Field;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
