@@ -2,6 +2,7 @@ package me.totalfreedom.totalfreedommod.discord;
 
 import com.earth2me.essentials.User;
 import com.google.common.base.Strings;
+import java.io.File;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FLog;
+import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.JDA;
@@ -25,7 +27,9 @@ import net.dv8tion.jda.core.entities.Role;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.managers.GuildController;
 import org.apache.commons.lang.WordUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class Discord extends FreedomService
 {
@@ -34,6 +38,8 @@ public class Discord extends FreedomService
     public static ArrayList VERIFY_CODES = new ArrayList();
     public static JDA bot = null;
     public Boolean enabled = false;
+    public static final String URL = "https://updater.telesphoreo.me/Discord.jar";
+
 
     public Discord(TotalFreedomMod plugin)
     {
@@ -93,8 +99,37 @@ public class Discord extends FreedomService
         }
         catch (NoClassDefFoundError e)
         {
-            FLog.warning("The Discord plugin is not installed, therefore the bot cannot start.");
-            FLog.warning("To resolve this error, please download the Discord plugin from: https://updater.telesphoreo.me/Discord.jar");
+            // Automatically download JDA
+            new BukkitRunnable()
+            {
+                @Override
+                public void run()
+                {
+                    FLog.info("The Discord plugin was not found, automatically downloading.");
+                    FLog.info("The server will automatically try to restart");
+                    try
+                    {
+                        FLog.info("Downloading: " + URL);
+
+                        File file = new File("./plugins/" + URL.substring(URL.lastIndexOf("/") + 1));
+                        if (file.exists())
+                        {
+                            file.delete();
+                        }
+                        if (!file.getParentFile().exists())
+                        {
+                            file.getParentFile().mkdirs();
+                        }
+
+                        FUtil.downloadFile(URL, file, true);
+                        server.shutdown();
+                    }
+                    catch (Exception ex)
+                    {
+                        FLog.severe(ex);
+                    }
+                }
+            }.runTaskAsynchronously(plugin);
         }
     }
 
@@ -143,7 +178,7 @@ public class Discord extends FreedomService
         embedBuilder.setDescription(reason);
         embedBuilder.setFooter("Reported by " + reporter.getName(), "https://minotar.net/helm/" + reporter.getName() + ".png");
         embedBuilder.setTimestamp(Instant.from(ZonedDateTime.now()));
-        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " +  reported.getLocation().getBlockZ();
+        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " + reported.getLocation().getBlockZ();
         embedBuilder.addField("Location", location, true);
         embedBuilder.addField("Game Mode", WordUtils.capitalizeFully(reported.getGameMode().name()), true);
         User user = plugin.esb.getEssentialsUser(reported.getName());

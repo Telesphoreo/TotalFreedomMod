@@ -1,7 +1,12 @@
 package me.totalfreedom.totalfreedommod.util;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.lang.reflect.Field;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -177,6 +182,28 @@ public class FUtil
             FLog.info("Removing core dump file: " + dump.getName());
             dump.delete();
         }
+    }
+
+    public static void downloadFile(String url, File output, boolean verbose) throws java.lang.Exception
+    {
+        try
+        {
+            final URL website = new URL(url);
+            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+            FileOutputStream fos = new FileOutputStream(output);
+            fos.getChannel().transferFrom(rbc, 0, 1 << 24);
+            fos.close();
+
+            if (verbose)
+            {
+                FLog.info("Downloaded " + url + " to " + output.toString() + ".");
+            }
+        }
+        catch (FileNotFoundException ex)
+        {
+            FLog.info("Error 404: " + url + " does not exist.");
+        }
+
     }
 
     public static Date parseDateOffset(String time)
