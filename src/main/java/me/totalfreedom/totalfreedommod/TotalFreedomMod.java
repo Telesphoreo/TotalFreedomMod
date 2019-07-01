@@ -50,7 +50,6 @@ import me.totalfreedom.totalfreedommod.world.CleanroomChunkGenerator;
 import me.totalfreedom.totalfreedommod.world.WorldManager;
 import net.pravian.aero.component.service.ServiceManager;
 import net.pravian.aero.plugin.AeroPlugin;
-import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.Plugin;

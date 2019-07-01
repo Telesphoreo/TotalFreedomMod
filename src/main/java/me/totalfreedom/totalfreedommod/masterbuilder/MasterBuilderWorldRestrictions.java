@@ -121,7 +121,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
             if (!plugin.al.isSeniorAdmin(player))
             {
-                if (command.equalsIgnoreCase("coreprotect") || command.equals("co"))
+                if (command.equalsIgnoreCase("coreprotect") || command.equalsIgnoreCase("co"))
                 {
                     player.sendMessage(ChatColor.RED + "Only Senior Admins are allowed to use CoreProtect in the Master Builder world.");
                     event.setCancelled(true);
