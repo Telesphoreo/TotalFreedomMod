@@ -95,5 +95,20 @@ public class InteractBlocker extends FreedomService
                 break;
             }
         }
+
+        if (event.getClickedBlock() == null)
+        {
+            return;
+        }
+
+        switch (event.getClickedBlock().getType())
+        {
+            case STRUCTURE_BLOCK:
+            case JIGSAW:
+            {
+                event.setCancelled(true);
+                event.getPlayer().closeInventory();
+            }
+        }
     }
 }

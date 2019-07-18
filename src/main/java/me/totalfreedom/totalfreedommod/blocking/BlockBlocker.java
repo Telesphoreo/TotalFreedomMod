@@ -39,6 +39,7 @@ public class BlockBlocker extends FreedomService
         switch (event.getBlockPlaced().getType())
         {
             case LAVA:
+            case LAVA_BUCKET:
             {
                 if (ConfigEntry.ALLOW_LAVA_PLACE.getBoolean())
                 {
@@ -53,6 +54,7 @@ public class BlockBlocker extends FreedomService
                 break;
             }
             case WATER:
+            case WATER_BUCKET:
             {
                 if (ConfigEntry.ALLOW_WATER_PLACE.getBoolean())
                 {
@@ -92,6 +94,13 @@ public class BlockBlocker extends FreedomService
             case STRUCTURE_BLOCK:
             {
                 player.sendMessage(ChatColor.GRAY + "Structure blocks are disabled.");
+                player.getInventory().setItem(player.getInventory().getHeldItemSlot(), new ItemStack(Material.COOKIE, 1));
+                event.setCancelled(true);
+                break;
+            }
+            case JIGSAW:
+            {
+                player.sendMessage(ChatColor.GRAY + "Jigsaws are disabled.");
                 player.getInventory().setItem(player.getInventory().getHeldItemSlot(), new ItemStack(Material.COOKIE, 1));
                 event.setCancelled(true);
                 break;

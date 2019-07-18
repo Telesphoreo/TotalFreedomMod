@@ -1,6 +1,5 @@
 package me.totalfreedom.totalfreedommod;
 
-import java.util.List;
 import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +10,6 @@ import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.util.FSync;
 import me.totalfreedom.totalfreedommod.util.FUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -190,6 +188,16 @@ public class LoginProcess extends FreedomService
     {
         final Player player = event.getPlayer();
         final FPlayer fPlayer = plugin.pl.getPlayer(player);
+
+        if (!ConfigEntry.SERVER_TABLIST_HEADER.getString().isEmpty())
+        {
+            player.setPlayerListHeader(FUtil.colorize(ConfigEntry.SERVER_TABLIST_HEADER.getString()).replace("\\n", "\n"));
+        }
+
+        if (!ConfigEntry.SERVER_TABLIST_FOOTER.getString().isEmpty())
+        {
+            player.setPlayerListFooter(FUtil.colorize(ConfigEntry.SERVER_TABLIST_FOOTER.getString()).replace("\\n", "\n"));
+        }
 
         for (Player p : Command_vanish.VANISHED)
         {

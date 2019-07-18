@@ -3,6 +3,7 @@ package me.totalfreedom.totalfreedommod;
 import java.io.File;
 import java.io.InputStream;
 import java.util.Properties;
+import me.totalfreedom.totalfreedommod.admin.ActivityLog;
 import me.totalfreedom.totalfreedommod.admin.AdminList;
 import me.totalfreedom.totalfreedommod.amp.AMP;
 import me.totalfreedom.totalfreedommod.banning.BanManager;
@@ -27,6 +28,7 @@ import me.totalfreedom.totalfreedommod.command.CommandLoader;
 import me.totalfreedom.totalfreedommod.config.MainConfig;
 import me.totalfreedom.totalfreedommod.discord.Discord;
 import me.totalfreedom.totalfreedommod.freeze.Freezer;
+import me.totalfreedom.totalfreedommod.fun.CurseListener;
 import me.totalfreedom.totalfreedommod.fun.ItemFun;
 import me.totalfreedom.totalfreedommod.fun.Jumppads;
 import me.totalfreedom.totalfreedommod.fun.Landminer;
@@ -71,6 +73,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public ServiceManager<TotalFreedomMod> services;
     public AdminList al;
     public Announcer an;
+    public ActivityLog acl;
     public AntiNuke nu;
     public AntiSpam as;
     public AutoEject ae;
@@ -82,6 +85,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public CommandBlocker cb;
     public CommandLoader cl;
     public CommandSpy cs;
+    public CurseListener cul;
     public Discord dc;
     public EditBlocker ebl;
     public EntityWiper ew;
@@ -191,6 +195,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         // Start services
         services = new ServiceManager<>(plugin);
         al = services.registerService(AdminList.class);
+        acl = services.registerService(ActivityLog.class);
         as = services.registerService(AntiSpam.class);
         bb = services.registerService(BlockBlocker.class);
         cb = services.registerService(CommandBlocker.class);
@@ -241,6 +246,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         sp = services.registerService(ServerPing.class);
 
         // Fun
+        cul = services.registerService(CurseListener.class);
         it = services.registerService(ItemFun.class);
         jp = services.registerService(Jumppads.class);
         lm = services.registerService(Landminer.class);

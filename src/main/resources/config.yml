@@ -33,6 +33,12 @@ server:
   # URL players should appeal for permanent bans at
   permban_url: http://bit.ly/TF_PermBan
 
+  # What to display at the top of the tab list
+  tablist_header: ''
+
+  # What to display at the bottom of the tab list
+  tablist_footer: ''
+
 # Discord
 discord:
   # If you do not have a token, make a bot account and get one at https://discordapp.com/developers/applications/me
@@ -85,7 +91,6 @@ social_links:
   Website: 'https://totalfreedom.me/'
   Discord: 'https://discordapp.com/invite/XXjmAmV/'
   Twitter: 'https://twitter.com/TotalFreedomMC'
-
 
 # Blocking certain events
 allow:
@@ -203,6 +208,8 @@ blocked_commands:
   - 's:b:/fill:_'
   - 's:b:/flood:_'
   - 's:b:/team:_'
+  - 's:b:/loot:_'
+  - 's:b:/schedule:_'
 
 # Commands that should be blocked in certain circumstances
 blocked:

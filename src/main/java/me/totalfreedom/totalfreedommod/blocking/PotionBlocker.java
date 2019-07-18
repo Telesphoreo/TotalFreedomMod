@@ -4,7 +4,6 @@ import java.util.Collection;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.LingeringPotion;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.ThrownPotion;
 import org.bukkit.event.EventHandler;
@@ -17,9 +16,6 @@ import org.bukkit.projectiles.ProjectileSource;
 
 public class PotionBlocker extends FreedomService
 {
-
-    public static final int POTION_BLOCK_RADIUS_SQUARED = 20 * 20;
-
     public PotionBlocker(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -59,7 +55,7 @@ public class PotionBlocker extends FreedomService
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
     public void onThrowLingeringPotion(LingeringPotionSplashEvent event)
     {
-        LingeringPotion potion = (LingeringPotion)event.getEntity();
+        ThrownPotion potion = event.getEntity();
         ProjectileSource projectileSource = potion.getShooter();
         Player player = null;
         if (projectileSource instanceof Player)
