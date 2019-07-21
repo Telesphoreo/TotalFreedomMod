@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Curse someone", usage = "/<command> <player>")
 public class Command_curse extends FreedomCommand
 {
-
     /* The only problem with this is someone can prevent themself from being cursed by declining to download the
        resource pack. However, if they hit yes, then you can curse them whenever you want and they can't stop it unless
        they go into their server settings. and set server resource packs to prompt or disabled */
@@ -49,8 +48,6 @@ public class Command_curse extends FreedomCommand
         player.setResourcePack("http://play.totalfreedom.me/cursed.zip");
         msg("Attempting to curse " + player.getName(), ChatColor.GREEN);
         plugin.cul.cursedPlayers.put(player, playerSender);
-
-
         return true;
     }
 

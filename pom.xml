@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>TotalFreedomMod</artifactId>
-    <version>2019.4.1 RC1</version>
+    <version>2019.4.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -225,7 +225,7 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>2.2.6</version>
+                <version>3.0.0</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
@@ -316,7 +316,7 @@
             <!-- Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <executions>
                     <execution>
@@ -367,7 +367,7 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.0.0</version>
+                <version>3.1.0</version>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
