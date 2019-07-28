@@ -32,7 +32,7 @@ public class Command_freeze extends FreedomCommand
             {
                 if (!isAdmin(player))
                 {
-                    msg(player, "You have been frozen due to rulebreakers, you will be unfrozen soon.", ChatColor.RED);
+                    msg(player, "The server has been globally frozen due to an OP breaking the rules. Please wait and you will be unfrozen soon.", ChatColor.RED);
                 }
             }
             msg("Players are now frozen.");

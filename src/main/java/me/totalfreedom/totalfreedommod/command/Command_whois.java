@@ -53,13 +53,19 @@ public class Command_whois extends FreedomCommand
             msg(" - IP Address: " + Ips.getIp(player));
         }
         if (plugin.esb.isEnabled())
+        {
             msg(" - Playtime: " + plugin.esb.getPlaytime(player.getName()));
+        }
         if (plugin.esb.isEnabled())
+        {
             msg(" - AFK: " + (plugin.esb.isAFK(player.getName()) ? "true, for " + plugin.esb.getAFKDuration(player.getName()) : "false"));
+        }
         msg(" - Gamemode: " + player.getGameMode().toString().toLowerCase());
         msg(" - Flying: " + player.isFlying());
         if (plugin.esb.isEnabled())
+        {
             msg(" - God mode: " + plugin.esb.getGodMode(player.getName()));
+        }
         msg(" - Muted: " + fPlayer.isMuted());
         msg(" - Caged: " + fPlayer.getCageData().isCaged());
         return true;

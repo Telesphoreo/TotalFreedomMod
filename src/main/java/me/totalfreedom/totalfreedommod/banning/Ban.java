@@ -25,12 +25,11 @@ import org.bukkit.entity.Player;
 public class Ban implements ConfigLoadable, ConfigSavable, Validatable
 {
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
-
+    @Getter
+    private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
     private String username = null;
-    @Getter
-    private final List<String> ips = Lists.newArrayList();
     @Getter
     @Setter
     private String by = null;

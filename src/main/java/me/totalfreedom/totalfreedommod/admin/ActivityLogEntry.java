@@ -16,21 +16,20 @@ import org.bukkit.entity.Player;
 
 public class ActivityLogEntry implements ConfigLoadable, ConfigSavable, Validatable
 {
+    public static final String FILENAME = "activitylog.yml";
+    @Getter
+    private final List<String> ips = Lists.newArrayList();
     @Getter
     private String configKey;
     @Getter
     @Setter
     private String name;
     @Getter
-    private final List<String> ips = Lists.newArrayList();
-    @Getter
     @Setter
     private List<String> timestamps = Lists.newArrayList();
     @Getter
     @Setter
     private List<String> durations = Lists.newArrayList();
-
-    public static final String FILENAME = "activitylog.yml";
 
     public ActivityLogEntry(Player player)
     {

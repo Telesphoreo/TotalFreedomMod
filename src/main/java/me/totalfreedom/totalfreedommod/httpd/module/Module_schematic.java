@@ -1,9 +1,14 @@
 package me.totalfreedom.totalfreedommod.httpd.module;
 
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
+import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -104,7 +109,14 @@ public class Module_schematic extends HTTPDModule
                     }
                 }
 
-                schematicsFormatted.sort(Comparator.comparing(String::toLowerCase));
+                Collections.sort(schematicsFormatted, new Comparator<String>()
+                {
+                    @Override
+                    public int compare(String a, String b)
+                    {
+                        return a.toLowerCase().compareTo(b.toLowerCase());
+                    }
+                });
 
                 out
                         .append(HTMLGenerationTools.heading("Schematics:", 1))
@@ -192,6 +204,11 @@ public class Module_schematic extends HTTPDModule
             throw new SchematicTransferException("Schematic is too big (1 MB max).");
         }
 
+        if (plugin.web.getWorldEditPlugin() == null)
+        {
+            throw new SchematicTransferException("WorldEdit is not on the server.");
+        }
+
         if (!SCHEMATIC_FILENAME_LC.matcher(origFileName.toLowerCase()).find())
         {
             throw new SchematicTransferException("File name must be alphanumeric, between 1 and 30 characters long (inclusive), and have a \".schematic\" extension.");
@@ -206,7 +223,24 @@ public class Module_schematic extends HTTPDModule
         try
         {
             FileUtils.copyFile(tempFile, targetFile);
+            ClipboardFormat format = ClipboardFormats.findByFile(targetFile);
+            if (format == null)
+            {
+                FileUtils.deleteQuietly(targetFile);
+                throw new SchematicTransferException("Schematic is not a valid schematic.");
+            }
+            try
+            {
+                ClipboardReader reader = format.getReader(new FileInputStream(targetFile));
+            }
+            catch (IOException e)
+            {
+                FileUtils.deleteQuietly(targetFile);
+                throw new SchematicTransferException("Schematic is not a valid schematic.");
+            }
+
             FLog.info(remoteAddress + " uploaded schematic: " + targetFile.getName());
+
         }
         catch (IOException ex)
         {
@@ -243,8 +277,9 @@ public class Module_schematic extends HTTPDModule
         return entry != null && entry.isActive();
     }
 
-    private enum ModuleMode
+    private static enum ModuleMode
     {
+
         LIST("list"),
         UPLOAD("upload"),
         DOWNLOAD("download"),
@@ -279,6 +314,7 @@ public class Module_schematic extends HTTPDModule
 
     private static class SchematicTransferException extends Exception
     {
+
         public SchematicTransferException()
         {
         }
@@ -291,6 +327,7 @@ public class Module_schematic extends HTTPDModule
 
     private static class ResponseOverrideException extends Exception
     {
+
         private final Response response;
 
         public ResponseOverrideException(Response response)
@@ -303,5 +340,4 @@ public class Module_schematic extends HTTPDModule
             return response;
         }
     }
-
 }

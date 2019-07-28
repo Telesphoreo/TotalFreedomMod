@@ -89,7 +89,7 @@ public class ServerInterface extends FreedomService
 
         try
         {
-           Bukkit.reloadWhitelist();
+            Bukkit.reloadWhitelist();
         }
         catch (Exception ex)
         {
