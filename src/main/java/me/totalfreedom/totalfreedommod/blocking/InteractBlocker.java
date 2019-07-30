@@ -109,6 +109,9 @@ public class InteractBlocker extends FreedomService
                 event.setCancelled(true);
                 event.getPlayer().closeInventory();
             }
+
+            case BELL:
+                event.setCancelled(true);
         }
     }
 }
