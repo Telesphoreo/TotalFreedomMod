@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.GameRuleHandler;
+import me.totalfreedom.totalfreedommod.LoginProcess;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -36,6 +37,7 @@ public class Command_toggle extends FreedomCommand
             msg("- nonuke [range] [count]");
             msg("- explosives [radius]");
             msg("- unsafeenchs");
+            msg("- bells");
             return false;
         }
 
@@ -82,7 +84,7 @@ public class Command_toggle extends FreedomCommand
         }
         else if (args[0].equalsIgnoreCase("lockdown"))
         {
-            boolean active = !plugin.lp.isLockdownEnabled();
+            boolean active = !LoginProcess.isLockdownEnabled();
             plugin.lp.setLockdownEnabled(active);
             FUtil.adminAction(sender.getName(), (active ? "A" : "De-a") + "ctivating server lockdown", true);
             return true;
@@ -120,7 +122,7 @@ public class Command_toggle extends FreedomCommand
                 {
                     ConfigEntry.NUKE_MONITOR_COUNT_BREAK.setInteger(Math.max(1, Math.min(500, Integer.parseInt(args[2]))));
                 }
-                catch (NumberFormatException ex)
+                catch (NumberFormatException ignored)
                 {
                 }
             }
@@ -158,6 +160,11 @@ public class Command_toggle extends FreedomCommand
             toggle("Invalid enchantments are", ConfigEntry.ALLOW_UNSAFE_ENCHANTMENTS);
             return true;
         }
+        else if (args[0].equalsIgnoreCase("bells"))
+        {
+            toggle("The ringing of bells is", ConfigEntry.ALLOW_BELLS);
+            return true;
+        }
         else
         {
             return false;
@@ -176,7 +183,7 @@ public class Command_toggle extends FreedomCommand
         {
             return Arrays.asList(
                     "waterplace", "fireplace", "lavaplace", "fluidspread", "lavadmg", "firespread", "frostwalk",
-                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs");
+                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs", "bells");
         }
 
         return Collections.emptyList();

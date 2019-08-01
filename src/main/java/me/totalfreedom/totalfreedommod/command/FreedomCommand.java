@@ -20,7 +20,6 @@ import org.bukkit.util.StringUtil;
 
 public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod>
 {
-
     public static final String YOU_ARE_OP = ChatColor.YELLOW + "You are now op!";
     public static final String YOU_ARE_NOT_OP = ChatColor.YELLOW + "You are no longer op!";
     public static final String PLAYER_NOT_FOUND = ChatColor.GRAY + "Player not found!";
@@ -93,7 +92,7 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
         {
             return null;
         }
-        return StringUtil.copyPartialMatches(args[args.length - 1], options, Lists.<String>newArrayList());
+        return StringUtil.copyPartialMatches(args[args.length - 1], options, Lists.newArrayList());
     }
 
     protected abstract boolean run(final CommandSender sender, final Player playerSender, final Command cmd, final String commandLabel, final String[] args, final boolean senderIsConsole);
@@ -133,6 +132,11 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
     protected boolean noPerms()
     {
         throw new CommandFailException(getHandler().getPermissionMessage());
+    }
+
+    protected boolean executivesOnly()
+    {
+        throw new CommandFailException("This command can only be used by Executives.");
     }
 
     protected boolean isConsole()

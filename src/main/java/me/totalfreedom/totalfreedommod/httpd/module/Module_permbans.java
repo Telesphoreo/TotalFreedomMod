@@ -9,7 +9,6 @@ import me.totalfreedom.totalfreedommod.httpd.NanoHTTPD;
 
 public class Module_permbans extends HTTPDModule
 {
-
     public Module_permbans(TotalFreedomMod plugin, NanoHTTPD.HTTPSession session)
     {
         super(plugin, session);
@@ -20,11 +19,6 @@ public class Module_permbans extends HTTPDModule
     {
         File permbanFile = new File(plugin.getDataFolder(), PermbanList.CONFIG_FILENAME);
         final String remoteAddress = socket.getInetAddress().getHostAddress();
-        if (!isAuthorized(remoteAddress))
-        {
-            return new NanoHTTPD.Response(NanoHTTPD.Response.Status.NOT_FOUND, NanoHTTPD.MIME_PLAINTEXT,
-                    "You may not view the permban list. Your IP, " + remoteAddress + ", is not registered to an admin on the server.");
-        }
         if (permbanFile.exists())
         {
             return HTTPDaemon.serveFileBasic(new File(plugin.getDataFolder(), PermbanList.CONFIG_FILENAME));

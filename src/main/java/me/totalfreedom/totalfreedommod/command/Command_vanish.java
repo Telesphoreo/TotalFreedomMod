@@ -75,7 +75,11 @@ public class Command_vanish extends FreedomCommand
             FLog.info(playerSender.getName() + " is now vanished.");
             for (Player player : server.getOnlinePlayers())
             {
-                if (!plugin.al.isAdmin(player))
+                if (plugin.al.isAdmin(player))
+                {
+                    msg(sender.getName() + " has vanished and is now only visible to admins.", ChatColor.YELLOW);
+                }
+                else
                 {
                     player.hidePlayer(plugin, playerSender);
                 }

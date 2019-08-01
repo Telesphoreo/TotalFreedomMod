@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffectType;
 
-@CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH)
+@CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
 @CommandParameters(description = "Shows (optionally clears) invisible players", usage = "/<command> [clear]")
 public class Command_invis extends FreedomCommand
 {
@@ -24,6 +24,11 @@ public class Command_invis extends FreedomCommand
         {
             if (args[0].equalsIgnoreCase("clear"))
             {
+                if (!isAdmin(sender))
+                {
+                    noPerms();
+                    return true;
+                }
                 FUtil.adminAction(sender.getName(), "Clearing all invisibility potion effects from all players", true);
                 clear = true;
             }

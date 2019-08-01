@@ -111,7 +111,12 @@ public class InteractBlocker extends FreedomService
             }
 
             case BELL:
-                event.setCancelled(true);
+            {
+                if (!ConfigEntry.ALLOW_BELLS.getBoolean())
+                {
+                    event.setCancelled(true);
+                }
+            }
         }
     }
 }

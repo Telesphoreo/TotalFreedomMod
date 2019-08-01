@@ -21,6 +21,7 @@ public enum ConfigEntry
     ALLOW_FIREWORK_EXPLOSION(Boolean.class, "allow.fireworks"),
     ALLOW_FROSTWALKER(Boolean.class, "allow.frostwalker"),
     ALLOW_UNSAFE_ENCHANTMENTS(Boolean.class, "allow.unsafe_enchantments"),
+    ALLOW_BELLS(Boolean.class, "allow.bells"),
     //
     BLOCKED_WILDCARD_COMMANDS(List.class, "blocked.wildcard_commands"),
     BLOCKED_MUTED_COMMANDS(List.class, "blocked.muted_commands"),
