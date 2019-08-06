@@ -21,7 +21,6 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 
 public class MobBlocker extends FreedomService
 {
-
     public MobBlocker(TotalFreedomMod plugin)
     {
         super(plugin);

@@ -15,7 +15,6 @@ import org.bukkit.inventory.ItemStack;
 
 public class BlockBlocker extends FreedomService
 {
-
     public BlockBlocker(TotalFreedomMod plugin)
     {
         super(plugin);

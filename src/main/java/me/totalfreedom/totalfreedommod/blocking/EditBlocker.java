@@ -12,7 +12,6 @@ import org.bukkit.event.block.BlockPlaceEvent;
 
 public class EditBlocker extends FreedomService
 {
-
     public EditBlocker(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -65,5 +64,4 @@ public class EditBlocker extends FreedomService
         FSync.playerMsg(event.getPlayer(), ChatColor.RED + "Your ability to destroy blocks has been disabled!");
         event.setCancelled(true);
     }
-
 }

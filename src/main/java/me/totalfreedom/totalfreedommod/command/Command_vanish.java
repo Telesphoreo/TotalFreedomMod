@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import static me.totalfreedom.totalfreedommod.util.FUtil.playerMsg;
 
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.ONLY_IN_GAME)
 @CommandParameters(description = "Vanish/unvanish yourself.", usage = "/<command> [-s[ilent]]", aliases = "v")
@@ -58,10 +59,13 @@ public class Command_vanish extends FreedomCommand
             FLog.info(playerSender.getName() + " is no longer vanished.");
             for (Player player : server.getOnlinePlayers())
             {
+                if (plugin.al.isAdmin(player))
+                {
+                    playerMsg(player, ChatColor.YELLOW + sender.getName() + " has unvanished and is now visible to everyone.");
+                }
                 player.showPlayer(plugin, playerSender);
             }
             plugin.esb.setVanished(playerSender.getName(), false);
-            playerSender.removePotionEffect(PotionEffectType.INVISIBILITY);
             playerSender.setPlayerListName(StringUtils.substring(displayName, 0, 16));
             VANISHED.remove(playerSender);
         }
@@ -75,17 +79,18 @@ public class Command_vanish extends FreedomCommand
             FLog.info(playerSender.getName() + " is now vanished.");
             for (Player player : server.getOnlinePlayers())
             {
-                if (plugin.al.isAdmin(player))
                 {
-                    msg(sender.getName() + " has vanished and is now only visible to admins.", ChatColor.YELLOW);
-                }
-                else
-                {
-                    player.hidePlayer(plugin, playerSender);
+                    if (plugin.al.isAdmin(player))
+                    {
+                        playerMsg(player, ChatColor.YELLOW + sender.getName() + " has vanished and is now only visible to admins.");
+                    }
+                    if (!plugin.al.isAdmin(player))
+                    {
+                        player.hidePlayer(plugin, playerSender);
+                    }
                 }
             }
             plugin.esb.setVanished(playerSender.getName(), true);
-            playerSender.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 1, false, true));
             VANISHED.add(playerSender);
         }
         return true;

@@ -14,11 +14,6 @@ public class Command_gcmd extends FreedomCommand
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        if (!FUtil.isExecutive(sender.getName()))
-        {
-            return executivesOnly();
-        }
-
         if (args.length < 2)
         {
             return false;
