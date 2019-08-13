@@ -11,8 +11,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import static me.totalfreedom.totalfreedommod.util.FUtil.playerMsg;
 
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.ONLY_IN_GAME)
@@ -41,11 +39,11 @@ public class Command_vanish extends FreedomCommand
             msg(ChatColor.GOLD + "You have been unvanished.");
             if (admin.hasLoginMessage())
             {
-                loginMsg = FUtil.colorize(admin.getLoginMessage());
+                loginMsg = FUtil.colorize(admin.getLoginMessage()).replace("%rank%", plugin.rm.getDisplay(admin).getName()).replace("%coloredrank%", plugin.rm.getDisplay(admin).getColoredName());
             }
             if (!silent)
             {
-                FUtil.bcastMsg(ChatColor.AQUA + (loginMsg.contains("%name%") ? "" : playerSender.getName() + " is ") + FUtil.colorize(loginMsg).replace("%name%", playerSender.getName()));
+                FUtil.bcastMsg(ChatColor.AQUA + loginMsg);
                 FUtil.bcastMsg(playerSender.getName() + " joined the game", ChatColor.YELLOW);
             }
             if (admin.getTag() != null)

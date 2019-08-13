@@ -67,6 +67,11 @@ public class RankManager extends FreedomService
             return Title.EXECUTIVE;
         }
 
+        if (plugin.al.isVerifiedAdmin(player))
+        {
+            return Title.VERIFIED_ADMIN;
+        }
+
         // Master builders show up if they are not admins
         if (plugin.mbl.isMasterBuilder(player) && !plugin.al.isAdmin(player))
         {
@@ -74,6 +79,28 @@ public class RankManager extends FreedomService
         }
 
         return getRank(player);
+    }
+
+    public Displayable getDisplay(Admin admin)
+    {
+        // If the player's an owner, display that
+        if (ConfigEntry.SERVER_OWNERS.getList().contains(admin.getName()))
+        {
+            return Title.OWNER;
+        }
+
+        // Developers always show up
+        if (FUtil.DEVELOPERS.contains(admin.getName()))
+        {
+            return Title.DEVELOPER;
+        }
+
+        if (ConfigEntry.SERVER_EXECUTIVES.getList().contains(admin.getName()))
+        {
+            return Title.EXECUTIVE;
+        }
+
+        return admin.getRank();
     }
 
     public Rank getRank(CommandSender sender)
@@ -170,6 +197,11 @@ public class RankManager extends FreedomService
             }
         }
 
+        if (plugin.al.isVerifiedAdmin(player))
+        {
+            FUtil.bcastMsg("Warning: " + player.getName() + " is an admin, but does not have any admin permissions.", ChatColor.RED);
+        }
+
         // Handle impostors
         boolean isImpostor = plugin.al.isAdminImpostor(player) || plugin.pv.isPlayerImpostor(player) || plugin.mbl.isMasterBuilderImpostor(player);
         if (isImpostor)
@@ -208,11 +240,11 @@ public class RankManager extends FreedomService
                 Admin admin = plugin.al.getAdmin(player);
                 if (admin.hasLoginMessage())
                 {
-                    loginMsg = ChatUtils.colorize(admin.getLoginMessage());
+                    loginMsg = ChatUtils.colorize(admin.getLoginMessage()).replace("%rank%", plugin.rm.getDisplay(admin).getName()).replace("%coloredrank%", plugin.rm.getDisplay(admin).getColoredName());
                 }
+                FUtil.bcastMsg(ChatColor.AQUA + (loginMsg.contains("%name%") ? "" : player.getName() + " is ") + FUtil.colorize(loginMsg).replace("%name%", player.getName()));
+                plugin.pl.getPlayer(player).setTag(display.getColoredTag());
             }
-            FUtil.bcastMsg(ChatColor.AQUA + (loginMsg.contains("%name%") ? "" : player.getName() + " is ") + FUtil.colorize(loginMsg).replace("%name%", player.getName()));
-            plugin.pl.getPlayer(player).setTag(display.getColoredTag());
 
             if (isAdmin)
             {

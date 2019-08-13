@@ -32,10 +32,8 @@ public class Command_glist extends FreedomCommand
                 checkRank(Rank.SENIOR_ADMIN);
                 plugin.pl.purgeAllData();
                 msg("Purged playerbase.");
-
                 return true;
             }
-
             return false;
         }
 
@@ -92,7 +90,9 @@ public class Command_glist extends FreedomCommand
                     playerBan.addIp(ip);
                     playerBan.addIp(FUtil.getFuzzyIp(ip));
                 }
-                FUtil.adminAction(sender.getName(), "Banning " + username + " and IPs: " + StringUtils.join(ips, ", "), true);
+                FUtil.adminAction(sender.getName(), "Banning " + username, true);
+                msg(username + " has been banned and their IP is: " + StringUtils.join(ips, ", "));
+
 
                 plugin.bm.addBan(playerBan);
 
@@ -108,7 +108,7 @@ public class Command_glist extends FreedomCommand
             case "pardon":
                 if (usingIp)
                 {
-                    msg("Please specify a player, not an ip.");
+                    msg("Please specify a player, not an IP.");
                     return true;
                 }
                 FUtil.adminAction(sender.getName(), "Unbanning " + username + " and IPs: " + StringUtils.join(ips, ", "), true);
@@ -167,7 +167,8 @@ public class Command_glist extends FreedomCommand
                 final String ipBanReason = args.length > 2 ? StringUtils.join(args, " ", 2, args.length) : null;
                 Ban ipBan = Ban.forPlayerIp(banIp, sender, null, ipBanReason);
                 plugin.bm.addBan(ipBan);
-                FUtil.adminAction(sender.getName(), "Banning IP: " + banIp, true);
+                FUtil.adminAction(sender.getName(), "Banned an IP", true);
+                msg("Banned IP: " + banIp);
                 return true;
             case "unbanip":
             case "pardonip":
@@ -177,7 +178,8 @@ public class Command_glist extends FreedomCommand
                     return true;
                 }
 
-                FUtil.adminAction(sender.getName(), "Unbanning IP: " + banIp, true);
+                FUtil.adminAction(sender.getName(), "Unbanned an IP", true);
+                msg("Unbanned IP: " + banIp);
                 Ban ipUnban = plugin.bm.getByIp(banIp);
                 if (ipUnban != null)
                 {

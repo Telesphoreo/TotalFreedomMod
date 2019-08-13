@@ -16,16 +16,15 @@ import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
-import net.dv8tion.jda.core.AccountType;
-import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.JDA;
-import net.dv8tion.jda.core.JDABuilder;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.Member;
-import net.dv8tion.jda.core.entities.MessageEmbed;
-import net.dv8tion.jda.core.entities.Role;
-import net.dv8tion.jda.core.entities.TextChannel;
-import net.dv8tion.jda.core.managers.GuildController;
+import net.dv8tion.jda.api.AccountType;
+import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.MessageEmbed;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -83,8 +82,6 @@ public class Discord extends FreedomService
             return false;
         }
 
-        GuildController controller = new GuildController(server);
-
         Member member = server.getMemberById(admin.getDiscordID());
         if (member == null)
         {
@@ -114,15 +111,15 @@ public class Discord extends FreedomService
         {
             if (member.getRoles().contains(superAdminRole))
             {
-                controller.removeRolesFromMember(member, superAdminRole).complete();
+                server.removeRoleFromMember(member, superAdminRole).complete();
             }
             if (member.getRoles().contains(telnetAdminRole))
             {
-                controller.removeRolesFromMember(member, telnetAdminRole).complete();
+                server.removeRoleFromMember(member, telnetAdminRole).complete();
             }
             if (member.getRoles().contains(seniorAdminRole))
             {
-                controller.removeRolesFromMember(member, seniorAdminRole).complete();
+                server.removeRoleFromMember(member, seniorAdminRole).complete();
             }
             return true;
         }
@@ -131,15 +128,15 @@ public class Discord extends FreedomService
         {
             if (!member.getRoles().contains(superAdminRole))
             {
-                controller.addRolesToMember(member, superAdminRole).complete();
+                server.addRoleToMember(member, superAdminRole).complete();
             }
             if (member.getRoles().contains(telnetAdminRole))
             {
-                controller.removeRolesFromMember(member, telnetAdminRole).complete();
+                server.addRoleToMember(member, telnetAdminRole).complete();
             }
             if (member.getRoles().contains(seniorAdminRole))
             {
-                controller.removeRolesFromMember(member, seniorAdminRole).complete();
+                server.addRoleToMember(member, seniorAdminRole).complete();
             }
             return true;
         }
@@ -147,15 +144,15 @@ public class Discord extends FreedomService
         {
             if (!member.getRoles().contains(telnetAdminRole))
             {
-                controller.addRolesToMember(member, telnetAdminRole).complete();
+                server.addRoleToMember(member, telnetAdminRole).complete();
             }
             if (member.getRoles().contains(superAdminRole))
             {
-                controller.removeRolesFromMember(member, superAdminRole).complete();
+                server.removeRoleFromMember(member, superAdminRole).complete();
             }
             if (member.getRoles().contains(seniorAdminRole))
             {
-                controller.removeRolesFromMember(member, seniorAdminRole).complete();
+                server.removeRoleFromMember(member, seniorAdminRole).complete();
             }
             return true;
         }
@@ -163,15 +160,15 @@ public class Discord extends FreedomService
         {
             if (!member.getRoles().contains(seniorAdminRole))
             {
-                controller.addRolesToMember(member, seniorAdminRole).complete();
+                server.addRoleToMember(member, seniorAdminRole).complete();
             }
             if (member.getRoles().contains(superAdminRole))
             {
-                controller.removeRolesFromMember(member, superAdminRole).complete();
+                server.removeRoleFromMember(member, superAdminRole).complete();
             }
             if (member.getRoles().contains(telnetAdminRole))
             {
-                controller.removeRolesFromMember(member, telnetAdminRole).complete();
+                server.removeRoleFromMember(member, telnetAdminRole).complete();
             }
             return true;
         }
@@ -195,7 +192,7 @@ public class Discord extends FreedomService
         }
         try
         {
-            bot = new JDABuilder(AccountType.BOT).setToken(ConfigEntry.DISCORD_TOKEN.getString()).addEventListener(new MessageListener()).setAudioEnabled(false).setAutoReconnect(true).buildBlocking();
+            bot = new JDABuilder(AccountType.BOT).setToken(ConfigEntry.DISCORD_TOKEN.getString()).addEventListeners(new MessageListener()).setAutoReconnect(true).build().awaitReady();
             FLog.info("Discord verification bot has successfully enabled!");
         }
         catch (LoginException e)

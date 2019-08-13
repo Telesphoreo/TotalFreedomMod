@@ -4,9 +4,9 @@ import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.util.Groups;
+import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.block.ShulkerBox;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Tameable;
 import org.bukkit.event.EventHandler;
@@ -28,7 +28,6 @@ import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BlockStateMeta;
 
 public class EventBlocker extends FreedomService
 {
@@ -217,19 +216,10 @@ public class EventBlocker extends FreedomService
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockDispense(BlockDispenseEvent event)
     {
-        ItemStack item = event.getItem();
-        if (Groups.SHULKER_BOXES.contains(item.getType()))
+        Material material = event.getItem().getType();
+        if (Groups.SPAWN_EGGS.contains(material))
         {
-            BlockStateMeta blockStateMeta = (BlockStateMeta)item.getItemMeta();
-            ShulkerBox shulkerBox = (ShulkerBox)blockStateMeta.getBlockState();
-            for (ItemStack itemStack : shulkerBox.getInventory().getContents())
-            {
-                if (itemStack != null)
-                {
-                    event.setCancelled(true);
-                    break;
-                }
-            }
+            event.setCancelled(true);
         }
     }
 }

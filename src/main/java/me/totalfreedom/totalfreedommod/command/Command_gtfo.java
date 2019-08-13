@@ -136,9 +136,8 @@ public class Command_gtfo extends FreedomCommand
                 .append(sender.getName())
                 .append(" - ")
                 .append("Banning: ")
-                .append(username)
-                .append(", IPs: ")
-                .append(StringUtils.join(ips, ", "));
+                .append(username);
+        msg(username + " has been banned and their IP is: " + StringUtils.join(ips, ", "));
         if (reason != null)
         {
             bcast.append(" - Reason: ").append(ChatColor.YELLOW).append(reason);

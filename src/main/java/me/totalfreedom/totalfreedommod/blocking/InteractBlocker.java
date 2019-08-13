@@ -3,6 +3,7 @@ package me.totalfreedom.totalfreedommod.blocking;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
+import me.totalfreedom.totalfreedommod.util.Groups;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -117,6 +118,13 @@ public class InteractBlocker extends FreedomService
                     event.setCancelled(true);
                 }
             }
+        }
+
+        if (Groups.SPAWN_EGGS.contains(event.getMaterial()))
+        {
+            player.getInventory().clear(player.getInventory().getHeldItemSlot());
+            player.sendMessage(ChatColor.GRAY + "Spawn eggs are currently disabled.");
+            event.setCancelled(true);
         }
     }
 }

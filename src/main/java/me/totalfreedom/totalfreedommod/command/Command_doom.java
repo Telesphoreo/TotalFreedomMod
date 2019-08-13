@@ -108,7 +108,8 @@ public class Command_doom extends FreedomCommand
             public void run()
             {
                 // message
-                FUtil.adminAction(sender.getName(), "Banning " + player.getName() + ", IP: " + ip, true);
+                FUtil.adminAction(sender.getName(), "Banning " + player.getName(), true);
+                msg(player.getName() + " has been banned and IP is: " + ip);
 
                 // generate explosion
                 player.getWorld().createExplosion(player.getLocation(), 0F, false);
