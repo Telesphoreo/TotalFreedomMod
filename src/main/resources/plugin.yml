@@ -1,7 +1,7 @@
 name: TotalFreedomMod
-main: me.totalfreedom.totalfreedommod.TotalFreedomMod
 version: ${project.version}
 description: Plugin for the Total Freedom server.
+main: me.totalfreedom.totalfreedommod.TotalFreedomMod
 depend: [Aero]
 softdepend: [BukkitTelnet, CoreProtect, Essentials, LibsDisguises, WorldEdit]
 authors: [Madgeek1450, Prozza]
