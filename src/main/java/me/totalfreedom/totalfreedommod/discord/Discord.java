@@ -31,13 +31,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Discord extends FreedomService
 {
-    public static final String URL = "https://updater.telesphoreo.me/Discord.jar";
+    public static final String URL = "https://updater.telesphoreo.me/JDA/4.0.0_39/Discord.jar";
     public static HashMap<String, Admin> LINK_CODES = new HashMap<>();
     public static HashMap<String, VPlayer> PLAYER_LINK_CODES = new HashMap<String, VPlayer>();
     public static ArrayList VERIFY_CODES = new ArrayList();
     public static JDA bot = null;
     public Boolean enabled = false;
-
 
     public Discord(TotalFreedomMod plugin)
     {
