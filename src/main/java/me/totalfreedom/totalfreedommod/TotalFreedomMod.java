@@ -36,9 +36,10 @@ import me.totalfreedom.totalfreedommod.fun.MP44;
 import me.totalfreedom.totalfreedommod.fun.MobStacker;
 import me.totalfreedom.totalfreedommod.fun.Trailer;
 import me.totalfreedom.totalfreedommod.httpd.HTTPDaemon;
+import me.totalfreedom.totalfreedommod.world.restrictions.HubWorldRestrictions;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderList;
-import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilderWorldRestrictions;
+import me.totalfreedom.totalfreedommod.world.restrictions.MasterBuilderWorldRestrictions;
 import me.totalfreedom.totalfreedommod.player.PlayerList;
 import me.totalfreedom.totalfreedommod.playerverification.PlayerVerification;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
@@ -95,6 +96,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public Fuckoff fo;
     public GameRuleHandler gr;
     public HTTPDaemon hd;
+    public HubWorldRestrictions hwr;
     public InteractBlocker ib;
     public ItemFun it;
     public Jumppads jp;
@@ -202,6 +204,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         cl = services.registerService(CommandLoader.class);
         eb = services.registerService(EventBlocker.class);
         fd = services.registerService(FrontDoor.class);
+        hwr = services.registerService(HubWorldRestrictions.class);
         ib = services.registerService(InteractBlocker.class);
         lp = services.registerService(LoginProcess.class);
         lv = services.registerService(LogViewer.class);

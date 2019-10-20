@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>TotalFreedomMod</artifactId>
-    <version>2019.5.1</version>
+    <version>2019.6.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.8</version>
+            <version>1.18.10</version>
             <scope>provided</scope>
         </dependency>
 
@@ -165,7 +165,7 @@
         <dependency>
             <groupId>net.dv8tion</groupId>
             <artifactId>JDA</artifactId>
-            <version>4.0.0_39</version>
+            <version>4.0.0_52</version>
             <scope>provided</scope>
         </dependency>
 
@@ -225,7 +225,7 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>
@@ -316,8 +316,8 @@
             <!-- Checkstyle -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <version>3.1.0</version>
                 <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
                         <phase>process-sources</phase>

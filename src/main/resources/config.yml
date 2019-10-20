@@ -1,5 +1,5 @@
 #
-# TotalFreedomMod 2019.5.1 Configuration
+# TotalFreedomMod 2019.6.1 Configuration
 # by Madgeek1450 and Prozza
 #
 
@@ -107,6 +107,7 @@ allow:
   frostwalker: false
   unsafe_enchantments: true
   bells: true
+  armorstands: false
 
 # Blocked commands:
 #
@@ -341,6 +342,13 @@ masterbuilderinfo:
   - ' &6- Copy the template and create a thread on our forums'
   - ' &2- Template:'
   - '    &9bit.ly/TFMasterBuilderTemplate'
+
+# What to display in the vote command.
+votinginfo:
+  - '&bVoting Links:'
+  - ' &6- https://minecraft-mp.com/server/228386/vote/'
+  - ' &2- https://minecraft-server-list.com/server/443272/vote/'
+  - ' &6- https://topg.org/Minecraft/in-518809'
 
 # Famous players - cannot be banned by username
 famous_players:

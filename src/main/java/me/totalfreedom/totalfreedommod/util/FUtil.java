@@ -39,8 +39,7 @@ public class FUtil
 {
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
-    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "OxLemonxO", "Wild1145", "Catholic_Mario", "robinbbby", "ivanbbby");
-    public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<>();
+    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "OxLemonxO", "Wild1145", "Catholic_Mario", "Arcaknight", "homeybee");    public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<>();
     public static final List<ChatColor> CHAT_COLOR_POOL = Arrays.asList(
             ChatColor.DARK_RED,
             ChatColor.RED,
@@ -85,6 +84,11 @@ public class FUtil
     public static boolean isExecutive(String name)
     {
         return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name);
+    }
+
+    public static boolean isDeveloper(String name)
+    {
+        return FUtil.DEVELOPERS.contains(name);
     }
 
     public static boolean hasMbConfigPermission(String name)

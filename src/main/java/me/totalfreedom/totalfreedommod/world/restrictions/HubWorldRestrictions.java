@@ -1,4 +1,4 @@
-package me.totalfreedom.totalfreedommod.masterbuilder;
+package me.totalfreedom.totalfreedommod.world.restrictions;
 
 import java.util.Arrays;
 import java.util.List;
@@ -16,13 +16,12 @@ import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class MasterBuilderWorldRestrictions extends FreedomService
+public class HubWorldRestrictions extends FreedomService
 {
+    public final List<String> ALLOWED_COMMANDS = Arrays.asList(
+            "list", "opall", "gmc", "gms", "gma", "gmsp", "purgeall", "stfu", "tempban", "gtfo", "noob", "flatlands", "adminworld", "masterbuilderworld", "world", "nether", "spawn", "tpo", "tp", "expel", "item", "i", "give", "adminchat", "adventure", "creative", "survival", "spectator", "say", "blockcmd", "blockpvp", "blockredstone", "stoplag", "halt-activity", "nickclean", "nick", "nicknyan", "vanish", "verify", "verifynoadmin", "co", "coreprotect", "core", "mobpurge", "logs", "links", "vote", "o", "linkdiscord");
 
-    public final List<String> BLOCKED_WORLDEDIT_COMMANDS = Arrays.asList(
-            "green", "fixlava", "fixwater", "br", "brush", "tool", "mat", "range", "cs", "up", "fill", "setblock", "tree", "replacenear");
-
-    public MasterBuilderWorldRestrictions(TotalFreedomMod plugin)
+    public HubWorldRestrictions(TotalFreedomMod plugin)
     {
         super(plugin);
     }
@@ -39,10 +38,12 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
     public boolean doRestrict(Player player)
     {
-        return !plugin.mbl.isMasterBuilder(player)
-                && !FUtil.hasMbConfigPermission(player.getName())
-                && player.getWorld().equals(plugin.wm.masterBuilderWorld.getWorld());
+        if (!FUtil.isExecutive(player.getName()) && player.getWorld().equals(plugin.wm.hubworld.getWorld()))
+        {
+            return true;
+        }
 
+        return false;
     }
 
     @EventHandler(priority = EventPriority.NORMAL)
@@ -52,6 +53,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
         if (doRestrict(player))
         {
+            player.sendMessage(ChatColor.RED + "Only Executives can do this in the Hub World!");
             event.setCancelled(true);
         }
     }
@@ -63,6 +65,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
         if (doRestrict(player))
         {
+            player.sendMessage(ChatColor.RED + "Only Executives can do this in the Hub World!");
             event.setCancelled(true);
         }
     }
@@ -74,6 +77,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
         if (doRestrict(player))
         {
+            player.sendMessage(ChatColor.RED + "Only Executives can do this in the Hub World!");
             event.setCancelled(true);
         }
     }
@@ -85,6 +89,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
         if (doRestrict(player))
         {
+            player.sendMessage(ChatColor.RED + "Only Executives can do this in the Hub World!");
             event.setCancelled(true);
         }
     }
@@ -98,6 +103,7 @@ public class MasterBuilderWorldRestrictions extends FreedomService
 
             if (doRestrict(player))
             {
+                player.sendMessage(ChatColor.RED + "Only Executives can do this in the Hub World!");
                 event.setCancelled(true);
             }
         }
@@ -109,23 +115,16 @@ public class MasterBuilderWorldRestrictions extends FreedomService
         final Player player = event.getPlayer();
         if (doRestrict(player))
         {
-            /* This is a very poor way of blocking WorldEdit commands, all the methods I know of
-               for obtaining a list of a plugin's commands are returning null for world edit. */
             String command = event.getMessage().split("\\s+")[0].substring(1, event.getMessage().split("\\s+")[0].length()).toLowerCase();
 
-            if (command.startsWith("/") || BLOCKED_WORLDEDIT_COMMANDS.contains(command))
+            if (ALLOWED_COMMANDS.contains(command))
             {
-                player.sendMessage(ChatColor.RED + "Only Master Builders are allowed to use WorldEdit in the Master Builder world.");
-                event.setCancelled(true);
+                event.setCancelled(false);
             }
-
-            if (!plugin.al.isSeniorAdmin(player))
+            else if (command.startsWith(""))
             {
-                if (command.equalsIgnoreCase("coreprotect") || command.equalsIgnoreCase("co"))
-                {
-                    player.sendMessage(ChatColor.RED + "Only Senior Admins are allowed to use CoreProtect in the Master Builder world.");
-                    event.setCancelled(true);
-                }
+                player.sendMessage(ChatColor.RED + "Only Executives are allowed to execute commands in the Hub World!");
+                event.setCancelled(true);
             }
         }
     }

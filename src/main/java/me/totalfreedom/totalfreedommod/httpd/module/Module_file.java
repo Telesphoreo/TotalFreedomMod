@@ -17,14 +17,14 @@ import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.httpd.HTTPDaemon;
 import me.totalfreedom.totalfreedommod.httpd.NanoHTTPD;
 import me.totalfreedom.totalfreedommod.httpd.NanoHTTPD.Response;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 
 /*
  * This class was adapted from https://github.com/NanoHttpd/nanohttpd/blob/master/webserver/src/main/java/fi/iki/elonen/SimpleWebServer.java
  */
 public class Module_file extends HTTPDModule
 {
-
+    private final File rootDir = new File(ConfigEntry.HTTPD_PUBLIC_FOLDER.getString());
     public static final Map<String, String> MIME_TYPES = new HashMap<>();
 
     static
@@ -56,8 +56,6 @@ public class Module_file extends HTTPDModule
         MIME_TYPES.put("exe", "application/octet-stream");
         MIME_TYPES.put("class", "application/octet-stream");
     }
-
-    private final File rootDir = new File(ConfigEntry.HTTPD_PUBLIC_FOLDER.getString());
 
     public Module_file(TotalFreedomMod plugin, NanoHTTPD.HTTPSession session)
     {

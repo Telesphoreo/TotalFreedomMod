@@ -19,9 +19,9 @@ import static me.totalfreedom.totalfreedommod.util.FUtil.playerMsg;
 
 public class WorldManager extends FreedomService
 {
-
     public Flatlands flatlands;
     public AdminWorld adminworld;
+    public HubWorld hubworld;
     public MasterBuilderWorld masterBuilderWorld;
 
     public WorldManager(TotalFreedomMod plugin)
@@ -31,6 +31,7 @@ public class WorldManager extends FreedomService
         this.flatlands = new Flatlands();
         this.adminworld = new AdminWorld();
         this.masterBuilderWorld = new MasterBuilderWorld();
+        this.hubworld = new HubWorld();
     }
 
     @Override
@@ -39,6 +40,7 @@ public class WorldManager extends FreedomService
         flatlands.getWorld();
         adminworld.getWorld();
         masterBuilderWorld.getWorld();
+        hubworld.getWorld();
 
         // Disable weather
         if (ConfigEntry.DISABLE_WEATHER.getBoolean())
@@ -59,6 +61,7 @@ public class WorldManager extends FreedomService
         flatlands.getWorld().save();
         adminworld.getWorld().save();
         masterBuilderWorld.getWorld().save();
+        hubworld.getWorld().save();
     }
 
     @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
@@ -109,6 +112,10 @@ public class WorldManager extends FreedomService
             {
                 return;
             }
+            else if (event.getWorld().equals(hubworld.getWorld()) && hubworld.getWeatherMode() != WorldWeather.OFF)
+            {
+                return;
+            }
         }
         catch (Exception ex)
         {
@@ -141,6 +148,10 @@ public class WorldManager extends FreedomService
         if (ConfigEntry.DISABLE_WEATHER.getBoolean() && event.toWeatherState())
         {
             event.setCancelled(true);
+        }
+        else if (event.getWorld().equals(hubworld.getWorld()) && hubworld.getWeatherMode() != WorldWeather.OFF)
+        {
+            return;
         }
     }
 
