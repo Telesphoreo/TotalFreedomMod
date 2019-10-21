@@ -13,12 +13,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
-@CommandParameters(description = "Go to the MasterBuilderWorld.",
+@CommandParameters(description = "Go to the hub world.",
         usage = "/<command> [time <morning | noon | evening | night> | weather <off | rain | storm>]",
         aliases = "hw,hworld")
 public class Command_hubworld extends FreedomCommand
 {
-
     private enum CommandMode
     {
         TELEPORT, TIME, WEATHER
