@@ -1,6 +1,8 @@
 package me.totalfreedom.totalfreedommod;
 
 import java.util.regex.Pattern;
+
+import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import lombok.Setter;
 import me.totalfreedom.totalfreedommod.command.Command_vanish;
@@ -11,6 +13,7 @@ import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.util.FSync;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -189,6 +192,24 @@ public class LoginProcess extends FreedomService
         final Player player = event.getPlayer();
         final FPlayer fPlayer = plugin.pl.getPlayer(player);
 
+        if (ConfigEntry.ALLOW_TPR_ON_JOIN.getBoolean())
+        {
+            int x = FUtil.random(-10000, 10000);
+            int z = FUtil.random(-10000, 10000);
+            int y = player.getWorld().getHighestBlockYAt(x, z);
+            Location location = new Location(player.getLocation().getWorld(), x, y, z);
+            PaperLib.teleportAsync(player, location);
+            player.sendMessage(ChatColor.GOLD + "You have been teleported to a random location automatically.");
+            return;
+        }
+
+        if (ConfigEntry.ALLOW_CLEAR_ON_JOIN.getBoolean())
+        {
+            player.getInventory().clear();
+            player.sendMessage(ChatColor.AQUA + "Your inventory has been cleared automatically.");
+            return;
+        }
+
         if (!ConfigEntry.SERVER_TABLIST_HEADER.getString().isEmpty())
         {
             player.setPlayerListHeader(FUtil.colorize(ConfigEntry.SERVER_TABLIST_HEADER.getString()).replace("\\n", "\n"));
@@ -247,6 +268,6 @@ public class LoginProcess extends FreedomService
 
     public boolean setLockdownEnabled(boolean toggle)
     {
-        return this.lockdownEnabled = toggle;
+        return lockdownEnabled = toggle;
     }
 }

@@ -39,6 +39,8 @@ public class Command_toggle extends FreedomCommand
             msg("- unsafeenchs");
             msg("- bells");
             msg("- armorstands");
+            msg("- clearonjoin");
+            msg("- tpronjoin");
             return false;
         }
 
@@ -49,7 +51,7 @@ public class Command_toggle extends FreedomCommand
         }
         else if (args[0].equalsIgnoreCase("frostwalk"))
         {
-            toggle("Frost walker enchantment is ", ConfigEntry.ALLOW_FROSTWALKER);
+            toggle("Frost walker enchantment is", ConfigEntry.ALLOW_FROSTWALKER);
             return true;
         }
         else if (args[0].equalsIgnoreCase("fireplace"))
@@ -171,6 +173,16 @@ public class Command_toggle extends FreedomCommand
             toggle("The placement of armor stands is", ConfigEntry.ALLOW_ARMOR_STANDS);
             return true;
         }
+        else if (args[0].equalsIgnoreCase("clearonjoin"))
+        {
+            toggle("The clearing of inventories on join is", ConfigEntry.ALLOW_CLEAR_ON_JOIN);
+            return true;
+        }
+        else if (args[0].equalsIgnoreCase("tpronjoin"))
+        {
+            toggle("The random teleporting of players on join is", ConfigEntry.ALLOW_TPR_ON_JOIN);
+            return true;
+        }
         else
         {
             return false;
@@ -189,7 +201,8 @@ public class Command_toggle extends FreedomCommand
         {
             return Arrays.asList(
                     "waterplace", "fireplace", "lavaplace", "fluidspread", "lavadmg", "firespread", "frostwalk",
-                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs", "bells", "armorstands");
+                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs", "bells", "armorstands",
+                    "clearonjoin", "tpronjoin");
         }
 
         return Collections.emptyList();

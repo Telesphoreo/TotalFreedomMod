@@ -1,5 +1,6 @@
 package me.totalfreedom.totalfreedommod.world;
 
+import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FLog;
@@ -39,7 +40,7 @@ public abstract class CustomWorld extends PluginComponent<TotalFreedomMod>
     {
         try
         {
-            player.teleport(getWorld().getSpawnLocation());
+            PaperLib.teleportAsync(player, getWorld().getSpawnLocation());
         }
         catch (Exception ex)
         {

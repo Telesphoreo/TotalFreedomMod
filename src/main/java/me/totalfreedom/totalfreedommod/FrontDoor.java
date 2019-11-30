@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+
+import io.papermc.lib.PaperLib;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.banning.Ban;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
@@ -437,7 +439,7 @@ public class FrontDoor extends FreedomService
                         int z = FUtil.random(-10000, 10000);
                         int y = player.getWorld().getHighestBlockYAt(x, z);
                         Location location = new Location(player.getLocation().getWorld(), x, y, z);
-                        player.teleport(location);
+                        PaperLib.teleportAsync(player, location);
 
                     default:
                     {

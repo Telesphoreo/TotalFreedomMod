@@ -11,8 +11,8 @@ import me.totalfreedom.totalfreedommod.punishments.PunishmentType;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.util.Ips;
-import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -22,6 +22,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Temporarily ban someone.", usage = "/<command> [playername] [duration] [reason]")
 public class Command_tempban extends FreedomCommand
 {
+
     private static final SimpleDateFormat date_format = new SimpleDateFormat("yyyy-MM-dd \'at\' HH:mm:ss z");
 
     @Override
@@ -36,17 +37,25 @@ public class Command_tempban extends FreedomCommand
         final List<String> ips = new ArrayList<>();
 
         final Player player = getPlayer(args[0]);
-        final PlayerData entry = plugin.pl.getData(args[0]);
-
-
         if (player == null)
         {
-            msg(FreedomCommand.PLAYER_NOT_FOUND);
-            return true;
-        }
+            final PlayerData entry = plugin.pl.getData(args[0]);
 
-        username = entry.getUsername();
-        ips.addAll(entry.getIps());
+            if (entry == null)
+            {
+                msg("Can't find that user. If target is not logged in, make sure that you spelled the name exactly.");
+                return true;
+            }
+
+            username = entry.getUsername();
+            ips.addAll(entry.getIps());
+        }
+        else
+        {
+            final PlayerData entry = plugin.pl.getData(player);
+            username = player.getName();
+            ips.addAll(entry.getIps());
+        }
         final StringBuilder message = new StringBuilder("Temporarily banned " + player.getName());
 
         Date expires = FUtil.parseDateOffset("30m");

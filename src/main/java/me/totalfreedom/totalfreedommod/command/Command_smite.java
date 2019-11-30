@@ -87,6 +87,8 @@ public class Command_smite extends FreedomCommand
 
         smite(sender, player, reason);
 
+        player.sendTitle(ChatColor.RED + "You've been smitten.", ChatColor.YELLOW + "Reason: " + reason, 20, 100, 60);
+
         plugin.pul.logPunishment(new Punishment(player.getName(), Ips.getIp(player), sender.getName(), PunishmentType.SMITE, reason));
 
         return true;

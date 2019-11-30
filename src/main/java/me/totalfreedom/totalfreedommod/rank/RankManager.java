@@ -62,6 +62,11 @@ public class RankManager extends FreedomService
             return Title.DEVELOPER;
         }
 
+        if (ConfigEntry.SERVER_ASSISTANT_EXECUTIVES.getList().contains(player.getName()) && plugin.al.isAdmin(player))
+        {
+            return Title.ASSISTANT_EXECUTIVE;
+        }
+
         if (ConfigEntry.SERVER_EXECUTIVES.getList().contains(player.getName()) && plugin.al.isAdmin(player))
         {
             return Title.EXECUTIVE;

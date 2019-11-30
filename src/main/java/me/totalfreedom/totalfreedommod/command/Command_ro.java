@@ -5,12 +5,14 @@ import java.util.List;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.util.Groups;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -19,33 +21,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Remove all blocks of a certain type in the radius of certain players.", usage = "/<command> <block> [radius (default=50)] [player]")
 public class Command_ro extends FreedomCommand
 {
-    public static int replaceBlocks(Location center, Material fromMaterial, Material toMaterial, int radius)
-    {
-        int affected = 0;
-
-        Block centerBlock = center.getBlock();
-        for (int xOffset = -radius; xOffset <= radius; xOffset++)
-        {
-            for (int yOffset = -radius; yOffset <= radius; yOffset++)
-            {
-                for (int zOffset = -radius; zOffset <= radius; zOffset++)
-                {
-                    Block block = centerBlock.getRelative(xOffset, yOffset, zOffset);
-
-                    if (block.getType().equals(fromMaterial))
-                    {
-                        if (block.getLocation().distanceSquared(center) < (radius * radius))
-                        {
-                            block.setType(toMaterial);
-                            affected++;
-                        }
-                    }
-                }
-            }
-        }
-        return affected;
-    }
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -149,7 +124,45 @@ public class Command_ro extends FreedomCommand
                 }
             }
         }
+
         FUtil.adminAction(sender.getName(), "Remove complete! " + affected + " blocks removed.", false);
+
         return true;
+    }
+
+    public static int replaceBlocks(Location center, Material fromMaterial, Material toMaterial, int radius)
+    {
+        int affected = 0;
+
+        Block centerBlock = center.getBlock();
+        for (int xOffset = -radius; xOffset <= radius; xOffset++)
+        {
+            for (int yOffset = -radius; yOffset <= radius; yOffset++)
+            {
+                for (int zOffset = -radius; zOffset <= radius; zOffset++)
+                {
+                    Block block = centerBlock.getRelative(xOffset, yOffset, zOffset);
+                    BlockData data = block.getBlockData();
+                    if (block.getType().equals(fromMaterial) || data instanceof Waterlogged)
+                    {
+                        if (block.getLocation().distanceSquared(center) < (radius * radius))
+                        {
+                            if (fromMaterial.equals(Material.WATER) && data instanceof Waterlogged)
+                            {
+                                Waterlogged waterloggedData = (Waterlogged) data;
+                                waterloggedData.setWaterlogged(false);
+                                block.setBlockData(waterloggedData);
+                                affected++;
+                                continue;
+                            }
+                            block.setType(toMaterial);
+                            affected++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return affected;
     }
 }

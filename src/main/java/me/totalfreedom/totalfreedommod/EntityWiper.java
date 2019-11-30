@@ -69,6 +69,7 @@ public class EntityWiper extends FreedomService
         wipables.add(ArmorStand.class);
         wipables.add(Fireball.class);
         wipables.add(DragonFireball.class);
+        wipables.add(Minecart.class);
     }
 
     @Override

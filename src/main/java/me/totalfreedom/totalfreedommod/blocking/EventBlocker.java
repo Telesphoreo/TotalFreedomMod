@@ -28,6 +28,9 @@ import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class EventBlocker extends FreedomService
 {
 
@@ -215,8 +218,8 @@ public class EventBlocker extends FreedomService
     @EventHandler(priority = EventPriority.NORMAL)
     public void onBlockDispense(BlockDispenseEvent event)
     {
-        Material material = event.getItem().getType();
-        if (Groups.SPAWN_EGGS.contains(material))
+        List<Material> banned = Arrays.asList(Material.TNT_MINECART, Material.MINECART);
+        if (Groups.SPAWN_EGGS.contains(event.getItem().getType()) || banned.contains(event.getItem().getType()))
         {
             event.setCancelled(true);
         }

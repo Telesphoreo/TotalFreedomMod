@@ -2,11 +2,13 @@ package me.totalfreedom.totalfreedommod.discord;
 
 import com.earth2me.essentials.User;
 import com.google.common.base.Strings;
+
 import java.io.File;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import javax.security.auth.login.LoginException;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
@@ -25,13 +27,20 @@ import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class Discord extends FreedomService
 {
-    public static final String URL = "https://updater.telesphoreo.me/JDA/4.0.0_39/Discord.jar";
+    public static final String URL = "https://updater.telesphoreo.me/JDA/4.0.0_39/JDA.jar";
     public static HashMap<String, Admin> LINK_CODES = new HashMap<>();
     public static HashMap<String, VPlayer> PLAYER_LINK_CODES = new HashMap<String, VPlayer>();
     public static ArrayList VERIFY_CODES = new ArrayList();
@@ -41,6 +50,131 @@ public class Discord extends FreedomService
     public Discord(TotalFreedomMod plugin)
     {
         super(plugin);
+    }
+
+    public void startBot()
+    {
+        enabled = !Strings.isNullOrEmpty(ConfigEntry.DISCORD_TOKEN.getString());
+        if (!enabled)
+        {
+            return;
+        }
+        if (bot != null)
+        {
+            for (Object object : bot.getRegisteredListeners())
+            {
+                bot.removeEventListener(object);
+            }
+        }
+        try
+        {
+
+            bot = new JDABuilder(AccountType.BOT)
+                    .setToken(ConfigEntry.DISCORD_TOKEN.getString())
+                    .addEventListeners(new PrivateMessageListener())
+                    .addEventListeners(new DiscordToMinecraftListener())
+                    .setAutoReconnect(true)
+                    .addEventListeners(new ListenerAdapter()
+                    {
+                        @Override
+                        public void onReady(ReadyEvent event)
+                        {
+                            new StartEvent(event.getJDA()).start();
+                        }
+                    }).build();
+            FLog.info("Discord verification bot has successfully enabled!");
+        }
+        catch (LoginException e)
+        {
+            FLog.warning("An invalid token for the Discord verification bot, the bot will not enable.");
+        }
+        catch (IllegalArgumentException e)
+        {
+            FLog.warning("Discord verification bot failed to start.");
+        }
+        catch (NoClassDefFoundError e)
+        {
+            // Automatically download JDA
+            new BukkitRunnable()
+            {
+                @Override
+                public void run()
+                {
+                    FLog.warning("The JDA plugin was not found.");
+                    FLog.info("TotalFreedomMod will automatically try to download the plugin and restart.");
+                    try
+                    {
+                        FLog.info("Downloading: " + URL);
+
+                        File file = new File("./plugins/" + URL.substring(URL.lastIndexOf("/") + 1));
+                        if (file.exists())
+                        {
+                            file.delete();
+                        }
+                        if (!file.getParentFile().exists())
+                        {
+                            file.getParentFile().mkdirs();
+                        }
+
+                        FUtil.downloadFile(URL, file, true);
+                        server.shutdown();
+                    }
+                    catch (Exception ex)
+                    {
+                        FLog.severe(ex);
+                    }
+                }
+            }.runTaskAsynchronously(plugin);
+        }
+    }
+
+    // Do no ask why this is here. I spent two hours trying to make a simple thing work
+    public class StartEvent {
+        private final JDA api;
+
+        public StartEvent(JDA api) {
+            this.api = api;
+        }
+
+        public void start()
+        {
+            messageChatChannel("**Server has started**");
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerJoin(PlayerJoinEvent event)
+    {
+        messageChatChannel("**" + event.getPlayer().getName() + " joined the server" + "**");
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerLeave(PlayerQuitEvent event)
+    {
+        messageChatChannel("**" + event.getPlayer().getName() + " left the server" + "**");
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR)
+    public void onPlayerDeath(PlayerDeathEvent event)
+    {
+        messageChatChannel("**" + event.getDeathMessage() + "**");
+    }
+
+    @Override
+    protected void onStart()
+    {
+        startBot();
+    }
+
+    public void messageChatChannel(String message)
+    {
+        String chat_channel_id = ConfigEntry.DISCORD_CHAT_CHANNEL_ID.getString();
+        message = message.replace("@everyone", "everyone");
+        message = message.replace("@here", "here");
+        if (enabled && !chat_channel_id.isEmpty())
+        {
+            bot.getTextChannelById(chat_channel_id).sendMessage(message).queue();
+        }
     }
 
     public static String getCodeForAdmin(Admin admin)
@@ -67,6 +201,59 @@ public class Discord extends FreedomService
         return null;
     }
 
+    @Override
+    protected void onStop()
+    {
+        if (bot != null)
+        {
+            messageChatChannel("**Server has stopped**");
+            bot.shutdown();
+        }
+        FLog.info("Discord verification bot has successfully shutdown.");
+    }
+
+    public boolean sendReport(Player reporter, Player reported, String reason)
+    {
+        if (ConfigEntry.DISCORD_REPORT_CHANNEL_ID.getString().isEmpty())
+        {
+            return false;
+        }
+        if (ConfigEntry.DISCORD_SERVER_ID.getString().isEmpty())
+        {
+            FLog.severe("No discord server ID was specified in the config, but there is a report channel id.");
+            return false;
+        }
+        Guild server = bot.getGuildById(ConfigEntry.DISCORD_SERVER_ID.getString());
+        if (server == null)
+        {
+            FLog.severe("The discord server ID specified is invalid, or the bot is not on the server.");
+            return false;
+        }
+        TextChannel channel = server.getTextChannelById(ConfigEntry.DISCORD_REPORT_CHANNEL_ID.getString());
+        if (channel == null)
+        {
+            FLog.severe("The report channel ID specified in the config is invalid");
+            return false;
+        }
+        EmbedBuilder embedBuilder = new EmbedBuilder();
+        embedBuilder.setTitle("Report for " + reported.getName());
+        embedBuilder.setDescription(reason);
+        embedBuilder.setFooter("Reported by " + reporter.getName(), "https://minotar.net/helm/" + reporter.getName() + ".png");
+        embedBuilder.setTimestamp(Instant.from(ZonedDateTime.now()));
+        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " +  reported.getLocation().getBlockZ();
+        embedBuilder.addField("Location", location, true);
+        embedBuilder.addField("Game Mode", WordUtils.capitalizeFully(reported.getGameMode().name()), true);
+        User user = plugin.esb.getEssentialsUser(reported.getName());
+        embedBuilder.addField("God Mode", WordUtils.capitalizeFully(String.valueOf(user.isGodModeEnabled())), true);
+        if (user.getNickname() != null)
+        {
+            embedBuilder.addField("Nickname", user.getNickname(), true);
+        }
+        MessageEmbed embed = embedBuilder.build();
+        channel.sendMessage(embed).complete();
+        return true;
+    }
+
     public static boolean syncRoles(Admin admin)
     {
         if (admin.getDiscordID() == null)
@@ -77,7 +264,7 @@ public class Discord extends FreedomService
         Guild server = bot.getGuildById(ConfigEntry.DISCORD_SERVER_ID.getString());
         if (server == null)
         {
-            FLog.severe("The Discord server ID specified is invalid, or the bot is not on the server.");
+            FLog.severe("The discord server ID specified is invalid, or the bot is not on the server.");
             return false;
         }
 
@@ -131,11 +318,11 @@ public class Discord extends FreedomService
             }
             if (member.getRoles().contains(telnetAdminRole))
             {
-                server.addRoleToMember(member, telnetAdminRole).complete();
+                server.removeRoleFromMember(member, telnetAdminRole).complete();
             }
             if (member.getRoles().contains(seniorAdminRole))
             {
-                server.addRoleToMember(member, seniorAdminRole).complete();
+                server.removeRoleFromMember(member, seniorAdminRole).complete();
             }
             return true;
         }
@@ -173,126 +360,5 @@ public class Discord extends FreedomService
         }
 
         return false;
-    }
-
-    public void startBot()
-    {
-        enabled = !Strings.isNullOrEmpty(ConfigEntry.DISCORD_TOKEN.getString());
-        if (!enabled)
-        {
-            return;
-        }
-        if (bot != null)
-        {
-            for (Object object : bot.getRegisteredListeners())
-            {
-                bot.removeEventListener(object);
-            }
-        }
-        try
-        {
-            bot = new JDABuilder(AccountType.BOT).setToken(ConfigEntry.DISCORD_TOKEN.getString()).addEventListeners(new MessageListener()).setAutoReconnect(true).build().awaitReady();
-            FLog.info("Discord verification bot has successfully enabled!");
-        }
-        catch (LoginException e)
-        {
-            FLog.warning("Invalid token for the Discord verification bot! The bot will not enable.");
-        }
-        catch (IllegalArgumentException | InterruptedException e)
-        {
-            FLog.warning("Discord verification bot failed to start.");
-        }
-        catch (NoClassDefFoundError e)
-        {
-            // Automatically download JDA
-            new BukkitRunnable()
-            {
-                @Override
-                public void run()
-                {
-                    FLog.info("The Discord plugin was not found, automatically downloading.");
-                    FLog.info("The server will automatically try to restart");
-                    try
-                    {
-                        FLog.info("Downloading: " + URL);
-
-                        File file = new File("./plugins/" + URL.substring(URL.lastIndexOf("/") + 1));
-                        if (file.exists())
-                        {
-                            file.delete();
-                        }
-                        if (!file.getParentFile().exists())
-                        {
-                            file.getParentFile().mkdirs();
-                        }
-
-                        FUtil.downloadFile(URL, file, true);
-                        server.shutdown();
-                    }
-                    catch (Exception ex)
-                    {
-                        FLog.severe(ex);
-                    }
-                }
-            }.runTaskAsynchronously(plugin);
-        }
-    }
-
-    @Override
-    protected void onStart()
-    {
-        startBot();
-    }
-
-    @Override
-    protected void onStop()
-    {
-        if (bot != null)
-        {
-            bot.shutdown();
-        }
-        FLog.info("Discord verification bot has successfully shutdown.");
-    }
-
-    public boolean sendReport(Player reporter, Player reported, String reason)
-    {
-        if (ConfigEntry.DISCORD_REPORT_CHANNEL_ID.getString().isEmpty())
-        {
-            return false;
-        }
-        if (ConfigEntry.DISCORD_SERVER_ID.getString().isEmpty())
-        {
-            FLog.severe("No Discord server ID was specified in the config, but there is a report channel id.");
-            return false;
-        }
-        Guild server = bot.getGuildById(ConfigEntry.DISCORD_SERVER_ID.getString());
-        if (server == null)
-        {
-            FLog.severe("The Discord server ID specified is invalid, or the bot is not on the server.");
-            return false;
-        }
-        TextChannel channel = server.getTextChannelById(ConfigEntry.DISCORD_REPORT_CHANNEL_ID.getString());
-        if (channel == null)
-        {
-            FLog.severe("The report channel ID specified in the config is invalid");
-            return false;
-        }
-        EmbedBuilder embedBuilder = new EmbedBuilder();
-        embedBuilder.setTitle("Report for " + reported.getName());
-        embedBuilder.setDescription(reason);
-        embedBuilder.setFooter("Reported by " + reporter.getName(), "https://minotar.net/helm/" + reporter.getName() + ".png");
-        embedBuilder.setTimestamp(Instant.from(ZonedDateTime.now()));
-        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " + reported.getLocation().getBlockZ();
-        embedBuilder.addField("Location", location, true);
-        embedBuilder.addField("Game Mode", WordUtils.capitalizeFully(reported.getGameMode().name()), true);
-        User user = plugin.esb.getEssentialsUser(reported.getName());
-        embedBuilder.addField("God Mode", WordUtils.capitalizeFully(String.valueOf(user.isGodModeEnabled())), true);
-        if (user.getNickname() != null)
-        {
-            embedBuilder.addField("Nickname", user.getNickname(), true);
-        }
-        MessageEmbed embed = embedBuilder.build();
-        channel.sendMessage(embed).complete();
-        return true;
     }
 }

@@ -5,7 +5,7 @@
 
     <groupId>me.totalfreedom</groupId>
     <artifactId>TotalFreedomMod</artifactId>
-    <version>2019.6.1</version>
+    <version>2019.7.1</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -89,6 +89,11 @@
             <id>playpro</id>
             <url>https://maven.playpro.com/</url>
         </repository>
+
+        <repository>
+            <id>papermc</id>
+            <url>https://papermc.io/repo/repository/maven-public/</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -104,6 +109,13 @@
             <artifactId>spigot</artifactId>
             <version>1.14.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.papermc</groupId>
+            <artifactId>paperlib</artifactId>
+            <version>1.0.2</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -144,7 +156,7 @@
         <dependency>
             <groupId>LibsDisguises</groupId>
             <artifactId>LibsDisguises</artifactId>
-            <version>9.8.2-TF</version>
+            <version>9.8.4-TF</version>
             <scope>provided</scope>
         </dependency>
 
@@ -179,7 +191,7 @@
         <dependency>
             <groupId>com.sk89q.worldguard</groupId>
             <artifactId>worldguard-bukkit</artifactId>
-            <version>7.0.1-SNAPSHOT</version>
+            <version>7.0.2-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -225,7 +237,7 @@
             <plugin>
                 <groupId>pl.project13.maven</groupId>
                 <artifactId>git-commit-id-plugin</artifactId>
-                <version>3.0.1</version>
+                <version>4.0.0</version>
                 <executions>
                     <execution>
                         <id>get-the-git-infos</id>

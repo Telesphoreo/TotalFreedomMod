@@ -5,6 +5,8 @@ import ca.momothereal.mojangson.value.MojangsonCompound;
 import ca.momothereal.mojangson.value.MojangsonValue;
 import java.util.List;
 import java.util.Objects;
+
+import io.papermc.lib.PaperLib;
 import net.minecraft.server.v1_14_R1.NBTTagCompound;
 import net.minecraft.server.v1_14_R1.NBTTagList;
 import org.bukkit.ChatColor;
@@ -58,7 +60,7 @@ public class MovementValidator extends FreedomService
         if (Math.abs(event.getTo().getX()) >= MAX_XYZ_COORD || Math.abs(event.getTo().getZ()) >= MAX_XYZ_COORD || Math.abs(event.getTo().getY()) >= MAX_XYZ_COORD)
         {
             event.setCancelled(true);
-            player.teleport(player.getWorld().getSpawnLocation());
+            PaperLib.teleportAsync(player, player.getWorld().getSpawnLocation());
         }
 
         if (exploitItem(event.getPlayer().getInventory().getHelmet()))
@@ -107,7 +109,7 @@ public class MovementValidator extends FreedomService
         // Validate position
         if (Math.abs(player.getLocation().getX()) >= MAX_XYZ_COORD || Math.abs(player.getLocation().getZ()) >= MAX_XYZ_COORD || Math.abs(player.getLocation().getY()) >= MAX_XYZ_COORD)
         {
-            player.teleport(player.getWorld().getSpawnLocation()); // Illegal position, teleport to spawn
+            PaperLib.teleportAsync(player, player.getWorld().getSpawnLocation()); // Illegal position, teleport to spawn
         }
     }
 

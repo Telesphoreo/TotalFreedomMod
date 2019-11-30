@@ -12,6 +12,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import static org.bukkit.Material.MINECART;
+
 public class InteractBlocker extends FreedomService
 {
 
@@ -128,6 +130,18 @@ public class InteractBlocker extends FreedomService
 
                 player.getInventory().clear(player.getInventory().getHeldItemSlot());
                 player.sendMessage(ChatColor.GRAY + "Armor stands are currently disabled.");
+                event.setCancelled(true);
+                break;
+            }
+            case MINECART:
+            {
+                if (ConfigEntry.ALLOW_MINECARTS.getBoolean())
+                {
+                    break;
+                }
+
+                player.getInventory().clear(player.getInventory().getHeldItemSlot());
+                player.sendMessage(ChatColor.GRAY + "Minecarts are currently disabled.");
                 event.setCancelled(true);
                 break;
             }

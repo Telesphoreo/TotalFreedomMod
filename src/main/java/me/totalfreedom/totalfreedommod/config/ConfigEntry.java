@@ -23,6 +23,9 @@ public enum ConfigEntry
     ALLOW_UNSAFE_ENCHANTMENTS(Boolean.class, "allow.unsafe_enchantments"),
     ALLOW_BELLS(Boolean.class, "allow.bells"),
     ALLOW_ARMOR_STANDS(Boolean.class, "allow.armorstands"),
+    ALLOW_MINECARTS (Boolean.class, "allow.minecarts"),
+    ALLOW_CLEAR_ON_JOIN(Boolean.class, "allow.clearonjoin"),
+    ALLOW_TPR_ON_JOIN(Boolean.class, "allow.tpronjoin"),
     //
     BLOCKED_WILDCARD_COMMANDS(List.class, "blocked.wildcard_commands"),
     BLOCKED_MUTED_COMMANDS(List.class, "blocked.muted_commands"),
@@ -44,6 +47,7 @@ public enum ConfigEntry
     SERVER_ADDRESS(String.class, "server.address"),
     SERVER_MOTD(String.class, "server.motd"),
     SERVER_OWNERS(List.class, "server.owners"),
+    SERVER_ASSISTANT_EXECUTIVES(List.class, "server.assistant_executives"),
     SERVER_EXECUTIVES(List.class, "server.executives"),
     SERVER_MASTER_BUILDER_MANAGEMENT(List.class, "server.master_builder_management"),
     SERVER_BAN_URL(String.class, "server.ban_url"),
@@ -53,11 +57,20 @@ public enum ConfigEntry
     //
     DISCORD_TOKEN(String.class, "discord.token"),
     DISCORD_REPORT_CHANNEL_ID(String.class, "discord.report_channel_id"),
+    DISCORD_CHAT_CHANNEL_ID(String.class, "discord.chat_channel_id"),
     DISCORD_ROLE_SYNC(Boolean.class, "discord.role_sync"),
     DISCORD_SERVER_ID(String.class, "discord.server_id"),
+    DISCORD_MASTER_BUILDER_ROLE_ID(String.class, "discord.master_builder_role_id"),
     DISCORD_SUPER_ROLE_ID(String.class, "discord.super_role_id"),
     DISCORD_TELNET_ROLE_ID(String.class, "discord.telnet_role_id"),
     DISCORD_SENIOR_ROLE_ID(String.class, "discord.senior_role_id"),
+    DISCORD_DEVELOPER_ROLE_ID(String.class, "discord.developer_role_id"),
+    DISCORD_ASSISTANT_EXECUTIVE_ROLE_ID(String.class, "discord.assistant_executive_role_id"),
+    DISCORD_EXECUTIVE_ROLE_ID(String.class, "discord.executive_role_id"),
+    DISCORD_SERVER_OWNER_ROLE_ID(String.class, "discord.server_owner_role_id"),
+    //
+    SHOP_ENABLED(Boolean.class, "shop.enabled"),
+    SHOP_PREFIX(String.class, "shop.prefix"),
     //
     ADMINLIST_CLEAN_THESHOLD_HOURS(Integer.class, "adminlist.clean_threshold_hours"),
     ADMINLIST_CONSOLE_IS_SENIOR(Boolean.class, "adminlist.console_is_senior"),

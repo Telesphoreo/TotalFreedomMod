@@ -8,6 +8,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH)
 @CommandParameters(description = "Freeze players (toggles on and off).", usage = "/<command> [target | purge]", aliases = "fr")
 public class Command_freeze extends FreedomCommand
@@ -32,6 +34,7 @@ public class Command_freeze extends FreedomCommand
             {
                 if (!isAdmin(player))
                 {
+                    player.sendTitle(ChatColor.RED + "You've been globally frozen.", ChatColor.YELLOW + "Please be patient and you will be unfrozen shortly." + Arrays.toString(args), 20, 100, 60);
                     msg(player, "The server has been globally frozen due to an OP breaking the rules. Please wait and you will be unfrozen soon.", ChatColor.RED);
                 }
             }

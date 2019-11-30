@@ -5,6 +5,7 @@ import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.Groups;
 import net.minecraft.server.v1_14_R1.NBTTagCompound;
 import org.bukkit.ChatColor;
+import org.bukkit.Tag;
 import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +36,7 @@ public class SignBlocker extends FreedomService
     public void onPlayerPlaceBlock(BlockPlaceEvent event)
     {
         final Player player = event.getPlayer();
-        if (Groups.SIGNS.contains(event.getBlock().getType()))
+        if (Tag.SIGNS.getValues().contains(event.getBlock().getType()))
         {
             ItemStack sign = event.getItemInHand();
             net.minecraft.server.v1_14_R1.ItemStack nmsSign = CraftItemStack.asNMSCopy(sign);
@@ -48,6 +49,11 @@ public class SignBlocker extends FreedomService
             if (line1.contains("run_command") || line2.contains("run_command") || line3.contains("run_command") || line4.contains("run_command"))
             {
                 player.sendMessage(ChatColor.GRAY + "You are not allowed to place command signs.");
+                event.setCancelled(true);
+            }
+            if (line1.contains("translate") || line2.contains("translate") || line3.contains("translate") || line4.contains("translate"))
+            {
+                player.sendMessage(ChatColor.GRAY + "You are not allowed to place broken strings that Mojang never fixed.");
                 event.setCancelled(true);
             }
         }
