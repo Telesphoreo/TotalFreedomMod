@@ -1,8 +1,7 @@
 package me.totalfreedom.totalfreedommod;
 
-import java.util.regex.Pattern;
-
 import io.papermc.lib.PaperLib;
+import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
 import me.totalfreedom.totalfreedommod.command.Command_vanish;

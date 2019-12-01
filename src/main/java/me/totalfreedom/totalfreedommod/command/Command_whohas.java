@@ -14,11 +14,14 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
 @CommandParameters(description = "See who has an item and optionally clear said item.", usage = "/<command> <item> [clear]", aliases = "wh")
-public class Command_whohas extends FreedomCommand {
+public class Command_whohas extends FreedomCommand
+{
 
     @Override
-    public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole) {
-        if (args.length < 1) {
+    public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
+    {
+        if (args.length < 1)
+        {
             return false;
         }
 
@@ -27,48 +30,61 @@ public class Command_whohas extends FreedomCommand {
         final String materialName = args[0];
         Material material = Material.matchMaterial(materialName);
 
-        if (material == null) {
+        if (material == null)
+        {
             msg("Invalid item: " + materialName, ChatColor.RED);
             return true;
         }
 
         final List<String> players = new ArrayList<>();
 
-        for (final Player player : server.getOnlinePlayers()) {
-            if (player.getInventory().contains(material)) {
+        for (final Player player : server.getOnlinePlayers())
+        {
+            if (player.getInventory().contains(material))
+            {
                 players.add(player.getName());
-                if (plugin.al.isAdmin(sender)) {
-                    if (doClear && !plugin.al.isAdmin(player)) {
+                if (plugin.al.isAdmin(sender))
+                {
+                    if (doClear && !plugin.al.isAdmin(player))
+                    {
                         player.getInventory().remove(material);
                     }
                 }
             }
         }
 
-        if (players.isEmpty()) {
+        if (players.isEmpty())
+        {
             msg("There are no players with that item");
-        } else {
+        }
+        else
+        {
             msg("Players with item " + material.name() + ": " + StringUtils.join(players, ", "));
         }
 
         return true;
     }
 
-    public static List<String> getAllMaterials() {
+    public static List<String> getAllMaterials()
+    {
         List<String> names = new ArrayList<>();
-        for (Material material : Material.values()) {
+        for (Material material : Material.values())
+        {
             names.add(material.name());
         }
         return names;
     }
 
     @Override
-    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length == 1) {
+    public List<String> getTabCompleteOptions(CommandSender sender, Command command, String alias, String[] args)
+    {
+        if (args.length == 1)
+        {
             return getAllMaterials();
         }
 
-        if (args.length == 2 && plugin.al.isAdmin(sender)) {
+        if (args.length == 2 && plugin.al.isAdmin(sender))
+        {
             return Arrays.asList("clear");
         }
 

@@ -1,5 +1,7 @@
 package me.totalfreedom.totalfreedommod.blocking;
 
+import java.util.Arrays;
+import java.util.List;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
@@ -27,9 +29,6 @@ import org.bukkit.event.entity.ExplosionPrimeEvent;
 import org.bukkit.event.entity.FireworkExplodeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class EventBlocker extends FreedomService
 {

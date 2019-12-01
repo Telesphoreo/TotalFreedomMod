@@ -3,10 +3,9 @@ package me.totalfreedom.totalfreedommod;
 import ca.momothereal.mojangson.ex.MojangsonParseException;
 import ca.momothereal.mojangson.value.MojangsonCompound;
 import ca.momothereal.mojangson.value.MojangsonValue;
+import io.papermc.lib.PaperLib;
 import java.util.List;
 import java.util.Objects;
-
-import io.papermc.lib.PaperLib;
 import net.minecraft.server.v1_14_R1.NBTTagCompound;
 import net.minecraft.server.v1_14_R1.NBTTagList;
 import org.bukkit.ChatColor;

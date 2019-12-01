@@ -2,13 +2,11 @@ package me.totalfreedom.totalfreedommod.discord;
 
 import com.earth2me.essentials.User;
 import com.google.common.base.Strings;
-
 import java.io.File;
 import java.time.Instant;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import javax.security.auth.login.LoginException;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
@@ -130,10 +128,12 @@ public class Discord extends FreedomService
     }
 
     // Do no ask why this is here. I spent two hours trying to make a simple thing work
-    public class StartEvent {
+    public class StartEvent
+    {
         private final JDA api;
 
-        public StartEvent(JDA api) {
+        public StartEvent(JDA api)
+        {
             this.api = api;
         }
 
@@ -167,7 +167,8 @@ public class Discord extends FreedomService
         startBot();
     }
 
-    public void messageChatChannel(String message) {
+    public void messageChatChannel(String message)
+    {
         String chat_channel_id = ConfigEntry.DISCORD_CHAT_CHANNEL_ID.getString();
         if (message.contains("@everyone") || message.contains("@here"))
         {
@@ -242,7 +243,7 @@ public class Discord extends FreedomService
         embedBuilder.setDescription(reason);
         embedBuilder.setFooter("Reported by " + reporter.getName(), "https://minotar.net/helm/" + reporter.getName() + ".png");
         embedBuilder.setTimestamp(Instant.from(ZonedDateTime.now()));
-        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " +  reported.getLocation().getBlockZ();
+        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " + reported.getLocation().getBlockZ();
         embedBuilder.addField("Location", location, true);
         embedBuilder.addField("Game Mode", WordUtils.capitalizeFully(reported.getGameMode().name()), true);
         User user = plugin.esb.getEssentialsUser(reported.getName());

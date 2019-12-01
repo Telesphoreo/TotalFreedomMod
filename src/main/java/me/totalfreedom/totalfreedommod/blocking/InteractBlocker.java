@@ -12,8 +12,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
-import static org.bukkit.Material.MINECART;
-
 public class InteractBlocker extends FreedomService
 {
 

@@ -118,7 +118,8 @@ public class BlockBlocker extends FreedomService
                 event.setCancelled(true);
                 break;
             }
-            case SPAWNER: {
+            case SPAWNER:
+            {
                 player.sendMessage(ChatColor.GRAY + "Spawners are disabled.");
                 player.getInventory().setItem(player.getInventory().getHeldItemSlot(), new ItemStack(Material.COOKIE, 1));
                 event.setCancelled(true);
