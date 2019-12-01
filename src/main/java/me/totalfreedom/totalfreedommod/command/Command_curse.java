@@ -45,7 +45,7 @@ public class Command_curse extends FreedomCommand
             return true;
         }
 
-        player.setResourcePack("http://play.totalfreedom.me/cursed.zip");
+        player.setResourcePack("https://telesphoreo.me/cursed.zip");
         msg("Attempting to curse " + player.getName(), ChatColor.GREEN);
         plugin.cul.cursedPlayers.put(player, playerSender);
         return true;
