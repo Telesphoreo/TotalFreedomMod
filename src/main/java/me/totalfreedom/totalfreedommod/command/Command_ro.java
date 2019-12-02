@@ -21,6 +21,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Remove all blocks of a certain type in the radius of certain players.", usage = "/<command> <block> [radius (default=50)] [player]")
 public class Command_ro extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -143,11 +144,11 @@ public class Command_ro extends FreedomCommand
                 {
                     Block block = centerBlock.getRelative(xOffset, yOffset, zOffset);
                     BlockData data = block.getBlockData();
-                    if (block.getType().equals(fromMaterial) || data instanceof Waterlogged)
+                    if (block.getLocation().distanceSquared(center) < (radius * radius))
                     {
-                        if (block.getLocation().distanceSquared(center) < (radius * radius))
+                        if (fromMaterial.equals(Material.WATER) && data instanceof Waterlogged)
                         {
-                            if (fromMaterial.equals(Material.WATER) && data instanceof Waterlogged)
+                            if (data instanceof Waterlogged)
                             {
                                 Waterlogged waterloggedData = (Waterlogged)data;
                                 waterloggedData.setWaterlogged(false);
@@ -155,6 +156,11 @@ public class Command_ro extends FreedomCommand
                                 affected++;
                                 continue;
                             }
+                            block.setType(toMaterial);
+                            affected++;
+                        }
+                        else if (block.getType().equals(fromMaterial))
+                        {
                             block.setType(toMaterial);
                             affected++;
                         }
