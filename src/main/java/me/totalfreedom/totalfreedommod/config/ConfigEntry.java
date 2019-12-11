@@ -26,6 +26,11 @@ public enum ConfigEntry
     ALLOW_MINECARTS(Boolean.class, "allow.minecarts"),
     ALLOW_CLEAR_ON_JOIN(Boolean.class, "allow.clearonjoin"),
     ALLOW_TPR_ON_JOIN(Boolean.class, "allow.tpronjoin"),
+    ALLOW_STRUCTURE_BLOCKS(Boolean.class, "allow.structureblocks"),
+    ALLOW_JIGSAWS(Boolean.class, "allow.jigsaws"),
+    ALLOW_GRINDSTONES(Boolean.class, "allow.grindstones"),
+    ALLOW_JUKEBOXES(Boolean.class, "allow.jukeboxes"),
+    ALLOW_SPAWNERS(Boolean.class, "allow.spawners"),
     //
     BLOCKED_WILDCARD_COMMANDS(List.class, "blocked.wildcard_commands"),
     BLOCKED_MUTED_COMMANDS(List.class, "blocked.muted_commands"),
@@ -92,6 +97,7 @@ public enum ConfigEntry
     TOSSMOB_ENABLED(Boolean.class, "tossmob_enabled"),
     AUTOKICK_ENABLED(Boolean.class, "autokick.enabled"),
     MP44_ENABLED(Boolean.class, "mp44_enabled"),
+    FOURCHAN_ENABLED(Boolean.class, "4chan_enabled"),
     //
     PROTECTAREA_ENABLED(Boolean.class, "protectarea.enabled"),
     PROTECTAREA_SPAWNPOINTS(Boolean.class, "protectarea.auto_protect_spawnpoints"),

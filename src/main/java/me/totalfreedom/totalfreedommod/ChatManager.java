@@ -2,6 +2,7 @@ package me.totalfreedom.totalfreedommod;
 
 import com.google.common.base.Strings;
 import me.totalfreedom.totalfreedommod.admin.Admin;
+import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.rank.Displayable;
 import me.totalfreedom.totalfreedommod.util.FLog;
@@ -15,6 +16,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
 import static me.totalfreedom.totalfreedommod.util.FUtil.playerMsg;
 
 public class ChatManager extends FreedomService
@@ -51,49 +53,19 @@ public class ChatManager extends FreedomService
     {
         final Player player = event.getPlayer();
         String message = event.getMessage().trim();
-
-        if (plugin.al.isAdmin(player))
+        // Format colors
         {
-            // Format color
             message = FUtil.colorize(message);
             message = message.replaceAll(ChatColor.BOLD.toString(), "&l");
-            message = message.replaceAll(ChatColor.MAGIC.toString(), "&k");
             message = message.replaceAll(ChatColor.ITALIC.toString(), "&o");
             message = message.replaceAll(ChatColor.UNDERLINE.toString(), "&n");
             message = message.replaceAll(ChatColor.STRIKETHROUGH.toString(), "&m");
-            message = FUtil.colorize(message);
         }
-        else
-        {
-            // Strip color from messages
-            message = ChatColor.stripColor(message);
-        }
-
         // Truncate messages that are too long - 256 characters is vanilla client max
         if (message.length() > 256)
         {
             message = message.substring(0, 256);
             FSync.playerMsg(player, "Message was shortened because it was too long to send.");
-        }
-
-        // Check for caps
-        if (message.length() >= 6)
-        {
-            int caps = 0;
-            for (char c : message.toCharArray())
-            {
-                if (Character.isUpperCase(c))
-                {
-                    caps++;
-                }
-            }
-            if (((float)caps / (float)message.length()) > 0.65) //Compute a ratio so that longer sentences can have more caps.
-            {
-                if (!plugin.al.isAdmin(player))
-                {
-                    message = message.toLowerCase();
-                }
-            }
         }
 
         // Check for adminchat
@@ -103,6 +75,21 @@ public class ChatManager extends FreedomService
             FSync.adminChatMessage(player, message);
             event.setCancelled(true);
             return;
+        }
+
+        // Check for 4chan trigger
+        Boolean green = ChatColor.stripColor(message).toLowerCase().startsWith(">");
+        Boolean orange = ChatColor.stripColor(message).toLowerCase().endsWith("<");
+        if (ConfigEntry.FOURCHAN_ENABLED.getBoolean())
+        {
+            if (green)
+            {
+                message = ChatColor.GREEN + message;
+            }
+            else if (orange)
+            {
+                message = ChatColor.GOLD + message;
+            }
         }
 
         // Finally, set message
@@ -209,7 +196,7 @@ public class ChatManager extends FreedomService
         {
             if (plugin.al.isAdmin(player))
             {
-                playerMsg(player, ChatColor.RED + "[Reports] " + ChatColor.GOLD + reporter.getName() + " has reported " + reported.getName() + " for " + report);
+                playerMsg(player, ChatColor.RED + "[REPORTS] " + ChatColor.GOLD + reporter.getName() + " has reported " + reported.getName() + " for " + report);
             }
         }
     }

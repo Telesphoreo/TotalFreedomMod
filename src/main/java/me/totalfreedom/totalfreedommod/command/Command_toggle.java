@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import me.totalfreedom.totalfreedommod.GameRuleHandler;
-import me.totalfreedom.totalfreedommod.LoginProcess;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -16,6 +15,7 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Toggles TotalFreedomMod settings", usage = "/<command> [option] [value] [value]")
 public class Command_toggle extends FreedomCommand
 {
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -41,6 +41,12 @@ public class Command_toggle extends FreedomCommand
             msg("- armorstands");
             msg("- clearonjoin");
             msg("- tpronjoin");
+            msg("- structureblocks");
+            msg("- jigsaws");
+            msg("- grindstones");
+            msg("- jukeboxes");
+            msg("- spawners");
+            msg("- 4chan");
             return false;
         }
 
@@ -87,7 +93,7 @@ public class Command_toggle extends FreedomCommand
         }
         else if (args[0].equalsIgnoreCase("lockdown"))
         {
-            boolean active = !LoginProcess.isLockdownEnabled();
+            boolean active = !plugin.lp.isLockdownEnabled();
             plugin.lp.setLockdownEnabled(active);
             FUtil.adminAction(sender.getName(), (active ? "A" : "De-a") + "ctivating server lockdown", true);
             return true;
@@ -125,7 +131,7 @@ public class Command_toggle extends FreedomCommand
                 {
                     ConfigEntry.NUKE_MONITOR_COUNT_BREAK.setInteger(Math.max(1, Math.min(500, Integer.parseInt(args[2]))));
                 }
-                catch (NumberFormatException ignored)
+                catch (NumberFormatException ex)
                 {
                 }
             }
@@ -183,6 +189,36 @@ public class Command_toggle extends FreedomCommand
             toggle("The random teleporting of players on join is", ConfigEntry.ALLOW_TPR_ON_JOIN);
             return true;
         }
+        else if (args[0].equalsIgnoreCase("structureblocks"))
+        {
+            toggle("Structure blocks are", ConfigEntry.ALLOW_STRUCTURE_BLOCKS);
+            return true;
+        }
+        else if (args[0].equalsIgnoreCase("jigsaws"))
+        {
+            toggle("Jigsaws are", ConfigEntry.ALLOW_JIGSAWS);
+            return true;
+        }
+        else if (args[0].equalsIgnoreCase("grindstones"))
+        {
+            toggle("Grindstones are", ConfigEntry.ALLOW_GRINDSTONES);
+            return true;
+        }
+        else if (args[0].equalsIgnoreCase("jukeboxes"))
+        {
+            toggle("Jukeboxes are", ConfigEntry.ALLOW_JUKEBOXES);
+            return true;
+        }
+        else if (args[0].equalsIgnoreCase("spawners"))
+        {
+            toggle("Spawners are", ConfigEntry.ALLOW_SPAWNERS);
+            return true;
+        }
+        else if (args[0].equalsIgnoreCase("4chan"))
+        {
+            toggle("4chan mode is", ConfigEntry.FOURCHAN_ENABLED);
+            return true;
+        }
         else
         {
             return false;
@@ -201,8 +237,9 @@ public class Command_toggle extends FreedomCommand
         {
             return Arrays.asList(
                     "waterplace", "fireplace", "lavaplace", "fluidspread", "lavadmg", "firespread", "frostwalk",
-                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs", "bells", "armorstands",
-                    "clearonjoin", "tpronjoin");
+                    "firework", "prelog", "lockdown", "petprotect", "entitywipe", "nonuke", "explosives", "unsafeenchs",
+                    "bells", "armorstands", "clearonjoin", "tpronjoin", "structureblocks", "jigsaws", "grindstones", "jukeboxes",
+                    "spawners", "4chan");
         }
 
         return Collections.emptyList();
