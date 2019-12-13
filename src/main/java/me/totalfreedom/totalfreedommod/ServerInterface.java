@@ -9,7 +9,7 @@ import org.bukkit.OfflinePlayer;
 
 public class ServerInterface extends FreedomService
 {
-    public final static String COMPILE_NMS_VERSION = "v1_14_R1";
+    public final static String COMPILE_NMS_VERSION = "v1_15_R1";
     public final static String nms = FUtil.getNMSVersion();
 
     public ServerInterface(TotalFreedomMod plugin)

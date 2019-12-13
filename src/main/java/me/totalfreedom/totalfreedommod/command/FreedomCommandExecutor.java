@@ -1,6 +1,10 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FLog;
@@ -19,6 +23,9 @@ import org.bukkit.entity.Player;
 public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends AbstractCommandExecutor<C>
 {
     private final TotalFreedomMod plugin;
+
+    private Map<CommandSender, FreedomCommand> commandCooldown = new HashMap<>();
+    private final Timer timer = new Timer();
 
     public FreedomCommandExecutor(TotalFreedomMod plugin, AeroCommandHandler<?> handler, String name, C command)
     {
@@ -75,9 +82,29 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
             return true;
         }
 
+        if (isOnCooldown(sender))
+        {
+            return true;
+        }
+
         try
         {
-            return commandBase.runCommand(sender, command, label, args);
+            boolean run = commandBase.runCommand(sender, command, label, args);
+            FreedomCommand c = getCommand();
+            CommandPermissions perms = c.getPerms();
+            if (perms.cooldown() > 0 && !plugin.al.isAdmin(sender))
+            {
+                commandCooldown.put(sender, c);
+                timer.schedule(new TimerTask()
+                {
+                    @Override
+                    public void run()
+                    {
+                        commandCooldown.remove(sender);
+                    }
+                }, perms.cooldown() * 1000);
+            }
+            return run;
         }
         catch (Exception ex)
         {
@@ -159,6 +186,17 @@ public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends Abstra
             sender.sendMessage(handler.getPermissionMessage());
         }
         return result;
+    }
+
+    public boolean isOnCooldown(CommandSender sender)
+    {
+        final FreedomCommand command = getCommand();
+        if (commandCooldown.containsKey(sender) && commandCooldown.containsValue(command))
+        {
+            sender.sendMessage(ChatColor.RED + "You're on cooldown for this command.");
+            return true;
+        }
+        return false;
     }
 
     public static class FreedomExecutorFactory implements AeroCommandExecutorFactory

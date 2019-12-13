@@ -6,11 +6,11 @@ import ca.momothereal.mojangson.value.MojangsonValue;
 import io.papermc.lib.PaperLib;
 import java.util.List;
 import java.util.Objects;
-import net.minecraft.server.v1_14_R1.NBTTagCompound;
-import net.minecraft.server.v1_14_R1.NBTTagList;
+import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.NBTTagList;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_14_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -129,7 +129,7 @@ public class MovementValidator extends FreedomService
 
     private Boolean exploitItem(ItemStack item)
     {
-        net.minecraft.server.v1_14_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
+        net.minecraft.server.v1_15_R1.ItemStack nmsStack = CraftItemStack.asNMSCopy(item);
         NBTTagList modifiers = getAttributeList(nmsStack);
         MojangsonCompound compound = new MojangsonCompound();
         boolean foundNegative = false;
@@ -166,7 +166,7 @@ public class MovementValidator extends FreedomService
     }
 
 
-    private NBTTagList getAttributeList(net.minecraft.server.v1_14_R1.ItemStack stack)
+    private NBTTagList getAttributeList(net.minecraft.server.v1_15_R1.ItemStack stack)
     {
         if (stack.getTag() == null)
         {
