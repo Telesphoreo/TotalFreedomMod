@@ -32,6 +32,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 
@@ -497,6 +498,20 @@ public class FUtil
         catch (ClassNotFoundException ex)
         {
             return false;
+        }
+    }
+
+    public static void fixCommandVoid(Player player)
+    {
+        for (Player p : Bukkit.getOnlinePlayers())
+        {
+            for (Entity passengerEntity : p.getPassengers())
+            {
+                if (passengerEntity == player)
+                {
+                    p.removePassenger(passengerEntity);
+                }
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.pravian.aero.util.StringUtils;
 import org.apache.commons.lang.WordUtils;
+import org.bukkit.GameRule;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -158,6 +159,17 @@ public class Discord extends FreedomService
     @EventHandler(priority = EventPriority.MONITOR)
     public void onPlayerDeath(PlayerDeathEvent event)
     {
+        try
+        {
+            if (!event.getEntity().getWorld().getGameRuleValue(GameRule.SHOW_DEATH_MESSAGES))
+            {
+                return;
+            }
+        }
+        catch (NullPointerException ignored)
+        {
+        }
+
         messageChatChannel("**" + event.getDeathMessage() + "**");
     }
 

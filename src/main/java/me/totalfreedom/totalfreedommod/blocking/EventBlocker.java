@@ -5,6 +5,7 @@ import java.util.List;
 import me.totalfreedom.totalfreedommod.FreedomService;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
+import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.util.Groups;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -228,6 +229,7 @@ public class EventBlocker extends FreedomService
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerDeath(PlayerDeathEvent event)
     {
+        FUtil.fixCommandVoid(event.getEntity());
         event.setDeathMessage(event.getDeathMessage());
     }
 }

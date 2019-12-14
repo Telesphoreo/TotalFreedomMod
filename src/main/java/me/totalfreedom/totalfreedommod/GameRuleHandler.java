@@ -10,7 +10,6 @@ import org.bukkit.World;
 
 public class GameRuleHandler extends FreedomService
 {
-
     private final Map<GameRule, Boolean> rules = new EnumMap<>(GameRule.class);
 
     public GameRuleHandler(TotalFreedomMod plugin)
@@ -36,6 +35,7 @@ public class GameRuleHandler extends FreedomService
         setGameRule(GameRule.NATURAL_REGENERATION, true, false);
         setGameRule(GameRule.KEEP_INVENTORY, true, false);
         setGameRule(GameRule.ANNOUNCE_ADVANCEMENTS, false, false);
+        setGameRule(GameRule.SHOW_DEATH_MESSAGES, false, false);
         commitGameRules();
     }
 
@@ -85,7 +85,6 @@ public class GameRuleHandler extends FreedomService
 
     public static enum GameRule
     {
-
         DO_FIRE_TICK("doFireTick", true),
         MOB_GRIEFING("mobGriefing", true),
         KEEP_INVENTORY("keepInventory", false),
@@ -95,7 +94,8 @@ public class GameRuleHandler extends FreedomService
         COMMAND_BLOCK_OUTPUT("commandBlockOutput", true),
         NATURAL_REGENERATION("naturalRegeneration", true),
         DO_DAYLIGHT_CYCLE("doDaylightCycle", true),
-        ANNOUNCE_ADVANCEMENTS("announceAdvancements", false);
+        ANNOUNCE_ADVANCEMENTS("announceAdvancements", false),
+        SHOW_DEATH_MESSAGES("showDeathMessages", false);
         //
         private final String gameRuleName;
         private final boolean defaultValue;
