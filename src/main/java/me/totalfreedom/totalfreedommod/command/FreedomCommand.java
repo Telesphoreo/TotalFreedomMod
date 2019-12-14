@@ -2,6 +2,7 @@ package me.totalfreedom.totalfreedommod.command;
 
 import com.google.common.collect.Lists;
 import java.util.List;
+import java.util.Timer;
 import lombok.Getter;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.admin.Admin;
@@ -28,6 +29,8 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
     private final CommandParameters params;
     @Getter
     private final CommandPermissions perms;
+
+    public final Timer timer = new Timer();
 
     public FreedomCommand()
     {
