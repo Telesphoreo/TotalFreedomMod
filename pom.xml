@@ -156,14 +156,14 @@
         <dependency>
             <groupId>LibsDisguises</groupId>
             <artifactId>LibsDisguises</artifactId>
-            <version>9.8.4-TF</version>
+            <version>9.8.6-TF</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.sk89q.WorldEdit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>7.0.1-TF</version>
+            <version>7.1.0-SNAPSHOT-TF</version>
             <scope>provided</scope>
         </dependency>
 

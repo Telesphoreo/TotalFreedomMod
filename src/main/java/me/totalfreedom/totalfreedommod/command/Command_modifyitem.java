@@ -143,9 +143,7 @@ public class Command_modifyitem extends FreedomCommand
                 item.setItemMeta(potionMeta);
                 break;
             }
-            case "attribute":
-                /*
-                Temporarily broken
+            /*case "attribute":
                 if (args.length < 3)
                 {
                     return false;
