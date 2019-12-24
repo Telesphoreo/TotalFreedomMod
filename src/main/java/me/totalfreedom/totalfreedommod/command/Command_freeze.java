@@ -1,6 +1,5 @@
 package me.totalfreedom.totalfreedommod.command;
 
-import java.util.Arrays;
 import me.totalfreedom.totalfreedommod.freeze.FreezeData;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -33,7 +32,7 @@ public class Command_freeze extends FreedomCommand
             {
                 if (!isAdmin(player))
                 {
-                    player.sendTitle(ChatColor.RED + "You've been globally frozen.", ChatColor.YELLOW + "Please be patient and you will be unfrozen shortly." + Arrays.toString(args), 20, 100, 60);
+                    player.sendTitle(ChatColor.RED + "You've been globally frozen.", ChatColor.YELLOW + "Please be patient and you will be unfrozen shortly.", 20, 100, 60);
                     msg(player, "The server has been globally frozen due to an OP breaking the rules. Please wait and you will be unfrozen soon.", ChatColor.RED);
                 }
             }

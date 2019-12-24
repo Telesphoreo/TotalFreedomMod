@@ -121,7 +121,6 @@ public class Command_stfu extends FreedomCommand
             FUtil.adminAction(sender.getName(), "Unmuting " + player.getName(), true);
             playerdata.setMuted(false);
             msg("Unmuted " + player.getName());
-
             msg(player, "You have been unmuted.", ChatColor.RED);
         }
         else

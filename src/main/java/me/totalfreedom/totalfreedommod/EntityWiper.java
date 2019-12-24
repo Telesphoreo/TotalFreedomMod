@@ -115,10 +115,9 @@ public class EntityWiper extends FreedomService
     public int wipeEntities(boolean force)
     {
         int removed = 0;
-        Iterator<World> worlds = Bukkit.getWorlds().iterator();
-        while (worlds.hasNext())
+        for (World world : Bukkit.getWorlds())
         {
-            removed += wipeEntities(worlds.next(), force);
+            removed += wipeEntities(world, force);
         }
 
         return removed;
@@ -190,7 +189,6 @@ public class EntityWiper extends FreedomService
 
         new BukkitRunnable()
         {
-
             @Override
             public void run()
             {

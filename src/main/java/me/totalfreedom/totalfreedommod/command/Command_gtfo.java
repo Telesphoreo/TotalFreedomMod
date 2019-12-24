@@ -8,8 +8,10 @@ import me.totalfreedom.totalfreedommod.punishments.Punishment;
 import me.totalfreedom.totalfreedommod.punishments.PunishmentType;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import net.pravian.aero.util.Ips;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -104,7 +106,7 @@ public class Command_gtfo extends FreedomCommand
                 {
                     plugin.web.undo(player, 15);
                 }
-                catch (NoClassDefFoundError | NullPointerException ex)
+                catch (NoClassDefFoundError | NullPointerException ignored)
                 {
                 }
 
@@ -144,10 +146,17 @@ public class Command_gtfo extends FreedomCommand
         FUtil.bcastMsg(bcast.toString());
         msg(username + " has been banned and their IP is: " + StringUtils.join(ips, ", "));
 
-        // Kick player
+        // Kick player and other IPs
         if (player != null)
         {
             player.kickPlayer(ban.bakeKickMessage());
+            for (Player p : Bukkit.getOnlinePlayers())
+            {
+                if (Ips.getIp(p).equals(Ips.getIp(player)))
+                {
+                    p.kickPlayer(ChatColor.RED + "You've been kicked because someone on your IP has been banned.");
+                }
+            }
         }
 
         // Log ban

@@ -16,7 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
-
 import static me.totalfreedom.totalfreedommod.util.FUtil.playerMsg;
 
 public class ChatManager extends FreedomService

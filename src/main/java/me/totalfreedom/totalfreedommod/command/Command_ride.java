@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
 public class Command_ride extends FreedomCommand
 {
     private final Map<Player, Player> RIDE_REQUESTS = new HashMap<>(); // requested, requester
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -125,6 +126,11 @@ public class Command_ride extends FreedomCommand
         {
             msg("Player is in another world. (" + player.getWorld().getName() + ")");
             return true;
+        }
+        else
+        {
+            Location loc = player.getLocation();
+            playerSender.teleport(new Location(loc.getWorld(), loc.getX(), loc.getY(), loc.getZ()));
         }
 
         player.addPassenger(playerSender);
