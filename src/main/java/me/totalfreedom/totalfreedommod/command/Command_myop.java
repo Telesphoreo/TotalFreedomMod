@@ -1,5 +1,7 @@
 package me.totalfreedom.totalfreedommod.command;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import me.totalfreedom.totalfreedommod.discord.Discord;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
@@ -29,6 +31,8 @@ public class Command_myop extends FreedomCommand
         }
 
         VPlayer data = plugin.pv.getVerificationPlayer(playerSender);
+        List<String> ips = new ArrayList<>();
+        ips.addAll(data.getIps());
 
         switch (args[0].toLowerCase())
         {
@@ -110,7 +114,7 @@ public class Command_myop extends FreedomCommand
                 if (args[0].equalsIgnoreCase("clearips"))
                 {
                     int cleared = 0;
-                    for (String ip : data.getIps())
+                    for (String ip : ips)
                     {
                         if (!ip.equals(Ips.getIp(playerSender)))
                         {

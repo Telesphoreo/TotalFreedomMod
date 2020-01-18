@@ -3,6 +3,7 @@ package me.totalfreedom.totalfreedommod.command;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TimerTask;
+import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import org.bukkit.ChatColor;
@@ -20,6 +21,13 @@ public class Command_ride extends FreedomCommand
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
+        final FPlayer fPlayer = plugin.pl.getPlayer(playerSender);
+        if (fPlayer.getCageData().isCaged())
+        {
+            msg("You cannot used this command while caged.");
+            return true;
+        }
+
         if (args.length < 1)
         {
             return false;
@@ -105,7 +113,7 @@ public class Command_ride extends FreedomCommand
             player.sendMessage(ChatColor.GRAY + "Type " + ChatColor.DARK_GRAY + "/ride deny" + ChatColor.GRAY + " to deny the player permission.");
             player.sendMessage(ChatColor.GRAY + "Request will expire after 30 seconds.");
             RIDE_REQUESTS.put(player, playerSender);
-            timer.schedule(new TimerTask()
+            FreedomCommandExecutor.timer.schedule(new TimerTask()
             {
                 @Override
                 public void run()

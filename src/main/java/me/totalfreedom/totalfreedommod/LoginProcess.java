@@ -191,6 +191,8 @@ public class LoginProcess extends FreedomService
         final Player player = event.getPlayer();
         final FPlayer fPlayer = plugin.pl.getPlayer(player);
 
+        player.sendTitle(FUtil.colorize(ConfigEntry.SERVER_LOGIN_TITLE.getString()), FUtil.colorize(ConfigEntry.SERVER_LOGIN_SUBTITLE.getString()), 20, 100, 60);
+
         if (ConfigEntry.ALLOW_TPR_ON_JOIN.getBoolean())
         {
             int x = FUtil.random(-10000, 10000);

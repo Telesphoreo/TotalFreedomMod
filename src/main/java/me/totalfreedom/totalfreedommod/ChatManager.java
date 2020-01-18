@@ -4,10 +4,12 @@ import com.google.common.base.Strings;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
+import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Displayable;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FSync;
 import me.totalfreedom.totalfreedommod.util.FUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
@@ -73,6 +75,14 @@ public class ChatManager extends FreedomService
             return;
         }
 
+        // Don't let locked up players talk
+        if (fPlayer.isLockedUp())
+        {
+            FSync.playerMsg(player, "You're locked up and cannot talk.");
+            event.setCancelled(true);
+            return;
+        }
+
         // Check for 4chan trigger
         Boolean green = ChatColor.stripColor(message).toLowerCase().startsWith(">");
         Boolean orange = ChatColor.stripColor(message).toLowerCase().endsWith("<");
@@ -114,7 +124,10 @@ public class ChatManager extends FreedomService
         event.setFormat(format);
 
         // Send to discord
-        plugin.dc.messageChatChannel(player.getName() + " \u00BB " + ChatColor.stripColor(message));
+        if (!ConfigEntry.ADMIN_ONLY_MODE.getBoolean() && !Bukkit.hasWhitelist())
+        {
+            plugin.dc.messageChatChannel(player.getName() + " \u00BB " + ChatColor.stripColor(message));
+        }
     }
 
     public ChatColor getColor(Admin admin, Displayable display)

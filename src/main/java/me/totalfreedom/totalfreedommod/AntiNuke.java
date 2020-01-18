@@ -42,8 +42,7 @@ public class AntiNuke extends FreedomService
         if (fPlayer.incrementAndGetBlockDestroyCount() > ConfigEntry.NUKE_MONITOR_COUNT_BREAK.getInteger())
         {
             FUtil.bcastMsg(player.getName() + " is breaking blocks too fast!", ChatColor.RED);
-            plugin.ae.autoEject(player, "You are breaking blocks too fast. Nukers are not permitted on this server.");
-
+            player.kickPlayer(ChatColor.RED + "You are breaking blocks too fast. Nukers are not permitted on this server.");
             fPlayer.resetBlockDestroyCount();
 
             event.setCancelled(true);
@@ -64,7 +63,7 @@ public class AntiNuke extends FreedomService
         if (fPlayer.incrementAndGetBlockPlaceCount() > ConfigEntry.NUKE_MONITOR_COUNT_PLACE.getInteger())
         {
             FUtil.bcastMsg(player.getName() + " is placing blocks too fast!", ChatColor.RED);
-            plugin.ae.autoEject(player, "You are placing blocks too fast.");
+            player.kickPlayer(ChatColor.RED + "You are placing blocks too fast.");
 
             fPlayer.resetBlockPlaceCount();
 

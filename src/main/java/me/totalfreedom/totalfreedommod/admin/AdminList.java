@@ -27,7 +27,8 @@ import org.bukkit.plugin.ServicePriority;
 public class AdminList extends FreedomService
 {
     public static final String CONFIG_FILENAME = "admins.yml";
-
+    public final List<String> verifiedNoAdmins = new ArrayList<>();
+    public final Map<String, List<String>> verifiedNoAdminIps = Maps.newHashMap();
     @Getter
     private final Map<String, Admin> allAdmins = Maps.newHashMap(); // Includes disabled admins
     // Only active admins below
@@ -35,8 +36,6 @@ public class AdminList extends FreedomService
     private final Set<Admin> activeAdmins = Sets.newHashSet();
     private final Map<String, Admin> nameTable = Maps.newHashMap();
     private final Map<String, Admin> ipTable = Maps.newHashMap();
-    public final List<String> verifiedNoAdmins = new ArrayList<>();
-    public final Map<String, List<String>> verifiedNoAdminIps = Maps.newHashMap();
     //
     private final YamlConfig config;
 

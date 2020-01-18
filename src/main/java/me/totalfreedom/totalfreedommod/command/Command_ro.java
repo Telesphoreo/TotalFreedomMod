@@ -21,6 +21,47 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Remove all blocks of a certain type in the radius of certain players.", usage = "/<command> <block> [radius (default=50)] [player]")
 public class Command_ro extends FreedomCommand
 {
+    public static int replaceBlocks(Location center, Material fromMaterial, Material toMaterial, int radius)
+    {
+        int affected = 0;
+
+        Block centerBlock = center.getBlock();
+        for (int xOffset = -radius; xOffset <= radius; xOffset++)
+        {
+            for (int yOffset = -radius; yOffset <= radius; yOffset++)
+            {
+                for (int zOffset = -radius; zOffset <= radius; zOffset++)
+                {
+                    Block block = centerBlock.getRelative(xOffset, yOffset, zOffset);
+                    BlockData data = block.getBlockData();
+                    if (block.getLocation().distanceSquared(center) < (radius * radius))
+                    {
+                        if (fromMaterial.equals(Material.WATER) && data instanceof Waterlogged)
+                        {
+                            if (data instanceof Waterlogged)
+                            {
+                                Waterlogged waterloggedData = (Waterlogged)data;
+                                waterloggedData.setWaterlogged(false);
+                                block.setBlockData(waterloggedData);
+                                affected++;
+                                continue;
+                            }
+                            block.setType(toMaterial);
+                            affected++;
+                        }
+                        else if (block.getType().equals(fromMaterial))
+                        {
+                            block.setType(toMaterial);
+                            affected++;
+                        }
+                    }
+                }
+            }
+        }
+
+        return affected;
+    }
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -40,6 +81,11 @@ public class Command_ro extends FreedomCommand
         {
             materials.addAll(Groups.HEADS);
             names = "heads";
+        }
+        else if (args[0].equalsIgnoreCase("banners") || args[0].equalsIgnoreCase("banner"))
+        {
+            materials.addAll(Groups.BANNERS);
+            names = "banners";
         }
         else
         {
@@ -133,46 +179,5 @@ public class Command_ro extends FreedomCommand
         FUtil.adminAction(sender.getName(), "Remove complete! " + affected + " blocks removed.", false);
 
         return true;
-    }
-
-    public static int replaceBlocks(Location center, Material fromMaterial, Material toMaterial, int radius)
-    {
-        int affected = 0;
-
-        Block centerBlock = center.getBlock();
-        for (int xOffset = -radius; xOffset <= radius; xOffset++)
-        {
-            for (int yOffset = -radius; yOffset <= radius; yOffset++)
-            {
-                for (int zOffset = -radius; zOffset <= radius; zOffset++)
-                {
-                    Block block = centerBlock.getRelative(xOffset, yOffset, zOffset);
-                    BlockData data = block.getBlockData();
-                    if (block.getLocation().distanceSquared(center) < (radius * radius))
-                    {
-                        if (fromMaterial.equals(Material.WATER) && data instanceof Waterlogged)
-                        {
-                            if (data instanceof Waterlogged)
-                            {
-                                Waterlogged waterloggedData = (Waterlogged)data;
-                                waterloggedData.setWaterlogged(false);
-                                block.setBlockData(waterloggedData);
-                                affected++;
-                                continue;
-                            }
-                            block.setType(toMaterial);
-                            affected++;
-                        }
-                        else if (block.getType().equals(fromMaterial))
-                        {
-                            block.setType(toMaterial);
-                            affected++;
-                        }
-                    }
-                }
-            }
-        }
-
-        return affected;
     }
 }

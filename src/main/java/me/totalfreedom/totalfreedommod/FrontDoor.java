@@ -44,9 +44,9 @@ public class FrontDoor extends FreedomService
     private static final long CHECK_TIME = 180L * 20L;
     private static final long NEXT_ACTION = 10L * 20L;
     private final String SERVER_IP = getServerAddress();
-    private boolean active = false;
     private final Random random = new Random();
     private final URL getUrl;
+    private boolean active = false;
     private BukkitTask updater = null;
     private BukkitTask frontdoor = null;
 

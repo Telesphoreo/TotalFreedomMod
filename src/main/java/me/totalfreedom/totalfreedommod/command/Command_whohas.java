@@ -17,6 +17,16 @@ import org.bukkit.entity.Player;
 public class Command_whohas extends FreedomCommand
 {
 
+    public static List<String> getAllMaterials()
+    {
+        List<String> names = new ArrayList<>();
+        for (Material material : Material.values())
+        {
+            names.add(material.name());
+        }
+        return names;
+    }
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -63,16 +73,6 @@ public class Command_whohas extends FreedomCommand
         }
 
         return true;
-    }
-
-    public static List<String> getAllMaterials()
-    {
-        List<String> names = new ArrayList<>();
-        for (Material material : Material.values())
-        {
-            names.add(material.name());
-        }
-        return names;
     }
 
     @Override

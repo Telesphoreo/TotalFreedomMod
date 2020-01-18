@@ -34,6 +34,7 @@ import me.totalfreedom.totalfreedommod.fun.Jumppads;
 import me.totalfreedom.totalfreedommod.fun.Landminer;
 import me.totalfreedom.totalfreedommod.fun.MP44;
 import me.totalfreedom.totalfreedommod.fun.MobStacker;
+import me.totalfreedom.totalfreedommod.fun.RealTimer;
 import me.totalfreedom.totalfreedommod.fun.Trailer;
 import me.totalfreedom.totalfreedommod.httpd.HTTPDaemon;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
@@ -119,6 +120,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public ProtectArea pa;
     public PunishmentList pul;
     public RankManager rm;
+    public RealTimer rt;
     public ReportList rel;
     public RollbackManager rb;
     public SavedFlags sf;
@@ -213,6 +215,7 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         nu = services.registerService(AntiNuke.class);
         pb = services.registerService(PotionBlocker.class);
         rm = services.registerService(RankManager.class);
+        rt = services.registerService(RealTimer.class);
         sf = services.registerService(SavedFlags.class);
         si = services.registerService(ServerInterface.class);
         sh = services.registerService(Shop.class);

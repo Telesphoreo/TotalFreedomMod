@@ -55,6 +55,7 @@ public class FPlayer
     private boolean mp44Armed = false;
     private boolean mp44Firing = false;
     private BukkitTask lockupScheduleTask = null;
+    private boolean lockedUp = false;
     private String lastMessage = "";
     private boolean inAdminchat = false;
     private boolean allCommandsBlocked = false;
@@ -74,6 +75,9 @@ public class FPlayer
     @Getter
     @Setter
     private boolean invSee = false;
+    @Setter
+    @Getter
+    private boolean quietMuted = false;
 
     public FPlayer(TotalFreedomMod plugin, Player player)
     {
@@ -325,6 +329,16 @@ public class FPlayer
     public void setLockupScheduleId(BukkitTask id)
     {
         this.lockupScheduleTask = id;
+    }
+
+    public boolean isLockedUp()
+    {
+        return this.lockedUp;
+    }
+
+    public void setLockedUp(boolean lockedUp)
+    {
+        this.lockedUp = lockedUp;
     }
 
     public String getLastMessage()

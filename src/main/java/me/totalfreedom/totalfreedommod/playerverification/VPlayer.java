@@ -9,6 +9,7 @@ import net.pravian.aero.base.ConfigLoadable;
 import net.pravian.aero.base.ConfigSavable;
 import net.pravian.aero.base.Validatable;
 import org.apache.commons.lang3.Validate;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -36,6 +37,15 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private String rideMode = "ask";
+    @Getter
+    @Setter
+    private ChatColor color = null;
+    @Getter
+    @Setter
+    private int utcOffset = 0;
+    @Getter
+    @Setter
+    private boolean realTime = false;
 
     public VPlayer(String name)
     {
@@ -58,6 +68,9 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
         tag = cs.getString("tag", null);
         clearChatOptOut = cs.getBoolean("clearChatOptOut", false);
         rideMode = cs.getString("rideMode", rideMode);
+        color = ChatColor.getByChar(String.valueOf(cs.get("color")));
+        utcOffset = cs.getInt("utcOffset", 0);
+        realTime = cs.getBoolean("realTime", false);
     }
 
     @Override
@@ -71,6 +84,9 @@ public class VPlayer implements ConfigLoadable, ConfigSavable, Validatable
         cs.set("ips", Lists.newArrayList(ips));
         cs.set("clearChatOptOut", clearChatOptOut);
         cs.set("rideMode", rideMode);
+        cs.set("color", color == null ? null : color.getChar());
+        cs.set("utcOffset", utcOffset);
+        cs.set("realTime", realTime);
     }
 
     public List<String> getIps()

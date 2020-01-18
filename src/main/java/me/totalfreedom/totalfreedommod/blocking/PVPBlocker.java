@@ -5,6 +5,7 @@ import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Trident;
 import org.bukkit.event.EventHandler;
@@ -55,6 +56,14 @@ public class PVPBlocker extends FreedomService
                 if (trident.getShooter() instanceof Player)
                 {
                     player = (Player)trident.getShooter();
+                }
+            }
+            else if (event.getDamager() instanceof FishHook)
+            {
+                FishHook fishhook = (FishHook)event.getDamager();
+                if (fishhook.getShooter() instanceof Player)
+                {
+                    player = (Player)fishhook.getShooter();
                 }
             }
         }

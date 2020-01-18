@@ -44,6 +44,13 @@ public class Command_freeze extends FreedomCommand
         if (args[0].equals("purge"))
         {
             FUtil.adminAction(sender.getName(), "Unfreezing all players", false);
+            for (Player player : server.getOnlinePlayers())
+            {
+                if (!isAdmin(player))
+                {
+                    player.sendTitle(ChatColor.GREEN + "You've been unfrozen.", ChatColor.YELLOW + "You may now move again.", 20, 100, 60);
+                }
+            }
             plugin.fm.purge();
             return true;
         }

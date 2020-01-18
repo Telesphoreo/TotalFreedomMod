@@ -92,13 +92,18 @@ public class Command_stfu extends FreedomCommand
 
         // -s option (smite)
         boolean smite = args[0].equals("-s");
-        if (smite)
+        // -q option (shadowmute)
+        boolean quiet = args[0].equals("-q");
+        if (smite || quiet)
         {
-            args = ArrayUtils.subarray(args, 1, args.length);
-
-            if (args.length < 1)
+            if (smite)
             {
-                return false;
+                args = ArrayUtils.subarray(args, 1, args.length);
+
+                if (args.length < 1)
+                {
+                    return false;
+                }
             }
         }
 
@@ -118,6 +123,14 @@ public class Command_stfu extends FreedomCommand
         FPlayer playerdata = plugin.pl.getPlayer(player);
         if (playerdata.isMuted())
         {
+            if (quiet || playerdata.isQuietMuted())
+            {
+                playerdata.setMuted(false);
+                playerdata.setQuietMuted(false);
+                msg("Unmuted " + player.getName() + " quietly");
+                return true;
+            }
+
             FUtil.adminAction(sender.getName(), "Unmuting " + player.getName(), true);
             playerdata.setMuted(false);
             msg("Unmuted " + player.getName());
@@ -137,6 +150,14 @@ public class Command_stfu extends FreedomCommand
             if (smite)
             {
                 Command_smite.smite(sender, player, reason);
+            }
+
+            if (quiet)
+            {
+                playerdata.setMuted(true);
+                playerdata.setQuietMuted(true);
+                msg("Muted " + player.getName() + " quietly");
+                return true;
             }
 
             msg(player, "You have been muted by " + ChatColor.YELLOW + sender.getName(), ChatColor.RED);

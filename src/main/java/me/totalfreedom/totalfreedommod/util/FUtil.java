@@ -21,9 +21,11 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
+import me.totalfreedom.totalfreedommod.shop.ShopItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
@@ -34,6 +36,8 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitTask;
 
 public class FUtil
@@ -58,12 +62,31 @@ public class FUtil
     private static final Random RANDOM = new Random();
     public static String DATE_STORAGE_FORMAT = "EEE, d MMM yyyy HH:mm:ss Z";
     private static Iterator<ChatColor> CHAT_COLOR_ITERATOR;
+    private static String CHARACTER_STRING = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private static Map<Integer, String> TIMEZONE_LOOKUP = new HashMap<>();
 
     static
     {
         for (ChatColor chatColor : CHAT_COLOR_POOL)
         {
             CHAT_COLOR_NAMES.put(chatColor.name().toLowerCase().replace("_", ""), chatColor);
+        }
+        for (int i = -12; i <= 12; i++)
+        {
+            String sec = String.valueOf(i).replace("-", "");
+            if (i > -10 && i < 10)
+            {
+                sec = "0" + sec;
+            }
+            if (i >= 0)
+            {
+                sec = "+" + sec;
+            }
+            else
+            {
+                sec = "-" + sec;
+            }
+            TIMEZONE_LOOKUP.put(i, "GMT" + sec + ":00");
         }
     }
 
@@ -513,5 +536,85 @@ public class FUtil
                 }
             }
         }
+    }
+
+    public static char getRandomCharacter()
+    {
+        return CHARACTER_STRING.charAt(new Random().nextInt(CHARACTER_STRING.length()));
+    }
+
+    public static void give(Player player, Material material, String coloredName, int amount, String... lore)
+    {
+        ItemStack stack = new ItemStack(material, amount);
+        ItemMeta meta = stack.getItemMeta();
+        meta.setDisplayName(FUtil.colorize(coloredName));
+        List<String> loreList = new ArrayList<>();
+        for (String entry : lore)
+        {
+            loreList.add(FUtil.colorize(entry));
+        }
+        meta.setLore(loreList);
+        stack.setItemMeta(meta);
+        player.getInventory().setItem(player.getInventory().firstEmpty(), stack);
+    }
+
+    public static void give(Player player, ShopItem item, String... lore)
+    {
+        give(player, item.getMaterial(), item.getColoredName(), 1, lore);
+    }
+
+    public static String generateSignature(ShopItem item)
+    {
+        StringBuilder signature = new StringBuilder(String.valueOf(item.ordinal()));
+        signature.append("A"); // mark the ending
+        for (int i = 0; i < 8; i++)
+        {
+            char c = FUtil.getRandomCharacter();
+            while (c == 'A')
+            {
+                c = FUtil.getRandomCharacter();
+            }
+            signature.append(FUtil.getRandomCharacter());
+        }
+        return signature.toString();
+    }
+
+    public static Player getRandomPlayer()
+    {
+        List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
+        return players.get(random(0, players.size() - 1));
+    }
+
+    // convert the current time
+    public static int getTimeInTicks(int tz)
+    {
+        if (timeZoneOutOfBounds(tz))
+        {
+            return -1;
+        }
+        Calendar date = Calendar.getInstance(TimeZone.getTimeZone(TIMEZONE_LOOKUP.get(tz)));
+        int res = 0;
+        for (int i = 0; i < date.get(Calendar.HOUR_OF_DAY) - 6; i++) // oh yeah i don't know why this is 6 hours ahead
+        {
+            res += 1000;
+        }
+        int addExtra = 0; // we're adding extra to account for repeating decimals
+        for (int i = 0; i < date.get(Calendar.MINUTE); i++)
+        {
+            res += 16;
+            addExtra++;
+            if (addExtra == 3)
+            {
+                res += 1;
+                addExtra = 0;
+            }
+        }
+        // this is the best it can be. trust me.
+        return res;
+    }
+
+    public static boolean timeZoneOutOfBounds(int tz)
+    {
+        return tz < -12 || tz > 12;
     }
 }

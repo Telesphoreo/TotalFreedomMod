@@ -22,10 +22,9 @@ import org.bukkit.entity.Player;
 
 public class FreedomCommandExecutor<C extends AeroCommandBase<?>> extends AbstractCommandExecutor<C>
 {
+    public static final Timer timer = new Timer();
+    public static Map<CommandSender, FreedomCommand> commandCooldown = new HashMap<>();
     private final TotalFreedomMod plugin;
-
-    private Map<CommandSender, FreedomCommand> commandCooldown = new HashMap<>();
-    private final Timer timer = new Timer();
 
     public FreedomCommandExecutor(TotalFreedomMod plugin, AeroCommandHandler<?> handler, String name, C command)
     {

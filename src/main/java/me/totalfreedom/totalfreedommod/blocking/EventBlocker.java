@@ -150,12 +150,17 @@ public class EventBlocker extends FreedomService
     @EventHandler(priority = EventPriority.NORMAL)
     public void onPlayerDropItem(PlayerDropItemEvent event)
     {
+        if (!plugin.al.isAdmin(event.getPlayer()))
+        {
+            event.setCancelled(true);
+        }
+
         if (!ConfigEntry.AUTO_ENTITY_WIPE.getBoolean())
         {
             return;
         }
 
-        if (event.getPlayer().getWorld().getEntities().size() > 750 && !plugin.al.isAdmin(event.getPlayer()))
+        if (event.getPlayer().getWorld().getEntities().size() > 750)
         {
             event.setCancelled(true);
         }
