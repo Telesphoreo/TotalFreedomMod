@@ -4,11 +4,13 @@ import io.papermc.lib.PaperLib;
 import java.util.regex.Pattern;
 import lombok.Getter;
 import lombok.Setter;
+import me.rayzr522.jsonmessage.JSONMessage;
 import me.totalfreedom.totalfreedommod.command.Command_vanish;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.masterbuilder.MasterBuilder;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
+import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FSync;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import org.bukkit.ChatColor;
@@ -190,6 +192,7 @@ public class LoginProcess extends FreedomService
     {
         final Player player = event.getPlayer();
         final FPlayer fPlayer = plugin.pl.getPlayer(player);
+        VPlayer vPlayer = plugin.pv.getVerificationPlayer(player);
 
         player.sendTitle(FUtil.colorize(ConfigEntry.SERVER_LOGIN_TITLE.getString()), FUtil.colorize(ConfigEntry.SERVER_LOGIN_SUBTITLE.getString()), 20, 100, 60);
 
@@ -241,10 +244,26 @@ public class LoginProcess extends FreedomService
             }
             else
             {
-                VPlayer vPlayer = plugin.pv.getVerificationPlayer(player);
                 if (vPlayer.getEnabled() && vPlayer.getTag() != null)
                 {
                     fPlayer.setTag(FUtil.colorize(vPlayer.getTag()));
+                }
+            }
+        }
+
+        int noteCount = vPlayer.getNotes().size();
+        if (noteCount != 0)
+        {
+            String noteMessage = "This player has " + noteCount + " staff note" + (noteCount > 1 ? "s" : "") + ".";
+            JSONMessage notice = JSONMessage.create(ChatColor.GOLD + noteMessage + " Click here to view them.")
+                    .tooltip("Click here to view them.")
+                    .runCommand("/notes " + player.getName() + " list");
+            FLog.info(noteMessage);
+            for (Player p : server.getOnlinePlayers())
+            {
+                if (plugin.al.isAdminImpostor(p))
+                {
+                    notice.send(p);
                 }
             }
         }

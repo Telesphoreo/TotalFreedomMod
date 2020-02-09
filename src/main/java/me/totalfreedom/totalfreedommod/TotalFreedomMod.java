@@ -280,8 +280,8 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         ServerInterface.warnJavaVersion();
         FLog.info("Version " + pluginVersion + " for " + ServerInterface.COMPILE_NMS_VERSION + " enabled in " + timer.getTotal() + "ms");
 
-        // Metrics @ https://bstats.org/plugin/bukkit/TotalFreedomMod
-        Metrics metrics = new Metrics(this);
+        // Metrics @ https://bstats.org/plugin/bukkit/TotalFreedomMod/2966
+        new Metrics(this, 2966);
 
         // Add spawnpoints later - https://github.com/TotalFreedom/TotalFreedomMod/issues/438
         new BukkitRunnable()

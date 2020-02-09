@@ -27,6 +27,7 @@ import java.util.regex.Pattern;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.shop.ShopItem;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -116,7 +117,7 @@ public class FUtil
         return FUtil.DEVELOPERS.contains(name);
     }
 
-    public static boolean hasMbConfigPermission(String name)
+    public static boolean canManageMasterBuilders(String name)
     {
         return ConfigEntry.SERVER_OWNERS.getStringList().contains(name) || ConfigEntry.SERVER_EXECUTIVES.getStringList().contains(name) || ConfigEntry.SERVER_MASTER_BUILDER_MANAGEMENT.getStringList().contains(name);
     }
@@ -616,5 +617,24 @@ public class FUtil
     public static boolean timeZoneOutOfBounds(int tz)
     {
         return tz < -12 || tz > 12;
+    }
+
+    public static String formatName(String name)
+    {
+        return WordUtils.capitalizeFully(name.replace("_", " "));
+    }
+
+    public static String tabFormatName(String name)
+    {
+        return StringUtils.lowerCase(name);
+    }
+
+    public static String showS(int count)
+    {
+        if (count == 1)
+        {
+            return "";
+        }
+        return "s";
     }
 }

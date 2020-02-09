@@ -31,6 +31,7 @@ public enum ConfigEntry
     ALLOW_GRINDSTONES(Boolean.class, "allow.grindstones"),
     ALLOW_JUKEBOXES(Boolean.class, "allow.jukeboxes"),
     ALLOW_SPAWNERS(Boolean.class, "allow.spawners"),
+    ALLOW_BEEHIVES(Boolean.class, "allow.beehives"),
     //
     BLOCKED_WILDCARD_COMMANDS(List.class, "blocked.wildcard_commands"),
     BLOCKED_MUTED_COMMANDS(List.class, "blocked.muted_commands"),
