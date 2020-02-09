@@ -34,8 +34,8 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.MessageEmbed;
 import net.dv8tion.jda.api.entities.PrivateChannel;
 import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.SelfUser;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.internal.utils.concurrent.CountingThreadFactory;
@@ -53,17 +53,16 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class Discord extends FreedomService
 {
+    public static final String URL = "https://updater.telesphoreo.me/JDA/4.0.0_39/JDA.jar";
     public static HashMap<String, VPlayer> PLAYER_LINK_CODES = new HashMap<>();
     public static HashMap<String, VPlayer> PLAYER_VERIFICATION_CODES = new HashMap<>();
     public static HashMap<String, Admin> ADMIN_LINK_CODES = new HashMap<>();
     public static HashMap<String, Admin> ADMIN_VERIFICATION_CODES = new HashMap<>();
     public static HashMap<String, MasterBuilder> MASTER_BUILDER_LINK_CODES = new HashMap<>();
     public static HashMap<String, MasterBuilder> MASTER_BUILDER_VERIFICATION_CODES = new HashMap<>();
+    public static JDA bot = null;
     public ScheduledThreadPoolExecutor RATELIMIT_EXECUTOR = new ScheduledThreadPoolExecutor(5, new CountingThreadFactory(this::poolIdentifier, "RateLimit"));
     public List<CompletableFuture<Message>> sentMessages = new ArrayList<>();
-    public static final String URL = "https://updater.telesphoreo.me/JDA/4.0.0_39/JDA.jar";
-
-    public static JDA bot = null;
     public Boolean enabled = false;
 
     Random random = new Random();
@@ -71,6 +70,154 @@ public class Discord extends FreedomService
     public Discord(TotalFreedomMod plugin)
     {
         super(plugin);
+    }
+
+    public static String getMD5(String string)
+    {
+        return DigestUtils.md5Hex(string);
+    }
+
+    public static String getCodeForAdmin(Admin admin)
+    {
+        for (String code : ADMIN_LINK_CODES.keySet())
+        {
+            if (ADMIN_LINK_CODES.get(code).equals(admin))
+            {
+                return code;
+            }
+        }
+        return null;
+    }
+
+    public static String getCodeForPlayer(VPlayer playerData)
+    {
+        for (String code : PLAYER_LINK_CODES.keySet())
+        {
+            if (PLAYER_LINK_CODES.get(code).equals(playerData))
+            {
+                return code;
+            }
+        }
+        return null;
+    }
+
+    public static String getCodeForMasterBuilder(MasterBuilder masterBuilder)
+    {
+        for (String code : MASTER_BUILDER_LINK_CODES.keySet())
+        {
+            if (MASTER_BUILDER_LINK_CODES.get(code).equals(masterBuilder))
+            {
+                return code;
+            }
+        }
+        return null;
+    }
+
+    public static boolean syncRoles(Admin admin)
+    {
+        if (admin.getDiscordID() == null)
+        {
+            return false;
+        }
+
+        Guild server = bot.getGuildById(ConfigEntry.DISCORD_SERVER_ID.getString());
+        if (server == null)
+        {
+            FLog.severe("The Discord5 server ID specified is invalid, or the bot is not on the server.");
+            return false;
+        }
+
+        Member member = server.getMemberById(admin.getDiscordID());
+        if (member == null)
+        {
+            return false;
+        }
+
+        Role superAdminRole = server.getRoleById(ConfigEntry.DISCORD_SUPER_ROLE_ID.getString());
+        if (superAdminRole == null)
+        {
+            FLog.severe("The specified Super Admin role does not exist!");
+            return false;
+        }
+        Role telnetAdminRole = server.getRoleById(ConfigEntry.DISCORD_TELNET_ROLE_ID.getString());
+        if (telnetAdminRole == null)
+        {
+            FLog.severe("The specified Telnet Admin role does not exist!");
+            return false;
+        }
+        Role seniorAdminRole = server.getRoleById(ConfigEntry.DISCORD_SENIOR_ROLE_ID.getString());
+        if (seniorAdminRole == null)
+        {
+            FLog.severe("The specified Senior Admin role does not exist!");
+            return false;
+        }
+
+        if (!admin.isActive())
+        {
+            if (member.getRoles().contains(superAdminRole))
+            {
+                server.removeRoleFromMember(member, superAdminRole).complete();
+            }
+            if (member.getRoles().contains(telnetAdminRole))
+            {
+                server.removeRoleFromMember(member, telnetAdminRole).complete();
+            }
+            if (member.getRoles().contains(seniorAdminRole))
+            {
+                server.removeRoleFromMember(member, seniorAdminRole).complete();
+            }
+            return true;
+        }
+
+        if (admin.getRank().equals(Rank.SUPER_ADMIN))
+        {
+            if (!member.getRoles().contains(superAdminRole))
+            {
+                server.addRoleToMember(member, superAdminRole).complete();
+            }
+            if (member.getRoles().contains(telnetAdminRole))
+            {
+                server.removeRoleFromMember(member, telnetAdminRole).complete();
+            }
+            if (member.getRoles().contains(seniorAdminRole))
+            {
+                server.removeRoleFromMember(member, seniorAdminRole).complete();
+            }
+            return true;
+        }
+        else if (admin.getRank().equals(Rank.TELNET_ADMIN))
+        {
+            if (!member.getRoles().contains(telnetAdminRole))
+            {
+                server.addRoleToMember(member, telnetAdminRole).complete();
+            }
+            if (member.getRoles().contains(superAdminRole))
+            {
+                server.removeRoleFromMember(member, superAdminRole).complete();
+            }
+            if (member.getRoles().contains(seniorAdminRole))
+            {
+                server.removeRoleFromMember(member, seniorAdminRole).complete();
+            }
+            return true;
+        }
+        else if (admin.getRank().equals(Rank.SENIOR_ADMIN))
+        {
+            if (!member.getRoles().contains(seniorAdminRole))
+            {
+                server.addRoleToMember(member, seniorAdminRole).complete();
+            }
+            if (member.getRoles().contains(superAdminRole))
+            {
+                server.removeRoleFromMember(member, superAdminRole).complete();
+            }
+            if (member.getRoles().contains(telnetAdminRole))
+            {
+                server.removeRoleFromMember(member, telnetAdminRole).complete();
+            }
+            return true;
+        }
+        return false;
     }
 
     public void startBot()
@@ -166,22 +313,6 @@ public class Discord extends FreedomService
         }
         sentMessages.clear();
         messageChatChannel("**Message queue cleared**");
-    }
-
-    // Do no ask why this is here. I spent two hours trying to make a simple thing work
-    public class StartEvent
-    {
-        private final JDA api;
-
-        public StartEvent(JDA api)
-        {
-            this.api = api;
-        }
-
-        public void start()
-        {
-            messageChatChannel("**Server has started**");
-        }
     }
 
     public boolean sendBackupCodes(VPlayer vPlayer)
@@ -309,11 +440,6 @@ public class Discord extends FreedomService
         return new File(fileUrl);
     }
 
-    public static String getMD5(String string)
-    {
-        return DigestUtils.md5Hex(string);
-    }
-
     public void addPlayerVerificationCode(String code, VPlayer vPlayer)
     {
         PLAYER_VERIFICATION_CODES.put(code, vPlayer);
@@ -414,42 +540,6 @@ public class Discord extends FreedomService
         return user.getName() + "#" + user.getDiscriminator();
     }
 
-    public static String getCodeForAdmin(Admin admin)
-    {
-        for (String code : ADMIN_LINK_CODES.keySet())
-        {
-            if (ADMIN_LINK_CODES.get(code).equals(admin))
-            {
-                return code;
-            }
-        }
-        return null;
-    }
-
-    public static String getCodeForPlayer(VPlayer playerData)
-    {
-        for (String code : PLAYER_LINK_CODES.keySet())
-        {
-            if (PLAYER_LINK_CODES.get(code).equals(playerData))
-            {
-                return code;
-            }
-        }
-        return null;
-    }
-
-    public static String getCodeForMasterBuilder(MasterBuilder masterBuilder)
-    {
-        for (String code : MASTER_BUILDER_LINK_CODES.keySet())
-        {
-            if (MASTER_BUILDER_LINK_CODES.get(code).equals(masterBuilder))
-            {
-                return code;
-            }
-        }
-        return null;
-    }
-
     @Override
     protected void onStop()
     {
@@ -489,7 +579,7 @@ public class Discord extends FreedomService
         embedBuilder.setDescription(reason);
         embedBuilder.setFooter("Reported by " + reporter.getName(), "https://minotar.net/helm/" + reporter.getName() + ".png");
         embedBuilder.setTimestamp(Instant.from(ZonedDateTime.now()));
-        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " +  reported.getLocation().getBlockZ();
+        String location = "World: " + reported.getLocation().getWorld().getName() + ", X: " + reported.getLocation().getBlockX() + ", Y: " + reported.getLocation().getBlockY() + ", Z: " + reported.getLocation().getBlockZ();
         embedBuilder.addField("Location", location, true);
         embedBuilder.addField("Game Mode", WordUtils.capitalizeFully(reported.getGameMode().name()), true);
         User user = plugin.esb.getEssentialsUser(reported.getName());
@@ -503,110 +593,19 @@ public class Discord extends FreedomService
         return true;
     }
 
-    public static boolean syncRoles(Admin admin)
+    // Do no ask why this is here. I spent two hours trying to make a simple thing work
+    public class StartEvent
     {
-        if (admin.getDiscordID() == null)
+        private final JDA api;
+
+        public StartEvent(JDA api)
         {
-            return false;
+            this.api = api;
         }
 
-        Guild server = bot.getGuildById(ConfigEntry.DISCORD_SERVER_ID.getString());
-        if (server == null)
+        public void start()
         {
-            FLog.severe("The Discord5 server ID specified is invalid, or the bot is not on the server.");
-            return false;
+            messageChatChannel("**Server has started**");
         }
-
-        Member member = server.getMemberById(admin.getDiscordID());
-        if (member == null)
-        {
-            return false;
-        }
-
-        Role superAdminRole = server.getRoleById(ConfigEntry.DISCORD_SUPER_ROLE_ID.getString());
-        if (superAdminRole == null)
-        {
-            FLog.severe("The specified Super Admin role does not exist!");
-            return false;
-        }
-        Role telnetAdminRole = server.getRoleById(ConfigEntry.DISCORD_TELNET_ROLE_ID.getString());
-        if (telnetAdminRole == null)
-        {
-            FLog.severe("The specified Telnet Admin role does not exist!");
-            return false;
-        }
-        Role seniorAdminRole = server.getRoleById(ConfigEntry.DISCORD_SENIOR_ROLE_ID.getString());
-        if (seniorAdminRole == null)
-        {
-            FLog.severe("The specified Senior Admin role does not exist!");
-            return false;
-        }
-
-        if (!admin.isActive())
-        {
-            if (member.getRoles().contains(superAdminRole))
-            {
-                server.removeRoleFromMember(member, superAdminRole).complete();
-            }
-            if (member.getRoles().contains(telnetAdminRole))
-            {
-                server.removeRoleFromMember(member, telnetAdminRole).complete();
-            }
-            if (member.getRoles().contains(seniorAdminRole))
-            {
-                server.removeRoleFromMember(member, seniorAdminRole).complete();
-            }
-            return true;
-        }
-
-        if (admin.getRank().equals(Rank.SUPER_ADMIN))
-        {
-            if (!member.getRoles().contains(superAdminRole))
-            {
-                server.addRoleToMember(member, superAdminRole).complete();
-            }
-            if (member.getRoles().contains(telnetAdminRole))
-            {
-                server.removeRoleFromMember(member, telnetAdminRole).complete();
-            }
-            if (member.getRoles().contains(seniorAdminRole))
-            {
-                server.removeRoleFromMember(member, seniorAdminRole).complete();
-            }
-            return true;
-        }
-        else if (admin.getRank().equals(Rank.TELNET_ADMIN))
-        {
-            if (!member.getRoles().contains(telnetAdminRole))
-            {
-                server.addRoleToMember(member, telnetAdminRole).complete();
-            }
-            if (member.getRoles().contains(superAdminRole))
-            {
-                server.removeRoleFromMember(member, superAdminRole).complete();
-            }
-            if (member.getRoles().contains(seniorAdminRole))
-            {
-                server.removeRoleFromMember(member, seniorAdminRole).complete();
-            }
-            return true;
-        }
-        else if (admin.getRank().equals(Rank.SENIOR_ADMIN))
-        {
-            if (!member.getRoles().contains(seniorAdminRole))
-            {
-                server.addRoleToMember(member, seniorAdminRole).complete();
-            }
-            if (member.getRoles().contains(superAdminRole))
-            {
-                server.removeRoleFromMember(member, superAdminRole).complete();
-            }
-            if (member.getRoles().contains(telnetAdminRole))
-            {
-                server.removeRoleFromMember(member, telnetAdminRole).complete();
-            }
-            return true;
-        }
-        return false;
     }
 }

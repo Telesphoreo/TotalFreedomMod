@@ -8,8 +8,8 @@ import me.totalfreedom.totalfreedommod.player.PlayerData;
 import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import me.totalfreedom.totalfreedommod.util.FUtil;
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -64,7 +64,9 @@ public class Command_notes extends FreedomCommand
             {
                 msg("Player notes for " + vPlayer.getName() + ":", ChatColor.GREEN);
                 msg(noteList.toString());
-            } else {
+            }
+            else
+            {
                 msg("There are no notes for " + vPlayer.getName() + ".", ChatColor.RED);
             }
             return true;

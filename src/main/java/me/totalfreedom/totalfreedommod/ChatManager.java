@@ -4,7 +4,6 @@ import com.google.common.base.Strings;
 import me.totalfreedom.totalfreedommod.admin.Admin;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
-import me.totalfreedom.totalfreedommod.playerverification.VPlayer;
 import me.totalfreedom.totalfreedommod.rank.Displayable;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FSync;

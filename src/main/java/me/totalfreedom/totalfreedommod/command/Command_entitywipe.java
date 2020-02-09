@@ -17,6 +17,29 @@ import org.bukkit.entity.Player;
 public class Command_entitywipe extends FreedomCommand
 {
 
+    public static List<EntityType> getAllEntities()
+    {
+        List<EntityType> entityTypes = new ArrayList<>();
+        for (EntityType entityType : EntityType.values())
+        {
+            if (!Groups.MOB_TYPES.contains(entityType))
+            {
+                entityTypes.add(entityType);
+            }
+        }
+        return entityTypes;
+    }
+
+    public static List<String> getAllEntityNames()
+    {
+        List<String> names = new ArrayList<>();
+        for (EntityType entityType : getAllEntities())
+        {
+            names.add(FUtil.tabFormatName(entityType.name()));
+        }
+        return names;
+    }
+
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
@@ -66,29 +89,6 @@ public class Command_entitywipe extends FreedomCommand
         }
         msg(count + " " + (type != null ? entityName : "entities") + FUtil.showS(count) + " removed.");
         return true;
-    }
-
-    public static List<EntityType> getAllEntities()
-    {
-        List<EntityType> entityTypes = new ArrayList<>();
-        for (EntityType entityType : EntityType.values())
-        {
-            if (!Groups.MOB_TYPES.contains(entityType))
-            {
-                entityTypes.add(entityType);
-            }
-        }
-        return entityTypes;
-    }
-
-    public static List<String> getAllEntityNames()
-    {
-        List<String> names = new ArrayList<>();
-        for (EntityType entityType : getAllEntities())
-        {
-            names.add(FUtil.tabFormatName(entityType.name()));
-        }
-        return names;
     }
 
     @Override

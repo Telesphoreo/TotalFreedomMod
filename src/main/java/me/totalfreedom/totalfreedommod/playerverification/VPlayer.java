@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 import lombok.Setter;
-import me.totalfreedom.totalfreedommod.util.FLog;
 import net.pravian.aero.base.ConfigLoadable;
 import net.pravian.aero.base.ConfigSavable;
 import net.pravian.aero.base.Validatable;

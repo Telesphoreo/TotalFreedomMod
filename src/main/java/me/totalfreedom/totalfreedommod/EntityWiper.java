@@ -14,13 +14,6 @@ import org.bukkit.scheduler.BukkitTask;
 
 public class EntityWiper extends FreedomService
 {
-    private BukkitTask wiper;
-
-    public EntityWiper(TotalFreedomMod plugin)
-    {
-        super(plugin);
-    }
-
     public List<EntityType> EXCLUSIONS = Arrays.asList(
             EntityType.ARMOR_STAND,
             EntityType.PAINTING,
@@ -28,6 +21,12 @@ public class EntityWiper extends FreedomService
             EntityType.LEASH_HITCH,
             EntityType.ITEM_FRAME
     );
+    private BukkitTask wiper;
+
+    public EntityWiper(TotalFreedomMod plugin)
+    {
+        super(plugin);
+    }
 
     @Override
     protected void onStart()

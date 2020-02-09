@@ -25,6 +25,7 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     public static final String CONFIG_FILENAME = "admins.yml";
     @Getter
     private final List<String> ips = Lists.newArrayList();
+    private final List<String> backupCodes = Lists.newArrayList();
     @Getter
     private String configKey;
     @Getter
@@ -62,7 +63,6 @@ public class Admin implements ConfigLoadable, ConfigSavable, Validatable
     @Getter
     @Setter
     private Boolean logStick = false;
-    private final List<String> backupCodes = Lists.newArrayList();
 
     public Admin(Player player)
     {
