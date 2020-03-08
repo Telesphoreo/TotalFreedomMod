@@ -1,6 +1,5 @@
 package me.totalfreedom.totalfreedommod.blocking.command;
 
-import java.util.Objects;
 import lombok.Getter;
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
 import me.totalfreedom.totalfreedommod.util.FUtil;
@@ -18,29 +17,21 @@ public class CommandBlockerEntry
     @Getter
     private final String command;
     @Getter
-    private final String subCommand;
-    @Getter
     private final String message;
 
     public CommandBlockerEntry(CommandBlockerRank rank, CommandBlockerAction action, String command, String message)
     {
-        this(rank, action, command, null, message);
-    }
-
-    CommandBlockerEntry(CommandBlockerRank rank, CommandBlockerAction action, String command, String subCommand, String message)
-    {
         this.rank = rank;
         this.action = action;
         this.command = command;
-        this.subCommand = ((subCommand == null) ? null : subCommand.toLowerCase().trim());
         this.message = ((message == null || message.equals("_")) ? "That command is blocked." : message);
     }
 
-    void doActions(CommandSender sender)
+    public void doActions(CommandSender sender)
     {
         if (action == CommandBlockerAction.BLOCK_AND_EJECT && sender instanceof Player)
         {
-            Objects.requireNonNull(TotalFreedomMod.plugin()).ae.autoEject((Player)sender, "You used a prohibited command: " + command);
+            TotalFreedomMod.plugin().ae.autoEject((Player)sender, "You used a prohibited command: " + command);
             FUtil.bcastMsg(sender.getName() + " was automatically kicked for using harmful commands.", ChatColor.RED);
             return;
         }

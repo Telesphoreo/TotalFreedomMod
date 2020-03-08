@@ -12,7 +12,6 @@ import me.totalfreedom.totalfreedommod.config.ConfigEntry;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import net.pravian.aero.command.CommandReflection;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
@@ -70,21 +69,20 @@ public class CommandBlocker extends FreedomService
 
             final CommandBlockerRank rank = CommandBlockerRank.fromToken(parts[0]);
             final CommandBlockerAction action = CommandBlockerAction.fromToken(parts[1]);
-            String commandName = parts[2].toLowerCase().substring(1);
+            String strCommand = parts[2].toLowerCase().substring(1);
             final String message = (parts.length > 3 ? parts[3] : null);
 
-            if (rank == null || action == null || commandName.isEmpty())
+            if (rank == null || action == null || strCommand == null || strCommand.isEmpty())
             {
                 FLog.warning("Invalid command blocker entry: " + rawEntry);
                 continue;
             }
 
-            final String[] commandParts = commandName.split(" ");
-            String subCommand = null;
+            final String[] commandParts = strCommand.split(" ");
+            String commandName = strCommand.toLowerCase();
             if (commandParts.length > 1)
             {
                 commandName = commandParts[0];
-                subCommand = StringUtils.join(commandParts, " ", 1, commandParts.length).trim().toLowerCase();
             }
 
             final Command command = commandMap.getCommand(commandName);
@@ -94,25 +92,21 @@ public class CommandBlocker extends FreedomService
             {
                 unknownCommands.add(commandName);
             }
-            else
-            {
-                commandName = command.getName().toLowerCase();
-            }
 
-            if (entryList.containsKey(commandName))
+            if (entryList.containsKey(strCommand))
             {
-                FLog.warning("Not blocking: /" + commandName + " - Duplicate entry exists!");
+                FLog.warning("Not blocking: /" + strCommand + " - Duplicate entry exists!");
                 continue;
             }
 
-            final CommandBlockerEntry blockedCommandEntry = new CommandBlockerEntry(rank, action, commandName, subCommand, message);
+            final CommandBlockerEntry blockedCommandEntry = new CommandBlockerEntry(rank, action, strCommand, message);
             entryList.put(blockedCommandEntry.getCommand(), blockedCommandEntry);
 
             if (command != null)
             {
                 for (String alias : command.getAliases())
                 {
-                    entryList.put(alias.toLowerCase(), blockedCommandEntry);
+                    entryList.put(strCommand.replaceFirst(commandName, alias), blockedCommandEntry);
                 }
             }
         }
@@ -129,10 +123,11 @@ public class CommandBlocker extends FreedomService
             // CommandBlocker handles messages and broadcasts
             event.setCancelled(true);
         }
+
         if (event.getMessage().contains("translation.test.invalid") || event.getMessage().contains("translation.test.invalid2"))
         {
-            FUtil.playerMsg(event.getPlayer(), "seth's discord verification system gives me nightmares", ChatColor.RED);
             event.setCancelled(true);
+            FUtil.playerMsg(event.getPlayer(), ChatColor.RED + "No crishy crashy faggy");
         }
     }
 
@@ -151,6 +146,7 @@ public class CommandBlocker extends FreedomService
         // Format
         command = command.toLowerCase().trim();
         command = command.startsWith("/") ? command.substring(1) : command;
+        command = command.replaceAll("\"", "");
 
         // Check for plugin specific commands
         final String[] commandParts = command.split(" ");
@@ -167,7 +163,7 @@ public class CommandBlocker extends FreedomService
         {
             if (command.startsWith("/") && !plugin.al.isAdmin(sender) && (part.contains("#copy") || part.contains("#clipboard")))
             {
-                FUtil.playerMsg(sender, "WorldEdit copy variables are disabled.", ChatColor.RED);
+                FUtil.playerMsg(sender, "WorldEdit copy variables are disabled.");
                 return true;
             }
             Matcher matcher = flagPattern.matcher(part);
@@ -182,27 +178,11 @@ public class CommandBlocker extends FreedomService
             return true;
         }
 
-        // Obtain sub command, if it exists
-        String subCommand = null;
-        if (commandParts.length > 1)
-        {
-            subCommand = StringUtils.join(commandParts, " ", 1, commandParts.length).toLowerCase();
-        }
-
         // Obtain entry
-        final CommandBlockerEntry entry = entryList.get(commandParts[0]);
+        final CommandBlockerEntry entry = entryList.get(command);
         if (entry == null)
         {
             return false;
-        }
-
-        // Validate sub command
-        if (entry.getSubCommand() != null)
-        {
-            if (subCommand == null || !subCommand.startsWith(entry.getSubCommand()))
-            {
-                return false;
-            }
         }
 
         if (entry.getRank().hasPermission(sender))
