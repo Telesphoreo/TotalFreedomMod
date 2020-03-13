@@ -1,5 +1,5 @@
 #
-# TotalFreedomMod 2019.6.1 Configuration
+# TotalFreedomMod 2020.1.2 Configuration
 # by Madgeek1450 and Prozza
 #
 
@@ -265,6 +265,8 @@ blocked:
     - gtfo
     - doom
     - saconfig
+    - smite
+
   # Commands blocked while a player is muted
   muted_commands:
     - say
@@ -273,6 +275,7 @@ blocked:
     - tell
     - reply
     - mail
+
   # Blocked Chat Codes - Use &code,&code2,&code3 (No spaces)
   chatcodes: "&0,&k,&m,&n"
 

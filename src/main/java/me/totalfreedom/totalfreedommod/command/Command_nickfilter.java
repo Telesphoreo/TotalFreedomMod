@@ -1,7 +1,6 @@
 package me.totalfreedom.totalfreedommod.command;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -45,7 +44,7 @@ public class Command_nickfilter extends FreedomCommand
         {
             String haystack = player.getDisplayName().toLowerCase().trim();
             int editDistance = StringUtils.getLevenshteinDistance(needle, haystack.toLowerCase());
-            if (minEditDistance == null || minEditDistance.intValue() > editDistance)
+            if (minEditDistance == null || minEditDistance > editDistance)
             {
                 minEditDistance = editDistance;
                 minEditMatch = player;
@@ -64,8 +63,7 @@ public class Command_nickfilter extends FreedomCommand
 
         if (args.length >= 1)
         {
-            final List<String> argsList = Arrays.asList(args);
-            for (String arg : argsList)
+            for (String arg : args)
             {
                 Player player = null;
 
@@ -76,11 +74,11 @@ public class Command_nickfilter extends FreedomCommand
 
                     player = getPlayerByDisplayName(displayName);
 
-                    if (player == null)
+                    if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
                     {
                         player = getPlayerByDisplayNameAlt(displayName);
 
-                        if (player == null)
+                        if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
                         {
                             sender.sendMessage(ChatColor.GRAY + "Can't find player by nickname: " + displayName);
                             return true;
@@ -102,7 +100,7 @@ public class Command_nickfilter extends FreedomCommand
 
         if (!nickMatched)
         {
-            sender.sendMessage("No nicknames replaced in command.");
+            msg("No nicknames replaced in command.");
             return true;
         }
 
@@ -114,7 +112,7 @@ public class Command_nickfilter extends FreedomCommand
             return true;
         }
 
-        sender.sendMessage("Sending command: \"" + newCommand + "\".");
+        msg("Sending command: \"" + newCommand + "\".");
         server.dispatchCommand(sender, newCommand);
 
         return true;

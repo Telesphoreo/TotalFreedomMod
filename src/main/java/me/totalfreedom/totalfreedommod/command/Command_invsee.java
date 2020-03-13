@@ -22,7 +22,7 @@ public class Command_invsee extends FreedomCommand
 
         Player player = getPlayer(args[0]);
 
-        if (player == null)
+        if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
         {
             msg(FreedomCommand.PLAYER_NOT_FOUND);
             return false;

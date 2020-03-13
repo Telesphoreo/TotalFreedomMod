@@ -134,16 +134,13 @@ public class Command_gtfo extends FreedomCommand
 
         // Broadcast
         final StringBuilder bcast = new StringBuilder()
-                .append(ChatColor.RED)
-                .append(sender.getName())
-                .append(" - ")
                 .append("Banning: ")
                 .append(username);
         if (reason != null)
         {
             bcast.append(" - Reason: ").append(ChatColor.YELLOW).append(reason);
         }
-        FUtil.bcastMsg(bcast.toString());
+        FUtil.adminAction(sender.getName(), bcast.toString(), true);
         msg(username + " has been banned and their IP is: " + StringUtils.join(ips, ", "));
 
         // Kick player and other IPs
