@@ -5,7 +5,6 @@ import org.bukkit.ChatColor;
 
 public enum Rank implements Displayable
 {
-
     IMPOSTOR("an", "Impostor", Type.PLAYER, "Imp", ChatColor.YELLOW),
     NON_OP("a", "Non-Op", Type.PLAYER, "", ChatColor.WHITE),
     OP("an", "Op", Type.PLAYER, "OP", ChatColor.GREEN),

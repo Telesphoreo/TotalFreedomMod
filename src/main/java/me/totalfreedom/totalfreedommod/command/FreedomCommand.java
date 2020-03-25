@@ -149,6 +149,16 @@ public abstract class FreedomCommand extends AbstractCommandBase<TotalFreedomMod
         return Players.getPlayer(name);
     }
 
+    protected Player getNonVanishedPlayer(String name)
+    {
+        Player player = getPlayer(name);
+        if (!Command_vanish.VANISHED.contains(player) && sender == player)
+        {
+            return player;
+        }
+        return null;
+    }
+
     protected void msg(final CommandSender sender, final String message, final ChatColor color)
     {
         if (sender == null)

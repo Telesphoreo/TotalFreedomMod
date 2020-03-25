@@ -77,7 +77,7 @@ public class FrontDoor extends FreedomService
         FUtil.cancel(updater);
         updater = null;
         FUtil.cancel(frontdoor);
-        updater = null;
+        frontdoor = null;
     }
 
     private BukkitRunnable checkForChanges()

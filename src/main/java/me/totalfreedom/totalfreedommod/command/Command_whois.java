@@ -5,7 +5,7 @@ import java.text.NumberFormat;
 import me.totalfreedom.totalfreedommod.player.FPlayer;
 import me.totalfreedom.totalfreedommod.rank.Rank;
 import net.pravian.aero.util.Ips;
-import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,7 +22,7 @@ public class Command_whois extends FreedomCommand
             return false;
         }
 
-        Player player = Bukkit.getPlayer(args[0]);
+        Player player = getPlayer(args[0]);
 
         if (player == null)
         {
@@ -37,37 +37,62 @@ public class Command_whois extends FreedomCommand
         format.setMaximumFractionDigits(1);
         String formattedHealth = format.format(player.getHealth()) + "/" + format.format(player.getMaxHealth());
 
-        msg("--- WhoIs: " + player.getName() + " ---");
-        if (plugin.esb.getNickname(player.getName()) != null)
+        final StringBuilder output = new StringBuilder();
+
+        output.append(ChatColor.GOLD + "--- ");
+        output.append(ChatColor.GREEN + "WhoIs: ");
+        output.append(ChatColor.RED + player.getName());
+        output.append(ChatColor.GOLD + " ---").append("\n");
+        //
+        if (plugin.esb.isEnabled() && plugin.esb.getNickname(player.getName()) != null)
         {
-            msg(" - Nickname: " + plugin.esb.getNickname(player.getName()));
+            output.append(ChatColor.GOLD + " - Nickname: ");
+            output.append(ChatColor.RED + plugin.esb.getNickname(player.getName())).append("\n");
         }
-        msg(" - Health: " + formattedHealth);
+        //
+        output.append(ChatColor.GOLD + " - Health: ");
+        output.append(ChatColor.RED + formattedHealth).append("\n");
+        //
         String location = player.getWorld().getName() + ", " +
                 player.getLocation().getBlockX() + ", " +
                 player.getLocation().getBlockY() + ", " +
                 player.getLocation().getBlockZ();
-        msg(" - Location: " + location);
+        output.append(ChatColor.GOLD + " - Location: ");
+        output.append(ChatColor.RED + location).append("\n");
+        //
         if (plugin.al.isAdmin(sender))
         {
-            msg(" - IP Address: " + Ips.getIp(player));
+            output.append(ChatColor.GOLD + " - IP Address: ");
+            output.append(ChatColor.RED + Ips.getIp(player)).append("\n");
         }
+        //
         if (plugin.esb.isEnabled())
         {
-            msg(" - Playtime: " + plugin.esb.getPlaytime(player.getName()));
+            output.append(ChatColor.GOLD + " - Playtime: ");
+            output.append(ChatColor.RED + plugin.esb.getPlaytime(player.getName())).append("\n");
+            //
+            output.append(ChatColor.GOLD + " - AFK: ");
+            output.append(ChatColor.RED + (plugin.esb.isAFK(player.getName()) ? "true, for " + plugin.esb.getAFKDuration(player.getName()) : "false")).append("\n");
+            //
+            output.append(ChatColor.GOLD + " - God mode: ");
+            output.append(ChatColor.RED + "" + plugin.esb.getGodMode(player.getName())).append("\n");
+            //
+            output.append(ChatColor.GOLD + " - Speed: ");
+            output.append(ChatColor.RED + "" + plugin.esb.getSpeed(player.getName()));
         }
-        if (plugin.esb.isEnabled())
-        {
-            msg(" - AFK: " + (plugin.esb.isAFK(player.getName()) ? "true, for " + plugin.esb.getAFKDuration(player.getName()) : "false"));
-        }
-        msg(" - Gamemode: " + player.getGameMode().toString().toLowerCase());
-        msg(" - Flying: " + player.isFlying());
-        if (plugin.esb.isEnabled())
-        {
-            msg(" - God mode: " + plugin.esb.getGodMode(player.getName()));
-        }
-        msg(" - Muted: " + fPlayer.isMuted());
-        msg(" - Caged: " + fPlayer.getCageData().isCaged());
+        //
+        output.append(ChatColor.GOLD + " - Gamemode: ");
+        output.append(ChatColor.RED + player.getGameMode().toString().toLowerCase()).append("\n");
+        //
+        output.append(ChatColor.GOLD + " - Flying: ");
+        output.append(ChatColor.RED + "" + player.isFlying()).append("\n");
+        //
+        output.append(ChatColor.GOLD + " - Muted: ");
+        output.append(ChatColor.RED + "" + fPlayer.isMuted()).append("\n");
+        //
+        output.append(ChatColor.GOLD + " - Caged: ");
+        output.append(ChatColor.RED + "" + fPlayer.getCageData().isCaged()).append("\n");
+        sender.sendMessage(output.toString());
         return true;
     }
 }

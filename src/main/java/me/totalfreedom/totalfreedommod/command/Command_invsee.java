@@ -20,9 +20,9 @@ public class Command_invsee extends FreedomCommand
             return false;
         }
 
-        Player player = getPlayer(args[0]);
+        Player player = getNonVanishedPlayer(args[0]);
 
-        if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
+        if (player == null)
         {
             msg(FreedomCommand.PLAYER_NOT_FOUND);
             return false;

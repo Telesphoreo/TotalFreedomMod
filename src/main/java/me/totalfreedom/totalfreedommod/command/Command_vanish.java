@@ -44,7 +44,7 @@ public class Command_vanish extends FreedomCommand
             if (!silent)
             {
                 String beginning = sender.getName() + " is ";
-                if (admin.getLoginMessage().contains("%name%"))
+                if (admin.getLoginMessage() != null && admin.getLoginMessage().contains("%name%"))
                 {
                     beginning = "";
                 }

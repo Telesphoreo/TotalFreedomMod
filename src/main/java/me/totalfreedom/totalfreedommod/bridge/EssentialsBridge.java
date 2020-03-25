@@ -82,6 +82,12 @@ public class EssentialsBridge extends FreedomService
         return DateUtil.formatDateDiff(playtimeMs);
     }
 
+    public float getSpeed(String username)
+    {
+        User user = getEssentialsUser(username);
+        return user.getBase().isFlying() ? user.getBase().getFlySpeed() : user.getBase().getWalkSpeed();
+    }
+
     public boolean isAFK(String username)
     {
         User user = getEssentialsUser(username);
