@@ -198,8 +198,8 @@ public class LoginProcess extends FreedomService
 
         if (ConfigEntry.ALLOW_TPR_ON_JOIN.getBoolean())
         {
-            int x = FUtil.random(-10000, 10000);
-            int z = FUtil.random(-10000, 10000);
+            int x = FUtil.randomInteger(-10000, 10000);
+            int z = FUtil.randomInteger(-10000, 10000);
             int y = player.getWorld().getHighestBlockYAt(x, z);
             Location location = new Location(player.getLocation().getWorld(), x, y, z);
             PaperLib.teleportAsync(player, location);

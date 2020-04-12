@@ -11,7 +11,7 @@ import org.bukkit.entity.Player;
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH)
 @CommandParameters(
         description = "Protect areas so that only admins can directly modify blocks in those areas. WorldEdit and other such plugins might bypass this.",
-        usage = "/<command> <list | clear | remove <label> | add <label> <radius>>")
+        usage = "/<command> <list | clear | remove <label> | add <label> <radius>>", aliases = "pa")
 public class Command_protectarea extends FreedomCommand
 {
     @Override

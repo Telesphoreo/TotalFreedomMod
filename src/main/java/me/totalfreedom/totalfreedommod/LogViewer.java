@@ -23,7 +23,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class LogViewer extends FreedomService
 {
-
     public LogViewer(TotalFreedomMod plugin)
     {
         super(plugin);
@@ -145,7 +144,6 @@ public class LogViewer extends FreedomService
 
     private static class URLBuilder
     {
-
         private final String requestPath;
         private final Map<String, String> queryStringMap = new HashMap<>();
 
@@ -183,7 +181,6 @@ public class LogViewer extends FreedomService
 
     private static class SecureCodeGenerator
     {
-
         private static final String CHARACTER_SET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
 
         public static String generateCode(final int length)

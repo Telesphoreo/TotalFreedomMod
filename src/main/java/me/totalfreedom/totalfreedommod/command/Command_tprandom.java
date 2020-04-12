@@ -9,14 +9,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Go to a random place in the current world you are in", usage = "/<command>", aliases = "tpr, rtp")
+@CommandParameters(description = "Go to a random location in the current world you are in", usage = "/<command>", aliases = "tpr, rtp")
 public class Command_tprandom extends FreedomCommand
 {
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {
-        int x = FUtil.random(-10000, 10000);
-        int z = FUtil.random(-10000, 10000);
+        int x = FUtil.randomInteger(-10000, 10000);
+        int z = FUtil.randomInteger(-10000, 10000);
         int y = playerSender.getWorld().getHighestBlockYAt(x, z);
         Location location = new Location(playerSender.getLocation().getWorld(), x, y, z);
         playerSender.teleport(location);

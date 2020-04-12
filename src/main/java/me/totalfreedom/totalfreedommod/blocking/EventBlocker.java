@@ -17,6 +17,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBurnEvent;
 import org.bukkit.event.block.BlockDispenseEvent;
 import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
@@ -168,6 +169,12 @@ public class EventBlocker extends FreedomService
 
     @EventHandler(priority = EventPriority.NORMAL)
     public void onLeavesDecay(LeavesDecayEvent event)
+    {
+        event.setCancelled(true);
+    }
+
+    @EventHandler(priority = EventPriority.NORMAL)
+    public void onBlockGrowth(BlockGrowEvent event)
     {
         event.setCancelled(true);
     }

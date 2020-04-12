@@ -25,7 +25,6 @@ import java.util.TimeZone;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import me.totalfreedom.totalfreedommod.config.ConfigEntry;
-import me.totalfreedom.totalfreedommod.shop.ShopItem;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.WordUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -45,7 +44,7 @@ public class FUtil
 {
     public static final String SAVED_FLAGS_FILENAME = "savedflags.dat";
     // See https://github.com/TotalFreedom/License - None of the listed names may be removed.
-    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "OxLemonxO", "Wild1145", "Catholic_Mario", "Arcaknight", "smartnt", "supernt");
+    public static final List<String> DEVELOPERS = Arrays.asList("Madgeek1450", "Prozza", "WickedGamingUK", "OxLemonxO", "Wild1145", "Demonic_Mario", "RobinGall2910", "smartnt", "supernt");
     public static final Map<String, ChatColor> CHAT_COLOR_NAMES = new HashMap<>();
     public static final List<ChatColor> CHAT_COLOR_POOL = Arrays.asList(
             ChatColor.DARK_RED,
@@ -144,7 +143,15 @@ public class FUtil
 
     public static void bcastMsg(String message, ChatColor color)
     {
-        FLog.info(message, true);
+        bcastMsg(message, color, true);
+    }
+
+    public static void bcastMsg(String message, ChatColor color, Boolean toConsole)
+    {
+        if (toConsole)
+        {
+            FLog.info(message, true);
+        }
 
         for (Player player : Bukkit.getOnlinePlayers())
         {
@@ -152,9 +159,14 @@ public class FUtil
         }
     }
 
+    public static void bcastMsg(String message, Boolean toConsole)
+    {
+        bcastMsg(message, null, toConsole);
+    }
+
     public static void bcastMsg(String message)
     {
-        FUtil.bcastMsg(message, null);
+        FUtil.bcastMsg(message, null, true);
     }
 
     // Still in use by listeners
@@ -505,11 +517,26 @@ public class FUtil
         return Bukkit.getServer().getClass().getPackage().getName().replace(".", ",").split(",")[3];
     }
 
-    public static int random(int min, int max)
+    public static int randomInteger(int min, int max)
     {
         int range = max - min + 1;
         int value = (int)(Math.random() * range) + min;
         return value;
+    }
+
+    public static String randomString(int length)
+    {
+        String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz0123456789";
+        String randomString = "";
+        for (int i = 0; i < length; i++)
+        {
+
+            int selectedCharacter = randomInteger(1, characters.length()) - 1;
+
+            randomString += characters.charAt(selectedCharacter);
+        }
+
+        return randomString;
     }
 
     public static boolean isPaper()
@@ -559,31 +586,10 @@ public class FUtil
         player.getInventory().setItem(player.getInventory().firstEmpty(), stack);
     }
 
-    public static void give(Player player, ShopItem item, String... lore)
-    {
-        give(player, item.getMaterial(), item.getColoredName(), 1, lore);
-    }
-
-    public static String generateSignature(ShopItem item)
-    {
-        StringBuilder signature = new StringBuilder(String.valueOf(item.ordinal()));
-        signature.append("A"); // mark the ending
-        for (int i = 0; i < 8; i++)
-        {
-            char c = FUtil.getRandomCharacter();
-            while (c == 'A')
-            {
-                c = FUtil.getRandomCharacter();
-            }
-            signature.append(FUtil.getRandomCharacter());
-        }
-        return signature.toString();
-    }
-
     public static Player getRandomPlayer()
     {
         List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-        return players.get(random(0, players.size() - 1));
+        return players.get(randomInteger(0, players.size() - 1));
     }
 
     // convert the current time

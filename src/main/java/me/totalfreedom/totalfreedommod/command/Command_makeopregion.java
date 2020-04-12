@@ -22,7 +22,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Make a region for an OP.", usage = "/<command> <playername> <name>", aliases = "mor,newopregion,defineopregion")
+@CommandParameters(description = "Automatically make a protected region for an OP.", usage = "/<command> <playername> <name>", aliases = "mor")
 public class Command_makeopregion extends FreedomCommand
 {
     final Map<Flag<?>, Object> flags = new HashMap<Flag<?>, Object>()

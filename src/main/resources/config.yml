@@ -1,5 +1,5 @@
 #
-# TotalFreedomMod 2020.1.2 Configuration
+# TotalFreedomMod 2020.2.1 Configuration
 # by Madgeek1450 and Prozza
 #
 
@@ -24,7 +24,7 @@ server:
 
   # All players who show up as owner
   owners:
-    - Catholic_Mario
+    - Demonic_Mario
 
   # All players who show up as executive
   executives: []
@@ -35,11 +35,11 @@ server:
   # All players who can manage the master builder list
   master_builder_management: []
 
-  # URL players should appeal for bans at
-  ban_url: http://totalfreedom.boards.net/
+  # The URL players should appeal for bans at
+  ban_url: https://totalfreedom.boards.net/
 
-  # URL players should appeal for permanent bans at
-  permban_url: http://bit.ly/TF_PermBan
+  # The URL players should appeal for permanent bans at
+  permban_url: https://bit.ly/TF_PermBan
 
   # What to display at the top of the tab list
   tablist_header: ''
@@ -83,14 +83,6 @@ discord:
   executive_role_id: ''
   # Owner role ID
   server_owner_role_id: ''
-
-# The shop
-shop:
-  # Enable the shop
-  enabled: true
-
-  # Shop prefix
-  prefix: '&7&l[&8&lTF Shop&7&l]'
 
 # Admin list
 adminlist:

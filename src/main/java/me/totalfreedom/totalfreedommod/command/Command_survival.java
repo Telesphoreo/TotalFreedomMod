@@ -23,7 +23,7 @@ public class Command_survival extends FreedomCommand
             }
 
             playerSender.setGameMode(GameMode.SURVIVAL);
-            msg("Gamemode set to survival.");
+            msg("Your gamemode has been set to survival.");
             return true;
         }
 
@@ -34,6 +34,7 @@ public class Command_survival extends FreedomCommand
             for (Player targetPlayer : server.getOnlinePlayers())
             {
                 targetPlayer.setGameMode(GameMode.SURVIVAL);
+                msg("Your gamemode has been set to survival.");
             }
 
             FUtil.adminAction(sender.getName(), "Changing everyone's gamemode to survival", false);

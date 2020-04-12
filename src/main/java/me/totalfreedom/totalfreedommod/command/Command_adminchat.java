@@ -9,7 +9,7 @@ import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.SUPER_ADMIN, source = SourceType.BOTH)
 @CommandParameters(
-        description = "AdminChat - Talk privately with other admins. Using <command> itself will toggle AdminChat on and off for all messages.",
+        description = "Talk privately with other administrators on the server.",
         usage = "/<command> [message...]",
         aliases = "o,ac")
 public class Command_adminchat extends FreedomCommand

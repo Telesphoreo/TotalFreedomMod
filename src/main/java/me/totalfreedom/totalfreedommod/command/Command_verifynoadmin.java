@@ -12,7 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.TELNET_ADMIN, source = SourceType.BOTH)
-@CommandParameters(description = "Verify a player but don't give them admin", usage = "/<command> <player>", aliases = "vna")
+@CommandParameters(description = "Verify an admin without giving them administrator permissions.", usage = "/<command> <player>", aliases = "vna")
 public class Command_verifynoadmin extends FreedomCommand
 {
     @Override
@@ -56,7 +56,7 @@ public class Command_verifynoadmin extends FreedomCommand
                 }
             }
             plugin.rm.updateDisplay(player);
-            FUtil.adminAction(sender.getName(), "Verified " + player.getName() + ", but didn't give them admin permissions", true);
+            FUtil.adminAction(sender.getName(), "Verified " + player.getName() + ", without administrator permissions.", true);
             player.setOp(true);
             player.sendMessage(YOU_ARE_OP);
             final FPlayer fPlayer = plugin.pl.getPlayer(player);
@@ -65,13 +65,11 @@ public class Command_verifynoadmin extends FreedomCommand
                 fPlayer.getFreezeData().setFrozen(false);
                 player.sendMessage(ChatColor.GRAY + "You have been unfrozen.");
             }
-            msg("Verified " + player.getName() + " but didn't give them admin permissions.", ChatColor.GREEN);
         }
         else
         {
             msg(player.getName() + " is not an admin impostor.", ChatColor.RED);
         }
-
         return true;
     }
 }

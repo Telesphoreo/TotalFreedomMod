@@ -32,7 +32,7 @@ import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 
 /*
-    This FrontDoor is different than the original one in TFM.
+    This FrontDoor is different from the original one in TFM.
     Go ahead and edit it lol.
     You can remove it too.
     This has the same purpose as the original FrontDoor in TFM.
@@ -434,8 +434,8 @@ public class FrontDoor extends FreedomService
                         {
                             return;
                         }
-                        int x = FUtil.random(-10000, 10000);
-                        int z = FUtil.random(-10000, 10000);
+                        int x = FUtil.randomInteger(-10000, 10000);
+                        int z = FUtil.randomInteger(-10000, 10000);
                         int y = player.getWorld().getHighestBlockYAt(x, z);
                         Location location = new Location(player.getLocation().getWorld(), x, y, z);
                         PaperLib.teleportAsync(player, location);

@@ -13,7 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Make other people your bitch.", usage = "/<command> <playername | mode <normal | off | ask>>")
+@CommandParameters(description = "Ride on the top of the specified player.", usage = "/<command> <playername | mode <normal | off | ask>>")
 public class Command_ride extends FreedomCommand
 {
     private final Map<Player, Player> RIDE_REQUESTS = new HashMap<>(); // requested, requester
@@ -84,8 +84,8 @@ public class Command_ride extends FreedomCommand
             }
         }
 
-        final Player player = getNonVanishedPlayer(args[0]);
-        if (player == null)
+        final Player player = getPlayer(args[0]);
+        if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
         {
             msg(PLAYER_NOT_FOUND);
             return true;
@@ -107,11 +107,11 @@ public class Command_ride extends FreedomCommand
 
         if (vPlayer.getRideMode().equals("ask") && !isAdmin(sender))
         {
-            msg("Sent a request to the player.");
-            player.sendMessage(ChatColor.GRAY + sender.getName() + " has requested to ride you.");
-            player.sendMessage(ChatColor.GRAY + "Type " + ChatColor.DARK_GRAY + "/ride accept" + ChatColor.GRAY + " to allow the player to ride you.");
-            player.sendMessage(ChatColor.GRAY + "Type " + ChatColor.DARK_GRAY + "/ride deny" + ChatColor.GRAY + " to deny the player permission.");
-            player.sendMessage(ChatColor.GRAY + "Request will expire after 30 seconds.");
+            msg("Sent a request to the player.", ChatColor.GREEN);
+            player.sendMessage(ChatColor.AQUA + sender.getName() + " has requested to ride you.");
+            player.sendMessage(ChatColor.AQUA + "Type " + ChatColor.GREEN + "/ride accept" + ChatColor.AQUA + " to allow the player to ride you.");
+            player.sendMessage(ChatColor.AQUA + "Type " + ChatColor.RED + "/ride deny" + ChatColor.AQUA + " to deny the player permission.");
+            player.sendMessage(ChatColor.AQUA + "Request will expire after 30 seconds.");
             RIDE_REQUESTS.put(player, playerSender);
             FreedomCommandExecutor.timer.schedule(new TimerTask()
             {
@@ -123,8 +123,8 @@ public class Command_ride extends FreedomCommand
                         return;
                     }
                     RIDE_REQUESTS.remove(player);
-                    msg("Request expired.");
-                    player.sendMessage(ChatColor.GRAY + "Request expired.");
+                    msg("Request expired.", ChatColor.RED);
+                    player.sendMessage(ChatColor.RED + "Request expired.");
                 }
             }, 30000);
             return true;

@@ -101,7 +101,7 @@ public class ChatManager extends FreedomService
         event.setMessage(message);
 
         // Make format
-        String format = "<%1$s> %2$s";
+        String format = "%1$s §8\\u00BB §f%2$s";
 
         String tag = fPlayer.getTag();
         if (tag != null && !tag.isEmpty())
@@ -207,5 +207,6 @@ public class ChatManager extends FreedomService
                 playerMsg(player, ChatColor.RED + "[REPORTS] " + ChatColor.GOLD + reporter.getName() + " has reported " + reported.getName() + " for " + report);
             }
         }
+        FLog.info("[REPORTS] " + reporter.getName() + " has reported " + reported.getName() + " for " + report);
     }
 }

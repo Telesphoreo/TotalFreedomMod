@@ -14,7 +14,6 @@ import org.bukkit.entity.Player;
 @CommandParameters(description = "Information on how to vote", usage = "/<command>")
 public class Command_vote extends FreedomCommand
 {
-
     @Override
     public boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

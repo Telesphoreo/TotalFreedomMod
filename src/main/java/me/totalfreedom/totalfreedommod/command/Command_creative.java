@@ -23,7 +23,7 @@ public class Command_creative extends FreedomCommand
             }
 
             playerSender.setGameMode(GameMode.CREATIVE);
-            msg("Gamemode set to creative.");
+            msg("Your gamemode has been set to creative.");
             return true;
         }
 

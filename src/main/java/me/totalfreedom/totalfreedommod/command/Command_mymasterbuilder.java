@@ -15,10 +15,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.ONLY_IN_GAME)
-@CommandParameters(description = "Manage my Master Builder entry", usage = "/<command> [-o <masterbuilder>] <clearips | clearip <ip> | genbackupcodes>", aliases = "mymb")
+@CommandParameters(description = "Manage your Master Builder entry", usage = "/<command> [-o <masterbuilder>] <clearips | clearip <ip> | genbackupcodes>", aliases = "mymb")
 public class Command_mymasterbuilder extends FreedomCommand
 {
-
     @Override
     protected boolean run(CommandSender sender, Player playerSender, Command cmd, String commandLabel, String[] args, boolean senderIsConsole)
     {

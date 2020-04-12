@@ -16,7 +16,7 @@ import org.bukkit.potion.PotionEffectType;
 
 @CommandPermissions(level = Rank.OP, source = SourceType.BOTH)
 @CommandParameters(
-        description = "Manipulate potion effects. Duration is measured in server ticks (~20 ticks per second).",
+        description = "Manipulate your potion effects. Duration is measured in server ticks (~20 ticks per second).",
         usage = "/<command> <list | clear [target name] | add <type> <duration> <amplifier> [target name]>")
 public class Command_potion extends FreedomCommand
 {
@@ -59,7 +59,7 @@ public class Command_potion extends FreedomCommand
 
                 if (args.length == 2)
                 {
-                    target = getNonVanishedPlayer(args[1]);
+                    target = getPlayer(args[1]);
 
                     if (target == null || Command_vanish.VANISHED.contains(target) && !plugin.al.isAdmin(sender))
                     {
@@ -102,7 +102,7 @@ public class Command_potion extends FreedomCommand
 
                 if (args.length == 5)
                 {
-                    target = getNonVanishedPlayer(args[4]);
+                    target = getPlayer(args[4]);
 
                     if (target == null || Command_vanish.VANISHED.contains(target) && !plugin.al.isAdmin(sender))
                     {

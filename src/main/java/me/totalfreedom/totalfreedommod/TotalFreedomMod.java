@@ -45,7 +45,6 @@ import me.totalfreedom.totalfreedommod.punishments.PunishmentList;
 import me.totalfreedom.totalfreedommod.rank.RankManager;
 import me.totalfreedom.totalfreedommod.reporting.ReportList;
 import me.totalfreedom.totalfreedommod.rollback.RollbackManager;
-import me.totalfreedom.totalfreedommod.shop.Shop;
 import me.totalfreedom.totalfreedommod.util.FLog;
 import me.totalfreedom.totalfreedommod.util.FUtil;
 import me.totalfreedom.totalfreedommod.util.MethodTimer;
@@ -126,7 +125,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
     public SavedFlags sf;
     public ServerInterface si;
     public ServerPing sp;
-    public Shop sh;
     public SignBlocker sb;
     public Trailer tr;
     public WorldManager wm;
@@ -218,7 +216,6 @@ public class TotalFreedomMod extends AeroPlugin<TotalFreedomMod>
         rt = services.registerService(RealTimer.class);
         sf = services.registerService(SavedFlags.class);
         si = services.registerService(ServerInterface.class);
-        sh = services.registerService(Shop.class);
         wm = services.registerService(WorldManager.class);
 
         an = services.registerService(Announcer.class);

@@ -8,7 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 @CommandPermissions(level = Rank.NON_OP, source = SourceType.BOTH)
-@CommandParameters(description = "Shows ranks", usage = "/<command> [player]")
+@CommandParameters(description = "Show the rank of the sender or a specified user.", usage = "/<command> [player]")
 public class Command_rank extends FreedomCommand
 {
     @Override
@@ -34,9 +34,9 @@ public class Command_rank extends FreedomCommand
             return false;
         }
 
-        final Player player = getNonVanishedPlayer(args[0]);
+        final Player player = getPlayer(args[0]);
 
-        if (player == null)
+        if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
         {
             sender.sendMessage(FreedomCommand.PLAYER_NOT_FOUND);
             return true;
