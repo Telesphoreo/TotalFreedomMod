@@ -21,7 +21,7 @@ public class Command_stop extends FreedomCommand
 
         if (args.length > 0)
         {
-            reason = StringUtils.join(args, " ");
+            reason = FUtil.colorize(StringUtils.join(args, " "));
         }
 
         for (Player player : server.getOnlinePlayers())

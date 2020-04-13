@@ -22,7 +22,7 @@ public class Command_whois extends FreedomCommand
             return false;
         }
 
-        Player player = getPlayer(args[0]);
+        Player player = getNonVanishedPlayer(args[0]);
 
         if (player == null)
         {
@@ -39,10 +39,10 @@ public class Command_whois extends FreedomCommand
 
         final StringBuilder output = new StringBuilder();
 
-        output.append(ChatColor.GOLD + "--- ");
-        output.append(ChatColor.GREEN + "WhoIs: ");
+        output.append(ChatColor.GREEN + "--- ");
+        output.append(ChatColor.GOLD + "WhoIs: ");
         output.append(ChatColor.RED + player.getName());
-        output.append(ChatColor.GOLD + " ---").append("\n");
+        output.append(ChatColor.GREEN + " ---").append("\n");
         //
         if (plugin.esb.isEnabled() && plugin.esb.getNickname(player.getName()) != null)
         {
@@ -53,12 +53,16 @@ public class Command_whois extends FreedomCommand
         output.append(ChatColor.GOLD + " - Health: ");
         output.append(ChatColor.RED + formattedHealth).append("\n");
         //
-        String location = player.getWorld().getName() + ", " +
-                player.getLocation().getBlockX() + ", " +
-                player.getLocation().getBlockY() + ", " +
-                player.getLocation().getBlockZ();
-        output.append(ChatColor.GOLD + " - Location: ");
-        output.append(ChatColor.RED + location).append("\n");
+        if (plugin.al.isAdmin(sender))
+        {
+            String location = player.getWorld().getName() + ", " +
+                    player.getLocation().getBlockX() + ", " +
+                    player.getLocation().getBlockY() + ", " +
+                    player.getLocation().getBlockZ();
+
+            output.append(ChatColor.GOLD + " - Location: ");
+            output.append(ChatColor.RED + location).append("\n");
+        }
         //
         if (plugin.al.isAdmin(sender))
         {
@@ -78,7 +82,7 @@ public class Command_whois extends FreedomCommand
             output.append(ChatColor.RED + "" + plugin.esb.getGodMode(player.getName())).append("\n");
             //
             output.append(ChatColor.GOLD + " - Speed: ");
-            output.append(ChatColor.RED + "" + plugin.esb.getSpeed(player.getName()));
+            output.append(ChatColor.RED + "" + plugin.esb.getSpeed(player.getName())).append("\n");
         }
         //
         output.append(ChatColor.GOLD + " - Gamemode: ");

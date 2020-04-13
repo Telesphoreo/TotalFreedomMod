@@ -1,6 +1,7 @@
 package me.totalfreedom.totalfreedommod.bridge;
 
 import me.totalfreedom.totalfreedommod.TotalFreedomMod;
+import me.totalfreedom.totalfreedommod.command.Command_vanish;
 import me.totalfreedom.worldedit.LimitChangedEvent;
 import me.totalfreedom.worldedit.SelectionChangedEvent;
 import net.pravian.aero.component.PluginListener;
@@ -46,9 +47,9 @@ public class WorldEditListener extends PluginListener<TotalFreedomMod>
             return;
         }
 
-        if (!player.equals(target))
+        if (!player.equals(target) || Command_vanish.VANISHED.contains(target))
         {
-            player.sendMessage(ChatColor.RED + "Only admins can change the limit for other players!");
+            player.sendMessage(ChatColor.RED + "Could not resolve session for " + player.getName());
             event.setCancelled(true);
             return;
         }
